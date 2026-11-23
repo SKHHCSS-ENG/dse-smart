@@ -93,17 +93,6 @@
     .spin-icon {
       animation: spinSlow 0.9s linear infinite;
     }
-
-    .back-pill {
-      display: inline-block;
-      margin: 10px 16px 0;
-      font-size: 12px;
-      font-weight: 600;
-      color: #1e728c;
-      text-decoration: none;
-    }
-    .back-pill:hover, .back-pill:focus-visible { text-decoration: underline; }
-    .back-pill:focus-visible { outline: 3px solid #2a8fad; outline-offset: 2px; border-radius: 4px; }
   </style>
 </head>
 <body class="font-sans antialiased selection:bg-[#d3eef6] selection:text-[#123a4d]">
@@ -111,7 +100,6 @@
     <!-- Phone App Shell -->
     <main class="app-shell w-full max-w-[460px] bg-white sm:rounded-[28px] sm:border sm:border-brand-border min-h-[100dvh] sm:min-h-0 flex flex-col overflow-hidden">
 
-      <a class="back-pill" href="https://skhhcss-eng.github.io/self-directed-learning/">← Self-Directed Learning</a>
       <!-- Top App Bar -->
       <header class="px-4 pt-4 pb-3 bg-white border-b border-brand-border/80 flex items-center justify-between gap-2">
         <div class="flex items-center gap-2.5 min-w-0">
@@ -140,10 +128,10 @@
       </header>
 
       <!-- ===================== VIEW 1: DRILL (100% INSTANT) ===================== -->
-      <section id="view-drill" class="p-4 flex-1 flex flex-col gap-3.5">
+      <section id="view-drill" class="p-4 flex-1 flex flex-col gap-3">
 
         <!-- Compact Settings Strip: Target Level + AI Guiding Language -->
-        <div class="bg-brand-canvas border border-brand-border rounded-2xl p-3 flex flex-col gap-2.5">
+        <div class="bg-brand-canvas border border-brand-border rounded-2xl p-3 flex flex-col gap-2">
           <!-- Row 1: Target Level -->
           <div class="flex items-center justify-between gap-2">
             <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500 shrink-0">DSE Target</span>
@@ -153,7 +141,7 @@
               <button type="button" data-level="lv45" class="level-btn seg-btn py-1.5 px-3 rounded-lg text-[12px] font-semibold text-slate-600 whitespace-nowrap">Lv 4 - 5**</button>
             </div>
           </div>
-          <p id="level-caption" class="text-[11.5px] text-slate-500 -mt-1 text-right"></p>
+          <p id="level-caption" class="text-[11px] text-slate-500 -mt-1 text-right"></p>
 
           <!-- Row 2: AI Guiding Language -->
           <div class="flex items-center justify-between gap-2 pt-1.5 border-t border-brand-border/70">
@@ -175,87 +163,100 @@
 
         <!-- Step 1: Choose DSE Paper (2x2 Grid) -->
         <div>
-          <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center justify-between mb-1.5">
             <h2 class="text-[12px] font-bold uppercase tracking-wider text-brand-navy">1. Choose Paper</h2>
             <span class="text-[11px] text-slate-400">Paper 3A Listening skipped</span>
           </div>
-          <div class="grid grid-cols-2 gap-2.5" role="group" aria-label="Choose DSE Paper">
-            <button type="button" data-paper="p1" class="paper-card text-left p-3 rounded-2xl border border-brand-border bg-white hover:border-brand-teal/60">
-              <div class="flex items-center justify-between mb-1">
+          <div class="grid grid-cols-2 gap-2" role="group" aria-label="Choose DSE Paper">
+            <button type="button" data-paper="p1" class="paper-card text-left p-2.5 rounded-2xl border border-brand-border bg-white hover:border-brand-teal/60">
+              <div class="flex items-center justify-between mb-0.5">
                 <span class="text-[11px] font-extrabold uppercase tracking-wide text-brand-teal">Paper 1</span>
                 <svg class="w-4 h-4 text-brand-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
                 </svg>
               </div>
               <div class="text-[14px] font-bold text-brand-navy leading-snug">Reading</div>
-              <div class="text-[11.5px] text-slate-500 mt-0.5">Passage &rarr; Q&amp;A booklet</div>
+              <div class="text-[11px] text-slate-500 mt-0.5">Passage &rarr; Q&amp;A booklet</div>
             </button>
 
-            <button type="button" data-paper="p2" class="paper-card text-left p-3 rounded-2xl border border-brand-border bg-white hover:border-brand-teal/60">
-              <div class="flex items-center justify-between mb-1">
+            <button type="button" data-paper="p2" class="paper-card text-left p-2.5 rounded-2xl border border-brand-border bg-white hover:border-brand-teal/60">
+              <div class="flex items-center justify-between mb-0.5">
                 <span class="text-[11px] font-extrabold uppercase tracking-wide text-brand-teal">Paper 2</span>
                 <svg class="w-4 h-4 text-brand-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M12 20h9" /><path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
                 </svg>
               </div>
               <div class="text-[14px] font-bold text-brand-navy leading-snug">Writing</div>
-              <div class="text-[11.5px] text-slate-500 mt-0.5">Topic &rarr; Plan or essay</div>
+              <div class="text-[11px] text-slate-500 mt-0.5">Topic &rarr; Plan or essay</div>
             </button>
 
-            <button type="button" data-paper="p3b" class="paper-card text-left p-3 rounded-2xl border border-brand-border bg-white hover:border-brand-teal/60">
-              <div class="flex items-center justify-between mb-1">
+            <button type="button" data-paper="p3b" class="paper-card text-left p-2.5 rounded-2xl border border-brand-border bg-white hover:border-brand-teal/60">
+              <div class="flex items-center justify-between mb-0.5">
                 <span class="text-[11px] font-extrabold uppercase tracking-wide text-brand-teal">Paper 3B</span>
                 <svg class="w-4 h-4 text-brand-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" />
                 </svg>
               </div>
               <div class="text-[14px] font-bold text-brand-navy leading-snug">Integrated Skills</div>
-              <div class="text-[11.5px] text-slate-500 mt-0.5">Data File &rarr; Task draft</div>
+              <div class="text-[11px] text-slate-500 mt-0.5">Data File &rarr; Task draft</div>
             </button>
 
-            <button type="button" data-paper="p4" class="paper-card text-left p-3 rounded-2xl border border-brand-border bg-white hover:border-brand-teal/60">
-              <div class="flex items-center justify-between mb-1">
+            <button type="button" data-paper="p4" class="paper-card text-left p-2.5 rounded-2xl border border-brand-border bg-white hover:border-brand-teal/60">
+              <div class="flex items-center justify-between mb-0.5">
                 <span class="text-[11px] font-extrabold uppercase tracking-wide text-brand-teal">Paper 4</span>
                 <svg class="w-4 h-4 text-brand-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                 </svg>
               </div>
               <div class="text-[14px] font-bold text-brand-navy leading-snug">Speaking</div>
-              <div class="text-[11.5px] text-slate-500 mt-0.5">Card &rarr; Discuss &amp; IR</div>
+              <div class="text-[11px] text-slate-500 mt-0.5">Card &rarr; Discuss &amp; IR</div>
             </button>
           </div>
         </div>
 
-        <!-- Step 2: Visual Flow Card (Dynamic per Paper) -->
-        <div class="bg-brand-canvas border border-brand-border rounded-2xl p-3.5">
-          <div class="flex items-center justify-between mb-2.5">
+        <!-- Mode Selector (Shown ONLY for Paper 1 & Paper 3B) -->
+        <div id="mode-wrap" class="bg-brand-canvas border border-brand-border rounded-2xl p-2.5 flex flex-col gap-1.5">
+          <div class="grid grid-cols-2 gap-1 bg-[#e5f1f5] p-1 rounded-xl" role="group" aria-label="Study mode">
+            <button type="button" data-mode="guided" class="mode-btn seg-btn py-1.5 px-2.5 rounded-lg text-[12px] font-bold text-slate-600">
+              Guided Practice
+            </button>
+            <button type="button" data-mode="explain" class="mode-btn seg-btn py-1.5 px-2.5 rounded-lg text-[12px] font-bold text-slate-600">
+              Check &amp; Explain
+            </button>
+          </div>
+          <p id="mode-caption" class="text-[11px] text-slate-500 text-center leading-tight"></p>
+        </div>
+
+        <!-- Step 2: Visual Flow Card (Dynamic per Paper & Mode) -->
+        <div class="bg-brand-canvas border border-brand-border rounded-2xl p-3">
+          <div class="flex items-center justify-between mb-2">
             <h2 class="text-[12px] font-bold uppercase tracking-wider text-brand-navy">2. Use in Your AI App</h2>
             <span id="flow-paper-pill" class="text-[11px] font-semibold text-brand-teal bg-white border border-brand-teal/25 px-2 py-0.5 rounded-full">Paper 1 · Reading</span>
           </div>
-          <ol class="space-y-2 text-[12.5px] leading-snug text-slate-700">
-            <li class="flex items-start gap-2.5">
-              <span class="w-5 h-5 rounded-full bg-brand-teal text-white text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+          <ol class="space-y-1.5 text-[12px] leading-snug text-slate-700">
+            <li class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded-full bg-brand-teal text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
               <span id="step1-text"></span>
             </li>
-            <li class="flex items-start gap-2.5">
-              <span class="w-5 h-5 rounded-full bg-brand-teal text-white text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+            <li class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded-full bg-brand-teal text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
               <span id="step2-text"></span>
             </li>
-            <li class="flex items-start gap-2.5">
-              <span class="w-5 h-5 rounded-full bg-brand-teal text-white text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+            <li class="flex items-start gap-2">
+              <span class="w-4 h-4 rounded-full bg-brand-teal text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
               <span id="step3-text"></span>
             </li>
           </ol>
 
           <!-- Short Commands Reminder Strip -->
-          <div class="mt-3 pt-2.5 border-t border-brand-border/70 flex items-center flex-wrap gap-1.5">
-            <span class="text-[11px] font-semibold text-slate-500 mr-0.5">Type in AI chat:</span>
-            <div id="command-chips" class="flex items-center flex-wrap gap-1.5"></div>
+          <div class="mt-2.5 pt-2 border-t border-brand-border/70 flex items-center flex-wrap gap-1.5">
+            <span class="text-[11px] font-semibold text-slate-500 mr-0.5">Reply in AI chat:</span>
+            <div id="command-chips" class="flex items-center flex-wrap gap-1"></div>
           </div>
         </div>
 
         <!-- Step 3: Primary Copy CTA + Collapsible Preview -->
-        <div class="mt-auto pt-1 flex flex-col gap-2">
+        <div class="mt-auto pt-0.5 flex flex-col gap-1.5">
           <button id="btn-copy-prompt" type="button" class="cta-shimmer w-full py-3.5 px-5 rounded-2xl text-white font-bold text-[15px] shadow-md flex items-center justify-center gap-2 active:scale-[0.99] transition-transform">
             <svg id="copy-icon" class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
@@ -303,7 +304,7 @@
           </div>
 
           <p class="text-[12px] text-slate-500 leading-snug">
-            Type <strong class="text-brand-navy font-semibold">Log</strong> in your AI chat and paste the reply here (even messy ones). Smart Save cleans &amp; tags each mistake.
+            When your session is done, type <strong class="text-brand-navy font-semibold">D</strong> in your AI chat once, then paste the whole Error Log reply here.
           </p>
 
           <!-- Default Paper Tag Selector -->
@@ -395,14 +396,21 @@
       const STORAGE_PREFS = 'dse_pb_v2_prefs';
       const STORAGE_LOGS = 'dse_pb_v2_logs';
 
+      const ANTI_DRIFT_RULE = [
+        'RESPONSE FORMAT & ANTI-DRIFT RULES (STRICT):',
+        '- Keep every coaching reply SHORT (max 5 concise lines) so it is easy to read on a phone.',
+        '- ALWAYS end every single reply with the exact A / B / C / D Next-Step Menu so I know what to tap/type next.',
+        '- If I type a vague or off-topic chat message (like "I don\'t get it", "idk", or "just tell me"), do NOT drift into free chat or write a long paragraph. Drop down 1 scaffolding step (give a tiny 2-choice or line-clue check) and show the A / B / C / D menu again.'
+      ].join('\n');
+
       const LEVELS = {
         lv2: {
           label: 'DSE Lv 2',
           caption: 'High support · exact line clues & simple steps',
           rules: [
             'Target Level: HKDSE Level 2 (High Scaffolding).',
-            'When coaching a BLANK question, point to the exact paragraph and line clue first, unpack any hard words simply, and guide me in tiny step-by-step checks (e.g., 2-choice questions). Never give the final answer on Turn 1.',
-            'When checking a TRIED answer, focus on 1–2 core fixes (basic meaning, word form, copying trap) so I am not overwhelmed.',
+            'Point to the exact paragraph and line clue first, unpack any hard words simply, and guide in tiny step-by-step checks (e.g., 2-choice questions).',
+            'When explaining mistakes, focus on 1–2 core fixes (basic meaning, word form, copying trap) so I am not overwhelmed.',
             'Keep all model English simple, clear, and reproducible in a real exam (avoid C2 vocabulary).'
           ].join('\n')
         },
@@ -411,9 +419,9 @@
           caption: 'Guided hints · common DSE exam traps',
           rules: [
             'Target Level: HKDSE Level 3 (Guided Scaffolding).',
-            'When coaching a BLANK question, give the paragraph clue and ask me to spot the key phrase before confirming. Never dump the final answer upfront.',
-            'When checking a TRIED answer, diagnose common DSE traps (True/False/Not Given, pronoun reference, tone, lifting) and ask me to try fixing it first.',
-            'Pitch upgrades at clean, natural Level 3–4 English with practical linking words.'
+            'Give the paragraph clue and ask me to spot the key phrase before moving on.',
+            'Diagnose common DSE traps (True/False/Not Given, pronoun reference, tone, lifting) clearly and briefly.',
+            'Pitch phrasing at clean, natural Level 3–4 English with practical linking words.'
           ].join('\n')
         },
         lv45: {
@@ -421,16 +429,27 @@
           caption: 'Stretch · justify with evidence & strict precision',
           rules: [
             'Target Level: HKDSE Level 4–5** (Light Scaffolding / Stretch).',
-            'When coaching a BLANK question, give minimal hand-holding—ask me to justify my reasoning with text evidence before offering hints.',
-            'When checking a TRIED answer, apply strict HKEAA-style precision on nuance, implied tone, inference, paraphrasing accuracy, and argument depth.',
-            'Push my expression toward concise, sophisticated Level 5+ English without sounding unnatural.'
+            'Give minimal hand-holding—ask me to justify my reasoning with text evidence first.',
+            'Apply strict HKEAA-style precision on nuance, implied tone, inference, paraphrasing accuracy, and argument depth.',
+            'Push expression toward concise, sophisticated Level 5+ English without sounding unnatural.'
           ].join('\n')
+        }
+      };
+
+      const MODES = {
+        guided: {
+          label: 'Guided Practice',
+          caption: 'Hints & step-by-step clues only · AI never reveals final answers'
+        },
+        explain: {
+          label: 'Check & Explain',
+          caption: 'Uses your Answer Key or red-pen corrections · AI never guesses answers'
         }
       };
 
       const LANGUAGES = {
         en: {
-          getRule: () => 'Guiding Language: Conduct all coaching, hints, and explanations in clear English matched to my DSE Target Level.'
+          getRule: () => 'Guiding Language: Conduct all coaching, hints, menus, and explanations in clear English matched to my DSE Target Level.'
         },
         en_zh: {
           getRule: (script) => {
@@ -449,88 +468,186 @@
       const PAPERS = {
         p1: {
           code: 'P1',
-          pill: 'Paper 1 · Reading',
-          step1: 'Tap <strong>Copy Setup Prompt</strong>, paste it in your AI app, and snap your <strong>Reading Passage</strong> first.',
-          step2: 'Next, snap your <strong>Q&amp;A booklet</strong> (blank or tried — 1 page or all pages at once).',
-          step3: 'Type <strong>Q1</strong>, <strong>Q4</strong>, etc. Blank = step-by-step hints; tried = mistake analysis.',
-          commands: ['Q1', 'Hint', 'Answer', 'Log'],
+          hasModes: true,
+          pill: (mode) => mode === 'explain' ? 'Paper 1 · Check & Explain' : 'Paper 1 · Guided Practice',
           sampleLog: 'Sure! Here is your DSE Paper 1 Error Log from today:\n- Q4 (Summary Cloze) — Mistake: Wrote "protect" (verb) instead of "protection" (noun). | Rule: Check the preposition before the blank ("for ___" needs a noun).\n- Q9 (True / False / Not Given) — Mistake: Picked False instead of Not Given. | Rule: If the passage never compares the two groups, choose NG.\n- Q14 (Summary Cloze) — Mistake: Wrote "economy" instead of "economic" before a noun. | Rule: Noun before noun often needs an adjective form.\nKeep it up!',
-          body: [
-            'Role: You are my HKDSE English Paper 1 (Reading) personal coach.',
+          getSteps: (mode) => mode === 'explain' ? {
+            step1: 'Tap <strong>Copy Setup Prompt</strong>, paste in your AI app, and snap your <strong>Reading Passage</strong> first.',
+            step2: 'Snap the <strong>tried Q&amp;A page</strong> you\'re checking (up to 2 pages) <strong>+ Answer Key or red-pen corrections</strong>.',
+            step3: 'Type <strong>Q1</strong>, <strong>Q4</strong>, etc. AI explains using your official answer — just reply <strong>A / B / C / D</strong>.',
+            commands: ['Q1', 'A', 'B', 'C', 'D (Log)']
+          } : {
+            step1: 'Tap <strong>Copy Setup Prompt</strong>, paste in your AI app, and snap your <strong>Reading Passage</strong> first.',
+            step2: 'Snap the <strong>Q&amp;A page you\'re working on now</strong> (or 2 pages if a question crosses pages).',
+            step3: 'Type <strong>Q1</strong>, <strong>Q4</strong>, etc. AI gives hints only (no spoilers) — reply <strong>A / B / C / D</strong>.',
+            commands: ['Q1', 'A', 'B', 'C', 'D (Log)']
+          },
+          getBody: (mode) => mode === 'explain' ? [
+            'Role: You are my HKDSE English Paper 1 (Reading) coach in CHECK & EXPLAIN mode.',
+            'OFFICIAL ANSWER LOCK (CRITICAL):',
+            '- NEVER guess, invent, or override an official DSE answer.',
+            '- I will provide the official answer either via an Answer Key photo, a handwritten correction (e.g., red-pen answer beside my try), or by typing it.',
+            '- Treat that official answer / red-pen correction as 100% truth. If you cannot clearly see the official answer for the question I ask, STOP and ask me to snap the Answer Key or type the official answer for that Q# before explaining.',
+            '',
             'Workflow (Follow Strictly):',
-            '1. MATERIALS FIRST: I am attaching photo(s) of the Reading Passage now. Read and remember the text, and reply ONLY: "✅ Got your Reading Passage! Now snap a photo of your Question/Answer sheet (blank or tried — 1 page or all pages at once)." Do NOT answer any questions yet.',
-            '2. Q&A BOOKLET NEXT: When I send photo(s) of my Q&A pages (even if a page has 5+ questions), scan them quietly, note which questions are blank and which are tried, and reply ONLY: "✅ Ready! Which question number first? (Just type Q1, Q4, etc.)" Never dump answers for multiple questions at once.',
-            '3. ONE-QUESTION COACHING: When I type a question number (e.g. "Q1" or "Question 1"):',
-            '   - First, state the question type in 1 short line (e.g., T/F/NG, Summary Cloze, Pronoun Reference, Inference).',
-            '   - If my answer on the photo is BLANK: coach me step by step using my Target Level scaffolding below. Wait for my try before giving the answer.',
-            '   - If my answer on the photo is TRIED: check my handwritten answer, state clearly if it is Right / Partial / Wrong, explain WHY (mistake analysis), and let me fix it.',
-            '4. SHORT COMMANDS I MAY TYPE:',
-            '   - "Hint" = give me one clearer clue without spoiling the answer.',
-            '   - "Answer" = reveal the full answer and explain why.',
-            '   - "Log" = list every question I got wrong or struggled with in this chat using this exact compact format so I can save it:',
-            '     Q# (Skill) — Mistake: ... | Rule to remember: ...'
+            '1. PASSAGE FIRST: I am attaching photo(s) of the Reading Passage now. Read and remember the text, and reply ONLY: "✅ Got your Reading Passage! Now snap the tried Q&A page you are checking (up to 2 pages if a question splits across pages) + the Answer Key or your red-pen corrections."',
+            '2. Q&A + OFFICIAL ANSWER NEXT: When I send the Q&A page and official answer/corrections, scan them quietly and reply ONLY: "✅ Ready! Which question number should we explain first? (Type Q1, Q4, etc.)"',
+            '3. ONE-QUESTION EXPLANATION: When I type a question number (e.g. "Q1"):',
+            '   - State the question type in 1 short line (e.g. T/F/NG, Summary Cloze, Pronoun Reference, Inference).',
+            '   - Quote the exact official answer/correction, explain briefly WHY it is correct using the exact passage line clue, and explain WHY my tried answer missed the mark (if tried).',
+            '   - Silently track every mistake I made in this chat for my Error Log.',
+            '',
+            'ALWAYS END EVERY REPLY WITH THIS EXACT MENU:',
+            'Next step (reply A, B, C, or D):',
+            'A) Explain why my answer was wrong in simpler words',
+            'B) Show the exact passage line / keyword clue',
+            'C) Next question (type Q#, or snap the next Q&A page)',
+            'D) Done — make my session Error Log',
+            '',
+            'When I reply "D" or "Log": list every mistake from this whole session in one compact block so I can paste it into my Error Log:',
+            'Q# (Skill) — Mistake: ... | Rule to remember: ...'
+          ].join('\n') : [
+            'Role: You are my HKDSE English Paper 1 (Reading) coach in GUIDED PRACTICE mode.',
+            'STRICT NO-ANSWER RULE (CRITICAL):',
+            '- NEVER reveal, give away, or claim a final exam answer is 100% confirmed.',
+            '- Quote the exact paragraph/line evidence from the passage first so I check the text myself, give step-by-step hints and guiding questions only, and remind me to verify final answers with my teacher\'s Answer Key afterwards.',
+            '',
+            'Workflow (Follow Strictly):',
+            '1. PASSAGE FIRST: I am attaching photo(s) of the Reading Passage now. Read and remember the text, and reply ONLY: "✅ Got your Reading Passage! Now snap the Q&A page you are working on now (or 2 pages if a question splits across pages)." Do NOT answer any questions.',
+            '2. Q&A PAGE NEXT: When I send my Q&A page, scan it quietly and reply ONLY: "✅ Ready! Which question number first? (Type Q1, Q4, etc.)"',
+            '3. ONE-QUESTION COACHING: When I type a question number (e.g. "Q1"):',
+            '   - State the question type in 1 short line and give ONE focused guiding hint/question matched to my Target Level.',
+            '   - Wait for my try before giving a stronger clue. Silently remember any traps I struggled with for my Error Log.',
+            '',
+            'ALWAYS END EVERY REPLY WITH THIS EXACT MENU:',
+            'Next step (reply A, B, C, or D):',
+            'A) Give me a clearer hint / simpler step',
+            'B) Check my try (type your answer)',
+            'C) Next question (type Q#, or snap the next Q&A page)',
+            'D) Done — make my session Error Log',
+            '',
+            'When I reply "D" or "Log": list every question I struggled with in this whole session in one compact block so I can paste it into my Error Log:',
+            'Q# (Skill) — Struggle/Trap: ... | Rule to remember: ...'
           ].join('\n')
         },
         p2: {
           code: 'P2',
-          pill: 'Paper 2 · Writing',
-          step1: 'Tap <strong>Copy Setup Prompt</strong>, paste it in your AI app, and snap your <strong>Writing Topic</strong> first.',
-          step2: 'Snap your <strong>blank plan or handwritten essay</strong> (1 page or all pages at once).',
-          step3: 'Type <strong>Plan</strong> to brainstorm, <strong>Check</strong> for mistake analysis, or <strong>P2</strong> to upgrade a paragraph.',
-          commands: ['Plan', 'Check', 'P2', 'Log'],
+          hasModes: false,
+          pill: () => 'Paper 2 · Writing',
           sampleLog: 'Here is your Paper 2 Error Log:\n- Format/Tone (Proposal) — Mistake: Used casual contractions ("don\'t", "a lot of"). | Rule: Keep proposals semi-formal with clear subheadings.\n- Language (Linking) — Mistake: Repeated "because" 5 times. | Rule: Vary with "since", "due to", or "as a result".',
-          body: [
+          getSteps: () => ({
+            step1: 'Tap <strong>Copy Setup Prompt</strong>, paste in your AI app, and snap your <strong>Writing Topic</strong> first.',
+            step2: 'Snap your <strong>plan or handwritten essay</strong> (1–2 pages at a time if long).',
+            step3: 'Just reply <strong>A / B / C / D</strong> from the AI\'s menu to plan, check C·L·O, or upgrade a paragraph.',
+            commands: ['A (Plan)', 'B (Check)', 'C (P2)', 'D (Log)']
+          }),
+          getBody: () => [
             'Role: You are my HKDSE English Paper 2 (Writing) personal coach.',
+            'STRICT ANTI-GHOSTWRITING RULE: Never write a full essay or full paragraphs for me.',
+            '',
             'Workflow (Follow Strictly):',
-            '1. TOPIC FIRST: I am attaching photo(s) of the Writing Topic / Question now. Read the prompt carefully and reply ONLY: "✅ Got your Writing Topic! Snap your plan or handwritten essay (if you have one), or type Plan to brainstorm first." Do NOT write an essay for me.',
-            '2. DRAFT NEXT: If I upload photo(s) of my plan or handwritten essay, scan it quietly and reply ONLY: "✅ Got your draft! Type Check for mistake analysis, or type a paragraph like P2 to upgrade it."',
-            '3. SHORT COMMANDS I MAY TYPE:',
-            '   - "Plan" = help me lock Purpose, Audience, Tone (PAT), text-type format, and 3 clear ideas step by step (do NOT write full paragraphs for me).',
-            '   - "Check" = give a C·L·O (Content, Language, Organisation) mistake analysis on my draft: highlight my top 3 priority issues, explain why they lose marks, and ask me to rewrite 1–2 sentences first.',
-            '   - "P1" / "P2" / "P3" = focus only on that paragraph and coach me to upgrade it by +1 DSE level.',
-            '   - "Log" = summarise my main writing mistakes from this chat in this compact format:',
-            '     Area (C/L/O or Format) — Mistake: ... | Rule to remember: ...'
+            '1. TOPIC FIRST: I am attaching photo(s) of the Writing Topic / Question now. Read it carefully and reply ONLY: "✅ Got your Writing Topic! Snap your plan or handwritten essay (if you have one), or pick from the menu below." + the A/B/C/D menu.',
+            '2. DRAFT NEXT: If I upload my plan or essay, scan it quietly and reply ONLY: "✅ Got your draft! Pick what to work on first:" + the A/B/C/D menu.',
+            '3. MENU ACTIONS:',
+            '   - "A" = help me lock Purpose, Audience, Tone (PAT), format, and 3 clear ideas step by step.',
+            '   - "B" = C·L·O (Content, Language, Organisation) mistake analysis — spot my top 3 priority errors and ask me to fix 1–2 sentences first.',
+            '   - "C" (or "P1" / "P2" / "P3") = focus ONLY on that paragraph and coach me to upgrade it by +1 DSE level.',
+            '   - "D" or "Log" = list my main writing mistakes from this whole session in one compact block:',
+            '     Area (C/L/O or Format) — Mistake: ... | Rule to remember: ...',
+            '',
+            'ALWAYS END EVERY REPLY WITH THIS EXACT MENU:',
+            'Next step (reply A, B, C, or D):',
+            'A) Plan PAT & 3 ideas (no full paragraphs)',
+            'B) Check my draft (top 3 C·L·O mistakes)',
+            'C) Upgrade 1 paragraph (type P1, P2, or P3)',
+            'D) Done — make my session Error Log'
           ].join('\n')
         },
         p3b: {
           code: 'P3B',
-          pill: 'Paper 3B · Integrated Skills',
-          step1: 'Tap <strong>Copy Setup Prompt</strong>, paste it in your AI app, and snap the <strong>Task Email &amp; Data File</strong> first.',
-          step2: 'Snap your <strong>blank notes or handwritten draft</strong> (1 page or all pages at once).',
-          step3: 'Type <strong>Task</strong> to find key Data File points, <strong>Check</strong> to audit your draft, or <strong>Log</strong>.',
-          commands: ['Task', 'Paraphrase', 'Check', 'Log'],
+          hasModes: true,
+          pill: (mode) => mode === 'explain' ? 'Paper 3B · Check & Explain' : 'Paper 3B · Guided Practice',
           sampleLog: 'Here is your Paper 3B summary:\n- Task 8 (Content) — Mistake: Missed the 20% student discount from the WhatsApp note. | Rule: Cross off every Data File item after using it.\n- Task 8 (Lifting) — Mistake: Copied 11 words directly from the brochure. | Rule: Change sentence structure and swap key verbs/nouns.',
-          body: [
-            'Role: You are my HKDSE English Paper 3 Part B (Integrated Skills · Data File) personal coach.',
+          getSteps: (mode) => mode === 'explain' ? {
+            step1: 'Tap <strong>Copy Setup Prompt</strong>, paste in your AI app, and snap the <strong>Task Email &amp; Data File</strong> first.',
+            step2: 'Snap your <strong>tried draft</strong> (up to 2 pages) <strong>+ Marking Scheme or red-pen corrections</strong>.',
+            step3: 'Type <strong>Task 8</strong> (or your task #). AI explains using the official scheme — reply <strong>A / B / C / D</strong>.',
+            commands: ['Task 8', 'A', 'B', 'C', 'D (Log)']
+          } : {
+            step1: 'Tap <strong>Copy Setup Prompt</strong>, paste in your AI app, and snap the <strong>Task Email &amp; Data File</strong> first.',
+            step2: 'Snap the <strong>Task page / notes</strong> you\'re working on now (up to 2 pages).',
+            step3: 'Type <strong>Task 8</strong> (or your task #). AI guides without writing it for you — reply <strong>A / B / C / D</strong>.',
+            commands: ['Task 8', 'A', 'B', 'C', 'D (Log)']
+          },
+          getBody: (mode) => mode === 'explain' ? [
+            'Role: You are my HKDSE English Paper 3 Part B (Integrated Skills) coach in CHECK & EXPLAIN mode.',
+            'OFFICIAL SCHEME LOCK (CRITICAL):',
+            '- Treat the uploaded Marking Scheme, Answer Key, or handwritten red-pen teacher feedback as 100% truth. NEVER invent extra required points or contradict the official scheme.',
+            '- If you cannot see the Marking Scheme or red-pen corrections clearly, ask me to snap them (or type the missed point) before explaining.',
+            '',
             'Workflow (Follow Strictly):',
-            '1. DATA FILE FIRST: I am attaching photo(s) of the Situation / Task Email and Data File pages now. Read all facts, dates, and constraints carefully, and reply ONLY: "✅ Got your Data File! Snap your notes or handwritten draft, or type Task to map the key Data File points first." Do NOT write the task for me.',
-            '2. DRAFT NEXT: If I upload photo(s) of my notes or draft, scan them quietly and reply ONLY: "✅ Got your draft! Type Check to audit content, tone, and lifting, or type Task to review the Data File points."',
-            '3. SHORT COMMANDS I MAY TYPE:',
-            '   - "Task" = guide me step by step to identify which Data File items, dates, and constraints belong in my task (ask me to spot them before revealing all).',
-            '   - "Paraphrase" = pick 2 informal or tricky lines from the Data File and coach me to rewrite them formally without lifting.',
-            '   - "Check" = audit my draft for (a) missing Data File content points, (b) format & appropriacy/tone, and (c) linguistic lifting, then guide me to fix the gaps.',
-            '   - "Log" = summarise my main Paper 3B mistakes from this chat in this compact format:',
-            '     Task / Skill — Mistake: ... | Rule to remember: ...'
+            '1. DATA FILE FIRST: I am attaching photo(s) of the Situation Email and Data File pages now. Read all facts, dates, and constraints quietly, and reply ONLY: "✅ Got your Data File! Now snap your tried draft (up to 2 pages) + the Marking Scheme or your red-pen teacher corrections."',
+            '2. DRAFT + SCHEME NEXT: Scan them quietly and reply ONLY: "✅ Ready! Which task or point should we explain first? (e.g. Task 8)"',
+            '3. EXPLAIN: Check (a) missed Data File content points against the official scheme, (b) format & appropriacy/tone, and (c) linguistic lifting, pointing to exact Data File evidence.',
+            '',
+            'ALWAYS END EVERY REPLY WITH THIS EXACT MENU:',
+            'Next step (reply A, B, C, or D):',
+            'A) Explain why my draft lost marks in simpler words',
+            'B) Show the exact Data File line & how to paraphrase without lifting',
+            'C) Next task / point (type Task #, or snap the next page)',
+            'D) Done — make my session Error Log',
+            '',
+            'When I reply "D" or "Log": list every Paper 3B mistake from this whole session in one compact block:',
+            'Task / Skill — Mistake: ... | Rule to remember: ...'
+          ].join('\n') : [
+            'Role: You are my HKDSE English Paper 3 Part B (Integrated Skills) coach in GUIDED PRACTICE mode.',
+            'STRICT NO-WRITING RULE: Never write the full task or give away all content points at once. Guide me step by step using the Data File.',
+            '',
+            'Workflow (Follow Strictly):',
+            '1. DATA FILE FIRST: I am attaching photo(s) of the Situation Email and Data File pages now. Read all facts, dates, and constraints quietly, and reply ONLY: "✅ Got your Data File! Now snap the Task page or your blank notes (up to 2 pages) and tell me which Task # (e.g. Task 8)."',
+            '2. GUIDED COACHING: Ask me to spot 1–2 relevant Data File items, dates, or constraints first, or coach me to paraphrase 1 informal Data File line formally without lifting.',
+            '3. Always quote the exact Data File source (e.g., WhatsApp note / email) as evidence and remind me to verify with my teacher\'s marking scheme afterwards.',
+            '',
+            'ALWAYS END EVERY REPLY WITH THIS EXACT MENU:',
+            'Next step (reply A, B, C, or D):',
+            'A) Give me a clearer Data File clue / paraphrase hint',
+            'B) Check my try (type your point or sentence)',
+            'C) Next task / point (type Task #, or snap the next page)',
+            'D) Done — make my session Error Log',
+            '',
+            'When I reply "D" or "Log": list every Paper 3B trap I struggled with in this whole session in one compact block:',
+            'Task / Skill — Struggle/Trap: ... | Rule to remember: ...'
           ].join('\n')
         },
         p4: {
           code: 'P4',
-          pill: 'Paper 4 · Speaking',
-          step1: 'Tap <strong>Copy Setup Prompt</strong>, paste it in your AI app, and snap your <strong>Discussion Reading Card &amp; Questions</strong>.',
-          step2: 'No answer sheet needed — jump straight into brainstorming or live practice.',
-          step3: 'Type <strong>Ideas</strong>, <strong>Discuss</strong> (group role-play), <strong>IR</strong> (1-min examiner Q), or <strong>Log</strong>.',
-          commands: ['Ideas', 'Discuss', 'IR', 'Log'],
+          hasModes: false,
+          pill: () => 'Paper 4 · Speaking',
           sampleLog: 'Great speaking session! Here is your log:\n- Group Interaction — Mistake: Only said "I agree with you" without adding a new point. | Rule: Agree + add 1 local HK example + pass the floor.\n- Individual Response — Mistake: Stopped after 20 seconds. | Rule: Use Stance -> Reason -> HK Example -> Short close.',
-          body: [
+          getSteps: () => ({
+            step1: 'Tap <strong>Copy Setup Prompt</strong>, paste in your AI app, and snap your <strong>Speaking Card &amp; Questions</strong>.',
+            step2: 'No answer sheet needed — start brainstorming or live practice right away.',
+            step3: 'Just reply <strong>A / B / C / D</strong> from the AI\'s menu (Ideas, Group Discussion, 1-Min IR, or Log).',
+            commands: ['A (Ideas)', 'B (Discuss)', 'C (IR)', 'D (Log)']
+          }),
+          getBody: () => [
             'Role: You are my HKDSE English Paper 4 (Speaking) personal coach.',
+            '',
             'Workflow (Follow Strictly):',
-            '1. CARD FIRST: I am attaching photo(s) of the Paper 4 Discussion reading material and questions now. Read them carefully and reply ONLY: "✅ Got your Speaking Card! Type Ideas to brainstorm, Discuss for Group Interaction practice, or IR for a 1-minute Examiner question."',
-            '2. SHORT COMMANDS I MAY TYPE:',
-            '   - "Ideas" = help me brainstorm 3 clear points + relevant Hong Kong examples and useful turn-taking phrases (no long memorised scripts).',
-            '   - "Discuss" = start a realistic Group Interaction role-play where you play 2–3 groupmates, speaking ONLY ONE short turn at a time and waiting for my reply. After every 2 turns, give 1 quick coaching tip.',
-            '   - "IR" = ask me ONE graded Individual Response question related to the topic. After I reply, coach my stance, elaboration, example, and natural phrasing.',
-            '   - "Log" = summarise my Speaking weak spots and 3 useful phrases from this chat in this compact format:',
-            '     Skill (GI / IR / Phrasing) — Mistake: ... | Rule / Phrase to remember: ...'
+            '1. CARD FIRST: I am attaching photo(s) of the Paper 4 Discussion reading card and questions now. Read them carefully and reply ONLY: "✅ Got your Speaking Card! Pick how you want to practise:" + the A/B/C/D menu.',
+            '2. MENU ACTIONS:',
+            '   - "A" = help me brainstorm 3 clear points + relevant Hong Kong examples and useful turn-taking phrases (no long memorised scripts).',
+            '   - "B" = start a realistic Group Interaction role-play where you play 2–3 groupmates, speaking ONLY ONE short turn at a time and waiting for my reply. After every 2 turns, give 1 quick coaching tip.',
+            '   - "C" = ask me ONE graded Individual Response question on the topic. After I reply, coach my stance, elaboration, HK example, and natural phrasing.',
+            '   - "D" or "Log" = list my Speaking weak spots and 3 useful phrases from this whole session in one compact block:',
+            '     Skill (GI / IR / Phrasing) — Mistake: ... | Rule / Phrase to remember: ...',
+            '',
+            'ALWAYS END EVERY REPLY WITH THIS EXACT MENU:',
+            'Next step (reply A, B, C, or D):',
+            'A) Brainstorm HK ideas & phrases',
+            'B) Group Interaction role-play (1 short turn each)',
+            'C) 1-minute Examiner IR question',
+            'D) Done — make my session Error Log'
           ].join('\n')
         }
       };
@@ -539,6 +656,7 @@
       const state = {
         tab: 'drill',
         paper: 'p1',
+        mode: 'guided',
         level: 'lv3',
         lang: 'en_zh',
         script: 'trad',
@@ -558,6 +676,7 @@
         try {
           const savedPrefs = JSON.parse(localStorage.getItem(STORAGE_PREFS) || '{}');
           if (savedPrefs.paper && PAPERS[savedPrefs.paper]) state.paper = savedPrefs.paper;
+          if (savedPrefs.mode === 'guided' || savedPrefs.mode === 'explain') state.mode = savedPrefs.mode;
           if (savedPrefs.level && LEVELS[savedPrefs.level]) state.level = savedPrefs.level;
           if (savedPrefs.lang && LANGUAGES[savedPrefs.lang]) state.lang = savedPrefs.lang;
           if (savedPrefs.script === 'trad' || savedPrefs.script === 'simp') state.script = savedPrefs.script;
@@ -574,6 +693,7 @@
         try {
           localStorage.setItem(STORAGE_PREFS, JSON.stringify({
             paper: state.paper,
+            mode: state.mode,
             level: state.level,
             lang: state.lang,
             script: state.script
@@ -887,7 +1007,9 @@
         const level = LEVELS[state.level];
         const langRule = LANGUAGES[state.lang].getRule(state.script);
         return [
-          paper.body,
+          paper.getBody(state.mode),
+          '',
+          ANTI_DRIFT_RULE,
           '',
           '--- Scaffolding & Level Rules ---',
           level.rules,
@@ -907,7 +1029,7 @@
           : 'You are my HKDSE English revision coach. Below is my Error Log from recent past-paper practice. Please quiz me on these weak spots ONE short question at a time to test if I truly learned from my mistakes.';
         return [
           intro,
-          'Wait for my answer before explaining, and do not dump all questions at once.',
+          'Wait for my answer before explaining, keep replies short (under 5 lines), and do not dump all questions at once.',
           '',
           '--- My Level & Language ---',
           level.rules,
@@ -1020,16 +1142,25 @@
           card.setAttribute('aria-pressed', String(isActive));
         });
 
-        // Flow card content
+        // Mode toggle (only shown for Paper 1 & Paper 3B)
         const p = PAPERS[state.paper];
-        document.getElementById('flow-paper-pill').textContent = p.pill;
-        document.getElementById('step1-text').innerHTML = p.step1;
-        document.getElementById('step2-text').innerHTML = p.step2;
-        document.getElementById('step3-text').innerHTML = p.step3;
+        const modeWrap = document.getElementById('mode-wrap');
+        modeWrap.classList.toggle('hidden', !p.hasModes);
+        document.querySelectorAll('.mode-btn').forEach((btn) => {
+          btn.classList.toggle('active', btn.dataset.mode === state.mode);
+        });
+        document.getElementById('mode-caption').textContent = MODES[state.mode].caption;
+
+        // Flow card content
+        const steps = p.getSteps(state.mode);
+        document.getElementById('flow-paper-pill').textContent = p.pill(state.mode);
+        document.getElementById('step1-text').innerHTML = steps.step1;
+        document.getElementById('step2-text').innerHTML = steps.step2;
+        document.getElementById('step3-text').innerHTML = steps.step3;
 
         const cmdContainer = document.getElementById('command-chips');
-        cmdContainer.innerHTML = p.commands.map((cmd) => (
-          `<span class="px-2 py-0.5 rounded-md bg-white border border-brand-border text-[11.5px] font-bold text-brand-navy font-mono">${escapeHtml(cmd)}</span>`
+        cmdContainer.innerHTML = steps.commands.map((cmd) => (
+          `<span class="px-2 py-0.5 rounded-md bg-white border border-brand-border text-[11px] font-bold text-brand-navy font-mono">${escapeHtml(cmd)}</span>`
         )).join('');
 
         // Prompt preview
@@ -1087,7 +1218,7 @@
           listEl.innerHTML = `
             <div class="text-center py-8 px-4 rounded-2xl border border-dashed border-brand-border bg-brand-canvas/60">
               <div class="text-[13.5px] font-bold text-brand-navy">No saved mistakes yet</div>
-              <p class="text-[12px] text-slate-500 mt-1">Type <strong>Log</strong> at the end of your AI chat, paste it above, and tap <strong>Smart Save</strong>.</p>
+              <p class="text-[12px] text-slate-500 mt-1">Type <strong>D</strong> when your AI session is done, paste it above, and tap <strong>Smart Save</strong>.</p>
             </div>
           `;
           return;
@@ -1158,6 +1289,14 @@
       document.querySelectorAll('.paper-card').forEach((card) => {
         card.addEventListener('click', () => {
           state.paper = card.dataset.paper;
+          savePrefs();
+          render();
+        });
+      });
+
+      document.querySelectorAll('.mode-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.mode = btn.dataset.mode;
           savePrefs();
           render();
         });
