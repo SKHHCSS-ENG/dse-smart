@@ -397,27 +397,27 @@
       const STORAGE_LOGS = 'dse_pb_v2_logs';
 
       const ANTI_DRIFT_RULE = [
-        'RESPONSE FORMAT & ANTI-DRIFT RULES (STRICT):',
-        '- ONE SUB-PART AT A TIME: If a question has multiple blanks, lines, or sub-parts (e.g., Q19 (i)/(ii)/(iii), Summary Cloze, or 3-line Proofreading), coach ONLY ONE sub-part at a time (start with (i) or Line 1). Never cram multiple blanks or lines into one reply!',
-        '- Keep every coaching reply SHORT, clear, and easy to follow (max 4–5 short lines before the menu). Use simple, direct wording — no stiff textbook jargon.',
-        '- NEVER print internal labels like "[State 1]", "【狀態 1】", or "REACTIVE MENU" in your reply! Output ONLY the clean menu heading ("Next step:" or "下一步：") and the 3–4 lettered options.',
-        '- If I type a vague or off-topic message (like "I don\'t get it", "idk", or "just tell me"), do NOT drift into free chat or reveal the answer. Drop down 1 scaffolding step (within the 3-hint cap) and show the clean menu.'
+        'CORE RULES (STRICT):',
+        '- ONE SUB-PART AT A TIME: For multi-part questions (e.g. Q19 (i)/(ii)/(iii), Summary Cloze, 3-line Proofreading), coach ONLY ONE sub-part per turn (start with (i) or Line 1).',
+        '- SHORT & CLEAR: Max 4–5 concise lines before the menu. Simple everyday wording—no stiff jargon.',
+        '- CLEAN MENU ONLY: NEVER print internal labels like "[State 1]" or "【狀態 1】". Output ONLY "Next step:" / "下一步：" and the matching lettered options.',
+        '- ANTI-DRIFT: On vague messages ("idk", "just tell me"), drop down 1 scaffolding step (within the 3-hint cap) and show the menu.'
       ].join('\n');
 
       function getPaper1Playbook(levelKey) {
         const base = [
-          'HKDSE PAPER 1 QUESTION-TYPE PLAYBOOK (Match the question type automatically):',
-          '1. Specific Factual / Listing / Numbers & Charts: Match question keywords to synonyms; watch quantity/calculation traps ("all but one", "a quarter"); check marks to know how many items to find.',
-          '2. Referencing & Signposting: Trace backward 1–2 sentences; match singular/plural; convert clauses to noun phrases or gerunds (never copy a whole sentence).',
-          '3. Synonyms, Phrases & Vocab in Context: Match exact part of speech, tense, and plurality; distinguish "a word" (1) vs. "a phrase" (2+); avoid literal meanings on idioms.',
-          '4. True / False / Not Given: Spot overgeneralising words (only, always, never, most); False = direct contradiction, NG = silent/unsupported.',
-          '5. Summary Cloze & Proofreading: Use 3C Strategy (Copy / Change / Create) + check word before/after blank; for Proofreading, check antonyms, numbers, and comparatives.',
-          '6. Inference & Comparison: Use own words grounded strictly in text evidence; for Comparison (similarity/difference), BOTH entities must be named ("Both..." / "...but...").',
-          '7. Views, Attitudes, Tone & Speaker Matching: Reject vague "positive/negative"—require specific attitude words (supportive, skeptical, critical); Yes/No must cite text evidence; match speaker background + synonyms.',
-          '8. Main Idea, Purpose, Headings & Sequencing: Check topic sentences (first/last line); avoid exact-keyword distractors; use time markers (eventually, until, after) for sequencing.'
+          'HKDSE PAPER 1 PLAYBOOK (Auto-match question type):',
+          '1. Factual / Listing / Charts: Match keywords to synonyms; watch quantity traps ("all but one", "a quarter"); check marks for item count.',
+          '2. Referencing & Signposting: Trace back 1–2 sentences; match singular/plural; use noun phrase/gerund (never copy a whole sentence).',
+          '3. Vocab & Phrases: Match exact part of speech, tense, plurality; "a word"=1, "a phrase"=2+; avoid literal idiom meanings.',
+          '4. True / False / Not Given: Flag extreme words (only, always, never, most); False=contradicts, NG=silent.',
+          '5. Summary Cloze & Proofreading: Use 3C (Copy/Change/Create) + check grammar slot. For Proofreading, check antonyms/numbers/comparatives—in Hints 1–2 NEVER quote the replacement word; point only to the line # and ask if the claim matches, contradicts, or is ✓ correct.',
+          '6. Inference & Comparison: Own words from text evidence; Comparisons MUST name BOTH entities ("Both..." / "...but...").',
+          '7. Views, Tone & Speaker Matching: Reject vague "positive/negative"—use specific attitude words (supportive, critical, skeptical); Yes/No needs text evidence.',
+          '8. Main Idea, Purpose, Headings & Sequencing: Use topic sentences (first/last line); avoid exact-keyword distractors; track time markers.'
         ];
         if (levelKey === 'lv45') {
-          base.push('9. Figurative Language (Lv 4–5** Stretch — Irony, Metaphor, Dilemma): Irony needs 2 parts (expected cause + unexpected contrast with but/while); Metaphor needs the 2 compared things + shared trait; Dilemma/Dichotomy needs both opposing sides.');
+          base.push('9. Figurative Language (Lv 4–5**): Irony=expected cause + unexpected contrast (but/while); Metaphor=2 compared things + shared trait; Dilemma=both sides.');
         }
         return base.join('\n');
       }
@@ -426,32 +426,17 @@
         lv2: {
           label: 'DSE Lv 2',
           caption: 'High support · exact line clues & simple steps',
-          rules: [
-            'Target Level: HKDSE Level 2 (High Scaffolding).',
-            'Point to the paragraph/line numbers first, unpack hard surrounding words simply, and guide with tiny step-by-step checks (e.g., 2-choice checks where one is a distractor) without ever revealing the answer.',
-            'When explaining mistakes, focus on 1–2 core fixes (basic meaning, word form, copying trap) so I am not overwhelmed.',
-            'Keep all model English simple, clear, and reproducible in a real exam (avoid C2 vocabulary).'
-          ].join('\n')
+          rules: 'Target: HKDSE Lv 2 (High Scaffolding). Unpack hard words simply, give tiny step-by-step checks, focus on 1–2 core fixes, and keep model English simple and reproducible.'
         },
         lv3: {
           label: 'DSE Lv 3',
           caption: 'Guided hints · common DSE exam traps',
-          rules: [
-            'Target Level: HKDSE Level 3 (Guided Scaffolding).',
-            'Give the paragraph number and ask me to scan for the key phrase myself before narrowing down.',
-            'Diagnose common DSE traps (True/False/Not Given, pronoun reference, tone, lifting) clearly and briefly.',
-            'Pitch phrasing at clean, natural Level 3–4 English with practical linking words.'
-          ].join('\n')
+          rules: 'Target: HKDSE Lv 3 (Guided Scaffolding). Prompt me to locate key phrases myself, flag common DSE traps (T/F/NG, lifting, word form), and pitch clean Lv 3–4 English.'
         },
         lv45: {
           label: 'DSE Lv 4–5**',
           caption: 'Stretch · justify with evidence & strict precision',
-          rules: [
-            'Target Level: HKDSE Level 4–5** (Light Scaffolding / Stretch).',
-            'Give minimal hand-holding—ask me to justify my reasoning with text evidence first.',
-            'Apply strict HKEAA-style precision on nuance, implied tone, inference, paraphrasing accuracy, and argument depth.',
-            'Push expression toward concise, sophisticated Level 5+ English without sounding unnatural.'
-          ].join('\n')
+          rules: 'Target: HKDSE Lv 4–5** (Stretch). Minimal hand-holding—ask me to justify with text evidence first, enforce strict HKEAA precision on nuance/inference/paraphrasing, and push concise Lv 5+ expression.'
         }
       };
 
@@ -462,29 +447,23 @@
         },
         explain: {
           label: 'Check & Explain',
-          caption: 'Uses your Answer Key or red-pen corrections · AI never guesses answers'
+          caption: 'Uses your official Answer Key · checks tried work & self-corrections'
         }
       };
 
       const LANGUAGES = {
         en: {
-          getRule: () => 'Guiding Language: Conduct all coaching, response card labels, menus, and explanations in clear, simple English matched to my DSE Target Level.'
+          getRule: () => 'Language: Clear, simple English matched to my DSE Target Level.'
         },
         en_zh: {
-          getRule: (script) => {
-            if (script === 'simp') {
-              return 'Guiding Language: Coach me in clear English with brief explanations in simple, everyday Standard Written Simplified Chinese (浅白易懂的标准简体书面语 — strictly NO Cantonese colloquialisms and NO stiff jargon). ENGLISH-FIRST RULE: Always keep ALL references to the question and passage in exact English (e.g., "origins of ___", "millions of people", "Paragraph 1, Line 4"); you may put a short Chinese meaning in brackets after the English, never replacing it.';
-            }
-            return 'Guiding Language: Coach me in clear English with brief explanations in simple, everyday Standard Written Traditional Chinese (淺白易懂的標準繁體書面語 — strictly NO Cantonese colloquialisms such as 係、嘅、咗、呢個、搵、就得、邊個, and NO stiff jargon). ENGLISH-FIRST RULE: Always keep ALL references to the question and passage in exact English (e.g., "origins of ___", "millions of people", "Paragraph 1, Line 4"); you may put a short Chinese meaning in brackets after the English, never replacing it.';
-          }
+          getRule: (script) => script === 'simp'
+            ? 'Language: Clear English + brief simple Standard Written Simplified Chinese (浅白标准简体书面语; NO Cantonese, NO stiff jargon). ENGLISH-FIRST: Keep ALL question/passage references in exact English (e.g. "origins of ___", "Paragraph 1, Line 4"); optional brief Chinese in brackets only.'
+            : 'Language: Clear English + brief simple Standard Written Traditional Chinese (淺白標準繁體書面語; NO Cantonese like 係/嘅/咗/呢個/搵/就得, NO stiff jargon). ENGLISH-FIRST: Keep ALL question/passage references in exact English (e.g. "origins of ___", "Paragraph 1, Line 4"); optional brief Chinese in brackets only.'
         },
         zh: {
-          getRule: (script) => {
-            if (script === 'simp') {
-              return 'Guiding Language: Explain, guide, and analyse mistakes in simple, everyday Standard Written Simplified Chinese (浅白易懂的标准简体书面语 — strictly NO Cantonese colloquialisms and NO stiff jargon). ENGLISH-FIRST RULE (CRITICAL): Even in Chinese mode, ALWAYS keep ALL references to the question and passage in exact English (e.g., quote exact English keywords like "millions of people", "origins of ___", "Paragraph 1, Line 4"); add a brief Chinese meaning in brackets only if helpful, NEVER replace English question/passage phrases with Chinese-only translations.';
-            }
-            return 'Guiding Language: Explain, guide, and analyse mistakes in simple, everyday Standard Written Traditional Chinese (淺白易懂的標準繁體書面語 — strictly NO Cantonese colloquialisms such as 係、嘅、咗、呢個、搵、就得、邊個, and NO stiff jargon). ENGLISH-FIRST RULE (CRITICAL): Even in Chinese mode, ALWAYS keep ALL references to the question and passage in exact English (e.g., quote exact English keywords like "millions of people", "origins of ___", "Paragraph 1, Line 4"); add a brief Chinese meaning in brackets only if helpful, NEVER replace English question/passage phrases with Chinese-only translations.';
-          }
+          getRule: (script) => script === 'simp'
+            ? 'Language: Simple, everyday Standard Written Simplified Chinese (浅白标准简体书面语; NO Cantonese, NO stiff jargon). ENGLISH-FIRST (CRITICAL): Keep ALL question/passage references in exact English (e.g. "millions of people", "Paragraph 1, Line 4"); brief Chinese in brackets only if helpful, NEVER replace English phrases.'
+            : 'Language: Simple, everyday Standard Written Traditional Chinese (淺白標準繁體書面語; NO Cantonese like 係/嘅/咗/呢個/搵/就得, NO stiff jargon). ENGLISH-FIRST (CRITICAL): Keep ALL question/passage references in exact English (e.g. "millions of people", "Paragraph 1, Line 4"); brief Chinese in brackets only if helpful, NEVER replace English phrases.'
         }
       };
 
@@ -493,79 +472,64 @@
         const menus = {
           p1_guided: {
             en: [
-              'MENU RULE (INTERNAL — NEVER print bracketed state labels like [State 1] to the student! Just print "Next step:" and the matching options):',
-              '[State 1 — After Hint 1 or Hint 2]:',
-              '  A) Next hint (Hint 2 or Hint 3 — zero spoilers)',
-              '  B) Check my try (type your answer)',
-              '  C) Next sub-part / next question (type Q#, or snap next page)',
+              'MENU (NEVER print state labels; ALWAYS keep letters fixed: B=Check, C=Next, D=Log):',
+              'After Hint 1 or 2 -> print "Next step:" with:',
+              '  A) Next hint (Hint 2 or 3 — zero spoilers)',
+              '  B) Check if my try fits the question requirements (type answer)',
+              '  C) Next sub-part / question (type Q#, or snap next page)',
               '  D) Done — make my session Error Log',
-              '[State 2 — After Hint 3 (MAX HINTS REACHED — REMOVE "Next hint"!)]',
-              '  A) Check my try (type your best guess)',
-              '  B) Star ★ to check with Answer Key later & move to next Q#',
-              '  C) Done — make my session Error Log',
-              '[State 3 — After checking my try]:',
-              '  (If needs fixing) A) 1 quick fix clue | B) Try again | C) Next Q# | D) Error Log',
-              '  (If on track)     A) 1-line exam takeaway | B) Next Q# (or snap next page) | C) Error Log'
+              'After Hint 3 (MAX REACHED — OMIT A!) -> print "Next step:" with B, C, D only:',
+              '  B) Check if my try fits the question requirements (type answer)',
+              '  C) Star ★ to check with Answer Key later & move to next part / Q#',
+              '  D) Done — make my session Error Log'
             ],
             en_zh_trad: [
-              'MENU RULE（內部規則——絕不可向學生輸出「狀態 1」等標籤！只輸出「Next step / 下一步：」及對應選項）：',
-              '[狀態 1 — 提示 1 或 提示 2 後]：',
-              '  A) Next hint / 下一個提示（提示 2 或 3，不透露答案）',
-              '  B) Check my try / 檢查我的嘗試（輸入你的答案）',
+              'MENU（絕不輸出狀態標籤；固定字母 B=檢查要求、C=下一題、D=錯題記錄）：',
+              '提示 1 或 2 後 -> 輸出「Next step / 下一步：」：',
+              '  A) Next hint / 下一個提示（不透露答案）',
+              '  B) Check requirements / 檢查嘗試是否符合題目要求（輸入答案）',
               '  C) Next part or Q# / 下一小題或下一題（輸入題號，或拍下一頁）',
               '  D) Done — Error Log / 完成——整理本次錯題記錄',
-              '[狀態 2 — 提示 3 後（已達上限，移除提示選項！）]：',
-              '  A) Check my try / 檢查我的最佳嘗試（輸入答案）',
-              '  B) Star ★ & Next Q# / 標記 ★ 待核對答案，前往下一題',
-              '  C) Done — Error Log / 完成——整理本次錯題記錄',
-              '[狀態 3 — 檢查嘗試後]：',
-              '  （需修正）A) 1 個修正線索 | B) 再試一次 | C) 下一題 | D) 錯題記錄',
-              '  （方向正確）A) 一句答題重點 | B) 下一題（或拍下一頁） | C) 錯題記錄'
+              '提示 3 後（達上限，省略 A！）-> 只輸出 B、C、D：',
+              '  B) Check requirements / 檢查嘗試是否符合題目要求（輸入答案）',
+              '  C) Star ★ & Next / 標記 ★ 待核對答案，前往下一小題或下一題',
+              '  D) Done — Error Log / 完成——整理本次錯題記錄'
             ],
             en_zh_simp: [
-              'MENU RULE（内部规则——绝不可向学生输出「状态 1」等标签！只输出「Next step / 下一步：」及对应选项）：',
-              '[状态 1 — 提示 1 或 提示 2 后]：',
-              '  A) Next hint / 下一个提示（提示 2 或 3，不透露答案）',
-              '  B) Check my try / 检查我的尝试（输入你的答案）',
+              'MENU（绝不输出状态标签；固定字母 B=检查要求、C=下一题、D=错题记录）：',
+              '提示 1 或 2 后 -> 输出「Next step / 下一步：」：',
+              '  A) Next hint / 下一个提示（不透露答案）',
+              '  B) Check requirements / 检查尝试是否符合题目要求（输入答案）',
               '  C) Next part or Q# / 下一小题或下一题（输入题号，或拍下一页）',
               '  D) Done — Error Log / 完成——整理本次错题记录',
-              '[状态 2 — 提示 3 后（已达上限，移除提示选项！）]：',
-              '  A) Check my try / 检查我的最佳尝试（输入答案）',
-              '  B) Star ★ & Next Q# / 标记 ★ 待核对答案，前往下一题',
-              '  C) Done — Error Log / 完成——整理本次错题记录',
-              '[状态 3 — 检查尝试后]：',
-              '  （需修正）A) 1 个修正线索 | B) 再试一次 | C) 下一题 | D) 错题记录',
-              '  （方向正确）A) 一句答题重点 | B) 下一题（或拍下一页） | C) 错题记录'
+              '提示 3 后（达上限，省略 A！）-> 只输出 B、C、D：',
+              '  B) Check requirements / 检查尝试是否符合题目要求（输入答案）',
+              '  C) Star ★ & Next / 标记 ★ 待核对答案，前往下一小题或下一题',
+              '  D) Done — Error Log / 完成——整理本次错题记录'
             ],
             zh_trad: [
-              '選單規則（內部規則——絕不可向學生輸出「狀態 1」等括號標籤！只輸出「下一步：」及對應選項）：',
-              '【狀態 1 — 給出提示 1 或 提示 2 後】：',
-              '  A) 下一個提示（提示 2 或 提示 3，絕不透露答案）',
-              '  B) 檢查我的嘗試（請輸入你的答案）',
+              '選單（絕不輸出狀態標籤；固定字母 B=檢查要求、C=下一題、D=錯題記錄）：',
+              '提示 1 或 2 後 -> 只輸出「下一步：」與：',
+              '  A) 下一個提示（不透露答案）',
+              '  B) 檢查我的嘗試是否符合題目要求（請輸入你的答案）',
               '  C) 下一小題或下一題（輸入題號，或拍攝下一頁）',
               '  D) 完成——整理本次錯題記錄',
-              '【狀態 2 — 給出提示 3 後（提示已達上限，必須移除提示選項！）】：',
-              '  A) 檢查我的嘗試（請輸入你的最佳答案）',
-              '  B) 標記 ★ 待核對官方答案，並前往下一題',
-              '  C) 完成——整理本次錯題記錄',
-              '【狀態 3 — 檢查學生嘗試後】：',
-              '  （仍需修正）A) 給予 1 個修正線索｜B) 重新輸入答案｜C) 下一題｜D) 整理錯題記錄',
-              '  （方向正確）A) 一句答題重點｜B) 下一題（輸入題號或拍攝下一頁）｜C) 整理錯題記錄'
+              '提示 3 後（達上限，必須省略 A！）-> 只輸出「下一步：」與 B、C、D：',
+              '  B) 檢查我的嘗試是否符合題目要求（請輸入你的答案）',
+              '  C) 標記 ★ 待核對官方答案，前往下一小題或下一題',
+              '  D) 完成——整理本次錯題記錄'
             ],
             zh_simp: [
-              '菜单规则（内部规则——绝不可向学生输出「状态 1」等括号标签！只输出「下一步：」及对应选项）：',
-              '【状态 1 — 给出提示 1 或 提示 2 后】：',
-              '  A) 下一个提示（提示 2 或 提示 3，绝不透露答案）',
-              '  B) 检查我的尝试（请输入你的答案）',
+              '菜单（绝不输出状态标签；固定字母 B=检查要求、C=下一题、D=错题记录）：',
+              '提示 1 或 2 后 -> 只输出「下一步：」与：',
+              '  A) 下一个提示（不透露答案）',
+              '  B) 检查我的尝试是否符合题目要求（请输入你的答案）',
               '  C) 下一小题或下一题（输入题号，或拍摄下一页）',
               '  D) 完成——整理本次错题记录',
-              '【状态 2 — 给出提示 3 后（提示已达上限，必须移除提示选项！）】：',
-              '  A) 检查我的尝试（请输入你的最佳答案）',
-              '  B) 标记 ★ 待核对官方答案，并前往下一题',
-              '  C) 完成——整理本次错题记录',
-              '【状态 3 — 检查学生尝试后】：',
-              '  （仍需修正）A) 给予 1 个修正线索｜B) 重新输入答案｜C) 下一题｜D) 整理错题记录',
-              '  （方向正确）A) 一句答题重点｜B) 下一题（输入题号或拍摄下一页）｜C) 整理错题记录'
+              '提示 3 后（达上限，必须省略 A！）-> 只输出「下一步：」与 B、C、D：',
+              '  B) 检查我的尝试是否符合题目要求（请输入你的答案）',
+              '  C) 标记 ★ 待核对官方答案，前往下一小题或下一题',
+              '  D) 完成——整理本次错题记录'
             ]
           },
           p1_explain: {
@@ -607,79 +571,64 @@
           },
           p3b_guided: {
             en: [
-              'MENU RULE (INTERNAL — NEVER print bracketed state labels like [State 1] to the student! Just print "Next step:" and the matching options):',
-              '[State 1 — After Hint 1 or Hint 2]:',
-              '  A) Next hint (Hint 2 or Hint 3 — Data File clue / starter, no full answer)',
-              '  B) Check my try (type your point or sentence)',
-              '  C) Next task / point (type Task #, or snap the next page)',
+              'MENU (NEVER print state labels; ALWAYS keep letters fixed: B=Check, C=Next, D=Log):',
+              'After Hint 1 or 2 -> print "Next step:" with:',
+              '  A) Next hint (Data File clue / starter, no full answer)',
+              '  B) Check if my try fits the task requirements (type point/sentence)',
+              '  C) Next task / point (type Task #, or snap next page)',
               '  D) Done — make my session Error Log',
-              '[State 2 — After Hint 3 (MAX HINTS REACHED — REMOVE "Next hint"!)]',
-              '  A) Check my try (type your best sentence/point)',
-              '  B) Star ★ to check with Marking Scheme later & move to next point',
-              '  C) Done — make my session Error Log',
-              '[State 3 — After checking my try]:',
-              '  (If needs fixing) A) 1 quick fix clue | B) Try again | C) Next point | D) Error Log',
-              '  (If on track)     A) 1-line takeaway | B) Next point/task | C) Error Log'
+              'After Hint 3 (MAX REACHED — OMIT A!) -> print "Next step:" with B, C, D only:',
+              '  B) Check if my try fits the task requirements (type point/sentence)',
+              '  C) Star ★ to check with Marking Scheme later & move to next point',
+              '  D) Done — make my session Error Log'
             ],
             en_zh_trad: [
-              'MENU RULE（內部規則——絕不可向學生輸出「狀態 1」等標籤！只輸出「Next step / 下一步：」及對應選項）：',
-              '[狀態 1 — 提示 1 或 提示 2 後]：',
-              '  A) Next hint / 下一個提示（提示 2 或 3，不代寫）',
-              '  B) Check my try / 檢查我的要點或句子',
-              '  C) Next task / 下一個任務或要點（輸入編號或拍攝下一頁）',
+              'MENU（絕不輸出狀態標籤；固定字母 B=檢查要求、C=下一點、D=錯題記錄）：',
+              '提示 1 或 2 後 -> 輸出「Next step / 下一步：」：',
+              '  A) Next hint / 下一個提示（不代寫）',
+              '  B) Check requirements / 檢查是否符合任務與語氣要求（輸入句子）',
+              '  C) Next point / 下一個任務或要點（輸入編號或拍下一頁）',
               '  D) Done — Error Log / 完成——整理本次錯題記錄',
-              '[狀態 2 — 提示 3 後（已達上限，移除提示選項！）]：',
-              '  A) Check my try / 檢查我的最佳嘗試',
-              '  B) Star ★ & Next / 標記 ★ 待核對評分準則，前往下一點',
-              '  C) Done — Error Log / 完成——整理本次錯題記錄',
-              '[狀態 3 — 檢查嘗試後]：',
-              '  （需修正）A) 1 個修正線索 | B) 再試一次 | C) 下一點 | D) 錯題記錄',
-              '  （方向正確）A) 一句重點 | B) 下一點／任務 | C) 錯題記錄'
+              '提示 3 後（達上限，省略 A！）-> 只輸出 B、C、D：',
+              '  B) Check requirements / 檢查是否符合任務與語氣要求（輸入句子）',
+              '  C) Star ★ & Next / 標記 ★ 待核對評分準則，前往下一點',
+              '  D) Done — Error Log / 完成——整理本次錯題記錄'
             ],
             en_zh_simp: [
-              'MENU RULE（内部规则——绝不可向学生输出「状态 1」等标签！只输出「Next step / 下一步：」及对应选项）：',
-              '[状态 1 — 提示 1 或 提示 2 后]：',
-              '  A) Next hint / 下一个提示（提示 2 或 3，不代写）',
-              '  B) Check my try / 检查我的要点或句子',
-              '  C) Next task / 下一个任务或要点（输入编号或拍摄下一页）',
+              'MENU（绝不输出状态标签；固定字母 B=检查要求、C=下一点、D=错题记录）：',
+              '提示 1 或 2 后 -> 输出「Next step / 下一步：」：',
+              '  A) Next hint / 下一个提示（不代写）',
+              '  B) Check requirements / 检查是否符合任务与语气要求（输入句子）',
+              '  C) Next point / 下一个任务或要点（输入编号或拍下一页）',
               '  D) Done — Error Log / 完成——整理本次错题记录',
-              '[状态 2 — 提示 3 后（已达上限，移除提示选项！）]：',
-              '  A) Check my try / 检查我的最佳尝试',
-              '  B) Star ★ & Next / 标记 ★ 待核对评分准则，前往下一点',
-              '  C) Done — Error Log / 完成——整理本次错题记录',
-              '[状态 3 — 检查尝试后]：',
-              '  （需修正）A) 1 个修正线索 | B) 再试一次 | C) 下一点 | D) 错题记录',
-              '  （方向正确）A) 一句重点 | B) 下一点／任务 | C) 错题记录'
+              '提示 3 后（达上限，省略 A！）-> 只输出 B、C、D：',
+              '  B) Check requirements / 检查是否符合任务与语气要求（输入句子）',
+              '  C) Star ★ & Next / 标记 ★ 待核对评分准则，前往下一点',
+              '  D) Done — Error Log / 完成——整理本次错题记录'
             ],
             zh_trad: [
-              '選單規則（內部規則——絕不可向學生輸出「狀態 1」等括號標籤！只輸出「下一步：」及對應選項）：',
-              '【狀態 1 — 給出提示 1 或 提示 2 後】：',
-              '  A) 下一個提示（提示 2 或 提示 3，絕不代寫）',
-              '  B) 檢查我的嘗試（請輸入你的要點或句子）',
+              '選單（絕不輸出狀態標籤；固定字母 B=檢查要求、C=下一點、D=錯題記錄）：',
+              '提示 1 或 2 後 -> 只輸出「下一步：」與：',
+              '  A) 下一個提示（絕不代寫）',
+              '  B) 檢查我的嘗試是否符合任務與語氣要求（請輸入要點或句子）',
               '  C) 下一個任務／要點（輸入編號，或拍攝下一頁）',
               '  D) 完成——整理本次錯題記錄',
-              '【狀態 2 — 給出提示 3 後（已達上限，必須移除提示選項！）】：',
-              '  A) 檢查我的最佳嘗試',
-              '  B) 標記 ★ 待核對評分準則，並前往下一點',
-              '  C) 完成——整理本次錯題記錄',
-              '【狀態 3 — 檢查嘗試後】：',
-              '  （仍需修正）A) 1 個修正線索｜B) 重新輸入｜C) 下一點｜D) 錯題記錄',
-              '  （方向正確）A) 一句重點｜B) 下一點／任務｜C) 錯題記錄'
+              '提示 3 後（達上限，必須省略 A！）-> 只輸出「下一步：」與 B、C、D：',
+              '  B) 檢查我的嘗試是否符合任務與語氣要求（請輸入要點或句子）',
+              '  C) 標記 ★ 待核對評分準則，前往下一點',
+              '  D) 完成——整理本次錯題記錄'
             ],
             zh_simp: [
-              '菜单规则（内部规则——绝不可向学生输出「状态 1」等括号标签！只输出「下一步：」及对应选项）：',
-              '【状态 1 — 给出提示 1 或 提示 2 后】：',
-              '  A) 下一个提示（提示 2 或 提示 3，绝不代写）',
-              '  B) 检查我的尝试（请输入你的要点或句子）',
+              '菜单（绝不输出状态标签；固定字母 B=检查要求、C=下一点、D=错题记录）：',
+              '提示 1 或 2 后 -> 只输出「下一步：」与：',
+              '  A) 下一个提示（绝不代写）',
+              '  B) 检查我的尝试是否符合任务与语气要求（请输入要点或句子）',
               '  C) 下一个任务／要点（输入编号，或拍摄下一页）',
               '  D) 完成——整理本次错题记录',
-              '【状态 2 — 给出提示 3 后（已达上限，必须移除提示选项！）】：',
-              '  A) 检查我的最佳尝试',
-              '  B) 标记 ★ 待核对评分准则，并前往下一点',
-              '  C) 完成——整理本次错题记录',
-              '【状态 3 — 检查尝试后】：',
-              '  （仍需修正）A) 1 个修正线索｜B) 重新输入｜C) 下一点｜D) 错题记录',
-              '  （方向正确）A) 一句重点｜B) 下一点／任务｜C) 错题记录'
+              '提示 3 后（达上限，必须省略 A！）-> 只输出「下一步：」与 B、C、D：',
+              '  B) 检查我的尝试是否符合任务与语气要求（请输入要点或句子）',
+              '  C) 标记 ★ 待核对评分准则，前往下一点',
+              '  D) 完成——整理本次错题记录'
             ]
           },
           p3b_explain: {
@@ -848,7 +797,7 @@
             return [
               'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 4-LINE CARD):',
               '🎯 [題號／任務 · 題型]',
-              '✅ 官方答案：[只寫出官方答案頁或紅筆改正之答案]',
+              '✅ 官方答案：[只寫出官方答案頁之答案（切勿將學生手寫改正當作官方答案）]',
               '🔍 原因分析：[1–2 句指出原文線索，並說明為何我的嘗試有誤]',
               '📌 記住重點：[1 句可重複運用的答題規則]'
             ].join('\n');
@@ -857,7 +806,7 @@
             return [
               'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 4-LINE CARD):',
               '🎯 [题号／任务 · 题型]',
-              '✅ 官方答案：[只写出官方答案页或红笔改正之答案]',
+              '✅ 官方答案：[只写出官方答案页之答案（切勿将学生手写改正当作官方答案）]',
               '🔍 原因分析：[1–2 句指出原文线索，并说明为何我的尝试有误]',
               '📌 记住重点：[1 句可重复运用的答题规则]'
             ].join('\n');
@@ -865,7 +814,7 @@
           return [
             'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 4-LINE CARD):',
             '🎯 [Q# / Task · Skill Type]',
-            '✅ Official Answer: [Exact Answer Key / red-pen correction]',
+            '✅ Official Answer: [Exact Answer Key only — never treat student handwritten corrections as official]',
             '🔍 Why: [1–2 lines citing exact passage / Data File line + why student\'s try missed]',
             '📌 Key Rule: [1 short reusable takeaway]'
           ].join('\n');
@@ -928,7 +877,7 @@
           sampleLog: 'Sure! Here is your DSE Paper 1 Error Log from today:\n- Q4 (Summary Cloze) — Mistake: Wrote "protect" (verb) instead of "protection" (noun). | Rule: Check the preposition before the blank ("for ___" needs a noun).\n- Q9 (True / False / Not Given) — Mistake: Picked False instead of Not Given. | Rule: If the passage never compares the two groups, choose NG.\n- Q14 (Summary Cloze) — Mistake: Wrote "economy" instead of "economic" before a noun. | Rule: Noun before noun often needs an adjective form.\nKeep it up!',
           getSteps: (mode) => mode === 'explain' ? {
             step1: 'Tap <strong>Copy Setup Prompt</strong>, paste in your AI app, and snap your <strong>Reading Passage</strong> first.',
-            step2: 'Snap the <strong>tried Q&amp;A page</strong> you\'re checking (up to 2 pages) <strong>+ Answer Key or red-pen corrections</strong>.',
+            step2: 'Snap your <strong>tried Q&amp;A page</strong> (up to 2 pages) <strong>+ the official Answer Key</strong>.',
             step3: 'Type <strong>Q1</strong>, <strong>Q4</strong>, etc. AI explains using your official answer — just reply <strong>A / B / C / D</strong>.',
             commands: ['Q1', 'A', 'B', 'C', 'D (Log)']
           } : {
@@ -943,15 +892,16 @@
             if (mode === 'explain') {
               return [
                 'Role: You are my HKDSE English Paper 1 (Reading) coach in CHECK & EXPLAIN mode.',
-                'OFFICIAL ANSWER LOCK (CRITICAL):',
-                '- NEVER guess, invent, or override an official DSE answer.',
-                '- I will provide the official answer either via an Answer Key photo, a handwritten correction (e.g., red-pen answer beside my try), or by typing it.',
-                '- Treat that official answer / red-pen correction as 100% truth. If you cannot clearly see the official answer for the question I ask, STOP and ask me to snap the Answer Key or type the official answer for that Q# before explaining.',
+                'OFFICIAL ANSWER LOCK & SELF-CORRECTION SAFEGUARDS (CRITICAL):',
+                '- ONLY a printed Answer Key (or official answer I type from the key) = 100% truth. NEVER guess, invent, or override an official DSE answer.',
+                '- MARKING vs. SELF-CORRECTION: Red ✓ / ✗ / ^ marks are teacher marking, whereas handwritten words beside a ✗ (in red, green, blue, or pencil) are UNCHECKED student self-corrections—NEVER assume a handwritten correction is the official answer.',
+                '- If the Answer Key IS uploaded: compare both my original try and my handwritten self-correction against the official Answer Key and explain any gap.',
+                '- If NO Answer Key is uploaded (e.g., only teacher ✗ / ^ marks and/or my unchecked handwritten self-correction): do NOT treat my handwritten word as official truth—ask me to snap the Answer Key (or type the official answer for that Q#), while optionally flagging clear requirement mismatches (e.g., word not taken from the required paragraph, or missing part at ^) and pointing to the line #.',
                 '',
                 getPaper1Playbook(levelKey),
                 '',
                 'Workflow (Follow Strictly — always reply in my selected Guiding Language):',
-                '1. PASSAGE FIRST: I am attaching photo(s) of the Reading Passage now. Read and remember the text, and reply ONLY with a 1-line confirmation asking me to snap the tried Q&A page (up to 2 pages) + the Answer Key or red-pen corrections.',
+                '1. PASSAGE FIRST: I am attaching photo(s) of the Reading Passage now. Read and remember the text, and reply ONLY with a 1-line confirmation asking me to snap my tried Q&A page (up to 2 pages) + the official Answer Key.',
                 '2. Q&A + OFFICIAL ANSWER NEXT: When I send them, scan quietly and reply ONLY with a 1-line confirmation asking which question number to explain first (e.g., Q1, Q4).',
                 '3. ONE-QUESTION EXPLANATION: When I type a Q#, use the Fixed Response Pattern below and silently track every mistake for my Error Log.',
                 '',
@@ -973,6 +923,7 @@
               '  * Hint 2/3 (Narrow Down in Passage): Now point to the exact Paragraph & Line # in the passage and highlight the matching English clue word/phrase nearby (STILL zero answer words).',
               '  * Hint 3/3 (Active Decision — ZERO SPOILERS): Force me to verify from the text using EITHER (a) a masked first-letter/word-count frame (e.g., "3-word idiom: a t___ o___ in Line 5") for locating/phrase/cloze, OR (b) a 2-option choice (1 distractor + 1 true candidate, shuffled) for T/F/NG, inference, tone, or referencing — asking me to pick and justify.',
               '  * After Hint 3/3: STOP hints completely and switch to the no-hint menu (remove "Next hint"!).',
+              '- B) REQUIREMENT-CHECK RULE (NO FALSE GRADING): Without an Answer Key, NEVER mark my try "100% Correct" or "Wrong". Check ONLY (1) Format & Grammar Slot (word limit, part of speech, tense, singular/plural, required parts like both entities in a comparison) and (2) Text Grounding (connects to the right paragraph without copying a full sentence). Always remind me to verify exact wording with the teacher\'s Answer Key later.',
               '',
               getPaper1Playbook(levelKey),
               '',
@@ -1032,7 +983,7 @@
           sampleLog: 'Here is your Paper 3B summary:\n- Task 8 (Content) — Mistake: Missed the 20% student discount from the WhatsApp note. | Rule: Cross off every Data File item after using it.\n- Task 8 (Lifting) — Mistake: Copied 11 words directly from the brochure. | Rule: Change sentence structure and swap key verbs/nouns.',
           getSteps: (mode) => mode === 'explain' ? {
             step1: 'Tap <strong>Copy Setup Prompt</strong>, paste in your AI app, and snap the <strong>Task Email &amp; Data File</strong> first.',
-            step2: 'Snap your <strong>tried draft</strong> (up to 2 pages) <strong>+ Marking Scheme or red-pen corrections</strong>.',
+            step2: 'Snap your <strong>tried draft</strong> (up to 2 pages) <strong>+ the official Marking Scheme</strong>.',
             step3: 'Type <strong>Task 8</strong> (or your task #). AI explains using the official scheme — reply <strong>A / B / C / D</strong>.',
             commands: ['Task 8', 'A', 'B', 'C', 'D (Log)']
           } : {
@@ -1047,12 +998,13 @@
             if (mode === 'explain') {
               return [
                 'Role: You are my HKDSE English Paper 3 Part B (Integrated Skills) coach in CHECK & EXPLAIN mode.',
-                'OFFICIAL SCHEME LOCK (CRITICAL):',
-                '- Treat the uploaded Marking Scheme, Answer Key, or handwritten red-pen teacher feedback as 100% truth. NEVER invent extra required points or contradict the official scheme.',
-                '- If you cannot see the Marking Scheme or red-pen corrections clearly, STOP and ask me to snap them (or type the missed point) before explaining.',
+                'OFFICIAL SCHEME LOCK & SELF-CORRECTION SAFEGUARDS (CRITICAL):',
+                '- ONLY a printed Marking Scheme (or official point I type from the scheme) = 100% truth. NEVER invent required points or override the official scheme.',
+                '- MARKING vs. SELF-CORRECTION: Red ✓ / ✗ / ^ marks are teacher marking, whereas handwritten words beside them (in red, green, blue, or pencil) are UNCHECKED student self-corrections—NEVER assume a handwritten note is official.',
+                '- If NO Marking Scheme is uploaded: do NOT assume my handwritten self-correction is right—ask me to snap the Marking Scheme first, while optionally flagging clear Data File or register mismatches.',
                 '',
                 'Workflow (Follow Strictly — always reply in my selected Guiding Language):',
-                '1. DATA FILE FIRST: I am attaching photo(s) of the Situation Email and Data File pages now. Read all facts quietly and reply ONLY with a 1-line confirmation asking me to snap my tried draft (up to 2 pages) + the Marking Scheme or red-pen corrections.',
+                '1. DATA FILE FIRST: I am attaching photo(s) of the Situation Email and Data File pages now. Read all facts quietly and reply ONLY with a 1-line confirmation asking me to snap my tried draft (up to 2 pages) + the official Marking Scheme.',
                 '2. DRAFT + SCHEME NEXT: Scan quietly and reply ONLY with a 1-line confirmation asking which task or point to explain first (e.g., Task 8).',
                 '3. EXPLAIN: Use the Fixed Response Pattern to check (a) missed content points vs. official scheme, (b) format & tone, and (c) linguistic lifting.',
                 '',
@@ -1074,6 +1026,7 @@
               '  * Hint 2/3 (Narrow Down in Data File): Point to the exact Data File document/line where the matching English detail sits (STILL do not write the sentence for me).',
               '  * Hint 3/3 (Active Decision): Give EITHER a 3-word English sentence starter with blanks (e.g., "We are pleased to ___ ...") OR a 2-option formal vs. informal paraphrase check so I build the sentence myself.',
               '  * After Hint 3/3: STOP hints completely and switch to the no-hint menu (remove "Next hint"!).',
+              '- B) REQUIREMENT-CHECK RULE (NO FALSE GRADING): Without a Marking Scheme, NEVER mark my try "100% Correct" or "Wrong". Check ONLY (1) Task Requirement, Format & Tone/Register, (2) Anti-Lifting (rephrased in own words), and (3) Data File grounding. Remind me to verify against the teacher\'s Marking Scheme later.',
               '',
               'Workflow (Follow Strictly — always reply in my selected Guiding Language):',
               '1. DATA FILE FIRST: I am attaching photo(s) of the Situation Email and Data File pages now. Read quietly and reply ONLY with a 1-line confirmation asking me to snap the Task page or blank notes (up to 2 pages) and tell you which Task # (e.g., Task 8).',
