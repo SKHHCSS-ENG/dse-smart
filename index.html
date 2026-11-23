@@ -146,7 +146,6 @@
             <span id="lbl-lang" class="text-[11px] font-bold uppercase tracking-wider text-slate-500 shrink-0">Language</span>
             <div class="inline-flex items-center gap-1 bg-[#e5f1f5] p-1 rounded-xl shrink-0" role="group" aria-label="App and AI language">
               <button type="button" data-lang="en" class="lang-btn seg-btn py-1.5 px-3 rounded-lg text-[12px] font-semibold text-slate-600 whitespace-nowrap">EN</button>
-              <button type="button" data-lang="en_zh" class="lang-btn seg-btn py-1.5 px-3 rounded-lg text-[12px] font-semibold text-slate-600 whitespace-nowrap">EN + 中</button>
               <button type="button" data-lang="zh" class="lang-btn seg-btn py-1.5 px-3 rounded-lg text-[12px] font-semibold text-slate-600 whitespace-nowrap">全中文</button>
             </div>
           </div>
@@ -387,8 +386,8 @@
       const ANTI_DRIFT_RULE = [
         'CORE RULES (STRICT):',
         '- ONE SUB-PART AT A TIME: For multi-part questions (e.g. Q19 (i)/(ii)/(iii), Summary Cloze, 3-line Proofreading), coach ONLY ONE sub-part per turn (start with (i) or Line 1).',
-        '- SHORT & CLEAR: Max 4–5 concise lines before the menu. Simple everyday wording—no stiff jargon.',
-        '- CLEAN MENU ONLY: NEVER print internal labels like "[State 1]" or "【狀態 1】". Output ONLY "Next step:" / "下一步：" and the matching lettered options.',
+        '- CLEAN PHONE LAYOUT: Always leave a blank line after the 🎯 title and before the menu. Use short bullet points (1 concise line per bullet) for hints, keywords, and checklists; use a single short paragraph only for a speaking turn. Never squash lines into one dense block.',
+        '- CLEAN MENU ONLY: NEVER print internal labels like "[State 1]" or "【狀態 1】". Output ONLY "**Next step:**" / "**下一步：**" and the matching lettered options.',
         '- ANTI-DRIFT: On vague messages ("idk", "just tell me"), drop down 1 scaffolding step (within the 3-hint cap) and show the menu.'
       ].join('\n');
 
@@ -447,15 +446,8 @@
         en: {
           getRule: () => 'Language: Clear, simple English matched to my DSE Target Level.'
         },
-        en_zh: {
-          getRule: (script) => script === 'simp'
-            ? 'Language: Clear English + brief simple Standard Written Simplified Chinese (浅白标准简体书面语; NO Cantonese, NO stiff jargon). ENGLISH-FIRST: Keep ALL question/passage references in exact English (e.g. "origins of ___", "Paragraph 1, Line 4"); optional brief Chinese in brackets only.'
-            : 'Language: Clear English + brief simple Standard Written Traditional Chinese (淺白標準繁體書面語; NO Cantonese like 係/嘅/咗/呢個/搵/就得, NO stiff jargon). ENGLISH-FIRST: Keep ALL question/passage references in exact English (e.g. "origins of ___", "Paragraph 1, Line 4"); optional brief Chinese in brackets only.'
-        },
         zh: {
-          getRule: (script) => script === 'simp'
-            ? 'Language: Simple, everyday Standard Written Simplified Chinese (浅白标准简体书面语; NO Cantonese, NO stiff jargon). ENGLISH-FIRST (CRITICAL): Keep ALL question/passage references in exact English (e.g. "millions of people", "Paragraph 1, Line 4"); brief Chinese in brackets only if helpful, NEVER replace English phrases.'
-            : 'Language: Simple, everyday Standard Written Traditional Chinese (淺白標準繁體書面語; NO Cantonese like 係/嘅/咗/呢個/搵/就得, NO stiff jargon). ENGLISH-FIRST (CRITICAL): Keep ALL question/passage references in exact English (e.g. "millions of people", "Paragraph 1, Line 4"); brief Chinese in brackets only if helpful, NEVER replace English phrases.'
+          getRule: () => 'Language: Simple, everyday Standard Written Traditional Chinese (淺白標準繁體書面語; NO Cantonese like 係/嘅/咗/呢個/搵/就得, NO stiff jargon). ENGLISH-FIRST (CRITICAL): Keep ALL question/passage references in exact English (e.g. "millions of people", "Paragraph 1, Line 4"); brief Chinese in brackets only if helpful, NEVER replace English phrases.'
         }
       };
 
@@ -463,359 +455,267 @@
         const menus = {
           p1_guided: {
             en: [
-              'MENU (NEVER print state labels; ALWAYS keep letters fixed: B=Next, C=Log):',
-              'After Hint 1 or 2 -> print "Next step:" with:',
-              '  A) Next hint',
-              '  B) Next part / Q# (or snap next page)',
-              '  C) Error Log',
-              'After Hint 3 (MAX REACHED — OMIT A!) -> print "Next step:" with B and C only:',
-              '  B) Next part / Q# (or snap next page)',
-              '  C) Error Log'
-            ],
-            en_zh_trad: [
-              'MENU（絕不輸出狀態標籤；固定字母 B=下一題、C=錯題）：',
-              '提示 1 或 2 後 -> 輸出「Next step / 下一步：」：',
-              '  A) Next hint / 下一個提示',
-              '  B) Next part or Q# / 下一小題或下一題',
-              '  C) Error Log / 整理錯題記錄',
-              '提示 3 後（達上限，省略 A！）-> 只輸出 B、C：',
-              '  B) Next part or Q# / 下一小題或下一題',
-              '  C) Error Log / 整理錯題記錄'
+              'MENU (Leave a blank line before menu; NEVER print state labels; ALWAYS keep letters fixed: B=Next, C=Log):',
+              'After Hint 1 or 2 -> print "**Next step:**" with bulleted options:',
+              '  - **A)** Next hint',
+              '  - **B)** Next part / Q# (or snap next page)',
+              '  - **C)** Error Log',
+              'After Hint 3 (MAX REACHED — OMIT A!) -> print "**Next step:**" with B and C only:',
+              '  - **B)** Next part / Q# (or snap next page)',
+              '  - **C)** Error Log'
             ],
             zh_trad: [
-              '選單（絕不輸出狀態標籤；固定字母 B=下一題、C=錯題）：',
-              '提示 1 或 2 後 -> 只輸出「下一步：」與：',
-              '  A) 下一個提示',
-              '  B) 下一小題或下一題（輸入題號／拍下一頁）',
-              '  C) 整理錯題記錄',
-              '提示 3 後（達上限，必須省略 A！）-> 只輸出「下一步：」與 B、C：',
-              '  B) 下一小題或下一題（輸入題號／拍下一頁）',
-              '  C) 整理錯題記錄'
+              '選單（選單前空一行；絕不輸出狀態標籤；固定字母 B=下一題、C=錯題）：',
+              '提示 1 或 2 後 -> 只輸出「**下一步：**」與條列選項：',
+              '  - **A)** 下一個提示',
+              '  - **B)** 下一小題或下一題（輸入題號／拍下一頁）',
+              '  - **C)** 整理錯題記錄',
+              '提示 3 後（達上限，必須省略 A！）-> 只輸出「**下一步：**」與 B、C：',
+              '  - **B)** 下一小題或下一題（輸入題號／拍下一頁）',
+              '  - **C)** 整理錯題記錄'
             ]
           },
           p1_selfcheck: {
             en: [
-              'MENU (NEVER print state labels; ALWAYS end with "Next step:"):',
-              '  A) Re-check my edit (type answer)',
-              '  B) Narrow line clue',
-              '  C) Next part / Q# (or snap next page)',
-              '  D) Error Log'
-            ],
-            en_zh_trad: [
-              'MENU（絕不輸出狀態標籤；結尾只輸出「Next step / 下一步：」）：',
-              '  A) Re-check edit / 重檢修改後的答案',
-              '  B) Narrow line clue / 縮小原文行數',
-              '  C) Next part or Q# / 下一小題或下一題',
-              '  D) Error Log / 整理錯題記錄'
+              'MENU (Leave a blank line before menu; NEVER print state labels; ALWAYS end with "**Next step:**"):',
+              '  - **A)** Re-check my edit (type answer)',
+              '  - **B)** Narrow line clue',
+              '  - **C)** Next part / Q# (or snap next page)',
+              '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（絕不輸出狀態標籤；結尾只輸出「下一步：」）：',
-              '  A) 重檢我修改後的答案',
-              '  B) 縮小原文行數範圍',
-              '  C) 下一小題或下一題（輸入題號／拍下一頁）',
-              '  D) 整理錯題記錄'
+              '選單（選單前空一行；絕不輸出狀態標籤；結尾只輸出「**下一步：**」）：',
+              '  - **A)** 重檢我修改後的答案',
+              '  - **B)** 縮小原文行數範圍',
+              '  - **C)** 下一小題或下一題（輸入題號／拍下一頁）',
+              '  - **D)** 整理錯題記錄'
             ]
           },
           p1_explain: {
             en: [
-              'Next step:',
-              'A) Simpler explanation',
-              'B) Show exact line clue',
-              'C) Next part / Q# (or snap next page)',
-              'D) Error Log'
-            ],
-            en_zh_trad: [
-              'Next step / 下一步：',
-              'A) Simpler explanation / 更淺白解釋',
-              'B) Exact line clue / 指出原文線索',
-              'C) Next part or Q# / 下一小題或下一題',
-              'D) Error Log / 整理錯題記錄'
+              'MENU (Leave a blank line before menu; ALWAYS end with "**Next step:**"):',
+              '  - **A)** Simpler explanation',
+              '  - **B)** Show exact line clue',
+              '  - **C)** Next part / Q# (or snap next page)',
+              '  - **D)** Error Log'
             ],
             zh_trad: [
-              '下一步：',
-              'A) 用更淺白的文字解釋',
-              'B) 指出原文線索與關鍵詞',
-              'C) 下一小題或下一題（輸入題號／拍下一頁）',
-              'D) 整理錯題記錄'
+              '選單（選單前空一行；結尾只輸出「**下一步：**」）：',
+              '  - **A)** 用更淺白的文字解釋',
+              '  - **B)** 指出原文線索與關鍵詞',
+              '  - **C)** 下一小題或下一題（輸入題號／拍下一頁）',
+              '  - **D)** 整理錯題記錄'
             ]
           },
           p3b_guided: {
             en: [
-              'MENU (NEVER print state labels; ALWAYS keep letters fixed: B=Next, C=Log):',
-              'After Hint 1 or 2 -> print "Next step:" with:',
-              '  A) Next hint',
-              '  B) Next task / point (or snap next page)',
-              '  C) Error Log',
-              'After Hint 3 (MAX REACHED — OMIT A!) -> print "Next step:" with B and C only:',
-              '  B) Next task / point (or snap next page)',
-              '  C) Error Log'
-            ],
-            en_zh_trad: [
-              'MENU（絕不輸出狀態標籤；固定字母 B=下一點、C=錯題）：',
-              '提示 1 或 2 後 -> 輸出「Next step / 下一步：」：',
-              '  A) Next hint / 下一個提示',
-              '  B) Next point / 下一個任務或要點',
-              '  C) Error Log / 整理錯題記錄',
-              '提示 3 後（達上限，省略 A！）-> 只輸出 B、C：',
-              '  B) Next point / 下一個任務或要點',
-              '  C) Error Log / 整理錯題記錄'
+              'MENU (Leave a blank line before menu; NEVER print state labels; ALWAYS keep letters fixed: B=Next, C=Log):',
+              'After Hint 1 or 2 -> print "**Next step:**" with bulleted options:',
+              '  - **A)** Next hint',
+              '  - **B)** Next task / point (or snap next page)',
+              '  - **C)** Error Log',
+              'After Hint 3 (MAX REACHED — OMIT A!) -> print "**Next step:**" with B and C only:',
+              '  - **B)** Next task / point (or snap next page)',
+              '  - **C)** Error Log'
             ],
             zh_trad: [
-              '選單（絕不輸出狀態標籤；固定字母 B=下一點、C=錯題）：',
-              '提示 1 或 2 後 -> 只輸出「下一步：」與：',
-              '  A) 下一個提示',
-              '  B) 下一個任務／要點（輸入編號／拍下一頁）',
-              '  C) 整理錯題記錄',
-              '提示 3 後（達上限，必須省略 A！）-> 只輸出「下一步：」與 B、C：',
-              '  B) 下一個任務／要點（輸入編號／拍下一頁）',
-              '  C) 整理錯題記錄'
+              '選單（選單前空一行；絕不輸出狀態標籤；固定字母 B=下一點、C=錯題）：',
+              '提示 1 或 2 後 -> 只輸出「**下一步：**」與條列選項：',
+              '  - **A)** 下一個提示',
+              '  - **B)** 下一個任務／要點（輸入編號／拍下一頁）',
+              '  - **C)** 整理錯題記錄',
+              '提示 3 後（達上限，必須省略 A！）-> 只輸出「**下一步：**」與 B、C：',
+              '  - **B)** 下一個任務／要點（輸入編號／拍下一頁）',
+              '  - **C)** 整理錯題記錄'
             ]
           },
           p3b_selfcheck: {
             en: [
-              'MENU (NEVER print state labels; ALWAYS end with "Next step:"):',
-              '  A) Re-check my edit (type sentence)',
-              '  B) Narrow Data File clue',
-              '  C) Next task / point (or snap next page)',
-              '  D) Error Log'
-            ],
-            en_zh_trad: [
-              'MENU（絕不輸出狀態標籤；結尾只輸出「Next step / 下一步：」）：',
-              '  A) Re-check edit / 重檢修改後的句子',
-              '  B) Data File clue / 縮小 Data File 範圍',
-              '  C) Next point / 下一個任務或要點',
-              '  D) Error Log / 整理錯題記錄'
+              'MENU (Leave a blank line before menu; NEVER print state labels; ALWAYS end with "**Next step:**"):',
+              '  - **A)** Re-check my edit (type sentence)',
+              '  - **B)** Narrow Data File clue',
+              '  - **C)** Next task / point (or snap next page)',
+              '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（絕不輸出狀態標籤；結尾只輸出「下一步：」）：',
-              '  A) 重檢我修改後的要點或句子',
-              '  B) 縮小 Data File 對應位置',
-              '  C) 下一個任務／要點（輸入編號／拍下一頁）',
-              '  D) 整理錯題記錄'
+              '選單（選單前空一行；絕不輸出狀態標籤；結尾只輸出「**下一步：**」）：',
+              '  - **A)** 重檢我修改後的要點或句子',
+              '  - **B)** 縮小 Data File 對應位置',
+              '  - **C)** 下一個任務／要點（輸入編號／拍下一頁）',
+              '  - **D)** 整理錯題記錄'
             ]
           },
           p3b_explain: {
             en: [
-              'Next step:',
-              'A) Simpler explanation',
-              'B) Data File line & paraphrase tip',
-              'C) Next task / point (or snap next page)',
-              'D) Error Log'
-            ],
-            en_zh_trad: [
-              'Next step / 下一步：',
-              'A) Simpler explanation / 更淺白解釋',
-              'B) Data File & paraphrase / 原文與改寫技巧',
-              'C) Next point / 下一個任務或要點',
-              'D) Error Log / 整理錯題記錄'
+              'MENU (Leave a blank line before menu; ALWAYS end with "**Next step:**"):',
+              '  - **A)** Simpler explanation',
+              '  - **B)** Data File line & paraphrase tip',
+              '  - **C)** Next task / point (or snap next page)',
+              '  - **D)** Error Log'
             ],
             zh_trad: [
-              '下一步：',
-              'A) 用更淺白的文字解釋失分處',
-              'B) 指出 Data File 原文及改寫技巧',
-              'C) 下一個任務／要點（輸入編號／拍下一頁）',
-              'D) 整理錯題記錄'
+              '選單（選單前空一行；結尾只輸出「**下一步：**」）：',
+              '  - **A)** 用更淺白的文字解釋失分處',
+              '  - **B)** 指出 Data File 原文及改寫技巧',
+              '  - **C)** 下一個任務／要點（輸入編號／拍下一頁）',
+              '  - **D)** 整理錯題記錄'
             ]
           },
           p2: {
             en: [
-              'Next step:',
-              'A) Plan PAT & 3 ideas',
-              'B) Check draft (top 3 C·L·O issues)',
-              'C) Upgrade 1 paragraph (P1 / P2 / P3)',
-              'D) Error Log'
-            ],
-            en_zh_trad: [
-              'Next step / 下一步：',
-              'A) Plan PAT & ideas / 審題與三個論點',
-              'B) Check draft / 檢查首三個 C·L·O 錯誤',
-              'C) Upgrade paragraph / 提升段落（P1 / P2 / P3）',
-              'D) Error Log / 整理錯題記錄'
+              'MENU (Leave a blank line before menu; ALWAYS end with "**Next step:**"):',
+              '  - **A)** Plan PAT & 3 ideas',
+              '  - **B)** Check draft (top 3 C·L·O issues)',
+              '  - **C)** Upgrade 1 paragraph (P1 / P2 / P3)',
+              '  - **D)** Error Log'
             ],
             zh_trad: [
-              '下一步：',
-              'A) 構思審題（PAT）與三個論點',
-              'B) 檢查草稿（首三個 C·L·O 錯誤）',
-              'C) 提升指定段落（輸入 P1、P2 或 P3）',
-              'D) 整理錯題記錄'
+              '選單（選單前空一行；結尾只輸出「**下一步：**」）：',
+              '  - **A)** 構思審題（PAT）與三個論點',
+              '  - **B)** 檢查草稿（首三個 C·L·O 錯誤）',
+              '  - **C)** 提升指定段落（輸入 P1、P2 或 P3）',
+              '  - **D)** 整理錯題記錄'
             ]
           },
           p4: {
             en: [
-              'Next step:',
-              'A) Brainstorm HK ideas & phrases',
-              'B) Group Discussion role-play',
-              'C) 1-minute Examiner IR question',
-              'D) Error Log'
-            ],
-            en_zh_trad: [
-              'Next step / 下一步：',
-              'A) HK ideas & phrases / 香港例子與句式',
-              'B) Group Discussion / 小組討論扮演',
-              'C) 1-min IR / 一分鐘個人回應練習',
-              'D) Error Log / 整理錯題記錄'
+              'MENU (Leave a blank line before menu; ALWAYS end with "**Next step:**"):',
+              '  - **A)** Brainstorm HK ideas & phrases',
+              '  - **B)** Group Discussion role-play',
+              '  - **C)** 1-minute Examiner IR question',
+              '  - **D)** Error Log'
             ],
             zh_trad: [
-              '下一步：',
-              'A) 構思香港例子與常用互動句式',
-              'B) 小組討論角色扮演（每次一輪）',
-              'C) 一分鐘個人回應（IR）練習',
-              'D) 整理錯題記錄'
+              '選單（選單前空一行；結尾只輸出「**下一步：**」）：',
+              '  - **A)** 構思香港例子與常用互動句式',
+              '  - **B)** 小組討論角色扮演（每次一輪）',
+              '  - **C)** 一分鐘個人回應（IR）練習',
+              '  - **D)** 整理錯題記錄'
             ]
           }
         };
 
         const key = (paperKey === 'p1' || paperKey === 'p3b') ? `${paperKey}_${mode}` : paperKey;
-        const langKey = lang === 'en' ? 'en' : `${lang}_trad`;
+        const langKey = lang === 'zh' ? 'zh_trad' : 'en';
         return (menus[key]?.[langKey] || menus[key]?.en || []).join('\n');
       }
 
       function getPatternBlock(paperKey, mode, lang, script) {
         const isZhOnly = lang === 'zh';
-        const isBilingual = lang === 'en_zh';
 
         if ((paperKey === 'p1' || paperKey === 'p3b') && mode === 'guided') {
           if (isZhOnly) {
             return [
-              'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — NEVER translate the whole question sentence into Chinese!):',
+              'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — keep blank line after title & use crisp 1-line bullets; NEVER translate the whole question sentence!):',
               '【提示 1/3 — 拆解題目關鍵詞】：',
-              '🎯 [題號＋小題，如 Q19 (iii) · 題型]',
-              '🔑 題目關鍵詞與目標：[點出題目中的英文關鍵詞，指出要找甚麼類型的答案（如事實、單數名詞、年份、原因），絕不整句翻譯題目]',
-              '🧭 尋找線索與同義詞：[指出哪個英文詞可幫助定位，若原文沒有完全相同的字，可留意甚麼同義詞或相關概念]',
+              '**🎯 [題號＋小題，如 Q19 (iii) · 題型]**',
+              '',
+              '- **🔑 題目關鍵詞：** [列出題目中的英文關鍵詞，絕不整句翻譯]',
+              '- **🎯 答案類型：** [簡短說明要找甚麼類型，如名詞短語、單數名詞、年份、原因]',
+              '- **🧭 定位與同義詞：** [指出定位用的英文詞，及可留意的同義詞或相關概念]',
+              '',
               '【提示 2/3 或 3/3 — 縮小原文範圍】：',
-              '🎯 [題號＋小題 · 提示 2/3 或 3/3]',
-              '📍 原文範圍：Paragraph __, Line __（保留英文原詞，嚴禁寫出答案字詞）',
-              '💡 引導思考：[1 句縮小範圍的提問，或於提示 3/3 給予首字母框架／二選一思考]'
-            ].join('\n');
-          }
-          if (isBilingual) {
-            return [
-              'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — Simple English + brief 繁體書面語 gloss; NEVER translate the whole question sentence!):',
-              'For Hint 1/3:',
-              '🎯 [Q# + sub-part · Skill 題型]',
-              '🔑 Keywords 關鍵詞：[Quote English keywords + target answer type (fact/noun/time/reason) with brief Chinese gloss]',
-              '🧭 Locator 線索：[Name the English locator word + synonyms/related ideas to watch for]',
-              'For Hint 2/3 or 3/3:',
-              '🎯 [Q# + sub-part · Hint 2/3 or 3/3]',
-              '📍 Passage 原文：Paragraph __, Line __ (keep English terms; NEVER write answer words)',
-              '💡 Hint 提示：[1 short guiding question in English + brief Chinese gloss, or Hint 3 masked/2-option check]'
+              '**🎯 [題號＋小題 · 提示 2/3 或 3/3]**',
+              '',
+              '- **📍 原文範圍：** Paragraph __, Line __（保留英文原詞，嚴禁寫出答案字詞）',
+              '- **💡 引導思考：** [1 句簡短提問，或於提示 3/3 給予首字母框架／二選一思考]'
             ].join('\n');
           }
           return [
-            'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — NEVER translate the whole question sentence!):',
-            'For Hint 1/3 (True Question Decoding — Keywords, Answer Type & Synonym Strategy):',
-            '🎯 [Q# + sub-part e.g. Q19 (iii) · Skill Type]',
-            '🔑 Keywords & Target Type: [Break down exact English keywords in the question and state what type of answer is needed (e.g., fact, singular noun, time/year, reason)]',
-            '🧭 Locator & Synonyms: [Name which English keyword helps locate the answer, and suggest synonyms/related ideas to watch for if the exact word is not in the text]',
-            'For Hint 2/3 or 3/3 (Narrow Down Scope in Passage):',
-            '🎯 [Q# + sub-part · Hint 2/3 or 3/3]',
-            '📍 Passage Range: Paragraph __, Line __ (keep English terms; NEVER write answer words)',
-            '💡 Narrow Down: [1 short guiding question, or on Hint 3/3 a masked first-letter frame / 2-option check]'
+            'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — keep blank line after title & use crisp 1-line bullets; NEVER translate the whole question!):',
+            'For Hint 1/3 (True Question Decoding):',
+            '**🎯 [Q# + sub-part e.g. Q19 (iii) · Skill Type]**',
+            '',
+            '- **🔑 Keywords:** [Exact English keywords from the question]',
+            '- **🎯 Answer Type:** [1 short phrase: e.g. noun phrase, singular noun, year, or reason]',
+            '- **🧭 Where to look:** [English locator word + synonyms/related ideas to watch for]',
+            '',
+            'For Hint 2/3 or 3/3 (Narrow Down Scope):',
+            '**🎯 [Q# + sub-part · Hint 2/3 or 3/3]**',
+            '',
+            '- **📍 Passage:** Paragraph __, Line __ (keep English terms; NEVER write answer words)',
+            '- **💡 Narrow down:** [1 short guiding question, or on Hint 3/3 a masked first-letter frame / 2-option check]'
           ].join('\n');
         }
 
         if ((paperKey === 'p1' || paperKey === 'p3b') && mode === 'selfcheck') {
           if (isZhOnly) {
             return [
-              'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — NEVER mark "Correct/Wrong" without Answer Key):',
-              '🎯 [題號＋小題 · 自檢草稿]',
-              '📋 題目要求檢查：[檢查字數限制、詞性、單複數、時態或是否漏掉必要部分（如比較題需提兩方）]',
-              '🔎 原文範圍核對：[指出 Paragraph __, Line __ 讓學生自行比對是否漏了關鍵細節，絕不直接給出最終答案]',
-              '✍️ 自我修正思考：[1 句簡短提問，引導學生在看官方答案前自行決定保留或修改]'
-            ].join('\n');
-          }
-          if (isBilingual) {
-            return [
-              'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — Simple English + brief 繁體書面語 gloss; NEVER mark "Correct/Wrong"):',
-              '🎯 [Q# + sub-part · Self-Check 自檢]',
-              '📋 Requirements 要求檢查：[Check word limit, part of speech, tense, singular/plural, or missing parts]',
-              '🔎 Evidence 原文核對：[Point to Paragraph __, Line __ so I can check for missing details — never reveal final answer]',
-              '✍️ Self-Fix 自我修正：[1 short nudge question before checking the Answer Key]'
+              'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — blank line after title + crisp bullets; NEVER mark "Correct/Wrong" without Answer Key):',
+              '**🎯 [題號＋小題 · 自檢草稿]**',
+              '',
+              '- **📋 題目要求：** [檢查字數限制、詞性、單複數、時態或是否漏掉必要部分]',
+              '- **🔎 原文核對：** Paragraph __, Line __（引導自行比對是否漏掉細節，絕不透露答案）',
+              '- **✍️ 自我修正：** [1 句簡短提問，幫助學生在看答案前決定保留或修改]'
             ].join('\n');
           }
           return [
-            'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — NEVER mark "Correct/Wrong" without Answer Key):',
-            '🎯 [Q# + sub-part · Self-Check]',
-            '📋 Requirement Check: [Check word limit, part of speech, singular/plural, tense, or missing required parts]',
-            '🔎 Evidence Scope: [Point to Paragraph __, Line __ so I can verify if any detail is missing — never reveal the final answer]',
-            '✍️ Self-Fix Nudge: [1 short question helping me decide whether to keep or revise my try before checking the Answer Key]'
+            'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — blank line after title + crisp bullets; NEVER mark "Correct/Wrong" without Answer Key):',
+            '**🎯 [Q# + sub-part · Self-Check]**',
+            '',
+            '- **📋 Requirements:** [Word limit, part of speech, singular/plural, tense, or missing required parts]',
+            '- **🔎 Check passage:** Paragraph __, Line __ (help me spot missing details; never reveal final answer)',
+            '- **✍️ Self-fix:** [1 short question helping me decide whether to keep or revise before checking answers]'
           ].join('\n');
         }
 
         if ((paperKey === 'p1' || paperKey === 'p3b') && mode === 'explain') {
           if (isZhOnly) {
             return [
-              'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 4-LINE CARD):',
-              '🎯 [題號／任務 · 題型]',
-              '✅ 官方答案：[只寫出官方答案頁之答案（切勿將學生手寫改正當作官方答案）]',
-              '🔍 原因分析：[1–2 句指出原文線索，並說明為何我的嘗試有誤]',
-              '📌 記住重點：[1 句可重複運用的答題規則]'
-            ].join('\n');
-          }
-          if (isBilingual) {
-            return [
-              'FIXED RESPONSE PATTERN (Simple English + brief 繁體書面語 gloss):',
-              '🎯 [Q# / Task · Skill 題型]',
-              '✅ Official Answer 官方答案：[Exact Answer Key only — never treat handwritten corrections as official]',
-              '🔍 Why 原因分析：[1–2 lines citing exact passage/Data File line + why my try missed]',
-              '📌 Rule 記住重點：[1 short reusable takeaway]'
+              'FIXED RESPONSE PATTERN (Blank line after title + crisp bullets):',
+              '**🎯 [題號／任務 · 題型]**',
+              '',
+              '- **✅ 官方答案：** [只寫出官方答案頁之答案，切勿將學生手寫改正當作官方答案]',
+              '- **🔍 原因分析：** [1–2 句指出原文線索，並說明為何我的嘗試有誤]',
+              '- **📌 記住重點：** [1 句可重複運用的答題規則]'
             ].join('\n');
           }
           return [
-            'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 4-LINE CARD):',
-            '🎯 [Q# / Task · Skill Type]',
-            '✅ Official Answer: [Exact Answer Key only — never treat student handwritten corrections as official]',
-            '🔍 Why: [1–2 lines citing exact passage / Data File line + why student\'s try missed]',
-            '📌 Key Rule: [1 short reusable takeaway]'
+            'FIXED RESPONSE PATTERN (Blank line after title + crisp bullets):',
+            '**🎯 [Q# / Task · Skill Type]**',
+            '',
+            '- **✅ Official Answer:** [Exact Answer Key only — never treat student handwritten corrections as official]',
+            '- **🔍 Why:** [1–2 short lines citing exact passage / Data File line + why my try missed]',
+            '- **📌 Key Rule:** [1 short reusable takeaway]'
           ].join('\n');
         }
 
         if (paperKey === 'p2') {
           if (isZhOnly) {
             return [
-              'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 3-LINE CARD):',
-              '🎯 [Paper 2 · 範疇（PAT / C·L·O / 段落）]',
-              '🔍 重點診斷：[1–2 句具體建議，絕不代寫整段]',
-              '✍️ 你的練習：[1 項具體任務或句子讓我先修改]'
-            ].join('\n');
-          }
-          if (isBilingual) {
-            return [
-              'FIXED RESPONSE PATTERN (Simple English + brief 繁體書面語 gloss):',
-              '🎯 [Paper 2 · Area 範疇]',
-              '🔍 Focus 重點診斷：[1–2 short diagnostic lines — never write full paragraphs]',
-              '✍️ Your Turn 你的練習：[1 concrete sentence or step for me to write/fix first]'
+              'FIXED RESPONSE PATTERN (Blank line after title + crisp bullets):',
+              '**🎯 [Paper 2 · 範疇（PAT / C·L·O / 段落）]**',
+              '',
+              '- **🔍 重點診斷：** [1–2 句具體建議，絕不代寫整段]',
+              '- **✍️ 你的練習：** [1 項具體任務或句子讓我先修改]'
             ].join('\n');
           }
           return [
-            'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 3-LINE CARD):',
-            '🎯 [Paper 2 · Area (PAT / C·L·O / Paragraph)]',
-            '🔍 Focus: [1–2 concise diagnostic lines — never write full paragraphs]',
-            '✍️ Your Turn: [1 concrete sentence or step for me to write/fix first]'
+            'FIXED RESPONSE PATTERN (Blank line after title + crisp bullets):',
+            '**🎯 [Paper 2 · Area (PAT / C·L·O / Paragraph)]**',
+            '',
+            '- **🔍 Focus:** [1–2 concise diagnostic points — never write full paragraphs]',
+            '- **✍️ Your Turn:** [1 concrete sentence or step for me to write/fix first]'
           ].join('\n');
         }
 
         if (isZhOnly) {
           return [
-            'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 3-LINE CARD):',
-            '🎯 [Paper 4 · 小組討論 / 個人回應 / 構思]',
-            '💬 練習內容：[1 輪簡短組員發言、1 道考官問題，或 3 個精簡香港例子]',
-            '💡 口語提示：[1 句互動技巧或自然英文句式]'
-          ].join('\n');
-        }
-        if (isBilingual) {
-          return [
-            'FIXED RESPONSE PATTERN (Simple English + brief 繁體書面語 gloss):',
-            '🎯 [Paper 4 · GI / IR / Ideas]',
-            '💬 Practice 練習內容：[1 short groupmate turn, 1 examiner Q, or 3 brief HK points]',
-            '💡 Tip 口語提示：[1 short speaking or phrasing tip]'
+            'FIXED RESPONSE PATTERN (Blank line after title; short paragraph for speaking turn + bullet for tip):',
+            '**🎯 [Paper 4 · 小組討論 / 個人回應 / 構思]**',
+            '',
+            '💬 **練習內容：** [1 輪簡短組員發言、1 道考官問題，或 3 個精簡香港例子]',
+            '',
+            '- **💡 口語提示：** [1 句互動技巧或自然英文句式]'
           ].join('\n');
         }
         return [
-          'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 3-LINE CARD):',
-          '🎯 [Paper 4 · GI / IR / Ideas]',
-          '💬 Practice Turn: [1 short groupmate turn, 1 examiner Q, or 3 brief HK points]',
-          '💡 Quick Tip: [1 short speaking or phrasing tip]'
+          'FIXED RESPONSE PATTERN (Blank line after title; short paragraph for speaking turn + bullet for tip):',
+          '**🎯 [Paper 4 · GI / IR / Ideas]**',
+          '',
+          '💬 **Practice Turn:** [1 short groupmate turn, 1 examiner Q, or 3 brief HK points]',
+          '',
+          '- **💡 Quick Tip:** [1 short speaking or phrasing tip]'
         ].join('\n');
       }
 
@@ -823,19 +723,13 @@
         const trigger = ((paperKey === 'p1' || paperKey === 'p3b') && mode === 'guided') ? '"C" or "Log"' : '"D" or "Log"';
         if (lang === 'zh') {
           return [
-            `When I reply ${trigger}: list every mistake/weak spot from this whole session in Standard Written Traditional Chinese (keeping English exam words in English) using this compact format:`,
-            '題號／項目（題型）— 錯因／難點：...｜記住重點：...'
-          ].join('\n');
-        }
-        if (lang === 'en_zh') {
-          return [
-            `When I reply ${trigger}: list every mistake/weak spot from this whole session in simple English + brief Traditional Chinese gloss using this compact format:`,
-            'Q# / Item (Skill) — Mistake 錯因: ... | Rule 重點: ...'
+            `When I reply ${trigger}: list every mistake/weak spot from this whole session in Standard Written Traditional Chinese (keeping English exam words in English) as clean bullet points:`,
+            '- 題號／項目（題型）— 錯因／難點：...｜記住重點：...'
           ].join('\n');
         }
         return [
-          `When I reply ${trigger}: list every mistake/weak spot from this whole session in one compact block:`,
-          'Q# / Item (Skill) — Mistake: ... | Rule to remember: ...'
+          `When I reply ${trigger}: list every mistake/weak spot from this whole session as clean bullet points:`,
+          '- Q# / Item (Skill) — Mistake: ... | Rule to remember: ...'
         ].join('\n');
       }
 
@@ -1184,109 +1078,6 @@
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Speaking Card</strong>.',
               'No answer sheet needed.',
               'Reply <strong>A / B / C / D</strong> for ideas, discussion, or IR.'
-            ]
-          }
-        },
-        en_zh: {
-          subtitle: 'AI 操卷教練 & 錯題簿',
-          tabDrill: 'Drill 操卷',
-          tabLog: '錯題簿',
-          lblTarget: 'DSE 目標',
-          lblLang: '語言 Lang',
-          lblChoosePaper: '1. Pick a Paper 選試卷',
-          lblSkip3a: '不包 Paper 3A',
-          papers: {
-            p1: { title: 'Reading 閱讀', sub: '文章 + 問答頁' },
-            p2: { title: 'Writing 寫作', sub: '題目 + 作文' },
-            p3b: { title: 'Integrated 綜合', sub: '資料冊 + 草稿' },
-            p4: { title: 'Speaking 說話', sub: '題卡 + 練習' }
-          },
-          levelCaps: {
-            lv2: '多提示 · 用字淺白',
-            lv3: '適中提示 · 常見陷阱',
-            lv45: '少提示 · 拔尖訓練'
-          },
-          modeGuided: 'Guided 引導',
-          modeSelfcheck: 'Self-Check 自檢',
-          modeExplain: 'Explain 講解',
-          modeCaps: {
-            guided: '一步步提示 · 不直接給答案',
-            selfcheck: '對答案前，先自己檢查',
-            explain: '用 Answer Key 講解錯處'
-          },
-          lblUseAi: '2. 在 AI App 的步驟',
-          lblReplyChips: '在 AI 輸入：',
-          copyBtn: 'Copy Prompt 複製指令',
-          copiedBtn: '已複製！請貼到 AI App',
-          previewShow: 'Preview 預覽',
-          previewHide: 'Hide 收起',
-          smartLogTitle: 'Save Mistakes 存錯題',
-          trySample: '範例',
-          smartLogDesc: '做完後在 AI 選 <strong class="text-brand-navy font-semibold">Error Log 錯題記錄</strong>（引導按 <strong class="text-brand-navy font-semibold">C</strong>／其他按 <strong class="text-brand-navy font-semibold">D</strong>）&rarr; 貼到這裡。',
-          logPlaceholder: '貼上 AI 錯題記錄...',
-          smartSaveBtn: '儲存錯題',
-          savingBtn: '儲存中...',
-          filterAll: '全部',
-          topWeaknesses: '最大弱點',
-          analysingBtn: '分析中...',
-          copyRequiz: '複製重測',
-          weaknessKicker: '最常錯項目',
-          weaknessChecklist: '考前 3 個提醒',
-          copyTargeted: '複製弱點練習指令',
-          emptyTitle: '未有錯題記錄',
-          emptyDesc: '做完後在 AI 選 <strong>Error Log 錯題記錄</strong>（引導按 <strong>C</strong>／其他按 <strong>D</strong>），再貼到上面。',
-          workerLive: 'AI 就緒',
-          workerLocal: '本地模式',
-          pills: {
-            p1_guided: 'Paper 1 · 引導',
-            p1_selfcheck: 'Paper 1 · 自檢',
-            p1_explain: 'Paper 1 · 講解',
-            p2: 'Paper 2 · 寫作',
-            p3b_guided: 'Paper 3B · 引導',
-            p3b_selfcheck: 'Paper 3B · 自檢',
-            p3b_explain: 'Paper 3B · 講解',
-            p4: 'Paper 4 · 說話'
-          },
-          steps: {
-            p1_guided: [
-              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>文章</strong>。',
-              '拍你的<strong>問答頁</strong>（1–2 頁）。',
-              '輸入 <strong>Q1</strong>、<strong>Q4</strong>……再回覆 <strong>A / B / C</strong>。'
-            ],
-            p1_selfcheck: [
-              '先自己做完 &rarr; 貼指令 ＋ 拍<strong>文章</strong>。',
-              '拍<strong>已做的問答頁</strong>（先不用拍答案頁）。',
-              '輸入 <strong>Q1</strong>、<strong>Q4</strong>……對答案前先自行修改。'
-            ],
-            p1_explain: [
-              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>文章</strong>。',
-              '拍<strong>已做的問答頁</strong> ＋ <strong>Answer Key</strong>。',
-              '輸入 <strong>Q1</strong>、<strong>Q4</strong>……再回覆 <strong>A / B / C / D</strong>。'
-            ],
-            p2: [
-              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>寫作題目</strong>。',
-              '拍你的<strong>大綱或作文</strong>（可選）。',
-              '回覆 <strong>A / B / C / D</strong> 構思、檢查或改善。'
-            ],
-            p3b_guided: [
-              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍 <strong>Data File</strong>。',
-              '拍你的<strong>任務頁</strong>（1–2 頁）。',
-              '輸入 <strong>Task 8</strong>……再回覆 <strong>A / B / C</strong>。'
-            ],
-            p3b_selfcheck: [
-              '先自己寫完 &rarr; 貼指令 ＋ 拍 <strong>Data File</strong>。',
-              '拍你的<strong>草稿</strong>（先不用拍答案）。',
-              '輸入 <strong>Task 8</strong>……對答案前先自行修改。'
-            ],
-            p3b_explain: [
-              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍 <strong>Data File</strong>。',
-              '拍你的<strong>草稿</strong> ＋ <strong>Marking Scheme</strong>。',
-              '輸入 <strong>Task 8</strong>……再回覆 <strong>A / B / C / D</strong>。'
-            ],
-            p4: [
-              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>說話題卡</strong>。',
-              '不用拍答題紙。',
-              '回覆 <strong>A / B / C / D</strong> 構思、討論或 IR。'
             ]
           }
         },
