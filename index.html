@@ -292,7 +292,7 @@
           </div>
 
           <p id="lbl-smart-log-desc" class="text-[12px] text-slate-500 leading-snug">
-            When your session is done, type <strong class="text-brand-navy font-semibold">D</strong> in your AI chat once, then paste the whole Error Log reply here.
+            Finish in AI &rarr; choose <strong class="text-brand-navy font-semibold">Error Log</strong> (<strong class="text-brand-navy font-semibold">C</strong> in Guided / <strong class="text-brand-navy font-semibold">D</strong> in others) &rarr; paste here.
           </p>
 
           <!-- Default Paper Tag Selector -->
@@ -672,7 +672,8 @@
 
       function getPatternBlock(paperKey, mode, lang, script) {
         const isZhOnly = lang === 'zh';
-        const isSimp = script === 'simp';
+        const isBilingual = lang === 'en_zh';
+
         if ((paperKey === 'p1' || paperKey === 'p3b') && mode === 'guided') {
           if (isZhOnly) {
             return [
@@ -685,6 +686,19 @@
               '🎯 [題號＋小題 · 提示 2/3 或 3/3]',
               '📍 原文範圍：Paragraph __, Line __（保留英文原詞，嚴禁寫出答案字詞）',
               '💡 引導思考：[1 句縮小範圍的提問，或於提示 3/3 給予首字母框架／二選一思考]'
+            ].join('\n');
+          }
+          if (isBilingual) {
+            return [
+              'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — Simple English + brief 繁體書面語 gloss; NEVER translate the whole question sentence!):',
+              'For Hint 1/3:',
+              '🎯 [Q# + sub-part · Skill 題型]',
+              '🔑 Keywords 關鍵詞：[Quote English keywords + target answer type (fact/noun/time/reason) with brief Chinese gloss]',
+              '🧭 Locator 線索：[Name the English locator word + synonyms/related ideas to watch for]',
+              'For Hint 2/3 or 3/3:',
+              '🎯 [Q# + sub-part · Hint 2/3 or 3/3]',
+              '📍 Passage 原文：Paragraph __, Line __ (keep English terms; NEVER write answer words)',
+              '💡 Hint 提示：[1 short guiding question in English + brief Chinese gloss, or Hint 3 masked/2-option check]'
             ].join('\n');
           }
           return [
@@ -710,6 +724,15 @@
               '✍️ 自我修正思考：[1 句簡短提問，引導學生在看官方答案前自行決定保留或修改]'
             ].join('\n');
           }
+          if (isBilingual) {
+            return [
+              'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — Simple English + brief 繁體書面語 gloss; NEVER mark "Correct/Wrong"):',
+              '🎯 [Q# + sub-part · Self-Check 自檢]',
+              '📋 Requirements 要求檢查：[Check word limit, part of speech, tense, singular/plural, or missing parts]',
+              '🔎 Evidence 原文核對：[Point to Paragraph __, Line __ so I can check for missing details — never reveal final answer]',
+              '✍️ Self-Fix 自我修正：[1 short nudge question before checking the Answer Key]'
+            ].join('\n');
+          }
           return [
             'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — NEVER mark "Correct/Wrong" without Answer Key):',
             '🎯 [Q# + sub-part · Self-Check]',
@@ -720,7 +743,7 @@
         }
 
         if ((paperKey === 'p1' || paperKey === 'p3b') && mode === 'explain') {
-          if (isZhOnly && !isSimp) {
+          if (isZhOnly) {
             return [
               'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 4-LINE CARD):',
               '🎯 [題號／任務 · 題型]',
@@ -729,13 +752,13 @@
               '📌 記住重點：[1 句可重複運用的答題規則]'
             ].join('\n');
           }
-          if (isZhOnly && isSimp) {
+          if (isBilingual) {
             return [
-              'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 4-LINE CARD):',
-              '🎯 [题号／任务 · 题型]',
-              '✅ 官方答案：[只写出官方答案页之答案（切勿将学生手写改正当作官方答案）]',
-              '🔍 原因分析：[1–2 句指出原文线索，并说明为何我的尝试有误]',
-              '📌 记住重点：[1 句可重复运用的答题规则]'
+              'FIXED RESPONSE PATTERN (Simple English + brief 繁體書面語 gloss):',
+              '🎯 [Q# / Task · Skill 題型]',
+              '✅ Official Answer 官方答案：[Exact Answer Key only — never treat handwritten corrections as official]',
+              '🔍 Why 原因分析：[1–2 lines citing exact passage/Data File line + why my try missed]',
+              '📌 Rule 記住重點：[1 short reusable takeaway]'
             ].join('\n');
           }
           return [
@@ -748,7 +771,7 @@
         }
 
         if (paperKey === 'p2') {
-          if (isZhOnly && !isSimp) {
+          if (isZhOnly) {
             return [
               'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 3-LINE CARD):',
               '🎯 [Paper 2 · 範疇（PAT / C·L·O / 段落）]',
@@ -756,12 +779,12 @@
               '✍️ 你的練習：[1 項具體任務或句子讓我先修改]'
             ].join('\n');
           }
-          if (isZhOnly && isSimp) {
+          if (isBilingual) {
             return [
-              'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 3-LINE CARD):',
-              '🎯 [Paper 2 · 范畴（PAT / C·L·O / 段落）]',
-              '🔍 重点诊断：[1–2 句具体建议，绝不代写整段]',
-              '✍️ 你的练习：[1 项具体任务或句子让我先修改]'
+              'FIXED RESPONSE PATTERN (Simple English + brief 繁體書面語 gloss):',
+              '🎯 [Paper 2 · Area 範疇]',
+              '🔍 Focus 重點診斷：[1–2 short diagnostic lines — never write full paragraphs]',
+              '✍️ Your Turn 你的練習：[1 concrete sentence or step for me to write/fix first]'
             ].join('\n');
           }
           return [
@@ -772,7 +795,7 @@
           ].join('\n');
         }
 
-        if (isZhOnly && !isSimp) {
+        if (isZhOnly) {
           return [
             'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 3-LINE CARD):',
             '🎯 [Paper 4 · 小組討論 / 個人回應 / 構思]',
@@ -780,12 +803,12 @@
             '💡 口語提示：[1 句互動技巧或自然英文句式]'
           ].join('\n');
         }
-        if (isZhOnly && isSimp) {
+        if (isBilingual) {
           return [
-            'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 3-LINE CARD):',
-            '🎯 [Paper 4 · 小组讨论 / 个人回应 / 构思]',
-            '💬 练习内容：[1 轮简短组员发言、1 道考官问题，或 3 个精简香港例子]',
-            '💡 口语提示：[1 句互动技巧或自然英文句式]'
+            'FIXED RESPONSE PATTERN (Simple English + brief 繁體書面語 gloss):',
+            '🎯 [Paper 4 · GI / IR / Ideas]',
+            '💬 Practice 練習內容：[1 short groupmate turn, 1 examiner Q, or 3 brief HK points]',
+            '💡 Tip 口語提示：[1 short speaking or phrasing tip]'
           ].join('\n');
         }
         return [
@@ -793,6 +816,26 @@
           '🎯 [Paper 4 · GI / IR / Ideas]',
           '💬 Practice Turn: [1 short groupmate turn, 1 examiner Q, or 3 brief HK points]',
           '💡 Quick Tip: [1 short speaking or phrasing tip]'
+        ].join('\n');
+      }
+
+      function getLogFormat(paperKey, mode, lang) {
+        const trigger = ((paperKey === 'p1' || paperKey === 'p3b') && mode === 'guided') ? '"C" or "Log"' : '"D" or "Log"';
+        if (lang === 'zh') {
+          return [
+            `When I reply ${trigger}: list every mistake/weak spot from this whole session in Standard Written Traditional Chinese (keeping English exam words in English) using this compact format:`,
+            '題號／項目（題型）— 錯因／難點：...｜記住重點：...'
+          ].join('\n');
+        }
+        if (lang === 'en_zh') {
+          return [
+            `When I reply ${trigger}: list every mistake/weak spot from this whole session in simple English + brief Traditional Chinese gloss using this compact format:`,
+            'Q# / Item (Skill) — Mistake 錯因: ... | Rule 重點: ...'
+          ].join('\n');
+        }
+        return [
+          `When I reply ${trigger}: list every mistake/weak spot from this whole session in one compact block:`,
+          'Q# / Item (Skill) — Mistake: ... | Rule to remember: ...'
         ].join('\n');
       }
 
@@ -837,8 +880,7 @@
                 'ALWAYS END EVERY REPLY WITH THIS EXACT MENU:',
                 menu,
                 '',
-                'When I reply "D" or "Log": list every mistake from this whole session in one compact block:',
-                'Q# (Skill) — Mistake: ... | Rule to remember: ...'
+                getLogFormat('p1', 'explain', lang)
               ].join('\n');
             }
             if (mode === 'selfcheck') {
@@ -860,8 +902,7 @@
                 '',
                 menu,
                 '',
-                'When I reply "D" or "Log": list every self-check trap I noticed in this session in one compact block:',
-                'Q# (Skill) — Self-Check Gap: ... | Rule to remember: ...'
+                getLogFormat('p1', 'selfcheck', lang)
               ].join('\n');
             }
             return [
@@ -886,8 +927,7 @@
               '',
               menu,
               '',
-              'When I reply "C" or "Log": list every question I struggled with in this whole session in one compact block:',
-              'Q# (Skill) — Struggle/Trap: ... | Rule to remember: ...'
+              getLogFormat('p1', 'guided', lang)
             ].join('\n');
           }
         },
@@ -916,8 +956,7 @@
               '   - "A" = lock Purpose, Audience, Tone (PAT), format, and 3 clear ideas step by step.',
               '   - "B" = C·L·O mistake analysis — spot top 3 priority errors and ask me to fix 1–2 sentences first.',
               '   - "C" (or "P1" / "P2" / "P3") = focus ONLY on that paragraph and coach me to upgrade it by +1 DSE level.',
-              '   - "D" or "Log" = list my main writing mistakes from this whole session in one compact block:',
-              '     Area (C/L/O or Format) — Mistake: ... | Rule to remember: ...',
+              getLogFormat('p2', 'default', lang),
               '',
               pattern,
               '',
@@ -963,8 +1002,7 @@
                 'ALWAYS END EVERY REPLY WITH THIS EXACT MENU:',
                 menu,
                 '',
-                'When I reply "D" or "Log": list every Paper 3B mistake from this whole session in one compact block:',
-                'Task / Skill — Mistake: ... | Rule to remember: ...'
+                getLogFormat('p3b', 'explain', lang)
               ].join('\n');
             }
             if (mode === 'selfcheck') {
@@ -984,8 +1022,7 @@
                 '',
                 menu,
                 '',
-                'When I reply "D" or "Log": list every Paper 3B self-check gap from this session in one compact block:',
-                'Task / Skill — Self-Check Gap: ... | Rule to remember: ...'
+                getLogFormat('p3b', 'selfcheck', lang)
               ].join('\n');
             }
             return [
@@ -1007,8 +1044,7 @@
               '',
               menu,
               '',
-              'When I reply "C" or "Log": list every Paper 3B trap I struggled with in this whole session in one compact block:',
-              'Task / Skill — Struggle/Trap: ... | Rule to remember: ...'
+              getLogFormat('p3b', 'guided', lang)
             ].join('\n');
           }
         },
@@ -1035,8 +1071,7 @@
               '   - "A" = brainstorm 3 brief points + local Hong Kong examples and useful turn-taking phrases (no long memorised scripts).',
               '   - "B" = live Group Interaction role-play where you play 2–3 groupmates, speaking ONLY ONE short turn at a time and waiting for my reply. Give 1 quick tip every 2 turns.',
               '   - "C" = ask ONE graded Individual Response question on the topic. After I reply, coach my stance, elaboration, HK example, and natural phrasing.',
-              '   - "D" or "Log" = list my Speaking weak spots and 3 useful phrases from this whole session in one compact block:',
-              '     Skill (GI / IR / Phrasing) — Mistake: ... | Rule / Phrase to remember: ...',
+              getLogFormat('p4', 'default', lang),
               '',
               pattern,
               '',
@@ -1084,7 +1119,7 @@
           previewHide: 'Hide Prompt',
           smartLogTitle: 'Save Mistakes',
           trySample: 'Sample',
-          smartLogDesc: 'Finish in AI &rarr; type <strong class="text-brand-navy font-semibold">D</strong> &rarr; paste the reply here.',
+          smartLogDesc: 'Finish in AI &rarr; choose <strong class="text-brand-navy font-semibold">Error Log</strong> (<strong class="text-brand-navy font-semibold">C</strong> in Guided / <strong class="text-brand-navy font-semibold">D</strong> in others) &rarr; paste here.',
           logPlaceholder: 'Paste your AI Error Log here...',
           smartSaveBtn: 'Save to Error Log',
           savingBtn: 'Saving...',
@@ -1096,7 +1131,7 @@
           weaknessChecklist: '3 Quick Tips Before Exam',
           copyTargeted: 'Copy Practice Prompt',
           emptyTitle: 'No mistakes saved yet',
-          emptyDesc: 'Type <strong>D</strong> in your AI chat when done, then paste here.',
+          emptyDesc: 'Choose <strong>Error Log</strong> (<strong>C</strong> in Guided / <strong>D</strong> in others) in AI when done, then paste here.',
           workerLive: 'AI Ready',
           workerLocal: 'Local Mode',
           pills: {
@@ -1123,7 +1158,7 @@
             p1_explain: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Passage</strong>.',
               'Photo of your <strong>done Q&amp;A page</strong> + <strong>Answer Key</strong>.',
-              'Type <strong>Q1</strong>, <strong>Q4</strong>... then reply <strong>A / B / C</strong>.'
+              'Type <strong>Q1</strong>, <strong>Q4</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
             p2: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Topic</strong>.',
@@ -1143,7 +1178,7 @@
             p3b_explain: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Data File</strong>.',
               'Photo of your <strong>draft</strong> + <strong>Marking Scheme</strong>.',
-              'Type <strong>Task 8</strong>... then reply <strong>A / B / C</strong>.'
+              'Type <strong>Task 8</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
             p4: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Speaking Card</strong>.',
@@ -1187,7 +1222,7 @@
           previewHide: 'Hide 收起',
           smartLogTitle: 'Save Mistakes 存錯題',
           trySample: '範例',
-          smartLogDesc: '做完後在 AI 輸入 <strong class="text-brand-navy font-semibold">D</strong> &rarr; 貼到這裡。',
+          smartLogDesc: '做完後在 AI 選 <strong class="text-brand-navy font-semibold">Error Log 錯題記錄</strong>（引導按 <strong class="text-brand-navy font-semibold">C</strong>／其他按 <strong class="text-brand-navy font-semibold">D</strong>）&rarr; 貼到這裡。',
           logPlaceholder: '貼上 AI 錯題記錄...',
           smartSaveBtn: '儲存錯題',
           savingBtn: '儲存中...',
@@ -1199,7 +1234,7 @@
           weaknessChecklist: '考前 3 個提醒',
           copyTargeted: '複製弱點練習指令',
           emptyTitle: '未有錯題記錄',
-          emptyDesc: '做完後在 AI 輸入 <strong>D</strong>，再貼到上面。',
+          emptyDesc: '做完後在 AI 選 <strong>Error Log 錯題記錄</strong>（引導按 <strong>C</strong>／其他按 <strong>D</strong>），再貼到上面。',
           workerLive: 'AI 就緒',
           workerLocal: '本地模式',
           pills: {
@@ -1290,7 +1325,7 @@
           previewHide: '收起指令',
           smartLogTitle: '儲存錯題',
           trySample: '範例',
-          smartLogDesc: '做完後在 AI 輸入 <strong class="text-brand-navy font-semibold">D</strong> &rarr; 貼到這裡。',
+          smartLogDesc: '做完後在 AI 選 <strong class="text-brand-navy font-semibold">整理錯題記錄</strong>（引導按 <strong class="text-brand-navy font-semibold">C</strong>／其他按 <strong class="text-brand-navy font-semibold">D</strong>）&rarr; 貼到這裡。',
           logPlaceholder: '貼上 AI 錯題記錄...',
           smartSaveBtn: '儲存錯題',
           savingBtn: '儲存中...',
@@ -1302,7 +1337,7 @@
           weaknessChecklist: '考前 3 個提醒',
           copyTargeted: '複製弱點練習指令',
           emptyTitle: '未有錯題記錄',
-          emptyDesc: '做完後在 AI 輸入 <strong>D</strong>，再貼到上面。',
+          emptyDesc: '做完後在 AI 選 <strong>整理錯題記錄</strong>（引導按 <strong>C</strong>／其他按 <strong>D</strong>），再貼到上面。',
           workerLive: 'AI 就緒',
           workerLocal: '本地模式',
           pills: {
@@ -1366,7 +1401,7 @@
         paper: 'p1',
         mode: 'guided',
         level: 'lv3',
-        lang: 'en_zh',
+        lang: 'en',
         script: 'trad',
         previewOpen: false,
         logPaper: 'p1',
