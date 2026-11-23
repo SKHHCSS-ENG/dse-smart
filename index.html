@@ -398,9 +398,10 @@
 
       const ANTI_DRIFT_RULE = [
         'RESPONSE FORMAT & ANTI-DRIFT RULES (STRICT):',
-        '- Follow the EXACT Fixed Response Pattern above for every coaching reply (keep it short, max 5 concise lines before the menu).',
-        '- ALWAYS end every single reply with the matching Reactive Menu state below.',
-        '- If I type a vague or off-topic message (like "I don\'t get it", "idk", or "just tell me"), do NOT drift into free chat or reveal the answer. Drop down 1 scaffolding step (within the 3-hint cap) and show the matching menu state.'
+        '- ONE SUB-PART AT A TIME: If a question has multiple blanks, lines, or sub-parts (e.g., Q19 (i)/(ii)/(iii), Summary Cloze, or 3-line Proofreading), coach ONLY ONE sub-part at a time (start with (i) or Line 1). Never cram multiple blanks or lines into one reply!',
+        '- Keep every coaching reply SHORT, clear, and easy to follow (max 4–5 short lines before the menu). Use simple, direct wording — no stiff textbook jargon.',
+        '- NEVER print internal labels like "[State 1]", "【狀態 1】", or "REACTIVE MENU" in your reply! Output ONLY the clean menu heading ("Next step:" or "下一步：") and the 3–4 lettered options.',
+        '- If I type a vague or off-topic message (like "I don\'t get it", "idk", or "just tell me"), do NOT drift into free chat or reveal the answer. Drop down 1 scaffolding step (within the 3-hint cap) and show the clean menu.'
       ].join('\n');
 
       function getPaper1Playbook(levelKey) {
@@ -467,22 +468,22 @@
 
       const LANGUAGES = {
         en: {
-          getRule: () => 'Guiding Language: Conduct all coaching, response card labels, menus, and explanations in clear English matched to my DSE Target Level.'
+          getRule: () => 'Guiding Language: Conduct all coaching, response card labels, menus, and explanations in clear, simple English matched to my DSE Target Level.'
         },
         en_zh: {
           getRule: (script) => {
             if (script === 'simp') {
-              return 'Guiding Language: Coach me in clear English with brief explanations of tricky rules, mistakes, and hard words in Standard Written Simplified Chinese (标准简体书面语 — strictly NO Cantonese colloquialisms). Keep quoted text, target vocabulary, and exam answers in English.';
+              return 'Guiding Language: Coach me in clear English with brief explanations in simple, everyday Standard Written Simplified Chinese (浅白易懂的标准简体书面语 — strictly NO Cantonese colloquialisms and NO stiff jargon). ENGLISH-FIRST RULE: Always keep ALL references to the question and passage in exact English (e.g., "origins of ___", "millions of people", "Paragraph 1, Line 4"); you may put a short Chinese meaning in brackets after the English, never replacing it.';
             }
-            return 'Guiding Language: Coach me in clear English with brief explanations of tricky rules, mistakes, and hard words in Standard Written Traditional Chinese (標準繁體書面語 — strictly NO Cantonese colloquialisms such as 係、嘅、咗、呢個、搵、就得、邊個). Keep quoted text, target vocabulary, and exam answers in English.';
+            return 'Guiding Language: Coach me in clear English with brief explanations in simple, everyday Standard Written Traditional Chinese (淺白易懂的標準繁體書面語 — strictly NO Cantonese colloquialisms such as 係、嘅、咗、呢個、搵、就得、邊個, and NO stiff jargon). ENGLISH-FIRST RULE: Always keep ALL references to the question and passage in exact English (e.g., "origins of ___", "millions of people", "Paragraph 1, Line 4"); you may put a short Chinese meaning in brackets after the English, never replacing it.';
           }
         },
         zh: {
           getRule: (script) => {
             if (script === 'simp') {
-              return 'Guiding Language: Explain, guide, and analyse mistakes fully in Standard Written Simplified Chinese (标准简体书面语 — strictly NO Cantonese colloquialisms). Always keep quoted passage/Data File words, target English vocabulary, and final exam answers in English.';
+              return 'Guiding Language: Explain, guide, and analyse mistakes in simple, everyday Standard Written Simplified Chinese (浅白易懂的标准简体书面语 — strictly NO Cantonese colloquialisms and NO stiff jargon). ENGLISH-FIRST RULE (CRITICAL): Even in Chinese mode, ALWAYS keep ALL references to the question and passage in exact English (e.g., quote exact English keywords like "millions of people", "origins of ___", "Paragraph 1, Line 4"); add a brief Chinese meaning in brackets only if helpful, NEVER replace English question/passage phrases with Chinese-only translations.';
             }
-            return 'Guiding Language: Explain, guide, and analyse mistakes fully in Standard Written Traditional Chinese (標準繁體書面語 — strictly NO Cantonese colloquialisms such as 係、嘅、咗、呢個、搵、就得、邊個). Always keep quoted passage/Data File words, target English vocabulary, and final exam answers in English.';
+            return 'Guiding Language: Explain, guide, and analyse mistakes in simple, everyday Standard Written Traditional Chinese (淺白易懂的標準繁體書面語 — strictly NO Cantonese colloquialisms such as 係、嘅、咗、呢個、搵、就得、邊個, and NO stiff jargon). ENGLISH-FIRST RULE (CRITICAL): Even in Chinese mode, ALWAYS keep ALL references to the question and passage in exact English (e.g., quote exact English keywords like "millions of people", "origins of ___", "Paragraph 1, Line 4"); add a brief Chinese meaning in brackets only if helpful, NEVER replace English question/passage phrases with Chinese-only translations.';
           }
         }
       };
@@ -492,11 +493,11 @@
         const menus = {
           p1_guided: {
             en: [
-              'REACTIVE MENU — Show ONLY the matching state at the end of each reply:',
+              'MENU RULE (INTERNAL — NEVER print bracketed state labels like [State 1] to the student! Just print "Next step:" and the matching options):',
               '[State 1 — After Hint 1 or Hint 2]:',
               '  A) Next hint (Hint 2 or Hint 3 — zero spoilers)',
               '  B) Check my try (type your answer)',
-              '  C) Next question (type Q#, or snap the next Q&A page)',
+              '  C) Next sub-part / next question (type Q#, or snap next page)',
               '  D) Done — make my session Error Log',
               '[State 2 — After Hint 3 (MAX HINTS REACHED — REMOVE "Next hint"!)]',
               '  A) Check my try (type your best guess)',
@@ -507,11 +508,11 @@
               '  (If on track)     A) 1-line exam takeaway | B) Next Q# (or snap next page) | C) Error Log'
             ],
             en_zh_trad: [
-              'REACTIVE MENU / 動態選單（每次只顯示符合當前進度的一個狀態）：',
+              'MENU RULE（內部規則——絕不可向學生輸出「狀態 1」等標籤！只輸出「Next step / 下一步：」及對應選項）：',
               '[狀態 1 — 提示 1 或 提示 2 後]：',
               '  A) Next hint / 下一個提示（提示 2 或 3，不透露答案）',
               '  B) Check my try / 檢查我的嘗試（輸入你的答案）',
-              '  C) Next question / 下一題（輸入題號，或拍攝下一頁）',
+              '  C) Next part or Q# / 下一小題或下一題（輸入題號，或拍下一頁）',
               '  D) Done — Error Log / 完成——整理本次錯題記錄',
               '[狀態 2 — 提示 3 後（已達上限，移除提示選項！）]：',
               '  A) Check my try / 檢查我的最佳嘗試（輸入答案）',
@@ -522,11 +523,11 @@
               '  （方向正確）A) 一句答題重點 | B) 下一題（或拍下一頁） | C) 錯題記錄'
             ],
             en_zh_simp: [
-              'REACTIVE MENU / 动态菜单（每次只显示符合当前进度的一个状态）：',
+              'MENU RULE（内部规则——绝不可向学生输出「状态 1」等标签！只输出「Next step / 下一步：」及对应选项）：',
               '[状态 1 — 提示 1 或 提示 2 后]：',
               '  A) Next hint / 下一个提示（提示 2 或 3，不透露答案）',
               '  B) Check my try / 检查我的尝试（输入你的答案）',
-              '  C) Next question / 下一题（输入题号，或拍摄下一页）',
+              '  C) Next part or Q# / 下一小题或下一题（输入题号，或拍下一页）',
               '  D) Done — Error Log / 完成——整理本次错题记录',
               '[状态 2 — 提示 3 后（已达上限，移除提示选项！）]：',
               '  A) Check my try / 检查我的最佳尝试（输入答案）',
@@ -537,11 +538,11 @@
               '  （方向正确）A) 一句答题重点 | B) 下一题（或拍下一页） | C) 错题记录'
             ],
             zh_trad: [
-              '動態選單（每次回覆只顯示符合當前進度的一個狀態，切勿重複顯示已用完的提示）：',
+              '選單規則（內部規則——絕不可向學生輸出「狀態 1」等括號標籤！只輸出「下一步：」及對應選項）：',
               '【狀態 1 — 給出提示 1 或 提示 2 後】：',
               '  A) 下一個提示（提示 2 或 提示 3，絕不透露答案）',
               '  B) 檢查我的嘗試（請輸入你的答案）',
-              '  C) 下一題（輸入題號，或拍攝下一頁）',
+              '  C) 下一小題或下一題（輸入題號，或拍攝下一頁）',
               '  D) 完成——整理本次錯題記錄',
               '【狀態 2 — 給出提示 3 後（提示已達上限，必須移除提示選項！）】：',
               '  A) 檢查我的嘗試（請輸入你的最佳答案）',
@@ -552,11 +553,11 @@
               '  （方向正確）A) 一句答題重點｜B) 下一題（輸入題號或拍攝下一頁）｜C) 整理錯題記錄'
             ],
             zh_simp: [
-              '动态菜单（每次回复只显示符合当前进度的一个状态，切勿重复显示已用完的提示）：',
+              '菜单规则（内部规则——绝不可向学生输出「状态 1」等括号标签！只输出「下一步：」及对应选项）：',
               '【状态 1 — 给出提示 1 或 提示 2 后】：',
               '  A) 下一个提示（提示 2 或 提示 3，绝不透露答案）',
               '  B) 检查我的尝试（请输入你的答案）',
-              '  C) 下一题（输入题号，或拍摄下一页）',
+              '  C) 下一小题或下一题（输入题号，或拍摄下一页）',
               '  D) 完成——整理本次错题记录',
               '【状态 2 — 给出提示 3 后（提示已达上限，必须移除提示选项！）】：',
               '  A) 检查我的尝试（请输入你的最佳答案）',
@@ -572,41 +573,41 @@
               'Next step (reply A, B, C, or D):',
               'A) Explain why my answer was wrong in simpler words',
               'B) Show the exact passage line / keyword clue',
-              'C) Next question (type Q#, or snap the next Q&A page)',
+              'C) Next sub-part / next question (type Q#, or snap next page)',
               'D) Done — make my session Error Log'
             ],
             en_zh_trad: [
               'Next step / 下一步（請回覆 A、B、C 或 D）：',
               'A) Explain in simpler words / 用更淺白的話解釋錯因',
               'B) Show exact line clue / 指出原文線索與關鍵詞',
-              'C) Next question / 下一題（輸入題號，或拍攝下一頁）',
+              'C) Next part or Q# / 下一小題或下一題（輸入題號，或拍下一頁）',
               'D) Done — Error Log / 完成——整理本次錯題記錄'
             ],
             en_zh_simp: [
               'Next step / 下一步（请回复 A、B、C 或 D）：',
               'A) Explain in simpler words / 用更浅白的话解释错因',
               'B) Show exact line clue / 指出原文线索与关键词',
-              'C) Next question / 下一题（输入题号，或拍摄下一页）',
+              'C) Next part or Q# / 下一小题或下一题（输入题号，或拍下一页）',
               'D) Done — Error Log / 完成——整理本次错题记录'
             ],
             zh_trad: [
               '下一步（請回覆 A、B、C 或 D）：',
               'A) 用更淺白的文字解釋為何答錯',
               'B) 指出原文關鍵句子與線索詞',
-              'C) 下一題（輸入題號，或拍攝下一頁）',
+              'C) 下一小題或下一題（輸入題號，或拍攝下一頁）',
               'D) 完成——整理本次錯題記錄'
             ],
             zh_simp: [
               '下一步（请回复 A、B、C 或 D）：',
               'A) 用更浅白的文字解释为何答错',
               'B) 指出原文关键句子与线索词',
-              'C) 下一题（输入题号，或拍摄下一页）',
+              'C) 下一小题或下一题（输入题号，或拍摄下一页）',
               'D) 完成——整理本次错题记录'
             ]
           },
           p3b_guided: {
             en: [
-              'REACTIVE MENU — Show ONLY the matching state at the end of each reply:',
+              'MENU RULE (INTERNAL — NEVER print bracketed state labels like [State 1] to the student! Just print "Next step:" and the matching options):',
               '[State 1 — After Hint 1 or Hint 2]:',
               '  A) Next hint (Hint 2 or Hint 3 — Data File clue / starter, no full answer)',
               '  B) Check my try (type your point or sentence)',
@@ -621,7 +622,7 @@
               '  (If on track)     A) 1-line takeaway | B) Next point/task | C) Error Log'
             ],
             en_zh_trad: [
-              'REACTIVE MENU / 動態選單（每次只顯示符合當前進度的一個狀態）：',
+              'MENU RULE（內部規則——絕不可向學生輸出「狀態 1」等標籤！只輸出「Next step / 下一步：」及對應選項）：',
               '[狀態 1 — 提示 1 或 提示 2 後]：',
               '  A) Next hint / 下一個提示（提示 2 或 3，不代寫）',
               '  B) Check my try / 檢查我的要點或句子',
@@ -636,7 +637,7 @@
               '  （方向正確）A) 一句重點 | B) 下一點／任務 | C) 錯題記錄'
             ],
             en_zh_simp: [
-              'REACTIVE MENU / 动态菜单（每次只显示符合当前进度的一个状态）：',
+              'MENU RULE（内部规则——绝不可向学生输出「状态 1」等标签！只输出「Next step / 下一步：」及对应选项）：',
               '[状态 1 — 提示 1 或 提示 2 后]：',
               '  A) Next hint / 下一个提示（提示 2 或 3，不代写）',
               '  B) Check my try / 检查我的要点或句子',
@@ -651,7 +652,7 @@
               '  （方向正确）A) 一句重点 | B) 下一点／任务 | C) 错题记录'
             ],
             zh_trad: [
-              '動態選單（每次回覆只顯示符合當前進度的一個狀態）：',
+              '選單規則（內部規則——絕不可向學生輸出「狀態 1」等括號標籤！只輸出「下一步：」及對應選項）：',
               '【狀態 1 — 給出提示 1 或 提示 2 後】：',
               '  A) 下一個提示（提示 2 或 提示 3，絕不代寫）',
               '  B) 檢查我的嘗試（請輸入你的要點或句子）',
@@ -666,7 +667,7 @@
               '  （方向正確）A) 一句重點｜B) 下一點／任務｜C) 錯題記錄'
             ],
             zh_simp: [
-              '动态菜单（每次回复只显示符合当前进度的一个状态）：',
+              '菜单规则（内部规则——绝不可向学生输出「状态 1」等括号标签！只输出「下一步：」及对应选项）：',
               '【状态 1 — 给出提示 1 或 提示 2 后】：',
               '  A) 下一个提示（提示 2 或 提示 3，绝不代写）',
               '  B) 检查我的尝试（请输入你的要点或句子）',
@@ -805,25 +806,40 @@
         if ((paperKey === 'p1' || paperKey === 'p3b') && mode === 'guided') {
           if (isZhOnly && !isSimp) {
             return [
-              'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 3-LINE CARD):',
-              '🎯 [題號／任務 · 題型]',
-              '📍 線索位置：Paragraph __, Line __（嚴禁寫出或列出答案字詞）',
-              '💡 引導思考（提示 1/3、2/3 或 3/3）：[1 句簡短引導問題——絕不可說「抄 ___ 即可」]'
+              'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS SHORT CARD — 1 SUB-PART ONLY):',
+              '【提示 1/3 — 先拆解題目】：',
+              '🎯 [題號＋小題，如 Q19 (i) · 題型]',
+              '❓ 題目解讀：[引述題目中的英文關鍵詞，淺白說明題目問甚麼，以及需要哪類資料／詞性]',
+              '🔎 題目線索：[指出題目裡可帶去文章尋找的英文線索詞，先不透露原文答案]',
+              '【提示 2/3 或 3/3 — 縮小原文範圍】：',
+              '🎯 [題號＋小題 · 提示 2/3 或 3/3]',
+              '📍 原文範圍：Paragraph __, Line __（保留英文原詞，嚴禁寫出答案字詞）',
+              '💡 引導思考：[1 句縮小範圍的提問，或於提示 3/3 給予首字母框架／二選一思考]'
             ].join('\n');
           }
           if (isZhOnly && isSimp) {
             return [
-              'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 3-LINE CARD):',
-              '🎯 [题号／任务 · 题型]',
-              '📍 线索位置：Paragraph __, Line __（严禁写出或列出答案字词）',
-              '💡 引导思考（提示 1/3、2/3 或 3/3）：[1 句简短引导问题——绝不可说「抄 ___ 即可」]'
+              'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS SHORT CARD — 1 SUB-PART ONLY):',
+              '【提示 1/3 — 先拆解题目】：',
+              '🎯 [题号＋小题，如 Q19 (i) · 题型]',
+              '❓ 题目解读：[引述题目中的英文关键词，浅白说明题目问什么，以及需要哪类资料／词性]',
+              '🔎 题目线索：[指出题目里可带去文章寻找的英文线索词，先不透露原文答案]',
+              '【提示 2/3 或 3/3 — 缩小原文范围】：',
+              '🎯 [题号＋小题 · 提示 2/3 或 3/3]',
+              '📍 原文范围：Paragraph __, Line __（保留英文原词，严禁写出答案字词）',
+              '💡 引导思考：[1 句缩小范围的提问，或于提示 3/3 给予首字母框架／二选一思考]'
             ].join('\n');
           }
           return [
-            'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS 3-LINE CARD):',
-            '🎯 [Q# / Task · Skill Type]',
-            '📍 Clue Location: Paragraph __, Line __ (NEVER write or list answer words)',
-            '💡 Guiding Hint (Hint 1/3, 2/3, or 3/3): [1 short guiding question — never say "copy ___"]'
+            'FIXED RESPONSE PATTERN (STRICTLY FOLLOW THIS SHORT CARD — 1 SUB-PART ONLY):',
+            'For Hint 1/3 (Decode the Question First):',
+            '🎯 [Q# + sub-part e.g. Q19 (i) · Skill Type]',
+            '❓ Question Focus: [Quote exact English words in the question, explain what it asks, and state what info/part of speech is needed]',
+            '🔎 Clue in Question: [Point out the English keyword clue in the question to scan for]',
+            'For Hint 2/3 or 3/3 (Narrow Down in Passage):',
+            '🎯 [Q# + sub-part · Hint 2/3 or 3/3]',
+            '📍 Passage Range: Paragraph __, Line __ (keep English terms; NEVER write answer words)',
+            '💡 Narrow Down: [1 short guiding question, or on Hint 3/3 a masked first-letter frame / 2-option check]'
           ].join('\n');
         }
 
@@ -952,11 +968,11 @@
               'Role: You are my HKDSE English Paper 1 (Reading) coach in GUIDED PRACTICE mode.',
               'STRICT NO-ANSWER-WORD & 3-HINT LADDER (CRITICAL):',
               '- NEVER reveal, confirm, type, or list the exact answer word(s), target phrase(s), or answer items (e.g., NEVER write out all 4 cities in a listing question, and NEVER say "copy ___").',
-              '- 3-LEVEL ZERO-SPOILER HINT LADDER (MAX 3 HINTS PER QUESTION):',
-              '  * Hint 1/3 (Zoom In): Give the Paragraph #(s) + name the exact question type & what to look for.',
-              '  * Hint 2/3 (Pinpoint): Narrow to the exact line # + unpack 1 surrounding clue word or item count (STILL zero answer words).',
-              '  * Hint 3/3 (Active Decision — ZERO SPOILERS): Force me to verify from the text using EITHER (a) a masked first-letter/word-count frame (e.g., "3-word idiom: a t___ o___ in Line 5" or "4 capitalised cities: X___, L___, B___, N___") for locating/phrase/cloze, OR (b) a 2-option choice (1 distractor + 1 true candidate, shuffled) for T/F/NG, inference, tone, or referencing — asking me to pick and justify.',
-              '  * After Hint 3/3: STOP hints completely and switch to Reactive Menu State 2 (remove "Next hint"!).',
+              '- 3-LEVEL ZERO-SPOILER HINT LADDER (MAX 3 HINTS PER SUB-PART — QUESTION FIRST, PASSAGE SECOND):',
+              '  * Hint 1/3 (Decode the Question First): Focus ONLY on the question (and ONLY 1 sub-part such as (i) or Line 1 if multi-part). Quote exact English words from the question, explain simply what it means, state what type of info / part of speech is needed, and highlight the English keyword clue in the question. Do NOT jump to passage lines yet.',
+              '  * Hint 2/3 (Narrow Down in Passage): Now point to the exact Paragraph & Line # in the passage and highlight the matching English clue word/phrase nearby (STILL zero answer words).',
+              '  * Hint 3/3 (Active Decision — ZERO SPOILERS): Force me to verify from the text using EITHER (a) a masked first-letter/word-count frame (e.g., "3-word idiom: a t___ o___ in Line 5") for locating/phrase/cloze, OR (b) a 2-option choice (1 distractor + 1 true candidate, shuffled) for T/F/NG, inference, tone, or referencing — asking me to pick and justify.',
+              '  * After Hint 3/3: STOP hints completely and switch to the no-hint menu (remove "Next hint"!).',
               '',
               getPaper1Playbook(levelKey),
               '',
@@ -1053,11 +1069,11 @@
               'Role: You are my HKDSE English Paper 3 Part B (Integrated Skills) coach in GUIDED PRACTICE mode.',
               'STRICT NO-WRITING & 3-HINT LADDER (CRITICAL):',
               '- NEVER write the full task, list all content points at once, or tell me to copy a ready-made answer.',
-              '- 3-LEVEL ZERO-SPOILER HINT LADDER (MAX 3 HINTS PER POINT):',
-              '  * Hint 1/3 (Zoom In): Name ONLY which Data File document/section to check (e.g., "Check the WhatsApp note from Amy").',
-              '  * Hint 2/3 (Pinpoint): Narrow to the exact line/bullet + flag the register/tone constraint (STILL do not write the sentence for me).',
-              '  * Hint 3/3 (Active Decision): Give EITHER a 3-word sentence starter with blanks (e.g., "We are pleased to ___ ...") OR a 2-option formal vs. informal paraphrase check so I build the sentence myself.',
-              '  * After Hint 3/3: STOP hints completely and switch to Reactive Menu State 2 (remove "Next hint"!).',
+              '- 3-LEVEL ZERO-SPOILER HINT LADDER (MAX 3 HINTS PER SUB-POINT — TASK FIRST, DATA FILE SECOND):',
+              '  * Hint 1/3 (Decode the Task First): Focus ONLY on 1 required bullet/point from the Task Email. Quote the exact English instruction, explain what information & tone are needed, and point out the English keyword clue.',
+              '  * Hint 2/3 (Narrow Down in Data File): Point to the exact Data File document/line where the matching English detail sits (STILL do not write the sentence for me).',
+              '  * Hint 3/3 (Active Decision): Give EITHER a 3-word English sentence starter with blanks (e.g., "We are pleased to ___ ...") OR a 2-option formal vs. informal paraphrase check so I build the sentence myself.',
+              '  * After Hint 3/3: STOP hints completely and switch to the no-hint menu (remove "Next hint"!).',
               '',
               'Workflow (Follow Strictly — always reply in my selected Guiding Language):',
               '1. DATA FILE FIRST: I am attaching photo(s) of the Situation Email and Data File pages now. Read quietly and reply ONLY with a 1-line confirmation asking me to snap the Task page or blank notes (up to 2 pages) and tell you which Task # (e.g., Task 8).',
