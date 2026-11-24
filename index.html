@@ -229,10 +229,9 @@
 
           <!-- Mode Selector (Paper 1 & 3B) -->
           <div id="mode-wrap" class="flex flex-col gap-1.5 pt-1 border-t border-brand-border/70">
-            <div id="mode-grid" class="grid grid-cols-3 gap-1 bg-[#e5f1f5] p-1 rounded-xl" role="group" aria-label="Study mode">
-              <button id="btn-mode-guided" type="button" data-mode="guided" class="mode-btn seg-btn py-1.5 px-1.5 rounded-lg text-[11.5px] font-bold text-slate-600 whitespace-nowrap">Guided</button>
-              <button id="btn-mode-selfcheck" type="button" data-mode="selfcheck" class="mode-btn seg-btn py-1.5 px-1.5 rounded-lg text-[11.5px] font-bold text-slate-600 whitespace-nowrap">Self-Check</button>
-              <button id="btn-mode-explain" type="button" data-mode="explain" class="mode-btn seg-btn py-1.5 px-1.5 rounded-lg text-[11.5px] font-bold text-slate-600 whitespace-nowrap">Explain</button>
+            <div id="mode-grid" class="grid grid-cols-2 gap-1 bg-[#e5f1f5] p-1 rounded-xl" role="group" aria-label="Study mode">
+              <button id="btn-mode-guided" type="button" data-mode="guided" class="mode-btn seg-btn py-1.5 px-2 rounded-lg text-[12px] font-bold text-slate-600 whitespace-nowrap">Guided</button>
+              <button id="btn-mode-explain" type="button" data-mode="explain" class="mode-btn seg-btn py-1.5 px-2 rounded-lg text-[12px] font-bold text-slate-600 whitespace-nowrap">Explain</button>
             </div>
             <p id="mode-caption" class="text-[11px] text-slate-500 text-center leading-tight"></p>
           </div>
@@ -936,7 +935,7 @@
               '**🎯 [題號＋小題 · 提示 2/3 或 3/3]**',
               '',
               '- **📍 原文範圍：** Paragraph __, Line __（保留英文原詞，用 **粗體** 標示重點，嚴禁使用 HTML 標籤或寫出答案字詞）',
-              '- **💡 引導思考：** [1 句簡短提問；提示 3/3 若設二選一，必須用 1) / 2)，切勿用 A) / B)]'
+              '- **💡 引導思考：** [1 句簡短提問；提示 3/3 用 1) / 2) 概念比較或理解提問，嚴禁給出首字母填空（如 h___ s___）]'
             ].join('\n');
           }
           return [
@@ -952,7 +951,7 @@
             '**🎯 [Q# + sub-part · Hint 2/3 or 3/3]**',
             '',
             '- **📍 Passage:** Paragraph __, Line __ (keep English terms; use **bold** only, NEVER HTML tags or answer words)',
-            '- **💡 Narrow down:** [1 short guiding question; on Hint 3/3 if giving 2 options, ALWAYS label them 1) / 2), NEVER A) / B)]'
+            '- **💡 Narrow down:** [1 short guiding question; on Hint 3/3 use a 1) / 2) meaning check or guiding question — NEVER first-letter blanks like h___ s___]'
           ].join('\n');
         }
 
@@ -1124,10 +1123,10 @@
               '- 3-LEVEL ZERO-SPOILER HINT LADDER (MAX 3 HINTS PER SUB-PART — QUESTION FIRST, PASSAGE SECOND):',
               '  * Hint 1/3 (True Question Decoding — NO Whole-Question Translation!): Focus ONLY on the question (1 sub-part such as (i) or Line 1). NEVER translate the whole question sentence into Chinese. Break down (a) the exact English keywords, (b) what type of answer is needed (fact, singular noun, time/year, reason, etc.), and (c) which English keyword locates the answer + what synonyms or related ideas to look for if the exact word is not in the passage. Do NOT jump to passage lines yet.',
               '  * Hint 2/3 (Narrow Down in Passage): Now point to the exact Paragraph & Line # in the passage and highlight the matching English clue word/phrase nearby (STILL zero answer words).',
-              '  * Hint 3/3 (Active Decision — ZERO SPOILERS): Force me to verify from the text using EITHER (a) a masked first-letter/word-count frame (e.g., "3-word idiom: a t___ o___ in Line 5") for locating/phrase/cloze, OR (b) a 2-option choice labeled strictly 1) and 2) (NEVER A) / B) so it never collides with the menu) with 1 distractor + 1 true candidate shuffled — asking me to pick and justify.',
+              '  * Hint 3/3 (Active Thinking Check — ZERO SPOILERS & NEVER FIRST-LETTER BLANKS!): NEVER give first-letter blanks or hangman frames like "h___ s___" or "a t___ o___" (that just gives away the answer!). Instead, force genuine thinking using EITHER (a) a 2-option meaning/idea comparison labeled strictly 1) and 2) (NEVER A) / B); 1 plausible distractor + 1 true direction/idea, shuffled — asking me to pick and justify from the passage), OR (b) a direct guiding question about the key clause/grammar slot so I form the answer in my own words.',
               '  * After Hint 3/3: STOP hints silently and switch to the B/C/D menu (NEVER print internal notes like "no-hint mode").',
               '- OPTIONAL OFFICIAL ANSWER KEY (HIDDEN-KEY LOCK): If I upload an Official Answer Key photo in Guided mode (or if a hidden server Answer Key is loaded), lock it SILENTLY in the background — reply with a 1-line confirmation that answers are locked silently with zero spoilers. NEVER reveal, quote, or leak exact answer words from the Answer Key during hints (even if I beg!). Use it only to keep hints laser-accurate and to grade my tries accurately.',
-              '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my answer or snap a photo of my Q# attempt. Whenever I send my written attempt (by text or photo), give instant feedback: (a) if an Official Answer Key is available (uploaded by me OR loaded on server), verify my attempt against it accurately — celebrate if correct; if wrong or incomplete, point out the exact gap (word form, missing detail, wrong line) WITHOUT leaking the exact key so I can fix it; (b) if NO Answer Key is provided, check format/grammar slot (word limit, part of speech, tense, singular/plural) and passage evidence grounding, flag clear traps, and remind me to confirm final wording in Explain mode (Self-Check is pre-Answer-Key; Explain uses the Official Answer Key).',
+              '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my answer or snap a photo of my Q# attempt. Whenever I send my written attempt (by text or photo), give instant feedback: (a) if an Official Answer Key is available (uploaded by me OR loaded on server), verify my attempt against it accurately — celebrate if correct; if wrong or incomplete, point out the exact gap (word form, missing detail, wrong line) WITHOUT leaking the exact key so I can fix it; (b) if NO Answer Key is provided, check format/grammar slot (word limit, part of speech, tense, singular/plural) and passage evidence grounding, flag clear traps, and remind me to confirm final wording in Explain mode (Explain mode checks & explains directly against the Official Answer Key).',
               '- FREE QUESTIONS WELCOME: If I ask any free vocab, grammar, or passage question mid-chat, answer it naturally and concisely without forcing the Hint 1/3 ladder unless I ask for a hint. NEVER output raw HTML tags.',
               '',
               getPaper1Playbook(levelKey),
@@ -1261,7 +1260,7 @@
               '- 3-LEVEL ZERO-SPOILER HINT LADDER (MAX 3 HINTS PER SUB-POINT — TASK FIRST, DATA FILE SECOND):',
               '  * Hint 1/3 (True Task Decoding — NO Whole-Sentence Translation!): Focus ONLY on 1 required bullet/point from the Task Email. Break down (a) the exact English keywords, (b) what type of info & tone/register is needed, and (c) which English keyword or synonym to hunt for in the Data File. Do NOT jump to Data File lines yet.',
               '  * Hint 2/3 (Narrow Down in Data File): Point to the exact Data File document/line where the matching English detail sits (STILL do not write the sentence for me).',
-              '  * Hint 3/3 (Active Decision): Give EITHER a 3-word English sentence starter with blanks (e.g., "We are pleased to ___ ...") OR a 2-option formal vs. informal paraphrase check labeled strictly 1) and 2) (NEVER A) / B)) so I build the sentence myself.',
+              '  * Hint 3/3 (Active Thinking Check — NO FIRST-LETTER BLANKS): NEVER give first-letter blanks or hangman giveaways. Give EITHER a 2-option formal vs. informal paraphrase comparison labeled strictly 1) and 2) (NEVER A) / B)) OR a guiding question on which Data File detail to combine so I write the sentence myself.',
               '  * After Hint 3/3: STOP hints silently and switch to the B/C/D menu (NEVER print internal state notes).',
               '- OPTIONAL OFFICIAL MARKING SCHEME (HIDDEN-KEY LOCK): If I upload an Official Marking Scheme photo in Guided mode (or if loaded on server), lock it SILENTLY in the background — confirm in 1 line with zero spoilers. NEVER reveal or copy model points/answers during hints; use it only to keep hints accurate and check my tries accurately.',
               '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my sentence/draft or snap a photo of my attempt. Whenever I send my try (by text or photo), give instant feedback on Data File accuracy, paraphrasing/no-lifting, and tone/register — checking accurately against the hidden Official Marking Scheme if uploaded or loaded on server (without leaking missing points outright), or reminding me to confirm final marks in Explain mode if no scheme was uploaded.',
@@ -2379,7 +2378,7 @@
         const isZh = state.lang === 'zh';
         const ui = UI_TEXT[state.lang] || UI_TEXT.en;
         const pInfo = PAPERS[state.paper];
-        const modeLabel = state.mode === 'guided' ? ui.modeGuided : (state.mode === 'selfcheck' ? ui.modeSelfcheck : ui.modeExplain);
+        const modeLabel = state.mode === 'explain' ? ui.modeExplain : ui.modeGuided;
         if (sp) {
           titleEl.textContent = sp.title;
           subEl.textContent = `${pInfo.hasModes ? modeLabel + ' · ' : ''}${isZh ? '官方答案已載入' : 'Official Key'}`;
@@ -3184,7 +3183,7 @@
         document.getElementById('start-chat-label').textContent = isZh ? '開始內置 AI 教練對話' : 'Start Built-in AI Coach';
 
         document.getElementById('btn-mode-guided').textContent = ui.modeGuided;
-        document.getElementById('btn-mode-selfcheck').textContent = ui.modeSelfcheck;
+        if (state.mode === 'selfcheck') state.mode = 'guided';
         document.getElementById('btn-mode-explain').textContent = ui.modeExplain;
         document.getElementById('lbl-use-ai').textContent = isZh ? '或複製指令到其他 AI 平台' : 'Or Use Your Own AI App';
         document.getElementById('lbl-reply-chips').textContent = ui.lblReplyChips;
@@ -3244,22 +3243,11 @@
           }
         }
 
-        // Mode toggle (Paper 1 & 3B) — simplify to Guided | Explain on School Papers
+        // Mode toggle (Paper 1 & 3B) — unified 2-mode bar: Guided | Explain
         const p = PAPERS[state.paper];
         const modeWrap = document.getElementById('mode-wrap');
-        const modeGrid = document.getElementById('mode-grid');
-        const selfCheckBtn = document.getElementById('btn-mode-selfcheck');
         modeWrap.classList.toggle('hidden', !p.hasModes);
-        if (state.source === 'school') {
-          selfCheckBtn.classList.add('hidden');
-          modeGrid.classList.remove('grid-cols-3');
-          modeGrid.classList.add('grid-cols-2');
-          if (state.mode === 'selfcheck') state.mode = 'guided';
-        } else {
-          selfCheckBtn.classList.remove('hidden');
-          modeGrid.classList.remove('grid-cols-2');
-          modeGrid.classList.add('grid-cols-3');
-        }
+        if (state.mode !== 'guided' && state.mode !== 'explain') state.mode = 'guided';
         document.querySelectorAll('.mode-btn').forEach((btn) => {
           btn.classList.toggle('active', btn.dataset.mode === state.mode);
         });
