@@ -340,7 +340,7 @@
         <div id="chat-messages" class="flex-1 overflow-y-auto p-3 flex flex-col gap-2.5 bg-[#f8fbfc]"></div>
 
         <!-- Quick-Reply Tappable Menu Buttons (Responsive Grid — Zero Clipping) -->
-        <div id="chat-quick-actions" class="px-2.5 py-1.5 bg-white border-t border-brand-border/70 grid grid-cols-3 gap-1.5 shrink-0"></div>
+        <div id="chat-quick-actions" class="hidden px-3 py-1.5 bg-white border-t border-brand-border/70 flex items-center gap-2 shrink-0"></div>
 
         <!-- Pending Photo Previews -->
         <div id="chat-photo-previews" class="hidden px-3 pt-2 bg-white border-t border-brand-border/60 flex items-center gap-2 overflow-x-auto shrink-0"></div>
@@ -723,24 +723,28 @@
         const menus = {
           p1_guided: {
             en: [
-              'MENU (Leave a blank line before menu; NEVER print state labels; ALWAYS keep letters fixed: B=Next, C=Log):',
+              'MENU (Leave a blank line before menu; NEVER print state labels; ALWAYS keep letters fixed: B=Next Question, C=Different Question, D=Error Log):',
               'After Hint 1 or 2 -> print "**Next step:**" with bulleted options:',
-              '  - **A)** Next hint',
-              '  - **B)** Next part / Q# (or snap next page)',
-              '  - **C)** Error Log',
-              'After Hint 3 (MAX REACHED — OMIT A!) -> print "**Next step:**" with B and C only:',
-              '  - **B)** Next part / Q# (or snap next page)',
-              '  - **C)** Error Log'
+              '  - **A)** Next Hint',
+              '  - **B)** Next Question',
+              '  - **C)** Different Question (type Q# or snap new page)',
+              '  - **D)** Error Log',
+              'After Hint 3 (MAX REACHED — OMIT A!) -> print "**Next step:**" with B, C, D only:',
+              '  - **B)** Next Question',
+              '  - **C)** Different Question (type Q# or snap new page)',
+              '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（選單前空一行；絕不輸出狀態標籤；固定字母 B=下一題、C=錯題）：',
+              '選單（選單前空一行；絕不輸出狀態標籤；固定字母 B=下一題、C=其他題目、D=錯題）：',
               '提示 1 或 2 後 -> 只輸出「**下一步：**」與條列選項：',
               '  - **A)** 下一個提示',
-              '  - **B)** 下一小題或下一題（輸入題號／拍下一頁）',
-              '  - **C)** 整理錯題記錄',
-              '提示 3 後（達上限，必須省略 A！）-> 只輸出「**下一步：**」與 B、C：',
-              '  - **B)** 下一小題或下一題（輸入題號／拍下一頁）',
-              '  - **C)** 整理錯題記錄'
+              '  - **B)** 下一題（自動繼續下一題／小題）',
+              '  - **C)** 轉做其他題目（輸入題號／拍新頁）',
+              '  - **D)** 整理錯題記錄',
+              '提示 3 後（達上限，必須省略 A！）-> 只輸出「**下一步：**」與 B、C、D：',
+              '  - **B)** 下一題（自動繼續下一題／小題）',
+              '  - **C)** 轉做其他題目（輸入題號／拍新頁）',
+              '  - **D)** 整理錯題記錄'
             ]
           },
           p1_selfcheck: {
@@ -777,24 +781,28 @@
           },
           p3b_guided: {
             en: [
-              'MENU (Leave a blank line before menu; NEVER print state labels; ALWAYS keep letters fixed: B=Next, C=Log):',
+              'MENU (Leave a blank line before menu; NEVER print state labels; ALWAYS keep letters fixed: B=Next Task/Point, C=Different Task, D=Error Log):',
               'After Hint 1 or 2 -> print "**Next step:**" with bulleted options:',
-              '  - **A)** Next hint',
-              '  - **B)** Next task / point (or snap next page)',
-              '  - **C)** Error Log',
-              'After Hint 3 (MAX REACHED — OMIT A!) -> print "**Next step:**" with B and C only:',
-              '  - **B)** Next task / point (or snap next page)',
-              '  - **C)** Error Log'
+              '  - **A)** Next Hint',
+              '  - **B)** Next Question / Point',
+              '  - **C)** Different Task (type Task # or snap new page)',
+              '  - **D)** Error Log',
+              'After Hint 3 (MAX REACHED — OMIT A!) -> print "**Next step:**" with B, C, D only:',
+              '  - **B)** Next Question / Point',
+              '  - **C)** Different Task (type Task # or snap new page)',
+              '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（選單前空一行；絕不輸出狀態標籤；固定字母 B=下一點、C=錯題）：',
+              '選單（選單前空一行；絕不輸出狀態標籤；固定字母 B=下一點、C=其他任務、D=錯題）：',
               '提示 1 或 2 後 -> 只輸出「**下一步：**」與條列選項：',
               '  - **A)** 下一個提示',
-              '  - **B)** 下一個任務／要點（輸入編號／拍下一頁）',
-              '  - **C)** 整理錯題記錄',
-              '提示 3 後（達上限，必須省略 A！）-> 只輸出「**下一步：**」與 B、C：',
-              '  - **B)** 下一個任務／要點（輸入編號／拍下一頁）',
-              '  - **C)** 整理錯題記錄'
+              '  - **B)** 下一個要點／題目',
+              '  - **C)** 轉做其他任務（輸入編號／拍新頁）',
+              '  - **D)** 整理錯題記錄',
+              '提示 3 後（達上限，必須省略 A！）-> 只輸出「**下一步：**」與 B、C、D：',
+              '  - **B)** 下一個要點／題目',
+              '  - **C)** 轉做其他任務（輸入編號／拍新頁）',
+              '  - **D)** 整理錯題記錄'
             ]
           },
           p3b_selfcheck: {
@@ -1016,7 +1024,7 @@
             step1: 'Tap <strong>Copy Setup Prompt</strong>, paste in your AI app, and snap your <strong>Reading Passage</strong> first.',
             step2: 'Snap the <strong>Q&amp;A page you\'re working on now</strong> (or 2 pages if a question crosses pages).',
             step3: 'Type <strong>Q1</strong>, <strong>Q4</strong>, etc. Reply <strong>A / B / C</strong>.',
-            commands: ['Q1', 'A', 'B', 'C (Log)']
+            commands: ['Q1', 'A', 'B', 'C', 'D (Log)']
           },
           getBody: (mode, lang, script, levelKey) => {
             const pattern = getPatternBlock('p1', mode, lang, script);
@@ -1141,7 +1149,7 @@
             step1: 'Tap <strong>Copy Setup Prompt</strong>, paste in your AI app, and snap the <strong>Task Email &amp; Data File</strong> first.',
             step2: 'Snap the <strong>Task page / notes</strong> you\'re working on now (up to 2 pages).',
             step3: 'Type <strong>Task 8</strong>. Reply <strong>A / B / C</strong>.',
-            commands: ['Task 8', 'A', 'B', 'C (Log)']
+            commands: ['Task 8', 'A', 'B', 'C', 'D (Log)']
           },
           getBody: (mode, lang, script) => {
             const pattern = getPatternBlock('p3b', mode, lang, script);
@@ -1281,7 +1289,7 @@
           previewHide: 'Hide Prompt',
           smartLogTitle: 'Save Mistakes',
           trySample: 'Sample',
-          smartLogDesc: 'Finish in AI &rarr; choose <strong class="text-brand-navy font-semibold">Error Log</strong> (<strong class="text-brand-navy font-semibold">C</strong> in Guided / <strong class="text-brand-navy font-semibold">D</strong> in others) &rarr; paste here.',
+          smartLogDesc: 'Finish in AI &rarr; tap <strong class="text-brand-navy font-semibold">D (Error Log)</strong> &rarr; paste here (or 1-tap save in Built-in Coach).',
           logPlaceholder: 'Paste your AI Error Log here...',
           smartSaveBtn: 'Save to Error Log',
           savingBtn: 'Saving...',
@@ -1293,7 +1301,7 @@
           weaknessChecklist: '3 Quick Tips Before Exam',
           copyTargeted: 'Copy Practice Prompt',
           emptyTitle: 'No mistakes saved yet',
-          emptyDesc: 'Choose <strong>Error Log</strong> (<strong>C</strong> in Guided / <strong>D</strong> in others) in AI when done, then paste here.',
+          emptyDesc: 'Tap <strong>D (Error Log)</strong> when done in AI, then paste here (or 1-tap save in Built-in Coach).',
           workerLive: 'AI Ready',
           workerLocal: 'Local Mode',
           pills: {
@@ -1384,7 +1392,7 @@
           previewHide: '收起指令',
           smartLogTitle: '儲存錯題',
           trySample: '範例',
-          smartLogDesc: '做完後在 AI 選 <strong class="text-brand-navy font-semibold">整理錯題記錄</strong>（引導按 <strong class="text-brand-navy font-semibold">C</strong>／其他按 <strong class="text-brand-navy font-semibold">D</strong>）&rarr; 貼到這裡。',
+          smartLogDesc: '做完後在 AI 按 <strong class="text-brand-navy font-semibold">D（整理錯題記錄）</strong>&rarr; 貼到這裡（內置教練可一鍵儲存）。',
           logPlaceholder: '貼上 AI 錯題記錄...',
           smartSaveBtn: '儲存錯題',
           savingBtn: '儲存中...',
@@ -1396,7 +1404,7 @@
           weaknessChecklist: '考前 3 個提醒',
           copyTargeted: '複製弱點練習指令',
           emptyTitle: '未有錯題記錄',
-          emptyDesc: '做完後在 AI 選 <strong>整理錯題記錄</strong>（引導按 <strong>C</strong>／其他按 <strong>D</strong>），再貼到上面。',
+          emptyDesc: '做完後在 AI 按 <strong>D（整理錯題記錄）</strong>，再貼到上面（內置教練可一鍵儲存）。',
           workerLive: 'AI 就緒',
           workerLocal: '本地模式',
           pills: {
@@ -2153,10 +2161,17 @@
         const sp = getSelectedSchoolPaper();
         const titleEl = document.getElementById('chat-context-title');
         const subEl = document.getElementById('chat-context-sub');
+        const isZh = state.lang === 'zh';
+        const ui = UI_TEXT[state.lang] || UI_TEXT.en;
         const pInfo = PAPERS[state.paper];
-        const modeName = state.mode === 'guided' ? 'Guided' : (state.mode === 'selfcheck' ? 'Self-Check' : 'Explain');
-        titleEl.textContent = sp ? sp.title : `${pInfo.code} · My Own Paper`;
-        subEl.textContent = `${pInfo.code}${pInfo.hasModes ? ' · ' + modeName : ''}${sp ? ' · Official Key Active' : ''}`;
+        const modeLabel = state.mode === 'guided' ? ui.modeGuided : (state.mode === 'selfcheck' ? ui.modeSelfcheck : ui.modeExplain);
+        if (sp) {
+          titleEl.textContent = sp.title;
+          subEl.textContent = `${pInfo.hasModes ? modeLabel + ' · ' : ''}${isZh ? '官方答案已載入' : 'Official Key'}`;
+        } else {
+          titleEl.textContent = `${pInfo.code} · ${isZh ? '自選試卷' : 'My Own Paper'}`;
+          subEl.textContent = pInfo.hasModes ? modeLabel : ui.papers[state.paper].title;
+        }
 
         const msgBox = document.getElementById('chat-messages');
         msgBox.innerHTML = state.chatMessages.map((m) => {
@@ -2205,31 +2220,42 @@
         renderChatQuickActions();
       }
 
+      function parseChoicesFromReply(text) {
+        const choices = [];
+        const seen = new Set();
+        const re = /(?:^|\n)\s*(?:[-•*]\s*)?(?:\*\*)?([A-D])\)(?:\*\*)?\s*([^\n]+)/g;
+        let m;
+        while ((m = re.exec(String(text || ''))) !== null) {
+          const letter = m[1];
+          const desc = m[2].trim();
+          if (!seen.has(letter)) {
+            seen.add(letter);
+            const isLog = /error\s*log|錯題/i.test(desc);
+            choices.push({ letter, desc, isLog });
+          }
+        }
+        return choices;
+      }
+
       function renderChatQuickActions() {
         const bar = document.getElementById('chat-quick-actions');
-        const isZh = state.lang === 'zh';
-        const isGuided = PAPERS[state.paper].hasModes && state.mode === 'guided';
-        bar.classList.toggle('grid-cols-3', isGuided);
-        bar.classList.toggle('grid-cols-4', !isGuided);
-        const buttons = isGuided
-          ? [
-              { cmd: 'A', label: isZh ? 'A · 提示' : 'A · Hint' },
-              { cmd: 'B', label: isZh ? 'B · 下一題' : 'B · Next Q#' },
-              { cmd: 'SAVE_LOG', label: state.chatSavingLog ? (isZh ? '儲存中…' : 'Saving…') : (isZh ? 'C · 存錯題' : 'C · Save Log') }
-            ]
-          : [
-              { cmd: 'A', label: isZh ? 'A · 詳解' : 'A · Detail' },
-              { cmd: 'B', label: isZh ? 'B · 下一題' : 'B · Next' },
-              { cmd: 'C', label: isZh ? 'C · 檢查' : 'C · Check' },
-              { cmd: 'SAVE_LOG', label: state.chatSavingLog ? (isZh ? '儲存中…' : 'Saving…') : (isZh ? 'D · 存錯題' : 'D · Log') }
-            ];
+        const lastAssistant = [...state.chatMessages].reverse().find((m) => m.role === 'assistant');
+        const choices = lastAssistant ? parseChoicesFromReply(lastAssistant.text) : [];
 
-        bar.innerHTML = buttons.map((b) => {
-          const isSave = b.cmd === 'SAVE_LOG';
-          const cls = isSave
-            ? 'bg-brand-tealSoft border-brand-teal/40 text-brand-navy'
+        if (choices.length === 0) {
+          bar.classList.add('hidden');
+          bar.innerHTML = '';
+          return;
+        }
+
+        bar.classList.remove('hidden');
+        bar.innerHTML = choices.map((c) => {
+          const cmd = c.isLog ? 'SAVE_LOG' : c.letter;
+          const label = (c.isLog && state.chatSavingLog) ? '…' : c.letter;
+          const cls = c.isLog
+            ? 'bg-brand-tealSoft border-brand-teal/45 text-brand-navy'
             : 'bg-brand-canvas border-brand-border text-brand-navy hover:bg-brand-tealSoft';
-          return `<button type="button" data-quick-cmd="${b.cmd}" ${state.chatSending || (isSave && state.chatSavingLog) ? 'disabled' : ''} class="chat-quick-btn w-full px-1.5 py-1.5 rounded-xl border text-[11.5px] font-bold text-center whitespace-nowrap truncate transition-colors disabled:opacity-50 ${cls}">${escapeHtml(b.label)}</button>`;
+          return `<button type="button" data-quick-cmd="${cmd}" title="${escapeHtml(c.letter + ') ' + c.desc)}" aria-label="${escapeHtml(c.letter + ') ' + c.desc)}" ${state.chatSending || (c.isLog && state.chatSavingLog) ? 'disabled' : ''} class="chat-quick-btn flex-1 py-2 rounded-xl border text-[13.5px] font-extrabold text-center transition-colors disabled:opacity-50 ${cls}">${escapeHtml(label)}</button>`;
         }).join('');
       }
 
