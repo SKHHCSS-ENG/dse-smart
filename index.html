@@ -586,7 +586,7 @@
 
       <!-- Subtle Non-Affiliation Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA &middot; <span class="font-mono text-slate-400">v10.19</span></p>
+        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA &middot; <span class="font-mono text-slate-400">v10.20</span></p>
       </footer>
     </main>
   </div>
@@ -679,7 +679,7 @@
   </div>
 
   <!-- Floating Toast -->
-  <div id="toast" role="status" aria-live="polite" class="toast-enter fixed top-[74px] left-1/2 z-[75] bg-brand-navy text-white text-[12.5px] font-semibold px-4 py-2 rounded-full shadow-lg whitespace-nowrap max-w-[92vw] truncate"></div>
+  <div id="toast" role="status" aria-live="polite" class="toast-enter fixed top-[118px] left-1/2 z-[75] bg-brand-navy text-white text-[12.5px] font-semibold px-4 py-2 rounded-full shadow-lg whitespace-nowrap max-w-[92vw] truncate"></div>
 
   <script>
     (function () {
@@ -697,7 +697,7 @@
         '- ONE SUB-PART AT A TIME: For multi-part questions (e.g. Q19 (i)/(ii)/(iii), Summary Cloze, 3-line Proofreading), coach ONLY ONE sub-part per turn (start with (i) or Line 1).',
         '- CLEAN PHONE LAYOUT: Always leave a blank line after the 🎯 title and before the menu. Use short bullet points (1 concise line per bullet) for hints, keywords, and checklists; use a single short paragraph only for a speaking turn. Never squash lines into one dense block.',
         '- CLEAN MENU ONLY: NEVER print internal labels like "[State 1]" or "【狀態 1】". Output ONLY "**Next step:**" / "**下一步：**" and the matching lettered options.',
-        '- ANTI-DRIFT & ZERO-SPOILER LOCK: If the student asks for the answer directly ("idk", "just tell me", "give me the answer"), politely refuse in 1 short line and stay on / give the next NON-SPOILING hint (within the 3-hint cap). NEVER write the exact target answer word anywhere inside a hint, synonym pair (e.g. NEVER write "carried/transported" when "transported" is the answer), quote, or guiding question.'
+        '- ANTI-DRIFT & ZERO-SPOILER LOCK: If the student asks for the answer directly ("idk", "just tell me", "give me the answer"), politely refuse in 1 short line. In Guided mode, stay on / give the next NON-SPOILING hint (within the 3-hint cap) and NEVER write the exact target answer word inside a hint, synonym pair (e.g. NEVER write "carried/transported" when "transported" is the answer), quote, or guiding question. In Explain mode, STAY in Explain mode after refusing a leak — NEVER fall back to a Guided-style Hint 2/3.'
       ].join('\n');
 
       function getPaper1Playbook(levelKey) {
@@ -790,11 +790,11 @@
               '提示 1 或 2 後 -> 只輸出「**下一步：**」與：',
               '  - **A)** 下一個提示',
               '  - **B)** 檢查我的作答（輸入或拍照）',
-              '  - **C)** 下一題／轉做其他題目（輸入題號／拍新頁）',
+              '  - **C)** 下一題／轉做其他題目（輸入題號）',
               '  - **D)** 整理錯題記錄',
               '提示 3 後（省略 A！）-> 只輸出「**下一步：**」與 B、C、D：',
               '  - **B)** 檢查我的作答（輸入或拍照）',
-              '  - **C)** 下一題／轉做其他題目（輸入題號／拍新頁）',
+              '  - **C)** 下一題／轉做其他題目（輸入題號）',
               '  - **D)** 整理錯題記錄',
               '核對作答後（如有錯漏）-> 只輸出「**下一步：**」與：',
               '  - **A)** 給我一個修改線索',
@@ -804,7 +804,7 @@
               '核對作答後（如已答對）-> 只輸出「**下一步：**」與：',
               '  - **A)** 總結解題要點',
               '  - **B)** 繼續下一題',
-              '  - **C)** 轉做其他題目（輸入題號／拍新頁）',
+              '  - **C)** 轉做其他題目（輸入題號）',
               '  - **D)** 整理錯題記錄'
             ]
           },
@@ -822,7 +822,7 @@
               '**下一步：**',
               '  - **A)** 重檢我修改後的答案',
               '  - **B)** 縮小原文行數範圍',
-              '  - **C)** 下一小題或下一題（輸入題號／拍下一頁）',
+              '  - **C)** 下一小題或下一題（輸入題號）',
               '  - **D)** 整理錯題記錄'
             ]
           },
@@ -845,12 +845,12 @@
               '首次解說後 -> 只輸出「**下一步：**」與：',
               '  - **A)** 用更淺白的文字解釋',
               '  - **B)** 指出原文線索與常見陷阱',
-              '  - **C)** 下一小題或下一題（輸入題號／拍下一頁）',
+              '  - **C)** 下一小題或下一題（輸入題號）',
               '  - **D)** 整理錯題記錄',
               '學生已選 A 或 B 後 -> 只輸出「**下一步：**」與：',
               '  - **A)** 出一句小練習鞏固',
               '  - **B)** 看另一角度（原文線索／淺白解說）',
-              '  - **C)** 下一小題或下一題（輸入題號／拍下一頁）',
+              '  - **C)** 下一小題或下一題（輸入題號）',
               '  - **D)** 整理錯題記錄'
             ]
           },
@@ -877,11 +877,11 @@
               '提示 1 或 2 後 -> 只輸出「**下一步：**」與：',
               '  - **A)** 下一個提示',
               '  - **B)** 檢查我的作答（輸入或拍照）',
-              '  - **C)** 下一個要點／轉做其他任務（輸入編號／拍新頁）',
+              '  - **C)** 下一個要點／轉做其他任務（輸入編號）',
               '  - **D)** 整理錯題記錄',
               '提示 3 後（省略 A！）-> 只輸出「**下一步：**」與 B、C、D：',
               '  - **B)** 檢查我的作答（輸入或拍照）',
-              '  - **C)** 下一個要點／轉做其他任務（輸入編號／拍新頁）',
+              '  - **C)** 下一個要點／轉做其他任務（輸入編號）',
               '  - **D)** 整理錯題記錄',
               '核對句子或草稿後 -> 只輸出「**下一步：**」與：',
               '  - **A)** 改善語氣與改寫（避免照抄）',
@@ -904,7 +904,7 @@
               '**下一步：**',
               '  - **A)** 重檢我修改後的要點或句子',
               '  - **B)** 縮小 Data File 對應位置',
-              '  - **C)** 下一個任務／要點（輸入編號／拍下一頁）',
+              '  - **C)** 下一個任務／要點（輸入編號）',
               '  - **D)** 整理錯題記錄'
             ]
           },
@@ -927,12 +927,12 @@
               '首次解說後 -> 只輸出「**下一步：**」與：',
               '  - **A)** 用更淺白的文字解釋失分處',
               '  - **B)** 指出 Data File 原文及改寫技巧',
-              '  - **C)** 下一個任務／要點（輸入編號／拍下一頁）',
+              '  - **C)** 下一個任務／要點（輸入編號）',
               '  - **D)** 整理錯題記錄',
               '學生已選 A 或 B 後 -> 只輸出「**下一步：**」與：',
               '  - **A)** 練寫一句改寫句子',
               '  - **B)** 看另一角度（Data File 原文／淺白解說）',
-              '  - **C)** 下一個任務／要點（輸入編號／拍下一頁）',
+              '  - **C)** 下一個任務／要點（輸入編號）',
               '  - **D)** 整理錯題記錄'
             ]
           },
@@ -1344,13 +1344,13 @@
           getSteps: (mode) => (mode === 'explain' || mode === 'selfcheck') ? {
             step1: 'Tap <strong>Copy Setup Prompt</strong>, paste in your AI app, and snap the <strong>Task Email &amp; Data File</strong> first.',
             step2: 'Snap your <strong>tried draft</strong> (up to 2 pages) <strong>+ the official Marking Scheme</strong>.',
-            step3: 'Type <strong>Task 8</strong> (or your task #). AI explains using the official scheme — reply <strong>A / B / C / D</strong>.',
-            commands: ['Task 8', 'A', 'B', 'C', 'D (Log)']
+            step3: 'Type <strong>Task 5</strong> (or your task #). AI explains using the official scheme — reply <strong>A / B / C / D</strong>.',
+            commands: ['Task 5', 'A', 'B', 'C', 'D (Log)']
           } : {
             step1: 'Tap <strong>Copy Setup Prompt</strong>, paste in your AI app, and snap the <strong>Task Email &amp; Data File</strong> first.',
             step2: 'Snap the <strong>Task page / notes</strong> you\'re working on now (up to 2 pages).',
-            step3: 'Type <strong>Task 8</strong>. Reply <strong>A / B / C</strong>.',
-            commands: ['Task 8', 'A', 'B', 'C', 'D (Log)']
+            step3: 'Type <strong>Task 5</strong>. Reply <strong>A / B / C</strong>.',
+            commands: ['Task 5', 'A', 'B', 'C', 'D (Log)']
           },
           getBody: (mode, lang, script) => {
             const pattern = getPatternBlock('p3b', mode, lang, script);
@@ -1365,7 +1365,7 @@
                 '',
                 'Workflow (Follow Strictly — always reply in my selected Guiding Language):',
                 '1. DATA FILE FIRST: I am attaching photo(s) of the Situation Email and Data File pages now. Read all facts quietly and reply ONLY with a 1-line confirmation asking me to snap my tried draft (up to 2 pages) + the official Marking Scheme.',
-                '2. DRAFT + SCHEME NEXT: Scan quietly and reply ONLY with a 1-line confirmation asking which task or point to explain first (e.g., Task 8).',
+                '2. DRAFT + SCHEME NEXT: Scan quietly and reply ONLY with a 1-line confirmation asking which task or point to explain first (e.g., Task 5).',
                 '3. EXPLAIN: Use the Fixed Response Pattern to check (a) missed content points vs. official scheme, (b) format & tone, and (c) linguistic lifting.',
                 '',
                 pattern,
@@ -1386,7 +1386,7 @@
                 '',
                 'Workflow (Follow Strictly — always reply in my selected Language):',
                 '1. DATA FILE FIRST: I am attaching photo(s) of the Situation Email and Data File pages now. Read quietly and reply ONLY with a 1-line confirmation asking me to snap my tried draft (up to 2 pages, no Marking Scheme needed yet).',
-                '2. TRIED DRAFT NEXT: Scan quietly and reply ONLY with a 1-line confirmation asking which task or point to self-check first (e.g., Task 8).',
+                '2. TRIED DRAFT NEXT: Scan quietly and reply ONLY with a 1-line confirmation asking which task or point to self-check first (e.g., Task 5).',
                 '3. ONE POINT SELF-CHECK: Use the Fixed Response Pattern below so I can polish my own draft before checking the Marking Scheme, and silently track weak spots for my Error Log.',
                 '',
                 pattern,
@@ -1410,7 +1410,7 @@
               '- FREE QUESTIONS WELCOME: If I ask any free vocab, grammar, or Data File question mid-chat, answer naturally without forcing the Hint 1/3 ladder. NEVER output raw HTML tags.',
               '',
               'Workflow (Follow Strictly — always reply in my selected Guiding Language):',
-              '1. DATA FILE FIRST: I am attaching photo(s) of the Situation Email and Data File pages now. Read quietly and reply ONLY with a 1-line confirmation asking me to snap the Task page or blank notes (up to 2 pages) and tell you which Task # (e.g., Task 8).',
+              '1. DATA FILE FIRST: I am attaching photo(s) of the Situation Email and Data File pages now. Read quietly and reply ONLY with a 1-line confirmation asking me to snap the Task page or blank notes (up to 2 pages) and tell you which Task # (e.g., Task 5).',
               '2. GUIDED COACHING: Use the Fixed Response Pattern below (starting at Hint 1/3) and remind me to verify with my teacher\'s marking scheme afterwards.',
               '',
               pattern,
@@ -1439,7 +1439,7 @@
               'Role: You are my HKDSE English Paper 4 (Speaking) personal coach.',
               '',
               'Workflow (Follow Strictly — always reply in my selected Guiding Language):',
-              '1. CARD FIRST: I am attaching photo(s) of the Paper 4 Discussion reading card and questions now. Read them quietly and reply ONLY with a 1-line confirmation + the menu below.',
+              '1. CARD FIRST: I am attaching photo(s) of the Paper 4 Discussion reading card and questions now. Read them and in your VERY FIRST reply, briefly confirm the topic AND immediately provide 3 flexible Group Interaction ideas (Hong Kong context) + 3–4 natural discussion phrases, then end with the A / B / C / D menu (never send a confirmation-and-menu-only reply).',
               '2. MENU ACTIONS (always use the Fixed Response Pattern):',
               '   - "A" = brainstorm 3 brief points + local Hong Kong examples and useful turn-taking phrases (no long memorised scripts).',
               '   - "B" = live Group Interaction role-play where you play 2–3 groupmates, speaking ONLY ONE short turn at a time and waiting for my reply. Give 1 quick tip every 2 turns.',
@@ -1542,18 +1542,18 @@
             p3b_guided: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Data File</strong>.',
               'Photo of your <strong>Task page</strong> (optional: + <strong>Marking Scheme</strong> for hidden-key checking).',
-              'Type <strong>Task 8</strong>... then reply <strong>A / B / C / D</strong>.'
+              'Type <strong>Task 5</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
             p3b_selfcheck: [
               'Write your draft first &rarr; <strong>Copy Prompt</strong> + photo of <strong>Data File</strong>.',
               'Photo of your <strong>draft</strong> (no Marking Scheme yet).',
-              'Type <strong>Task 8</strong>... then reply <strong>A / B / C / D</strong> to fix before checking answers.'
+              'Type <strong>Task 5</strong>... then reply <strong>A / B / C / D</strong> to fix before checking answers.'
             ],
             p3b_explain: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Data File</strong>.',
               'Photo of your <strong>tried draft</strong> (1–2 pages).',
               'Photo of the <strong>Official Marking Scheme</strong> separately.',
-              'Type <strong>Task 8</strong>... then reply <strong>A / B / C / D</strong>.'
+              'Type <strong>Task 5</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
             p4: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Speaking Card</strong>.',
@@ -1646,18 +1646,18 @@
             p3b_guided: [
               '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>資料頁</strong>。',
               '拍你的<strong>任務頁</strong>（可選：另拍<strong>評分準則</strong>作不劇透核對）。',
-              '輸入 <strong>Task 8</strong>……再回覆 <strong>A / B / C / D</strong>。'
+              '輸入 <strong>Task 5</strong>……再回覆 <strong>A / B / C / D</strong>。'
             ],
             p3b_selfcheck: [
               '先自己寫完 &rarr; <strong>複製指令</strong> ＋ 拍<strong>資料頁</strong>。',
               '拍你的<strong>草稿</strong>（先不用拍評分準則）。',
-              '輸入 <strong>Task 8</strong>……回覆 <strong>A / B / C / D</strong>，對答案前先自行修改。'
+              '輸入 <strong>Task 5</strong>……回覆 <strong>A / B / C / D</strong>，對答案前先自行修改。'
             ],
             p3b_explain: [
               '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>資料頁</strong>。',
               '拍你的<strong>草稿</strong>（1–2 頁）。',
               '分開拍<strong>官方評分準則（Marking Scheme）</strong>。',
-              '輸入 <strong>Task 8</strong>……再回覆 <strong>A / B / C / D</strong>。'
+              '輸入 <strong>Task 5</strong>……再回覆 <strong>A / B / C / D</strong>。'
             ],
             p4: [
               '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>說話題卡</strong>。',
@@ -2275,7 +2275,7 @@
             const mat = isP3b ? (isZh ? '資料頁（Data File）' : 'Data File') : (isZh ? '閱讀文章' : 'Passage');
             const work = isP3b ? (isZh ? '草稿' : 'tried draft') : (isZh ? '題目答題簿（QAB）' : 'Q&A Booklet (QAB) page');
             const keyDoc = isP3b ? (isZh ? '官方評分準則（Marking Scheme）' : 'Official Marking Scheme') : (isZh ? '官方答案（Answer Key）' : 'Official Answer Key');
-            const qEx = isP3b ? 'Task 8' : 'Q1';
+            const qEx = isP3b ? 'Task 5' : 'Q1';
             const qPromptZh = isP3b ? `輸入任務編號（例如 \`${qEx}\`）` : `輸入題號（例如 \`${qEx}\`）`;
             const qPromptEn = isP3b ? `Type your task number (e.g. \`${qEx}\`)` : `Type a question number (e.g. \`${qEx}\`)`;
             welcome = isZh
@@ -2286,7 +2286,7 @@
             const mat = isP3b ? (isZh ? '資料頁（Data File）' : 'Data File') : (isZh ? '閱讀文章' : 'Passage');
             const qPage = isP3b ? (isZh ? '任務頁' : 'Task page') : (isZh ? '題目頁（QAB）' : 'Q&A page (QAB)');
             const keyOpt = isP3b ? (isZh ? '官方評分準則' : 'Official Marking Scheme') : (isZh ? '官方答案（Answer Key）' : 'Official Answer Key');
-            const qEx = isP3b ? 'Task 8' : 'Q14';
+            const qEx = isP3b ? 'Task 5' : 'Q14';
             const isGuided = state.mode === 'guided';
             if (isGuided) {
               welcome = isZh
@@ -2364,9 +2364,8 @@
         if (images.length === 0 && /^d$/i.test(text) && state.authToken && state.chatMessages.length >= 2) {
           const lastAsst = [...state.chatMessages].reverse().find((m) => m.role === 'assistant' && !m.isError);
           const choices = lastAsst ? parseChoicesFromReply(lastAsst.text) : [];
-          const hasDChoice = choices.some((c) => c.letter === 'D');
           const dIsLog = choices.some((c) => c.letter === 'D' && c.isLog);
-          if (dIsLog || !hasDChoice) {
+          if (dIsLog) {
             if (typeof overrideText !== 'string') inputEl.value = '';
             saveErrorLogFromChat();
             return;
@@ -2502,6 +2501,7 @@
           return;
         }
         state.chatSavingLog = true;
+        renderChat();
         renderChatQuickActions();
         const sp = getSelectedSchoolPaper();
         try {
@@ -2520,10 +2520,10 @@
           const items = Array.isArray(data.items) ? data.items : [];
           const n = items.length;
           if (n === 0) {
-            const emptyMsg = data.message || (state.lang === 'zh'
-              ? '暫未有已批改的新錯題 — 先試答一題再儲存！'
-              : 'No new checked mistakes to save yet — try answering a question first!');
-            showToast(emptyMsg, 2800);
+            const dupNote = data.skippedDuplicates > 0
+              ? (state.lang === 'zh' ? '錯題簿已有相同記錄 — 無新增錯題。' : 'Already saved in your Error Log — nothing new added.')
+              : (state.lang === 'zh' ? '暫未有已批改的新錯題 — 先試答一題再儲存！' : 'No new checked mistakes to save yet — try answering a question first!');
+            showToast(data.message || dupNote, 2800);
           } else {
             items.slice().reverse().forEach((it) => state.logs.unshift(it));
             saveLogsLocal();
@@ -2540,9 +2540,11 @@
           }
         } catch (err) {
           showToast(err.message || 'Could not save Error Log');
+        } finally {
+          state.chatSavingLog = false;
+          renderChat();
+          renderChatQuickActions();
         }
-        state.chatSavingLog = false;
-        renderChatQuickActions();
       }
 
       function renderChat() {
@@ -3306,6 +3308,14 @@
       }
       function showToast(msg, durationMs = 2000) {
         const el = document.getElementById('toast');
+        const hdr = document.getElementById('app-header');
+        if (hdr && hdr.offsetHeight > 0) {
+          const rect = hdr.getBoundingClientRect();
+          const topPx = Math.max(116, Math.round(rect.bottom) + 8);
+          el.style.top = `${topPx}px`;
+        } else {
+          el.style.top = '118px';
+        }
         el.textContent = msg;
         el.classList.add('show');
         clearTimeout(toastTimer);
@@ -3418,7 +3428,14 @@
         document.getElementById('btn-load-sample-log').textContent = ui.trySample;
         document.getElementById('lbl-smart-log-desc').innerHTML = ui.smartLogDesc;
         document.getElementById('log-input').placeholder = ui.logPlaceholder;
-        if (!state.saving) document.getElementById('smart-save-label').textContent = ui.smartSaveBtn;
+        const smartSaveBtnEl = document.getElementById('btn-smart-save');
+        const logInputVal = (document.getElementById('log-input')?.value || '').trim();
+        if (!state.saving) {
+          document.getElementById('smart-save-label').textContent = (!state.authToken && !logInputVal)
+            ? (state.lang === 'zh' ? '登入以儲存雲端錯題（或先貼上內容）' : 'Sign in to Save to Cloud (or paste log first)')
+            : ui.smartSaveBtn;
+        }
+        if (smartSaveBtnEl) smartSaveBtnEl.classList.toggle('opacity-70', !state.authToken && !logInputVal);
         document.getElementById('btn-filter-all').textContent = ui.filterAll;
         if (!state.analysing) document.getElementById('analyse-label').textContent = ui.topWeaknesses;
         document.getElementById('lbl-copy-requiz').textContent = ui.copyRequiz;
