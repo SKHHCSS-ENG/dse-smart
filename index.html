@@ -672,8 +672,10 @@
       <div class="grid grid-cols-2 gap-1.5" role="group" aria-label="Issue type">
         <button type="button" data-issue="wrong_answer" class="report-type-btn active py-2 px-2.5 rounded-xl border border-brand-teal bg-brand-tealSoft text-[11.5px] font-bold text-brand-navy text-left">Wrong answer / hint</button>
         <button type="button" data-issue="leaked_answer" class="report-type-btn py-2 px-2.5 rounded-xl border border-brand-border bg-brand-canvas text-[11.5px] font-bold text-slate-600 text-left">Leaked answer</button>
+        <button type="button" data-issue="cutoff_reply" class="report-type-btn py-2 px-2.5 rounded-xl border border-brand-border bg-brand-canvas text-[11.5px] font-bold text-slate-600 text-left">Cut-off / no reply</button>
         <button type="button" data-issue="confusing" class="report-type-btn py-2 px-2.5 rounded-xl border border-brand-border bg-brand-canvas text-[11.5px] font-bold text-slate-600 text-left">Confusing / format</button>
-        <button type="button" data-issue="other" class="report-type-btn py-2 px-2.5 rounded-xl border border-brand-border bg-brand-canvas text-[11.5px] font-bold text-slate-600 text-left">Other issue</button>
+        <button type="button" data-issue="ui_camera_bug" class="report-type-btn py-2 px-2.5 rounded-xl border border-brand-border bg-brand-canvas text-[11.5px] font-bold text-slate-600 text-left">Camera / UI bug</button>
+        <button type="button" data-issue="other" class="report-type-btn py-2 px-2.5 rounded-xl border border-brand-border bg-brand-canvas text-[11.5px] font-bold text-slate-600 text-left">Other</button>
       </div>
       <textarea id="report-note-input" rows="2" placeholder="Optional: tell us what happened (e.g. Q14 hint was wrong)..." class="w-full rounded-xl border border-brand-border bg-brand-canvas/60 px-3 py-2 text-[13.5px] text-brand-navy placeholder:text-slate-400 focus:outline-none focus:border-brand-teal resize-none"></textarea>
       <button id="btn-report-submit" type="button" class="cta-shimmer w-full py-2.5 px-4 rounded-xl text-white font-bold text-[14px] disabled:opacity-60">Send Report</button>
@@ -2428,6 +2430,26 @@
           ? '選填：簡述問題（例如：Q14 提示有誤）…'
           : 'Optional: tell us what happened (e.g. Q14 hint was wrong)...';
         document.getElementById('btn-report-submit').textContent = isZh ? '傳送回報' : 'Send Report';
+        const issueLabels = isZh
+          ? {
+              wrong_answer: '答案或提示有誤',
+              leaked_answer: '引導模式劇透答案',
+              cutoff_reply: '回覆中斷／無回應',
+              confusing: '難以理解／排版問題',
+              ui_camera_bug: '相機／介面問題',
+              other: '其他問題'
+            }
+          : {
+              wrong_answer: 'Wrong answer / hint',
+              leaked_answer: 'Leaked answer',
+              cutoff_reply: 'Cut-off / no reply',
+              confusing: 'Confusing / format',
+              ui_camera_bug: 'Camera / UI bug',
+              other: 'Other'
+            };
+        document.querySelectorAll('.report-type-btn').forEach((b) => {
+          if (issueLabels[b.dataset.issue]) b.textContent = issueLabels[b.dataset.issue];
+        });
         document.getElementById('report-meta-summary').textContent = `${PAPERS[state.paper]?.code || state.paper} · ${state.mode} · ${state.chatMessages.length} turns${sp ? ' · ' + sp.title : ''}`;
         document.getElementById('report-modal').classList.remove('hidden');
       }
