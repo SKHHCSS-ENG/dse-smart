@@ -152,24 +152,12 @@
       <!-- ===================== VIEW 1: COACH SETUP (SCHOOL PAPERS | MY OWN PAPER) ===================== -->
       <section id="view-drill" class="p-4 flex-1 flex flex-col gap-3">
 
-        <!-- Compact Settings Strip: Target Level + Language -->
-        <div class="bg-brand-canvas border border-brand-border rounded-2xl p-3 flex flex-col gap-2">
-          <div class="flex items-center justify-between gap-2">
-            <span id="lbl-target" class="text-[11px] font-bold uppercase tracking-wider text-slate-500 shrink-0">DSE Target</span>
-            <div class="inline-flex items-center gap-1 bg-[#e5f1f5] p-1 rounded-xl shrink-0" role="group" aria-label="DSE Target Level">
-              <button type="button" data-level="lv2" class="level-btn seg-btn py-1.5 px-3 rounded-lg text-[12px] font-semibold text-slate-600 whitespace-nowrap">Lv 2</button>
-              <button type="button" data-level="lv3" class="level-btn seg-btn py-1.5 px-3 rounded-lg text-[12px] font-semibold text-slate-600 whitespace-nowrap">Lv 3</button>
-              <button type="button" data-level="lv45" class="level-btn seg-btn py-1.5 px-3 rounded-lg text-[12px] font-semibold text-slate-600 whitespace-nowrap">Lv 4 - 5**</button>
-            </div>
-          </div>
-          <p id="level-caption" class="text-[11px] text-slate-500 -mt-1 text-right"></p>
-
-          <div class="flex items-center justify-between gap-2 pt-1.5 border-t border-brand-border/70">
-            <span id="lbl-lang" class="text-[11px] font-bold uppercase tracking-wider text-slate-500 shrink-0">Language</span>
-            <div class="inline-flex items-center gap-1 bg-[#e5f1f5] p-1 rounded-xl shrink-0" role="group" aria-label="App and AI language">
-              <button type="button" data-lang="en" class="lang-btn seg-btn py-1.5 px-3 rounded-lg text-[12px] font-semibold text-slate-600 whitespace-nowrap">EN</button>
-              <button type="button" data-lang="zh" class="lang-btn seg-btn py-1.5 px-3 rounded-lg text-[12px] font-semibold text-slate-600 whitespace-nowrap">全中文</button>
-            </div>
+        <!-- Compact Settings Strip: Language Only -->
+        <div class="bg-brand-canvas border border-brand-border rounded-2xl px-3 py-2 flex items-center justify-between gap-2">
+          <span id="lbl-lang" class="text-[11px] font-bold uppercase tracking-wider text-slate-500 shrink-0">Language</span>
+          <div class="inline-flex items-center gap-1 bg-[#e5f1f5] p-1 rounded-xl shrink-0" role="group" aria-label="App and AI language">
+            <button type="button" data-lang="en" class="lang-btn seg-btn py-1.5 px-3 rounded-lg text-[12px] font-semibold text-slate-600 whitespace-nowrap">EN</button>
+            <button type="button" data-lang="zh" class="lang-btn seg-btn py-1.5 px-3 rounded-lg text-[12px] font-semibold text-slate-600 whitespace-nowrap">全中文</button>
           </div>
         </div>
 
@@ -371,7 +359,7 @@
               <polyline points="21 15 16 10 5 21" />
             </svg>
           </button>
-          <textarea id="chat-input" rows="1" placeholder="Type Q14 or your try..." class="flex-1 rounded-xl border border-brand-border bg-brand-canvas/60 px-3 py-2 text-[14px] text-brand-navy placeholder:text-slate-400 focus:outline-none focus:border-brand-teal focus:bg-white resize-none max-h-24 leading-snug"></textarea>
+          <textarea id="chat-input" rows="1" placeholder="Type Q# or reply..." class="flex-1 rounded-xl border border-brand-border bg-brand-canvas/60 px-3 py-2 text-[14px] text-brand-navy placeholder:text-slate-400 focus:outline-none focus:border-brand-teal focus:bg-white resize-none max-h-24 leading-snug"></textarea>
           <button id="btn-chat-send" type="button" class="cta-shimmer py-2.5 px-3.5 rounded-xl text-white font-bold text-[13px] shrink-0 disabled:opacity-55">
             Send
           </button>
@@ -806,14 +794,16 @@
           },
           p1_selfcheck: {
             en: [
-              'MENU (Leave a blank line before menu; NEVER print state labels; ALWAYS end with "**Next step:**"):',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; print ONLY **Next step:** then the bullets below]',
+              '**Next step:**',
               '  - **A)** Re-check my edit (type answer)',
               '  - **B)** Narrow line clue',
               '  - **C)** Next part / Q# (or snap next page)',
               '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（選單前空一行；絕不輸出狀態標籤；結尾只輸出「**下一步：**」）：',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; print ONLY **下一步：** then the bullets below]',
+              '**下一步：**',
               '  - **A)** 重檢我修改後的答案',
               '  - **B)** 縮小原文行數範圍',
               '  - **C)** 下一小題或下一題（輸入題號／拍下一頁）',
@@ -822,14 +812,16 @@
           },
           p1_explain: {
             en: [
-              'MENU (Leave a blank line before menu; NEVER print the word "MENU"; ONLY show A-D AFTER explaining a specific question, NEVER while waiting for a photo/QAB/Answer Key/Q#):',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; ONLY show A-D after coaching a question/draft; print ONLY **Next step:** then the bullets below]',
+              '**Next step:**',
               '  - **A)** Simpler explanation',
               '  - **B)** Show exact line clue',
               '  - **C)** Next part / Q# (or snap next page)',
               '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（選單前空一行；絕不輸出「MENU」字眼；只於完成單題講解後才列出 A-D，等待拍照或題號時切勿列出）：',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; ONLY show A-D after coaching a question/draft; print ONLY **下一步：** then the bullets below]',
+              '**下一步：**',
               '  - **A)** 用更淺白的文字解釋',
               '  - **B)** 指出原文線索與關鍵詞',
               '  - **C)** 下一小題或下一題（輸入題號／拍下一頁）',
@@ -864,14 +856,16 @@
           },
           p3b_selfcheck: {
             en: [
-              'MENU (Leave a blank line before menu; NEVER print state labels; ALWAYS end with "**Next step:**"):',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; print ONLY **Next step:** then the bullets below]',
+              '**Next step:**',
               '  - **A)** Re-check my edit (type sentence)',
               '  - **B)** Narrow Data File clue',
               '  - **C)** Next task / point (or snap next page)',
               '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（選單前空一行；絕不輸出狀態標籤；結尾只輸出「**下一步：**」）：',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; print ONLY **下一步：** then the bullets below]',
+              '**下一步：**',
               '  - **A)** 重檢我修改後的要點或句子',
               '  - **B)** 縮小 Data File 對應位置',
               '  - **C)** 下一個任務／要點（輸入編號／拍下一頁）',
@@ -880,14 +874,16 @@
           },
           p3b_explain: {
             en: [
-              'MENU (Leave a blank line before menu; NEVER print the word "MENU"; ONLY show A-D AFTER explaining a specific question, NEVER while waiting for a photo/QAB/Answer Key/Q#):',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; ONLY show A-D after coaching a question/draft; print ONLY **Next step:** then the bullets below]',
+              '**Next step:**',
               '  - **A)** Simpler explanation',
               '  - **B)** Data File line & paraphrase tip',
               '  - **C)** Next task / point (or snap next page)',
               '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（選單前空一行；絕不輸出「MENU」字眼；只於完成單題講解後才列出 A-D，等待拍照或題號時切勿列出）：',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; ONLY show A-D after coaching a question/draft; print ONLY **下一步：** then the bullets below]',
+              '**下一步：**',
               '  - **A)** 用更淺白的文字解釋失分處',
               '  - **B)** 指出 Data File 原文及改寫技巧',
               '  - **C)** 下一個任務／要點（輸入編號／拍下一頁）',
@@ -896,30 +892,34 @@
           },
           p2: {
             en: [
-              'MENU (Leave a blank line before menu; NEVER print the word "MENU"; ONLY show A-D AFTER explaining a specific question, NEVER while waiting for a photo/QAB/Answer Key/Q#):',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; ONLY show A-D after coaching a question/draft; print ONLY **Next step:** then the bullets below]',
+              '**Next step:**',
               '  - **A)** Plan PAT & 3 ideas',
-              '  - **B)** Check draft (top 3 C·L·O issues)',
+              '  - **B)** C·L·O Overview (then pick C / L / O)',
               '  - **C)** Upgrade 1 paragraph (P1 / P2 / P3)',
               '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（選單前空一行；絕不輸出「MENU」字眼；只於完成單題講解後才列出 A-D，等待拍照或題號時切勿列出）：',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; ONLY show A-D after coaching a question/draft; print ONLY **下一步：** then the bullets below]',
+              '**下一步：**',
               '  - **A)** 構思審題（PAT）與三個論點',
-              '  - **B)** 檢查草稿（首三個 C·L·O 錯誤）',
+              '  - **B)** C·L·O 總覽（再選 C / L / O 深入改善）',
               '  - **C)** 提升指定段落（輸入 P1、P2 或 P3）',
               '  - **D)** 整理錯題記錄'
             ]
           },
           p4: {
             en: [
-              'MENU (Leave a blank line before menu; NEVER print the word "MENU"; ONLY show A-D AFTER explaining a specific question, NEVER while waiting for a photo/QAB/Answer Key/Q#):',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; ONLY show A-D after coaching a question/draft; print ONLY **Next step:** then the bullets below]',
+              '**Next step:**',
               '  - **A)** Brainstorm HK ideas & phrases',
               '  - **B)** Group Discussion role-play',
               '  - **C)** 1-minute Examiner IR question',
               '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（選單前空一行；絕不輸出「MENU」字眼；只於完成單題講解後才列出 A-D，等待拍照或題號時切勿列出）：',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; ONLY show A-D after coaching a question/draft; print ONLY **下一步：** then the bullets below]',
+              '**下一步：**',
               '  - **A)** 構思香港例子與常用互動句式',
               '  - **B)** 小組討論角色扮演（每次一輪）',
               '  - **C)** 一分鐘個人回應（IR）練習',
@@ -1181,8 +1181,13 @@
               '2. DRAFT NEXT: If I upload my plan or essay, scan it quietly and reply ONLY with a 1-line confirmation + the menu below.',
               '3. MENU ACTIONS (always use the Fixed Response Pattern):',
               '   - "A" = lock Purpose, Audience, Tone (PAT), format, and 3 clear ideas step by step.',
-              '   - "B" = C·L·O mistake analysis — spot top 3 priority errors and ask me to fix 1–2 sentences first.',
-              '   - "C" (or "P1" / "P2" / "P3") = focus ONLY on that paragraph and coach me to upgrade it by +1 DSE level.',
+              '   - HKDSE PAPER 2 RUBRIC (C · L · O — STRICT 3 SEPARATE DOMAINS, NEVER MERGE C AND O):',
+              '     * **C (Content):** Relevance to task/prompt requirements (purpose, audience, role, genre), and whether ideas are well-supported, elaborated, and developed with concrete examples, reasons, and depth.',
+              '     * **L (Language):** L1 = grammatical accuracy (verb forms, tenses, SVA, sentence structure variety); L2 = vocabulary range, word form, spelling, punctuation, and appropriate tone/register for the audience & text type.',
+              '     * **O (Organisation):** Overall coherence and logical progression of ideas, clear paragraphing & topic sentences conforming to the genre, and effective cohesive devices connecting words, sentences, paragraphs, and ideas.',
+              '   - "B" = C·L·O OVERVIEW FIRST (IDENTICAL 3-PART STRUCTURE IN BOTH EN AND 全中文): Give a crisp 3-bullet overview assessing **📌 C (Content)**, **📌 L (Language)**, and **📌 O (Organisation)** separately against the HKDSE Paper 2 Rubric above (1–2 concise lines each; do NOT dump a full line-by-line edit yet). Right after the 3-part C·L·O Overview, offer ONLY this menu: **A)** Dig into C (Content) / 深入改善 C（內容發展）, **B)** Dig into L (Language: L1 & L2) / 深入改善 L（語言：文法與詞彙）, **C)** Dig into O (Organisation & Coherence) / 深入改善 O（結構與連貫）, **D)** Error Log / 整理錯題記錄.',
+              '   - DEEP-DIVE BY CHOSEN DOMAIN: **C (Content)** = focus ONLY on relevance, elaboration, supporting details, and idea development + 1–2 short ✍️ Your Turn tasks. **L (Language)** = split into **L1 (Grammar & Sentence Structure)** and **L2 (Word Form, Spelling, Vocab & Register)** with exact lines from my draft + 2 short ✍️ Your Turn lines to fix. **O (Organisation)** = focus ONLY on coherence, logical flow, paragraphing/topic sentences, and cohesive devices linking words, sentences, paragraphs, and ideas + 1–2 short ✍️ Your Turn linking upgrades. End with the same A/B/C/D menu.',
+              '   - "C" (from main menu, or "P1" / "P2" / "P3") = focus ONLY on that paragraph and coach me to improve clarity, ideas, and phrasing.',
               getLogFormat('p2', 'default', lang),
               '',
               pattern,
@@ -2037,15 +2042,18 @@
 
       function buildPrompt() {
         const paper = PAPERS[state.paper];
-        const level = LEVELS[state.level];
         const langRule = LANGUAGES[state.lang].getRule(state.script);
+        const universalCoachingRule = [
+          'COACHING STANDARD (HKDSE):',
+          '- Use clear, everyday student-friendly wording (avoid stiff academic jargon and never mention DSE Level numbers like Lv 2/3/4/5).',
+          '- Stay strictly grounded in the exam paper, keep replies concise for mobile screens, and focus on practical exam technique.'
+        ].join('\n');
         return [
-          paper.getBody(state.mode, state.lang, state.script, state.level),
+          paper.getBody(state.mode, state.lang, state.script, 'lv3'),
           '',
           ANTI_DRIFT_RULE,
           '',
-          '--- Scaffolding & Level Rules ---',
-          level.rules,
+          universalCoachingRule,
           '',
           '--- Language Rule ---',
           langRule
@@ -2053,7 +2061,6 @@
       }
 
       function buildRequizPrompt(entries, focusSkill) {
-        const level = LEVELS[state.level];
         const langRule = LANGUAGES[state.lang].getRule(state.script);
         const items = entries.map((e, i) => `${i + 1}. [${PAPERS[e.paper]?.code || 'DSE'}${e.skill ? ' · ' + e.skill : ''}] ${e.text}`).join('\n');
         const intro = focusSkill
@@ -2063,8 +2070,7 @@
           intro,
           'Wait for my answer before explaining, keep replies short (under 5 lines), and do not dump all questions at once.',
           '',
-          '--- My Level & Language ---',
-          level.rules,
+          '--- Language Rule ---',
           langRule,
           '',
           '--- My Error Log ---',
@@ -2112,14 +2118,26 @@
             : `**🎯 ${schoolPaper.title}**\n\n- ${loadedNote}\n- ${state.mode === 'guided' ? 'Type a question number (e.g. `Q14`) or snap your Q&A page for step-by-step hints without spoilers.' : 'Type a question number (e.g. `Q14`) or snap your Q&A page to check and explain against the official answer key.'}`;
         } else {
           const isExplain = PAPERS[state.paper].hasModes && state.mode === 'explain';
-          if (isExplain) {
+          if (state.paper === 'p2') {
             welcome = isZh
-              ? `**🎯 ${PAPERS[state.paper].code} · 核對解說**\n\n- **第 1 步：**先拍下文章／資料頁（如已準備好可直接拍題目頁）\n- **第 2 步：**再拍下你的 **題目答題簿（QAB）**\n- **第 3 步：**分開拍下 **官方答案（Answer Key）**，然後輸入題號（如 \`Q1\`）`
-              : `**🎯 ${PAPERS[state.paper].code} · Explain Mode**\n\n- **Step 1:** Snap the **Passage / Data File**\n- **Step 2:** Snap your **Q&A Booklet (QAB)** page\n- **Step 3:** Snap the **Official Answer Key** separately, then type a question number (e.g. \`Q1\`)`;
+              ? `**🎯 Paper 2 · 寫作教練**\n\n- **第 1 步：**拍下 **寫作題目**（如已有草稿可一併或稍後拍下）\n- **第 2 步：**選擇 **構思大綱** 或 **C·L·O 總覽檢查**，再深入改善 C、L 或 O。`
+              : `**🎯 Paper 2 · Writing Coach**\n\n- **Step 1:** Snap your **Writing Topic** (and your **draft** if you have one)\n- **Step 2:** Choose **Plan** or **C·L·O Overview**, then dig into **C**, **L**, or **O**.`;
+          } else if (state.paper === 'p4') {
+            welcome = isZh
+              ? `**🎯 Paper 4 · 說話教練**\n\n- 拍下 **說話題目卡（Prompt Card）**，即可練習審題構思、小組討論（GI）或個人回應（IR）。`
+              : `**🎯 Paper 4 · Speaking Coach**\n\n- Snap your **Speaking Prompt Card** to practise ideas, Group Interaction (GI), or Individual Response (IR).`;
+          } else if (isExplain) {
+            const mat = state.paper === 'p3b' ? (isZh ? '資料頁（Data File）' : 'Data File') : (isZh ? '閱讀文章' : 'Passage');
+            const qEx = state.paper === 'p3b' ? 'Task 8' : 'Q1';
+            welcome = isZh
+              ? `**🎯 ${PAPERS[state.paper].code} · 核對解說**\n\n- **第 1 步：**先拍下 **${mat}**\n- **第 2 步：**再拍下你的 **題目答題簿（QAB）**\n- **第 3 步：**分開拍下 **官方答案（Answer Key）**，然後輸入題號（如 \`${qEx}\`）`
+              : `**🎯 ${PAPERS[state.paper].code} · Explain Mode**\n\n- **Step 1:** Snap the **${mat}**\n- **Step 2:** Snap your **Q&A Booklet (QAB)** page\n- **Step 3:** Snap the **Official Answer Key** separately, then type a question number (e.g. \`${qEx}\`)`;
           } else {
+            const mat = state.paper === 'p3b' ? (isZh ? '資料頁（Data File）' : 'Data File') : (isZh ? '閱讀文章' : 'Passage');
+            const qEx = state.paper === 'p3b' ? 'Task 8' : 'Q14';
             welcome = isZh
-              ? `**🎯 ${PAPERS[state.paper].code} · 自選試卷**\n\n- 先點左下角相機拍下 **文章／資料頁**，再拍 **題目頁**，最後輸入題號（例如 \`Q14\`）即可開始。`
-              : `**🎯 ${PAPERS[state.paper].code} · My Own Paper**\n\n- Tap the camera button to snap your **Passage / Data File** first, then your **Q&A page**, then type a question number (e.g. \`Q14\`).`;
+              ? `**🎯 ${PAPERS[state.paper].code} · 自選試卷**\n\n- 先拍下 **${mat}**，再拍 **題目頁**，最後輸入題號（例如 \`${qEx}\`）即可開始。`
+              : `**🎯 ${PAPERS[state.paper].code} · My Own Paper**\n\n- Snap your **${mat}** first, then your **Q&A page**, then type a question number (e.g. \`${qEx}\`).`;
           }
         }
         state.chatMessages = [{ role: 'assistant', text: welcome, images: [] }];
@@ -3000,7 +3018,7 @@
         document.getElementById('view-log').classList.toggle('hidden', state.tab !== 'log');
         document.getElementById('view-backstage').classList.toggle('hidden', state.tab !== 'backstage');
         const chatInp = document.getElementById('chat-input');
-        if (chatInp) chatInp.placeholder = isZh ? '輸入題號 (如 Q14) 或作答…' : 'Type Q14 or your try...';
+        if (chatInp) chatInp.placeholder = isZh ? '輸入訊息或題號…' : 'Type Q# or reply...';
         const repLbl = document.getElementById('lbl-btn-report');
         if (repLbl) repLbl.textContent = isZh ? '回報' : 'Report';
 
@@ -3019,7 +3037,6 @@
         document.getElementById('app-subtitle').textContent = ui.subtitle;
         document.getElementById('tab-drill').textContent = isZh ? 'AI 教練' : 'Coach';
         document.getElementById('tab-log-label').textContent = ui.tabLog;
-        document.getElementById('lbl-target').textContent = ui.lblTarget;
         document.getElementById('lbl-lang').textContent = ui.lblLang;
         document.getElementById('lbl-choose-paper').textContent = ui.lblChoosePaper;
         document.getElementById('lbl-skip-3a').textContent = ui.lblSkip3a;
@@ -3054,11 +3071,7 @@
         document.getElementById('lbl-weakness-checklist').textContent = ui.weaknessChecklist;
         document.getElementById('lbl-copy-targeted').textContent = ui.copyTargeted;
 
-        // Level & Language buttons
-        document.querySelectorAll('.level-btn').forEach((btn) => {
-          btn.classList.toggle('active', btn.dataset.level === state.level);
-        });
-        document.getElementById('level-caption').textContent = ui.levelCaps[state.level];
+        // Language buttons
         document.querySelectorAll('.lang-btn').forEach((btn) => {
           btn.classList.toggle('active', btn.dataset.lang === state.lang);
         });
@@ -3258,13 +3271,7 @@
         render();
       });
 
-      document.querySelectorAll('.level-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          state.level = btn.dataset.level;
-          savePrefs();
-          render();
-        });
-      });
+
 
       document.querySelectorAll('.lang-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
