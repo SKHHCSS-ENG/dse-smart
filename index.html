@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>DSE Smart — AI Paper Coach &amp; Error Log</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f3d56'/%3E%3Cpath d='M16 5l2.6 7.4L26 15l-7.4 2.6L16 25l-2.6-7.4L6 15l7.4-2.6z' fill='%2338bdf8'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -77,10 +78,10 @@
       box-shadow: 0 1px 4px rgba(18, 58, 77, 0.14);
     }
     .toast-enter {
-      transform: translate(-50%, 14px);
+      transform: translate(-50%, -14px);
       opacity: 0;
       pointer-events: none;
-      transition: transform 0.22s ease, opacity 0.22s ease;
+      transition: transform 0.18s ease, opacity 0.18s ease;
     }
     .toast-enter.show {
       transform: translate(-50%, 0);
@@ -109,10 +110,11 @@
     <main id="app-shell" class="app-shell w-full max-w-[490px] bg-white sm:rounded-[28px] sm:border sm:border-brand-border min-h-[100dvh] sm:min-h-0 flex flex-col overflow-hidden">
 
       <!-- Top App Bar -->
-      <header id="app-header" class="px-4 pt-3.5 pb-2.5 bg-white border-b border-brand-border/80 flex flex-col gap-2.5">
+      <header id="app-header" class="sticky top-0 z-30 px-4 pt-3.5 pb-2.5 bg-white/95 backdrop-blur-sm border-b border-brand-border/80 flex flex-col gap-2.5">
         <div class="flex items-center justify-between gap-2">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <div class="w-9 h-9 rounded-xl bg-brand-tealSoft border border-brand-teal/25 flex items-center justify-center shrink-0">
+          <div class="flex items-center gap-2 min-w-0">
+            <a href="https://skhhcss-eng.github.io/self-directed-learning/" title="Back to Self-Directed Learning Hub" aria-label="Back to Self-Directed Learning Hub" class="w-8 h-8 rounded-xl bg-brand-canvas hover:bg-brand-tealSoft border border-brand-border flex items-center justify-center text-brand-navy text-[14px] font-bold shrink-0 transition-colors">&larr;</a>
+            <div class="w-8 h-8 rounded-xl bg-brand-tealSoft border border-brand-teal/25 flex items-center justify-center shrink-0">
               <svg class="w-5 h-5 text-brand-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 3l1.9 5.3L19 10l-5.1 1.7L12 17l-1.9-5.3L5 10l5.1-1.7L12 3z" />
                 <path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15z" />
@@ -221,7 +223,7 @@
           <!-- School Papers Picker (Shown when source === 'school') -->
           <div id="school-papers-box" class="hidden flex flex-col gap-1.5">
             <div class="flex items-center justify-between">
-              <span id="lbl-pick-school-paper" class="text-[11px] font-semibold text-slate-500">Official Answer Key loaded server-side</span>
+              <span id="lbl-pick-school-paper" class="text-[11.5px] font-semibold text-slate-500">Choose a school paper</span>
               <button id="btn-refresh-papers" type="button" class="text-[11px] font-semibold text-brand-teal hover:underline">Refresh</button>
             </div>
             <div id="school-papers-list" class="flex flex-col gap-1.5 max-h-40 overflow-y-auto pr-0.5"></div>
@@ -233,7 +235,7 @@
               <button id="btn-mode-guided" type="button" data-mode="guided" class="mode-btn seg-btn py-1.5 px-2 rounded-lg text-[12px] font-bold text-slate-600 whitespace-nowrap">Guided</button>
               <button id="btn-mode-explain" type="button" data-mode="explain" class="mode-btn seg-btn py-1.5 px-2 rounded-lg text-[12px] font-bold text-slate-600 whitespace-nowrap">Explain</button>
             </div>
-            <p id="mode-caption" class="text-[11px] text-slate-500 text-center leading-tight"></p>
+            <p id="mode-caption" class="text-[12px] text-slate-600 text-center leading-snug"></p>
           </div>
         </div>
 
@@ -292,7 +294,7 @@
       </section>
 
       <!-- ===================== VIEW 1B: BUILT-IN AI COACH CHAT (FULL-SCREEN) ===================== -->
-      <section id="view-chat" class="hidden fixed inset-0 z-40 bg-white flex flex-col sm:static sm:inset-auto sm:z-auto sm:flex-1 sm:h-[82dvh] sm:min-h-[600px]">
+      <section id="view-chat" class="hidden fixed inset-0 z-40 bg-white flex flex-col sm:static sm:inset-auto sm:z-auto sm:flex-1 sm:h-[calc(100dvh-2.5rem)] sm:max-h-[760px] sm:min-h-[520px] sm:overflow-hidden">
         <!-- Compact Single-Row Chat Top Bar -->
         <div class="px-3 py-2 bg-white border-b border-brand-border flex items-center justify-between gap-2 shrink-0">
           <button id="btn-chat-back" type="button" class="px-2.5 py-1.5 rounded-xl bg-brand-canvas border border-brand-border text-[12px] font-bold text-brand-navy hover:bg-brand-tealSoft shrink-0">
@@ -303,6 +305,13 @@
             <div id="chat-context-sub" class="text-[10.5px] font-medium text-brand-teal truncate leading-tight">Built-in AI Coach</div>
           </div>
           <div class="flex items-center gap-1 shrink-0">
+            <button id="btn-chat-save-log" type="button" title="Save mistakes to Error Log" aria-label="Save mistakes to Error Log" class="p-1.5 rounded-xl bg-brand-tealSoft border border-brand-teal/30 text-brand-navy hover:bg-[#d7edf5] flex items-center justify-center transition-colors disabled:opacity-50">
+              <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                <polyline points="17 21 17 13 7 13 7 21" />
+                <polyline points="7 3 7 8 15 8" />
+              </svg>
+            </button>
             <button id="btn-chat-report" type="button" title="Report an issue" aria-label="Report an issue" class="p-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 hover:bg-amber-100 flex items-center justify-center transition-colors">
               <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
@@ -316,7 +325,7 @@
         </div>
 
         <!-- Chat Messages Thread -->
-        <div id="chat-messages" class="flex-1 overflow-y-auto p-3 flex flex-col gap-2.5 bg-[#f8fbfc]"></div>
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-3 pb-5 flex flex-col gap-2.5 bg-[#f8fbfc]"></div>
 
         <!-- Quick-Reply Tappable Menu Buttons (Responsive Grid — Zero Clipping) -->
         <div id="chat-quick-actions" class="hidden px-3 py-1.5 bg-white border-t border-brand-border/70 flex items-center gap-2 shrink-0"></div>
@@ -365,15 +374,15 @@
           </div>
 
           <p id="lbl-smart-log-desc" class="text-[12px] text-slate-500 leading-snug">
-            Finish in AI &rarr; choose <strong class="text-brand-navy font-semibold">Error Log</strong> (<strong class="text-brand-navy font-semibold">C</strong> in Guided / <strong class="text-brand-navy font-semibold">D</strong> in others) &rarr; paste here.
+            Finish in AI &rarr; tap <strong class="text-brand-navy font-semibold">Save Log</strong> (or reply <strong class="text-brand-navy font-semibold">D</strong>) &rarr; or paste an AI log reply below.
           </p>
 
-          <div class="grid grid-cols-4 gap-1 bg-[#e5f1f5] p-1 rounded-xl" role="group" aria-label="Paper for error log entry">
+          <div class="flex flex-col gap-1"><span id="lbl-save-under" class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Save under paper</span><div class="grid grid-cols-4 gap-1 bg-[#e5f1f5] p-1 rounded-xl" role="group" aria-label="Paper for error log entry">
             <button type="button" data-logpaper="p1" class="logpaper-btn seg-btn py-1.5 rounded-lg text-[11.5px] font-semibold text-slate-600">P1</button>
             <button type="button" data-logpaper="p2" class="logpaper-btn seg-btn py-1.5 rounded-lg text-[11.5px] font-semibold text-slate-600">P2</button>
             <button type="button" data-logpaper="p3b" class="logpaper-btn seg-btn py-1.5 rounded-lg text-[11.5px] font-semibold text-slate-600">P3B</button>
             <button type="button" data-logpaper="p4" class="logpaper-btn seg-btn py-1.5 rounded-lg text-[11.5px] font-semibold text-slate-600">P4</button>
-          </div>
+          </div></div>
 
           <textarea id="log-input" rows="3" placeholder="Paste your AI Log reply here — messy intros or multiple questions are fine..." class="w-full rounded-xl border border-brand-border bg-white px-3 py-2.5 text-[14px] text-brand-navy placeholder:text-slate-400 focus:outline-none focus:border-brand-teal focus:ring-2 focus:ring-brand-teal/15 resize-none"></textarea>
 
@@ -385,8 +394,9 @@
           </button>
         </div>
 
-        <div class="flex items-center justify-between gap-1.5 flex-wrap">
-          <div class="flex items-center gap-1" role="group" aria-label="Filter error log by paper">
+        <div class="flex flex-col gap-1">
+          <span id="lbl-filter-logs" class="text-[11px] font-bold uppercase tracking-wider text-slate-500">Filter saved logs</span>
+          <div class="flex items-center gap-1 flex-wrap" role="group" aria-label="Filter error log by paper">
             <button id="btn-filter-all" type="button" data-filter="all" class="filter-btn px-2.5 py-1 rounded-full text-[11.5px] font-semibold border border-brand-border bg-brand-navy text-white">All</button>
             <button type="button" data-filter="p1" class="filter-btn px-2.5 py-1 rounded-full text-[11.5px] font-semibold border border-brand-border bg-white text-slate-600">P1</button>
             <button type="button" data-filter="p2" class="filter-btn px-2.5 py-1 rounded-full text-[11.5px] font-semibold border border-brand-border bg-white text-slate-600">P2</button>
@@ -577,7 +587,7 @@
 
       <!-- Subtle Non-Affiliation Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA.</p>
+        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA &middot; <span class="font-mono text-slate-400">v10.17</span></p>
       </footer>
     </main>
   </div>
@@ -599,11 +609,8 @@
           <input id="input-student-id" type="text" autocomplete="username" placeholder="e.g. hcp23001" class="w-full rounded-xl border border-brand-border px-3 py-2.5 text-[15px] text-brand-navy focus:outline-none focus:border-brand-teal" />
         </div>
         <div class="flex flex-col gap-2">
-          <div class="flex items-center justify-between">
-            <label class="text-[11px] font-bold uppercase tracking-wider text-slate-500">5-Digit PIN</label>
-            <span class="text-[11px] text-brand-teal font-medium">Default = 5 digits of ID</span>
-          </div>
-          <input id="input-student-pin" type="password" inputmode="numeric" maxlength="5" autocomplete="current-password" placeholder="e.g. 23001" class="w-full rounded-xl border border-brand-border px-3 py-2.5 text-[15px] text-brand-navy focus:outline-none focus:border-brand-teal" />
+          <label class="text-[11px] font-bold uppercase tracking-wider text-slate-500">5-Digit PIN</label>
+          <input id="input-student-pin" type="password" inputmode="numeric" maxlength="5" autocomplete="current-password" placeholder="Enter your 5-digit PIN" class="w-full rounded-xl border border-brand-border px-3 py-2.5 text-[15px] text-brand-navy focus:outline-none focus:border-brand-teal" />
         </div>
         <p id="auth-error-msg" class="hidden text-[12px] font-semibold text-rose-600"></p>
         <button id="btn-submit-signin" type="button" class="cta-shimmer w-full py-3 rounded-xl text-white font-bold text-[14px]">Sign In &amp; Sync</button>
@@ -664,8 +671,14 @@
     </div>
   </div>
 
+  <!-- Tap-to-Zoom Photo Lightbox -->
+  <div id="photo-lightbox" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4" role="dialog" aria-label="Zoomed photo preview">
+    <button id="btn-lightbox-close" type="button" aria-label="Close preview" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 text-brand-navy font-bold text-[18px] flex items-center justify-center shadow-lg">&times;</button>
+    <img id="photo-lightbox-img" src="" alt="Full attached paper" class="max-w-full max-h-[88dvh] rounded-2xl shadow-2xl object-contain" />
+  </div>
+
   <!-- Floating Toast -->
-  <div id="toast" role="status" aria-live="polite" class="toast-enter fixed bottom-5 left-1/2 z-50 bg-brand-navy text-white text-[13px] font-semibold px-4 py-2.5 rounded-full shadow-lg whitespace-nowrap max-w-[92vw] truncate">
+  <div id="toast" role="status" aria-live="polite" class="toast-enter fixed top-3 left-1/2 z-50 bg-brand-navy text-white text-[12.5px] font-semibold px-4 py-2 rounded-full shadow-lg whitespace-nowrap max-w-[92vw] truncate">
     Copied to clipboard!
   </div>
 
@@ -715,7 +728,7 @@
         lv3: {
           label: 'DSE Lv 3',
           caption: 'Guided hints · common DSE exam traps',
-          rules: 'Target: HKDSE Lv 3 (Guided Scaffolding). Prompt me to locate key phrases myself, flag common DSE traps (T/F/NG, lifting, word form), and pitch clean Lv 3–4 English.'
+          rules: 'HKDSE Standard Coaching: Prompt me to locate key phrases myself, flag common HKDSE traps (T/F/NG, lifting, word form), and pitch clear, natural HKDSE English.'
         },
         lv45: {
           label: 'DSE Lv 4–5**',
@@ -741,7 +754,7 @@
 
       const LANGUAGES = {
         en: {
-          getRule: () => 'Language: Clear, simple English matched to my DSE Target Level.'
+          getRule: () => 'Language: Clear, everyday English suitable for HKDSE students.'
         },
         zh: {
           getRule: () => 'Language: Simple, everyday Standard Written Traditional Chinese (淺白標準繁體書面語; NO Cantonese like 係/嘅/咗/呢個/搵/就得, NO stiff jargon). ENGLISH-FIRST (CRITICAL): Keep ALL question/passage references in exact English (e.g. "millions of people", "Paragraph 1, Line 4"); brief Chinese in brackets only if helpful, NEVER replace English phrases.'
@@ -1055,7 +1068,7 @@
             return [
               'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — start directly with **🎯 ...**; NEVER print bracket headers like 【提示 1/3 ...】 or HTML tags):',
               '[Hint 1/3 format]:',
-              '**🎯 [題號＋小題，如 Q19 (iii) · 題型]**',
+              '**🎯 [題號＋小題，如 Q19 (iii) · 提示 1/3 · 題型]**',
               '',
               '- **🔑 題目關鍵詞：** [列出題目中的英文關鍵詞，絕不整句翻譯]',
               '- **🎯 答案類型：** [簡短說明要找甚麼類型，如地點、名詞短語、年份、原因]',
@@ -1071,7 +1084,7 @@
           return [
             'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — start directly with **🎯 ...**; NEVER print raw HTML tags):',
             '[Hint 1/3 format]:',
-            '**🎯 [Q# + sub-part e.g. Q19 (iii) · Skill Type]**',
+            '**🎯 [Q# + sub-part e.g. Q19 (iii) · Hint 1/3 · Skill Type]**',
             '',
             '- **🔑 Keywords:** [Exact English keywords from the question]',
             '- **🎯 Answer Type:** [1 short phrase: e.g. place, noun phrase, singular noun, year, or reason]',
@@ -1167,7 +1180,7 @@
       }
 
       function getLogFormat(paperKey, mode, lang) {
-        const trigger = ((paperKey === 'p1' || paperKey === 'p3b') && mode === 'guided') ? '"C" or "Log"' : '"D" or "Log"';
+        const trigger = '"D" or "Log"';
         if (lang === 'zh') {
           return [
             `When I reply ${trigger}: list every mistake/weak spot from this whole session in Standard Written Traditional Chinese (keeping English exam words in English) as clean bullet points:`,
@@ -1451,7 +1464,7 @@
           lblTarget: 'DSE Target',
           lblLang: 'Language',
           lblChoosePaper: '1. Pick a Paper',
-          lblSkip3a: 'No Paper 3A',
+          lblSkip3a: 'Paper 3A Listening skipped',
           papers: {
             p1: { title: 'Reading', sub: 'Passage + Q&A' },
             p2: { title: 'Writing', sub: 'Topic + Essay' },
@@ -1559,7 +1572,7 @@
           papers: {
             p1: { title: '閱讀卷', sub: '文章 + 問答頁' },
             p2: { title: '寫作卷', sub: '題目 + 作文' },
-            p3b: { title: '綜合能力', sub: '資料冊 + 草稿' },
+            p3b: { title: '綜合能力', sub: '資料頁 + 草稿' },
             p4: { title: '說話卷', sub: '題卡 + 練習' }
           },
           levelCaps: {
@@ -1631,17 +1644,17 @@
               '回覆 <strong>A / B / C / D</strong> 構思、評語或改善。'
             ],
             p3b_guided: [
-              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>資料冊</strong>。',
+              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>資料頁</strong>。',
               '拍你的<strong>任務頁</strong>（可選：另拍<strong>評分準則</strong>作不劇透核對）。',
               '輸入 <strong>Task 8</strong>……再回覆 <strong>A / B / C / D</strong>。'
             ],
             p3b_selfcheck: [
-              '先自己寫完 &rarr; <strong>複製指令</strong> ＋ 拍<strong>資料冊</strong>。',
+              '先自己寫完 &rarr; <strong>複製指令</strong> ＋ 拍<strong>資料頁</strong>。',
               '拍你的<strong>草稿</strong>（先不用拍評分準則）。',
               '輸入 <strong>Task 8</strong>……回覆 <strong>A / B / C / D</strong>，對答案前先自行修改。'
             ],
             p3b_explain: [
-              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>資料冊</strong>。',
+              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>資料頁</strong>。',
               '拍你的<strong>草稿</strong>（1–2 頁）。',
               '分開拍<strong>官方評分準則（Marking Scheme）</strong>。',
               '輸入 <strong>Task 8</strong>……再回覆 <strong>A / B / C / D</strong>。'
@@ -1706,7 +1719,7 @@
           if (prefs.lang && LANGUAGES[prefs.lang]) state.lang = prefs.lang;
           state.script = 'trad';
           if (prefs.paper && PAPERS[prefs.paper]) state.paper = prefs.paper;
-          if (prefs.mode && MODES[prefs.mode]) state.mode = prefs.mode;
+          if (prefs.mode === 'guided' || prefs.mode === 'explain') state.mode = prefs.mode; else state.mode = 'guided';
           if (prefs.source === 'school' || prefs.source === 'own') state.source = prefs.source;
           if (prefs.selectedPaperId) state.selectedPaperId = String(prefs.selectedPaperId);
         } catch (_) {}
@@ -2276,8 +2289,8 @@
             const isGuided = state.mode === 'guided';
             if (isGuided) {
               welcome = isZh
-                ? `**🎯 ${PAPERS[state.paper].code} · 引導練習**\n\n- 先拍下 **${mat}**，再拍 **${qPage}**（可選：另拍 **${keyOpt}**，引導時絕不劇透，只用作準確核對你的作答！）。\n- 輸入題號（例如 \`${qEx}\`）即可開始；作答後可隨時 **拍照或輸入答案** 獲取即時回饋，亦可自由發問。`
-                : `**🎯 ${PAPERS[state.paper].code} · Guided Practice**\n\n- Snap your **${mat}**, then your **${qPage}** (optional: also snap the **${keyOpt}** — I'll keep answers hidden during hints and use it to check your tries!).\n- Type a question number (e.g. \`${qEx}\`), **snap or type your try** anytime for instant feedback, or ask any free vocab/grammar question.`;
+                ? `**🎯 ${PAPERS[state.paper].code} · 引導練習**\n\n- 拍下或輸入 **${mat}** 及 **${qPage}**（可選：另拍 **${keyOpt}**，引導時絕不劇透，只用作準確核對你的作答！）。\n- 輸入題號（例如 \`${qEx}\`）即可開始；作答後可隨時 **拍照或輸入答案** 獲取即時回饋，亦可自由發問。`
+                : `**🎯 ${PAPERS[state.paper].code} · Guided Practice**\n\n- Snap or type your **${mat}** and **${qPage}** (optional: also snap the **${keyOpt}** — I'll keep answers hidden during hints and use it to check your tries!).\n- Type a question number (e.g. \`${qEx}\`), **snap or type your try** anytime for instant feedback, or ask any free vocab/grammar question.`;
             } else {
               welcome = isZh
                 ? `**🎯 ${PAPERS[state.paper].code} · 自檢草稿**\n\n- 先拍下 **${mat}**，再拍你 **已完成的${qPage}**（先不用拍答案），輸入題號（例如 \`${qEx}\`）即可開始自我檢查。`
@@ -2345,6 +2358,17 @@
         const text = typeof overrideText === 'string' ? overrideText.trim() : inputEl.value.trim();
         const images = state.chatPendingImages.slice();
         if (!text && images.length === 0) return;
+
+        // If student typed "D" while the latest menu binds D to Error Log, persist directly to Error Log!
+        if (images.length === 0 && /^d$/i.test(text) && state.authToken) {
+          const lastAsst = [...state.chatMessages].reverse().find((m) => m.role === 'assistant' && !m.isError);
+          const choices = lastAsst ? parseChoicesFromReply(lastAsst.text) : [];
+          if (choices.some((c) => c.letter === 'D' && c.isLog)) {
+            if (typeof overrideText !== 'string') inputEl.value = '';
+            saveErrorLogFromChat();
+            return;
+          }
+        }
 
         const userMsg = { role: 'user', text: text || '(Photo attached)', images };
         state.chatMessages.push(userMsg);
@@ -2461,6 +2485,7 @@
         state.chatSending = false;
         renderChat();
         scrollChatToBottom();
+        requestAnimationFrame(() => scrollChatToBottom());
       }
 
       async function saveErrorLogFromChat() {
@@ -2521,7 +2546,7 @@
         msgBox.innerHTML = state.chatMessages.map((m) => {
           const isUser = m.role === 'user';
           const imgsHtml = (m.images && m.images.length)
-            ? `<div class="flex flex-wrap gap-1.5 mb-1.5">${m.images.map((src) => `<img src="${src}" alt="Attached paper" class="w-20 h-20 object-cover rounded-xl border border-white/40" />`).join('')}</div>`
+            ? `<div class="flex flex-wrap gap-1.5 mb-1.5">${m.images.map((src) => `<img src="${src}" alt="Attached paper" class="chat-zoom-img cursor-zoom-in w-28 h-28 object-cover rounded-xl border border-white/50 shadow-sm" />`).join('')}</div>`
             : '';
           if (isUser) {
             return `
@@ -2557,7 +2582,7 @@
           previewBar.classList.remove('hidden');
           previewBar.innerHTML = state.chatPendingImages.map((src, i) => `
             <div class="relative shrink-0">
-              <img src="${src}" alt="Preview" class="w-14 h-14 object-cover rounded-xl border border-brand-border" />
+              <img src="${src}" alt="Preview" class="chat-zoom-img cursor-zoom-in w-20 h-20 object-cover rounded-xl border border-brand-border" />
               <button type="button" data-rm-img="${i}" class="rm-chat-img absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-rose-600 text-white text-[11px] font-bold flex items-center justify-center">&times;</button>
             </div>`).join('');
         } else {
@@ -2776,7 +2801,7 @@
           return;
         }
         if (!/^\d{5}$/.test(pin)) {
-          errEl.textContent = `Enter your 5-digit PIN (default: ${studentId.slice(3)}).`;
+          errEl.textContent = 'Enter your 5-digit PIN.';
           errEl.classList.remove('hidden');
           return;
         }
@@ -3235,7 +3260,7 @@
         el.textContent = msg;
         el.classList.add('show');
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
+        toastTimer = setTimeout(() => el.classList.remove('show'), 1600);
       }
 
       function escapeHtml(str) {
@@ -3275,7 +3300,7 @@
         document.getElementById('view-log').classList.toggle('hidden', state.tab !== 'log');
         document.getElementById('view-backstage').classList.toggle('hidden', state.tab !== 'backstage');
         const chatInp = document.getElementById('chat-input');
-        if (chatInp) chatInp.placeholder = isZh ? '輸入題號、答案或自由發問…' : 'Type Q#, try, or ask anything...';
+        if (chatInp) chatInp.placeholder = isZh ? '輸入題號或發問…' : 'Type Q# or ask...';
         const repBtn = document.getElementById('btn-chat-report');
         if (repBtn) {
           const repTitle = isZh ? '回報問題' : 'Report an issue';
@@ -3310,12 +3335,30 @@
         document.getElementById('btn-source-own').textContent = isZh ? '自選試卷 (自由練習)' : 'My Own Paper';
         document.getElementById('btn-source-school').classList.toggle('active', state.source === 'school');
         document.getElementById('btn-source-own').classList.toggle('active', state.source === 'own');
-        document.getElementById('start-chat-label').textContent = isZh ? '開始內置 AI 教練對話' : 'Start Built-in AI Coach';
+        document.getElementById('start-chat-label').textContent = state.authToken ? (isZh ? '開始內置 AI 教練對話' : 'Start Built-in AI Coach') : (isZh ? '登入以開始 AI 教練' : 'Sign in to Start AI Coach');
 
         document.getElementById('btn-mode-guided').textContent = ui.modeGuided;
         if (state.mode === 'selfcheck') state.mode = 'guided';
         document.getElementById('btn-mode-explain').textContent = ui.modeExplain;
         document.getElementById('lbl-use-ai').textContent = isZh ? '或複製指令到其他 AI 平台' : 'Or Use Your Own AI App';
+        const spSelected = getSelectedSchoolPaper();
+        const spLbl = document.getElementById('lbl-pick-school-paper');
+        if (spLbl) {
+          spLbl.textContent = spSelected
+            ? (isZh ? '已於伺服器載入官方答案' : 'Official Answer Key loaded server-side')
+            : (isZh ? '選擇校內試卷' : 'Choose a school paper');
+        }
+        const saveUnderLbl = document.getElementById('lbl-save-under');
+        if (saveUnderLbl) saveUnderLbl.textContent = isZh ? '儲存至試卷' : 'Save under paper';
+        const filterLogsLbl = document.getElementById('lbl-filter-logs');
+        if (filterLogsLbl) filterLogsLbl.textContent = isZh ? '篩選已存錯題' : 'Filter saved logs';
+        const saveLogBtn = document.getElementById('btn-chat-save-log');
+        if (saveLogBtn) {
+          const slTitle = isZh ? '一鍵儲存錯題至錯題簿' : 'Save mistakes to Error Log';
+          saveLogBtn.title = slTitle;
+          saveLogBtn.setAttribute('aria-label', slTitle);
+          saveLogBtn.disabled = state.chatSavingLog;
+        }
         document.getElementById('lbl-reply-chips').textContent = ui.lblReplyChips;
         document.getElementById('copy-label').textContent = ui.copyBtn;
 
@@ -3393,9 +3436,10 @@
         document.getElementById('flow-steps-list').innerHTML = localizedSteps.map((stepHtml, idx) => (
           `<li class="flex items-start gap-2"><span class="w-4 h-4 rounded-full bg-brand-teal text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">${idx + 1}</span><span>${stepHtml}</span></li>`
         )).join('');
-        document.getElementById('command-chips').innerHTML = stepsMeta.commands.map((cmd) => (
-          `<span class="px-2 py-0.5 rounded-md bg-white border border-brand-border text-[11px] font-bold text-brand-navy font-mono">${escapeHtml(cmd)}</span>`
-        )).join('');
+        document.getElementById('command-chips').innerHTML = stepsMeta.commands.map((cmd) => {
+          const label = isZh ? cmd.replace('D (Log)', 'D (錯題)').replace('A (Plan)', 'A (構思)').replace('B (Check)', 'B (評語)').replace('A (Ideas)', 'A (例子)').replace('B (Discuss)', 'B (討論)') : cmd;
+          return `<span class="px-2 py-0.5 rounded-md bg-white border border-brand-border text-[11px] font-bold text-brand-navy font-mono">${escapeHtml(label)}</span>`;
+        }).join('');
 
         const promptText = buildPrompt();
         document.getElementById('prompt-preview-text').textContent = promptText;
@@ -3581,6 +3625,12 @@
       document.getElementById('btn-toggle-preview').addEventListener('click', () => {
         state.previewOpen = !state.previewOpen;
         render();
+        if (state.previewOpen) {
+          requestAnimationFrame(() => {
+            const box = document.getElementById('prompt-preview-box');
+            if (box && typeof box.scrollIntoView === 'function') box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          });
+        }
       });
 
       // Chat events
@@ -3597,7 +3647,20 @@
         showToast('Chat reset');
       });
 
+      document.getElementById('btn-chat-save-log').addEventListener('click', saveErrorLogFromChat);
       document.getElementById('btn-chat-report').addEventListener('click', openReportModal);
+      const lbEl = document.getElementById('photo-lightbox');
+      const lbImg = document.getElementById('photo-lightbox-img');
+      const closeLightbox = () => { lbEl.classList.add('hidden'); lbImg.src = ''; };
+      document.getElementById('btn-lightbox-close').addEventListener('click', closeLightbox);
+      lbEl.addEventListener('click', (e) => { if (e.target === lbEl) closeLightbox(); });
+      document.addEventListener('click', (e) => {
+        const img = e.target.closest && e.target.closest('.chat-zoom-img');
+        if (img && img.src) {
+          lbImg.src = img.src;
+          lbEl.classList.remove('hidden');
+        }
+      });
       document.getElementById('btn-report-close').addEventListener('click', closeReportModal);
       document.getElementById('btn-report-submit').addEventListener('click', handleSubmitReport);
       document.querySelectorAll('.report-type-btn').forEach((btn) => {
