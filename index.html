@@ -106,10 +106,10 @@
 <body class="font-sans antialiased selection:bg-[#d3eef6] selection:text-[#123a4d]">
   <div class="min-h-[100dvh] flex flex-col items-center justify-start sm:justify-center sm:py-5 sm:px-4">
     <!-- App Shell -->
-    <main class="app-shell w-full max-w-[490px] bg-white sm:rounded-[28px] sm:border sm:border-brand-border min-h-[100dvh] sm:min-h-0 flex flex-col overflow-hidden">
+    <main id="app-shell" class="app-shell w-full max-w-[490px] bg-white sm:rounded-[28px] sm:border sm:border-brand-border min-h-[100dvh] sm:min-h-0 flex flex-col overflow-hidden">
 
       <!-- Top App Bar -->
-      <header class="px-4 pt-3.5 pb-2.5 bg-white border-b border-brand-border/80 flex flex-col gap-2.5">
+      <header id="app-header" class="px-4 pt-3.5 pb-2.5 bg-white border-b border-brand-border/80 flex flex-col gap-2.5">
         <div class="flex items-center justify-between gap-2">
           <div class="flex items-center gap-2.5 min-w-0">
             <div class="w-9 h-9 rounded-xl bg-brand-tealSoft border border-brand-teal/25 flex items-center justify-center shrink-0">
@@ -320,33 +320,33 @@
         </div>
       </section>
 
-      <!-- ===================== VIEW 1B: BUILT-IN AI COACH CHAT ===================== -->
-      <section id="view-chat" class="hidden flex-1 flex flex-col min-h-[560px] max-h-[80dvh]">
-        <!-- Chat Top Strip -->
-        <div class="px-3.5 py-2.5 bg-brand-canvas border-b border-brand-border flex items-center justify-between gap-2">
-          <button id="btn-chat-back" type="button" class="px-2.5 py-1 rounded-lg bg-white border border-brand-border text-[12px] font-bold text-brand-navy hover:bg-brand-tealSoft shrink-0">
-            &larr; Setup
+      <!-- ===================== VIEW 1B: BUILT-IN AI COACH CHAT (FULL-SCREEN) ===================== -->
+      <section id="view-chat" class="hidden flex-1 flex flex-col h-[100dvh] sm:h-[82dvh] sm:min-h-[600px]">
+        <!-- Compact Single-Row Chat Top Bar -->
+        <div class="px-3 py-2 bg-white border-b border-brand-border flex items-center justify-between gap-2 shrink-0">
+          <button id="btn-chat-back" type="button" class="px-2.5 py-1.5 rounded-xl bg-brand-canvas border border-brand-border text-[12px] font-bold text-brand-navy hover:bg-brand-tealSoft shrink-0">
+            &larr; Back
           </button>
           <div class="min-w-0 text-center flex-1">
-            <div id="chat-context-title" class="text-[12.5px] font-extrabold text-brand-navy truncate">Paper 1 · Guided</div>
-            <div id="chat-context-sub" class="text-[10.5px] font-medium text-brand-teal truncate">Built-in DeepSeek Vision Coach</div>
+            <div id="chat-context-title" class="text-[12.5px] font-extrabold text-brand-navy truncate leading-tight">Paper 1 · Guided</div>
+            <div id="chat-context-sub" class="text-[10.5px] font-medium text-brand-teal truncate leading-tight">Built-in AI Coach</div>
           </div>
-          <button id="btn-chat-reset" type="button" class="px-2.5 py-1 rounded-lg bg-white border border-brand-border text-[11.5px] font-semibold text-slate-500 hover:text-rose-600 shrink-0">
+          <button id="btn-chat-reset" type="button" class="px-2.5 py-1.5 rounded-xl bg-brand-canvas border border-brand-border text-[11.5px] font-semibold text-slate-500 hover:text-rose-600 shrink-0">
             Reset
           </button>
         </div>
 
         <!-- Chat Messages Thread -->
-        <div id="chat-messages" class="flex-1 overflow-y-auto p-3.5 flex flex-col gap-3 bg-[#f8fbfc]"></div>
+        <div id="chat-messages" class="flex-1 overflow-y-auto p-3 flex flex-col gap-2.5 bg-[#f8fbfc]"></div>
 
-        <!-- Quick-Reply Tappable Menu Buttons -->
-        <div id="chat-quick-actions" class="px-3 py-2 bg-white border-t border-brand-border/70 flex items-center gap-1.5 overflow-x-auto"></div>
+        <!-- Quick-Reply Tappable Menu Buttons (Responsive Grid — Zero Clipping) -->
+        <div id="chat-quick-actions" class="px-2.5 py-1.5 bg-white border-t border-brand-border/70 grid grid-cols-3 gap-1.5 shrink-0"></div>
 
         <!-- Pending Photo Previews -->
-        <div id="chat-photo-previews" class="hidden px-3 pt-2 bg-white border-t border-brand-border/60 flex items-center gap-2 overflow-x-auto"></div>
+        <div id="chat-photo-previews" class="hidden px-3 pt-2 bg-white border-t border-brand-border/60 flex items-center gap-2 overflow-x-auto shrink-0"></div>
 
         <!-- Chat Composer -->
-        <div class="p-3 bg-white border-t border-brand-border flex items-end gap-2">
+        <div class="p-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] bg-white border-t border-brand-border flex items-center gap-2 shrink-0">
           <input id="chat-photo-input" type="file" accept="image/*" multiple class="hidden" />
           <button id="btn-chat-photo" type="button" title="Snap or attach paper photo" aria-label="Attach photo" class="p-2.5 rounded-xl bg-brand-canvas hover:bg-brand-tealSoft border border-brand-border text-brand-teal shrink-0 transition-colors">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -354,8 +354,8 @@
               <circle cx="12" cy="13" r="4" />
             </svg>
           </button>
-          <textarea id="chat-input" rows="1" placeholder="Type Q14, your try, or snap a photo..." class="flex-1 rounded-xl border border-brand-border bg-brand-canvas/60 px-3 py-2 text-[14px] text-brand-navy placeholder:text-slate-400 focus:outline-none focus:border-brand-teal focus:bg-white resize-none max-h-28"></textarea>
-          <button id="btn-chat-send" type="button" class="cta-shimmer p-2.5 px-3.5 rounded-xl text-white font-bold text-[13px] shrink-0 disabled:opacity-55">
+          <textarea id="chat-input" rows="1" placeholder="Type Q14 or your try..." class="flex-1 rounded-xl border border-brand-border bg-brand-canvas/60 px-3 py-2 text-[14px] text-brand-navy placeholder:text-slate-400 focus:outline-none focus:border-brand-teal focus:bg-white resize-none max-h-24 leading-snug"></textarea>
+          <button id="btn-chat-send" type="button" class="cta-shimmer py-2.5 px-3.5 rounded-xl text-white font-bold text-[13px] shrink-0 disabled:opacity-55">
             Send
           </button>
         </div>
@@ -573,7 +573,7 @@
       </section>
 
       <!-- Subtle Non-Affiliation Footer -->
-      <footer class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
+      <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
         <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA.</p>
       </footer>
     </main>
@@ -2209,17 +2209,19 @@
         const bar = document.getElementById('chat-quick-actions');
         const isZh = state.lang === 'zh';
         const isGuided = PAPERS[state.paper].hasModes && state.mode === 'guided';
+        bar.classList.toggle('grid-cols-3', isGuided);
+        bar.classList.toggle('grid-cols-4', !isGuided);
         const buttons = isGuided
           ? [
-              { cmd: 'A', label: isZh ? 'A) 下一步提示' : 'A) Next hint' },
-              { cmd: 'B', label: isZh ? 'B) 下一題' : 'B) Next part / Q#' },
-              { cmd: 'SAVE_LOG', label: state.chatSavingLog ? (isZh ? '儲存中…' : 'Saving...') : (isZh ? 'C) 一鍵存入錯題簿' : 'C) Save to Error Log') }
+              { cmd: 'A', label: isZh ? 'A · 提示' : 'A · Hint' },
+              { cmd: 'B', label: isZh ? 'B · 下一題' : 'B · Next Q#' },
+              { cmd: 'SAVE_LOG', label: state.chatSavingLog ? (isZh ? '儲存中…' : 'Saving…') : (isZh ? 'C · 存錯題' : 'C · Save Log') }
             ]
           : [
-              { cmd: 'A', label: isZh ? 'A) 再解說' : 'A) More detail' },
-              { cmd: 'B', label: isZh ? 'B) 下一題' : 'B) Next Q#' },
-              { cmd: 'C', label: isZh ? 'C) 檢查嘗試' : 'C) Check try' },
-              { cmd: 'SAVE_LOG', label: state.chatSavingLog ? (isZh ? '儲存中…' : 'Saving...') : (isZh ? 'D) 一鍵存入錯題簿' : 'D) Save to Error Log') }
+              { cmd: 'A', label: isZh ? 'A · 詳解' : 'A · Detail' },
+              { cmd: 'B', label: isZh ? 'B · 下一題' : 'B · Next' },
+              { cmd: 'C', label: isZh ? 'C · 檢查' : 'C · Check' },
+              { cmd: 'SAVE_LOG', label: state.chatSavingLog ? (isZh ? '儲存中…' : 'Saving…') : (isZh ? 'D · 存錯題' : 'D · Log') }
             ];
 
         bar.innerHTML = buttons.map((b) => {
@@ -2227,7 +2229,7 @@
           const cls = isSave
             ? 'bg-brand-tealSoft border-brand-teal/40 text-brand-navy'
             : 'bg-brand-canvas border-brand-border text-brand-navy hover:bg-brand-tealSoft';
-          return `<button type="button" data-quick-cmd="${b.cmd}" ${state.chatSending || (isSave && state.chatSavingLog) ? 'disabled' : ''} class="chat-quick-btn shrink-0 px-2.5 py-1.5 rounded-xl border text-[11.5px] font-bold transition-colors disabled:opacity-50 ${cls}">${escapeHtml(b.label)}</button>`;
+          return `<button type="button" data-quick-cmd="${b.cmd}" ${state.chatSending || (isSave && state.chatSavingLog) ? 'disabled' : ''} class="chat-quick-btn w-full px-1.5 py-1.5 rounded-xl border text-[11.5px] font-bold text-center whitespace-nowrap truncate transition-colors disabled:opacity-50 ${cls}">${escapeHtml(b.label)}</button>`;
         }).join('');
       }
 
@@ -2697,13 +2699,18 @@
           authTxt.textContent = isZh ? '登入' : 'Sign in';
         }
 
-        // Views
-        document.getElementById('tab-drill').classList.toggle('active', state.tab === 'drill' || state.tab === 'chat');
+        // Views (Full-screen mobile chat hides main header & footer)
+        const inChat = state.tab === 'chat';
+        document.getElementById('app-header').classList.toggle('hidden', inChat);
+        document.getElementById('app-footer').classList.toggle('hidden', inChat);
+        document.getElementById('tab-drill').classList.toggle('active', state.tab === 'drill' || inChat);
         document.getElementById('tab-log').classList.toggle('active', state.tab === 'log');
         document.getElementById('view-drill').classList.toggle('hidden', state.tab !== 'drill');
-        document.getElementById('view-chat').classList.toggle('hidden', state.tab !== 'chat');
+        document.getElementById('view-chat').classList.toggle('hidden', !inChat);
         document.getElementById('view-log').classList.toggle('hidden', state.tab !== 'log');
         document.getElementById('view-backstage').classList.toggle('hidden', state.tab !== 'backstage');
+        const chatInp = document.getElementById('chat-input');
+        if (chatInp) chatInp.placeholder = isZh ? '輸入題號 (如 Q14) 或作答…' : 'Type Q14 or your try...';
 
         // Log badge
         const badge = document.getElementById('log-count-badge');
