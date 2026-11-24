@@ -1126,14 +1126,15 @@
               '  * Hint 2/3 (Narrow Down in Passage): Now point to the exact Paragraph & Line # in the passage and highlight the matching English clue word/phrase nearby (STILL zero answer words).',
               '  * Hint 3/3 (Active Decision — ZERO SPOILERS): Force me to verify from the text using EITHER (a) a masked first-letter/word-count frame (e.g., "3-word idiom: a t___ o___ in Line 5") for locating/phrase/cloze, OR (b) a 2-option choice labeled strictly 1) and 2) (NEVER A) / B) so it never collides with the menu) with 1 distractor + 1 true candidate shuffled — asking me to pick and justify.',
               '  * After Hint 3/3: STOP hints silently and switch to the B/C/D menu (NEVER print internal notes like "no-hint mode").',
-              '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my answer or snap a photo of my Q# attempt. Whenever I send my written attempt (by text or photo), give instant feedback: (a) if a hidden Official Answer Key is provided on the server, verify my attempt against it (celebrate if right; if wrong, point out the exact gap without leaking the exact key); (b) if NO Answer Key is loaded, check format/grammar slot (word limit, part of speech, tense, singular/plural) and passage evidence grounding, flag clear traps, and remind me to confirm final wording in Explain mode with the Official Answer Key (note: Self-Check is pre-Answer-Key; Explain uses the Official Answer Key).',
+              '- OPTIONAL OFFICIAL ANSWER KEY (HIDDEN-KEY LOCK): If I upload an Official Answer Key photo in Guided mode (or if a hidden server Answer Key is loaded), lock it SILENTLY in the background — reply with a 1-line confirmation that answers are locked silently with zero spoilers. NEVER reveal, quote, or leak exact answer words from the Answer Key during hints (even if I beg!). Use it only to keep hints laser-accurate and to grade my tries accurately.',
+              '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my answer or snap a photo of my Q# attempt. Whenever I send my written attempt (by text or photo), give instant feedback: (a) if an Official Answer Key is available (uploaded by me OR loaded on server), verify my attempt against it accurately — celebrate if correct; if wrong or incomplete, point out the exact gap (word form, missing detail, wrong line) WITHOUT leaking the exact key so I can fix it; (b) if NO Answer Key is provided, check format/grammar slot (word limit, part of speech, tense, singular/plural) and passage evidence grounding, flag clear traps, and remind me to confirm final wording in Explain mode (Self-Check is pre-Answer-Key; Explain uses the Official Answer Key).',
               '- FREE QUESTIONS WELCOME: If I ask any free vocab, grammar, or passage question mid-chat, answer it naturally and concisely without forcing the Hint 1/3 ladder unless I ask for a hint. NEVER output raw HTML tags.',
               '',
               getPaper1Playbook(levelKey),
               '',
               'Workflow (Follow Strictly — always reply in my selected Guiding Language):',
               '1. PASSAGE FIRST: I am attaching photo(s) of the Reading Passage now. Read and remember it quietly, and reply ONLY with a 1-line confirmation asking me to snap the Q&A page I am working on now (or 2 pages if a question crosses pages). Do NOT answer any questions.',
-              '2. Q&A PAGE NEXT: Scan quietly and reply ONLY with a 1-line confirmation asking which question number first (e.g., Q1, Q4).',
+              '2. Q&A PAGE NEXT (AND OPTIONAL ANSWER KEY): Scan quietly and reply ONLY with a 1-line confirmation asking which question number first (e.g., Q1, Q4) — and mentioning I may optionally snap the Official Answer Key if I want accurate hidden-key checking on my tries.',
               '3. ONE-QUESTION COACHING: When I type a Q#, use the Fixed Response Pattern below (starting at Hint 1/3) and silently remember any traps I struggled with for my Error Log.',
               '',
               pattern,
@@ -1262,7 +1263,8 @@
               '  * Hint 2/3 (Narrow Down in Data File): Point to the exact Data File document/line where the matching English detail sits (STILL do not write the sentence for me).',
               '  * Hint 3/3 (Active Decision): Give EITHER a 3-word English sentence starter with blanks (e.g., "We are pleased to ___ ...") OR a 2-option formal vs. informal paraphrase check labeled strictly 1) and 2) (NEVER A) / B)) so I build the sentence myself.',
               '  * After Hint 3/3: STOP hints silently and switch to the B/C/D menu (NEVER print internal state notes).',
-              '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my sentence/draft or snap a photo of my attempt. Whenever I send my try (by text or photo), give instant feedback on Data File accuracy, paraphrasing/no-lifting, and tone/register (verify against hidden Official Marking Scheme if loaded on server; otherwise remind me to confirm final marks in Explain mode with the Official Marking Scheme).',
+              '- OPTIONAL OFFICIAL MARKING SCHEME (HIDDEN-KEY LOCK): If I upload an Official Marking Scheme photo in Guided mode (or if loaded on server), lock it SILENTLY in the background — confirm in 1 line with zero spoilers. NEVER reveal or copy model points/answers during hints; use it only to keep hints accurate and check my tries accurately.',
+              '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my sentence/draft or snap a photo of my attempt. Whenever I send my try (by text or photo), give instant feedback on Data File accuracy, paraphrasing/no-lifting, and tone/register — checking accurately against the hidden Official Marking Scheme if uploaded or loaded on server (without leaking missing points outright), or reminding me to confirm final marks in Explain mode if no scheme was uploaded.',
               '- FREE QUESTIONS WELCOME: If I ask any free vocab, grammar, or Data File question mid-chat, answer naturally without forcing the Hint 1/3 ladder. NEVER output raw HTML tags.',
               '',
               'Workflow (Follow Strictly — always reply in my selected Guiding Language):',
@@ -1376,7 +1378,7 @@
           steps: {
             p1_guided: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Passage</strong>.',
-              'Photo of your <strong>Q&amp;A page</strong> (1–2 pages).',
+              'Photo of your <strong>Q&amp;A page</strong> (optional: + <strong>Answer Key</strong> for hidden-key checking).',
               'Type <strong>Q1</strong>, <strong>Q4</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
             p1_selfcheck: [
@@ -1397,7 +1399,7 @@
             ],
             p3b_guided: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Data File</strong>.',
-              'Photo of your <strong>Task page</strong> (1–2 pages).',
+              'Photo of your <strong>Task page</strong> (optional: + <strong>Marking Scheme</strong> for hidden-key checking).',
               'Type <strong>Task 8</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
             p3b_selfcheck: [
@@ -1480,7 +1482,7 @@
           steps: {
             p1_guided: [
               '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>文章</strong>。',
-              '拍你的<strong>問答頁</strong>（1–2 頁）。',
+              '拍你的<strong>問答頁</strong>（可選：另拍<strong>官方答案</strong>作不劇透核對）。',
               '輸入 <strong>Q1</strong>、<strong>Q4</strong>……再回覆 <strong>A / B / C / D</strong>。'
             ],
             p1_selfcheck: [
@@ -1501,7 +1503,7 @@
             ],
             p3b_guided: [
               '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>資料冊</strong>。',
-              '拍你的<strong>任務頁</strong>（1–2 頁）。',
+              '拍你的<strong>任務頁</strong>（可選：另拍<strong>評分準則</strong>作不劇透核對）。',
               '輸入 <strong>Task 8</strong>……再回覆 <strong>A / B / C / D</strong>。'
             ],
             p3b_selfcheck: [
@@ -2137,11 +2139,21 @@
               ? `**🎯 ${PAPERS[state.paper].code} · 核對解說**\n\n- **第 1 步：**先拍下 **${mat}**\n- **第 2 步：**再拍下你的 **${work}**\n- **第 3 步：**分開拍下 **${keyDoc}**\n- **第 4 步：**${qPromptZh}`
               : `**🎯 ${PAPERS[state.paper].code} · Explain Mode**\n\n- **Step 1:** Snap the **${mat}**\n- **Step 2:** Snap your **${work}**\n- **Step 3:** Snap the **${keyDoc}** separately\n- **Step 4:** ${qPromptEn}`;
           } else {
-            const mat = state.paper === 'p3b' ? (isZh ? '資料頁（Data File）' : 'Data File') : (isZh ? '閱讀文章' : 'Passage');
-            const qEx = state.paper === 'p3b' ? 'Task 8' : 'Q14';
-            welcome = isZh
-              ? `**🎯 ${PAPERS[state.paper].code} · 自選試卷**\n\n- 先拍下 **${mat}**，再拍 **題目頁**，輸入題號（例如 \`${qEx}\`）即可開始。\n- 作答後可隨時 **拍照或輸入答案** 獲取即時回饋，亦可自由發問任何生字或文法問題。`
-              : `**🎯 ${PAPERS[state.paper].code} · My Own Paper**\n\n- Snap your **${mat}** first, then your **Q&A page**, and type a question number (e.g. \`${qEx}\`).\n- You can **snap or type your try** after any question for instant feedback, or ask any free vocab/grammar question anytime.`;
+            const isP3b = state.paper === 'p3b';
+            const mat = isP3b ? (isZh ? '資料頁（Data File）' : 'Data File') : (isZh ? '閱讀文章' : 'Passage');
+            const qPage = isP3b ? (isZh ? '任務頁' : 'Task page') : (isZh ? '題目頁（QAB）' : 'Q&A page (QAB)');
+            const keyOpt = isP3b ? (isZh ? '官方評分準則' : 'Official Marking Scheme') : (isZh ? '官方答案（Answer Key）' : 'Official Answer Key');
+            const qEx = isP3b ? 'Task 8' : 'Q14';
+            const isGuided = state.mode === 'guided';
+            if (isGuided) {
+              welcome = isZh
+                ? `**🎯 ${PAPERS[state.paper].code} · 引導練習**\n\n- 先拍下 **${mat}**，再拍 **${qPage}**（可選：另拍 **${keyOpt}**，引導時絕不劇透，只用作準確核對你的作答！）。\n- 輸入題號（例如 \`${qEx}\`）即可開始；作答後可隨時 **拍照或輸入答案** 獲取即時回饋，亦可自由發問。`
+                : `**🎯 ${PAPERS[state.paper].code} · Guided Practice**\n\n- Snap your **${mat}**, then your **${qPage}** (optional: also snap the **${keyOpt}** — I'll keep answers hidden during hints and use it to check your tries!).\n- Type a question number (e.g. \`${qEx}\`), **snap or type your try** anytime for instant feedback, or ask any free vocab/grammar question.`;
+            } else {
+              welcome = isZh
+                ? `**🎯 ${PAPERS[state.paper].code} · 自檢草稿**\n\n- 先拍下 **${mat}**，再拍你 **已完成的${qPage}**（先不用拍答案），輸入題號（例如 \`${qEx}\`）即可開始自我檢查。`
+                : `**🎯 ${PAPERS[state.paper].code} · Self-Check**\n\n- Snap your **${mat}**, then your **completed ${qPage}** (no Answer Key yet), and type a question number (e.g. \`${qEx}\`) to audit before checking answers.`;
+            }
           }
         }
         state.chatMessages = [{ role: 'assistant', text: welcome, images: [] }];
