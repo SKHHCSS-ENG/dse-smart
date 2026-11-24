@@ -321,7 +321,7 @@
       </section>
 
       <!-- ===================== VIEW 1B: BUILT-IN AI COACH CHAT (FULL-SCREEN) ===================== -->
-      <section id="view-chat" class="hidden flex-1 flex flex-col h-[100dvh] sm:h-[82dvh] sm:min-h-[600px]">
+      <section id="view-chat" class="hidden fixed inset-0 z-40 bg-white flex flex-col sm:static sm:inset-auto sm:z-auto sm:flex-1 sm:h-[82dvh] sm:min-h-[600px]">
         <!-- Compact Single-Row Chat Top Bar -->
         <div class="px-3 py-2 bg-white border-b border-brand-border flex items-center justify-between gap-2 shrink-0">
           <button id="btn-chat-back" type="button" class="px-2.5 py-1.5 rounded-xl bg-brand-canvas border border-brand-border text-[12px] font-bold text-brand-navy hover:bg-brand-tealSoft shrink-0">
@@ -331,9 +331,18 @@
             <div id="chat-context-title" class="text-[12.5px] font-extrabold text-brand-navy truncate leading-tight">Paper 1 · Guided</div>
             <div id="chat-context-sub" class="text-[10.5px] font-medium text-brand-teal truncate leading-tight">Built-in AI Coach</div>
           </div>
-          <button id="btn-chat-reset" type="button" class="px-2.5 py-1.5 rounded-xl bg-brand-canvas border border-brand-border text-[11.5px] font-semibold text-slate-500 hover:text-rose-600 shrink-0">
-            Reset
-          </button>
+          <div class="flex items-center gap-1 shrink-0">
+            <button id="btn-chat-report" type="button" title="Report an issue" aria-label="Report an issue" class="px-2 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 hover:bg-amber-100 text-[11.5px] font-bold flex items-center gap-1 transition-colors">
+              <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+                <line x1="4" y1="22" x2="4" y2="15" />
+              </svg>
+              <span id="lbl-btn-report">Report</span>
+            </button>
+            <button id="btn-chat-reset" type="button" class="px-2.5 py-1.5 rounded-xl bg-brand-canvas border border-brand-border text-[11.5px] font-semibold text-slate-500 hover:text-rose-600">
+              Reset
+            </button>
+          </div>
         </div>
 
         <!-- Chat Messages Thread -->
@@ -347,11 +356,19 @@
 
         <!-- Chat Composer -->
         <div class="p-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] bg-white border-t border-brand-border flex items-center gap-2 shrink-0">
+          <input id="chat-camera-input" type="file" accept="image/*" capture="environment" class="hidden" />
           <input id="chat-photo-input" type="file" accept="image/*" multiple class="hidden" />
-          <button id="btn-chat-photo" type="button" title="Snap or attach paper photo" aria-label="Attach photo" class="p-2.5 rounded-xl bg-brand-canvas hover:bg-brand-tealSoft border border-brand-border text-brand-teal shrink-0 transition-colors">
+          <button id="btn-chat-camera" type="button" title="Take photo with camera" aria-label="Take photo with camera" class="p-2.5 rounded-xl bg-brand-tealSoft hover:bg-[#d7edf5] border border-brand-teal/35 text-brand-teal shrink-0 transition-colors">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
               <circle cx="12" cy="13" r="4" />
+            </svg>
+          </button>
+          <button id="btn-chat-photo" type="button" title="Choose from photo library" aria-label="Choose from photo library" class="p-2.5 rounded-xl bg-brand-canvas hover:bg-brand-tealSoft border border-brand-border text-slate-600 shrink-0 transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
             </svg>
           </button>
           <textarea id="chat-input" rows="1" placeholder="Type Q14 or your try..." class="flex-1 rounded-xl border border-brand-border bg-brand-canvas/60 px-3 py-2 text-[14px] text-brand-navy placeholder:text-slate-400 focus:outline-none focus:border-brand-teal focus:bg-white resize-none max-h-24 leading-snug"></textarea>
@@ -470,9 +487,13 @@
         <!-- Unlocked Backstage Console -->
         <div id="bs-console" class="hidden flex flex-col gap-3">
           <div class="flex items-center justify-between gap-2">
-            <div class="inline-flex bg-[#e5f1f5] p-1 rounded-xl gap-1">
-              <button id="btn-bs-tab-papers" type="button" class="bs-subtab seg-btn active px-3 py-1.5 rounded-lg text-[12px] font-bold text-slate-600">School Papers</button>
-              <button id="btn-bs-tab-students" type="button" class="bs-subtab seg-btn px-3 py-1.5 rounded-lg text-[12px] font-bold text-slate-600">Students &amp; PIN</button>
+            <div class="inline-flex bg-[#e5f1f5] p-1 rounded-xl gap-1 flex-wrap">
+              <button id="btn-bs-tab-papers" type="button" class="bs-subtab seg-btn active px-2.5 py-1.5 rounded-lg text-[11.5px] font-bold text-slate-600">Papers</button>
+              <button id="btn-bs-tab-students" type="button" class="bs-subtab seg-btn px-2.5 py-1.5 rounded-lg text-[11.5px] font-bold text-slate-600">Students</button>
+              <button id="btn-bs-tab-reports" type="button" class="bs-subtab seg-btn px-2.5 py-1.5 rounded-lg text-[11.5px] font-bold text-slate-600 flex items-center gap-1">
+                <span>Reports</span>
+                <span id="bs-reports-badge" class="hidden px-1.5 py-0.2 rounded-full bg-amber-500 text-white text-[10px] font-bold">0</span>
+              </button>
             </div>
             <button id="btn-bs-lock" type="button" class="text-[11.5px] font-bold text-slate-500 hover:text-rose-600 px-2 py-1">Lock</button>
           </div>
@@ -569,6 +590,18 @@
               <div id="bs-students-list" class="flex flex-col gap-1.5 max-h-64 overflow-y-auto"></div>
             </div>
           </div>
+
+          <!-- Subtab C: User Issue Reports -->
+          <div id="bs-panel-reports" class="hidden flex flex-col gap-2.5">
+            <div class="bg-white border border-brand-border rounded-2xl p-3 flex flex-col gap-2">
+              <div class="flex items-center justify-between">
+                <h3 class="text-[12px] font-bold uppercase tracking-wider text-brand-navy">Reported Chats</h3>
+                <button id="btn-bs-refresh-reports" type="button" class="text-[11.5px] font-semibold text-brand-teal hover:underline">Refresh</button>
+              </div>
+              <p class="text-[11.5px] text-slate-500">Tap <strong>Copy</strong> or <strong>.md</strong> on any report to share it with Gemini for prompt/bug fixes.</p>
+              <div id="bs-reports-list" class="flex flex-col gap-2 max-h-[420px] overflow-y-auto pr-0.5"></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -632,6 +665,30 @@
           <button id="btn-sign-out" type="button" class="py-2.5 rounded-xl bg-white border border-rose-200 text-rose-600 text-[12.5px] font-bold">Sign Out</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Report Issue Modal (Available to Every User) -->
+  <div id="report-modal" class="hidden fixed inset-0 z-50 bg-brand-navy/45 backdrop-blur-[2px] flex items-center justify-center p-4">
+    <div class="w-full max-w-[390px] bg-white rounded-3xl border border-brand-border shadow-xl p-5 flex flex-col gap-3">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 id="lbl-report-title" class="text-[15.5px] font-extrabold text-brand-navy">Report an Issue</h2>
+          <p id="report-meta-summary" class="text-[11px] text-brand-teal font-semibold mt-0.5"></p>
+        </div>
+        <button id="btn-report-close" type="button" class="text-slate-400 hover:text-brand-navy p-1" aria-label="Close report">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+        </button>
+      </div>
+      <p id="lbl-report-desc" class="text-[12px] text-slate-500 leading-snug">Sends this chat history (text only) to your teacher so we can fix AI hints, answers, or layout issues.</p>
+      <div class="grid grid-cols-2 gap-1.5" role="group" aria-label="Issue type">
+        <button type="button" data-issue="wrong_answer" class="report-type-btn active py-2 px-2.5 rounded-xl border border-brand-teal bg-brand-tealSoft text-[11.5px] font-bold text-brand-navy text-left">Wrong answer / hint</button>
+        <button type="button" data-issue="leaked_answer" class="report-type-btn py-2 px-2.5 rounded-xl border border-brand-border bg-brand-canvas text-[11.5px] font-bold text-slate-600 text-left">Leaked answer</button>
+        <button type="button" data-issue="confusing" class="report-type-btn py-2 px-2.5 rounded-xl border border-brand-border bg-brand-canvas text-[11.5px] font-bold text-slate-600 text-left">Confusing / format</button>
+        <button type="button" data-issue="other" class="report-type-btn py-2 px-2.5 rounded-xl border border-brand-border bg-brand-canvas text-[11.5px] font-bold text-slate-600 text-left">Other issue</button>
+      </div>
+      <textarea id="report-note-input" rows="2" placeholder="Optional: tell us what happened (e.g. Q14 hint was wrong)..." class="w-full rounded-xl border border-brand-border bg-brand-canvas/60 px-3 py-2 text-[13.5px] text-brand-navy placeholder:text-slate-400 focus:outline-none focus:border-brand-teal resize-none"></textarea>
+      <button id="btn-report-submit" type="button" class="cta-shimmer w-full py-2.5 px-4 rounded-xl text-white font-bold text-[14px] disabled:opacity-60">Send Report</button>
     </div>
   </div>
 
@@ -765,14 +822,14 @@
           },
           p1_explain: {
             en: [
-              'MENU (Leave a blank line before menu; ALWAYS end with "**Next step:**"):',
+              'MENU (Leave a blank line before menu; NEVER print the word "MENU"; ONLY show A-D AFTER explaining a specific question, NEVER while waiting for a photo/QAB/Answer Key/Q#):',
               '  - **A)** Simpler explanation',
               '  - **B)** Show exact line clue',
               '  - **C)** Next part / Q# (or snap next page)',
               '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（選單前空一行；結尾只輸出「**下一步：**」）：',
+              '選單（選單前空一行；絕不輸出「MENU」字眼；只於完成單題講解後才列出 A-D，等待拍照或題號時切勿列出）：',
               '  - **A)** 用更淺白的文字解釋',
               '  - **B)** 指出原文線索與關鍵詞',
               '  - **C)** 下一小題或下一題（輸入題號／拍下一頁）',
@@ -823,14 +880,14 @@
           },
           p3b_explain: {
             en: [
-              'MENU (Leave a blank line before menu; ALWAYS end with "**Next step:**"):',
+              'MENU (Leave a blank line before menu; NEVER print the word "MENU"; ONLY show A-D AFTER explaining a specific question, NEVER while waiting for a photo/QAB/Answer Key/Q#):',
               '  - **A)** Simpler explanation',
               '  - **B)** Data File line & paraphrase tip',
               '  - **C)** Next task / point (or snap next page)',
               '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（選單前空一行；結尾只輸出「**下一步：**」）：',
+              '選單（選單前空一行；絕不輸出「MENU」字眼；只於完成單題講解後才列出 A-D，等待拍照或題號時切勿列出）：',
               '  - **A)** 用更淺白的文字解釋失分處',
               '  - **B)** 指出 Data File 原文及改寫技巧',
               '  - **C)** 下一個任務／要點（輸入編號／拍下一頁）',
@@ -839,14 +896,14 @@
           },
           p2: {
             en: [
-              'MENU (Leave a blank line before menu; ALWAYS end with "**Next step:**"):',
+              'MENU (Leave a blank line before menu; NEVER print the word "MENU"; ONLY show A-D AFTER explaining a specific question, NEVER while waiting for a photo/QAB/Answer Key/Q#):',
               '  - **A)** Plan PAT & 3 ideas',
               '  - **B)** Check draft (top 3 C·L·O issues)',
               '  - **C)** Upgrade 1 paragraph (P1 / P2 / P3)',
               '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（選單前空一行；結尾只輸出「**下一步：**」）：',
+              '選單（選單前空一行；絕不輸出「MENU」字眼；只於完成單題講解後才列出 A-D，等待拍照或題號時切勿列出）：',
               '  - **A)** 構思審題（PAT）與三個論點',
               '  - **B)** 檢查草稿（首三個 C·L·O 錯誤）',
               '  - **C)** 提升指定段落（輸入 P1、P2 或 P3）',
@@ -855,14 +912,14 @@
           },
           p4: {
             en: [
-              'MENU (Leave a blank line before menu; ALWAYS end with "**Next step:**"):',
+              'MENU (Leave a blank line before menu; NEVER print the word "MENU"; ONLY show A-D AFTER explaining a specific question, NEVER while waiting for a photo/QAB/Answer Key/Q#):',
               '  - **A)** Brainstorm HK ideas & phrases',
               '  - **B)** Group Discussion role-play',
               '  - **C)** 1-minute Examiner IR question',
               '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（選單前空一行；結尾只輸出「**下一步：**」）：',
+              '選單（選單前空一行；絕不輸出「MENU」字眼；只於完成單題講解後才列出 A-D，等待拍照或題號時切勿列出）：',
               '  - **A)** 構思香港例子與常用互動句式',
               '  - **B)** 小組討論角色扮演（每次一輪）',
               '  - **C)** 一分鐘個人回應（IR）練習',
@@ -1327,7 +1384,7 @@
             ],
             p1_explain: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Passage</strong>.',
-              'Photo of your <strong>done Q&amp;A page</strong> + <strong>Answer Key</strong>.',
+              'Photo of your <strong>Q&amp;A page (QAB)</strong> first, then snap the <strong>Answer Key</strong> separately.',
               'Type <strong>Q1</strong>, <strong>Q4</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
             p2: [
@@ -1430,7 +1487,7 @@
             ],
             p1_explain: [
               '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>文章</strong>。',
-              '拍<strong>已做的問答頁</strong> ＋ <strong>官方答案頁</strong>。',
+              '先拍<strong>題目答題簿（QAB）</strong>，再分開拍<strong>官方答案頁</strong>。',
               '輸入 <strong>Q1</strong>、<strong>Q4</strong>……再回覆 <strong>A / B / C / D</strong>。'
             ],
             p2: [
@@ -1499,6 +1556,9 @@
         bsSubtab: 'papers',
         bsPapers: [],
         bsStudents: [],
+        bsReports: [],
+        reportIssueType: 'wrong_answer',
+        reportSubmitting: false,
         bsEditingId: '',
         bsAnswerRows: [{ q: 'Q1', answer: '', note: '' }],
         bsBusy: false
@@ -2051,16 +2111,42 @@
             ? `**🎯 ${schoolPaper.title}**\n\n- ${loadedNote}\n- ${state.mode === 'guided' ? '直接輸入題號（例如 `Q14`）或拍下你的作答頁，我會一步步引導而不劇透答案。' : '輸入題號（例如 `Q14`）或拍下你的作答頁，我會直接按官方答案核對並解說。'}`
             : `**🎯 ${schoolPaper.title}**\n\n- ${loadedNote}\n- ${state.mode === 'guided' ? 'Type a question number (e.g. `Q14`) or snap your Q&A page for step-by-step hints without spoilers.' : 'Type a question number (e.g. `Q14`) or snap your Q&A page to check and explain against the official answer key.'}`;
         } else {
-          welcome = isZh
-            ? `**🎯 ${PAPERS[state.paper].code} 自由練習模式**\n\n- 點擊左下角相機按鈕拍下文章/資料頁及題目頁，然後輸入題號（例如 \`Q14\`）即可開始。`
-            : `**🎯 ${PAPERS[state.paper].code} · My Own Paper**\n\n- Tap the camera button below to attach your passage/Data File and Q&A page, then type a question number (e.g. \`Q14\`) to start.`;
+          const isExplain = PAPERS[state.paper].hasModes && state.mode === 'explain';
+          if (isExplain) {
+            welcome = isZh
+              ? `**🎯 ${PAPERS[state.paper].code} · 核對解說**\n\n- **第 1 步：**先拍下文章／資料頁（如已準備好可直接拍題目頁）\n- **第 2 步：**再拍下你的 **題目答題簿（QAB）**\n- **第 3 步：**分開拍下 **官方答案（Answer Key）**，然後輸入題號（如 \`Q1\`）`
+              : `**🎯 ${PAPERS[state.paper].code} · Explain Mode**\n\n- **Step 1:** Snap the **Passage / Data File**\n- **Step 2:** Snap your **Q&A Booklet (QAB)** page\n- **Step 3:** Snap the **Official Answer Key** separately, then type a question number (e.g. \`Q1\`)`;
+          } else {
+            welcome = isZh
+              ? `**🎯 ${PAPERS[state.paper].code} · 自選試卷**\n\n- 先點左下角相機拍下 **文章／資料頁**，再拍 **題目頁**，最後輸入題號（例如 \`Q14\`）即可開始。`
+              : `**🎯 ${PAPERS[state.paper].code} · My Own Paper**\n\n- Tap the camera button to snap your **Passage / Data File** first, then your **Q&A page**, then type a question number (e.g. \`Q14\`).`;
+          }
         }
         state.chatMessages = [{ role: 'assistant', text: welcome, images: [] }];
       }
 
+      function syncChatViewport() {
+        const chatEl = document.getElementById('view-chat');
+        if (!chatEl) return;
+        const isMobile = window.innerWidth < 640;
+        if (state.tab === 'chat' && isMobile && window.visualViewport) {
+          chatEl.style.height = `${Math.round(window.visualViewport.height)}px`;
+          chatEl.style.top = `${Math.round(window.visualViewport.offsetTop)}px`;
+          chatEl.style.bottom = 'auto';
+        } else {
+          chatEl.style.height = '';
+          chatEl.style.top = '';
+          chatEl.style.bottom = '';
+        }
+      }
+
       function scrollChatToBottom() {
         const el = document.getElementById('chat-messages');
-        if (el) setTimeout(() => { el.scrollTop = el.scrollHeight; }, 40);
+        if (!el) return;
+        requestAnimationFrame(() => {
+          el.scrollTop = el.scrollHeight;
+          setTimeout(() => { el.scrollTop = el.scrollHeight; }, 80);
+        });
       }
 
       async function sendChatMessage(overrideText) {
@@ -2087,11 +2173,14 @@
           paperId: sp ? sp.id : '',
           baseSystemPrompt: buildPrompt(),
           teacherPasscode: state.bsUnlocked ? state.teacherPasscode : '',
-          messages: state.chatMessages.slice(-14).map((m) => ({
-            role: m.role,
-            text: m.text,
-            images: m.images || []
-          }))
+          messages: state.chatMessages
+            .filter((m) => !m.isError)
+            .slice(-14)
+            .map((m) => ({
+              role: m.role,
+              text: m.text,
+              images: m.images || []
+            }))
         };
 
         try {
@@ -2107,9 +2196,14 @@
           state.chatMessages.push({ role: 'assistant', text: data.reply, images: [] });
           state.workerOnline = true;
         } catch (err) {
+          const isZh = state.lang === 'zh';
+          const friendly = isZh
+            ? '剛才未能清楚處理你的訊息，請再試一次（或重新拍一張更清晰的照片）。'
+            : "Sorry, I couldn't read that clearly—please try sending it again (or snap a clearer photo).";
           state.chatMessages.push({
             role: 'assistant',
-            text: `**Notice:** ${err.message}\n\n- Make sure the new \`dse-smart\` Cloudflare Worker is deployed, or switch back to **My Own Paper → Copy Setup Prompt**.`,
+            isError: true,
+            text: friendly,
             images: []
           });
         }
@@ -2221,11 +2315,18 @@
       }
 
       function parseChoicesFromReply(text) {
+        const str = String(text || '');
+        // Never show A/B/C/D buttons when AI is still asking for a missing photo, Answer Key, or first Q#
+        const isSetupOrMissingStep = /which question number|snap the official answer key|no official.*answer key yet|please snap .*passage|passage received|q&a page received|qab received|answer key received|請先拍下|請拍下官方答案|先輸入題號/i.test(str);
+        const hasCoachingCard = /🎯\s*Q\d+|🎯\s*Task\s*\d+|✅\s*Official Answer|🔍\s*Why:|🔑\s*Keywords|🔑\s*關鍵詞/i.test(str);
+        if (isSetupOrMissingStep && !hasCoachingCard) {
+          return [];
+        }
         const choices = [];
         const seen = new Set();
         const re = /(?:^|\n)\s*(?:[-•*]\s*)?(?:\*\*)?([A-D])\)(?:\*\*)?\s*([^\n]+)/g;
         let m;
-        while ((m = re.exec(String(text || ''))) !== null) {
+        while ((m = re.exec(str)) !== null) {
           const letter = m[1];
           const desc = m[2].trim();
           if (!seen.has(letter)) {
@@ -2257,6 +2358,109 @@
             : 'bg-brand-canvas border-brand-border text-brand-navy hover:bg-brand-tealSoft';
           return `<button type="button" data-quick-cmd="${cmd}" title="${escapeHtml(c.letter + ') ' + c.desc)}" aria-label="${escapeHtml(c.letter + ') ' + c.desc)}" ${state.chatSending || (c.isLog && state.chatSavingLog) ? 'disabled' : ''} class="chat-quick-btn flex-1 py-2 rounded-xl border text-[13.5px] font-extrabold text-center transition-colors disabled:opacity-50 ${cls}">${escapeHtml(label)}</button>`;
         }).join('');
+      }
+
+      // ===== Report Issue (Open to Every User -> Saved to D1 for Teacher Backstage) =====
+      function formatReportMarkdown(rep) {
+        const lines = [
+          '# DSE Smart User Report',
+          '',
+          `- **Report ID:** ${rep.id || 'local'}`,
+          `- **Timestamp:** ${rep.createdAt || new Date().toISOString()}`,
+          `- **User:** ${rep.studentId || 'guest'}`,
+          `- **Paper:** ${(rep.paper || '').toUpperCase()}${rep.paperTitle ? ' (' + rep.paperTitle + ')' : ' (My Own Paper)'}`,
+          `- **Mode:** ${rep.mode || 'default'} | **Target:** ${rep.level || ''} | **Lang:** ${rep.lang || 'en'}`,
+          `- **Issue Type:** ${rep.issueType || 'other'}`
+        ];
+        if (rep.note) lines.push(`- **User Note:** ${rep.note}`);
+        lines.push('', '## Chat Transcript', '');
+        (rep.messages || []).forEach((m, idx) => {
+          const who = m.role === 'assistant' ? 'AI Coach' : 'Student';
+          const cnt = Number(m.imageCount || (m.images ? m.images.length : 0));
+          const imgNote = cnt > 0 ? ` _[${cnt} photo${cnt > 1 ? 's' : ''} attached]_` : '';
+          lines.push(`### Turn ${idx + 1} — ${who}${imgNote}`, '', String(m.text || '').trim(), '');
+        });
+        return lines.join('\n');
+      }
+
+      function downloadMarkdownFile(mdText, filename) {
+        const blob = new Blob([mdText], { type: 'text/markdown;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+
+      function openReportModal() {
+        if (state.chatMessages.length === 0) {
+          showToast(state.lang === 'zh' ? '暫時未有對話紀錄可回報' : 'No chat history to report yet');
+          return;
+        }
+        const isZh = state.lang === 'zh';
+        const sp = getSelectedSchoolPaper();
+        document.getElementById('lbl-report-title').textContent = isZh ? '回報問題' : 'Report an Issue';
+        document.getElementById('lbl-report-desc').textContent = isZh
+          ? '將此對話紀錄（僅文字）傳送給老師，協助改善 AI 提示、答案或介面。'
+          : 'Sends this chat history (text only) to your teacher so we can fix AI hints, answers, or layout issues.';
+        document.getElementById('report-note-input').placeholder = isZh
+          ? '選填：簡述問題（例如：Q14 提示有誤）…'
+          : 'Optional: tell us what happened (e.g. Q14 hint was wrong)...';
+        document.getElementById('btn-report-submit').textContent = isZh ? '傳送回報' : 'Send Report';
+        document.getElementById('report-meta-summary').textContent = `${PAPERS[state.paper]?.code || state.paper} · ${state.mode} · ${state.chatMessages.length} turns${sp ? ' · ' + sp.title : ''}`;
+        document.getElementById('report-modal').classList.remove('hidden');
+      }
+
+      function closeReportModal() {
+        document.getElementById('report-modal').classList.add('hidden');
+      }
+
+      async function handleSubmitReport() {
+        if (state.reportSubmitting) return;
+        state.reportSubmitting = true;
+        const btn = document.getElementById('btn-report-submit');
+        btn.disabled = true;
+        btn.textContent = state.lang === 'zh' ? '傳送中…' : 'Sending...';
+
+        const sp = getSelectedSchoolPaper();
+        const note = (document.getElementById('report-note-input').value || '').trim();
+        const payload = {
+          studentId: state.studentId || 'guest',
+          paper: state.paper,
+          paperTitle: sp ? sp.title : '',
+          mode: PAPERS[state.paper]?.hasModes ? state.mode : 'default',
+          level: state.level,
+          lang: state.lang,
+          issueType: state.reportIssueType,
+          note,
+          messages: state.chatMessages.slice(-30).map((m) => ({
+            role: m.role,
+            text: m.text,
+            imageCount: (m.images && m.images.length) ? m.images.length : 0
+          }))
+        };
+
+        try {
+          const res = await fetch(`${WORKER_URL}/reports`, {
+            method: 'POST',
+            headers: authHeaders(),
+            body: JSON.stringify(payload)
+          });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok || !data.ok) throw new Error(data.error || 'Could not submit report');
+          document.getElementById('report-note-input').value = '';
+          closeReportModal();
+          showToast(state.lang === 'zh' ? '已回報給老師，多謝你的意見！' : 'Report sent! Thanks for helping improve DSE Smart');
+        } catch (err) {
+          showToast(err.message || 'Could not send report — try again');
+        }
+
+        state.reportSubmitting = false;
+        btn.disabled = false;
+        btn.textContent = state.lang === 'zh' ? '傳送回報' : 'Send Report';
       }
 
       // ===== Student Auth Modal =====
@@ -2381,7 +2585,7 @@
           state.bsUnlocked = true;
           input.value = '';
           showToast('Teacher Backstage unlocked');
-          await Promise.all([loadBackstagePapers(), loadBackstageStudents()]);
+          await Promise.all([loadBackstagePapers(), loadBackstageStudents(), loadBackstageReports()]);
           render();
         } catch (err) {
           errEl.textContent = err.message || 'Could not verify passcode';
@@ -2414,6 +2618,21 @@
           const data = await res.json().catch(() => ({}));
           if (res.ok && data.ok) {
             state.bsStudents = data.students || [];
+            renderBackstage();
+          }
+        } catch (_) {}
+      }
+
+      async function loadBackstageReports() {
+        if (!state.bsUnlocked) return;
+        try {
+          const res = await fetch(`${WORKER_URL}/backstage/reports`, {
+            method: 'GET',
+            headers: teacherHeaders()
+          });
+          const data = await res.json().catch(() => ({}));
+          if (res.ok && data.ok) {
+            state.bsReports = data.reports || [];
             renderBackstage();
           }
         } catch (_) {}
@@ -2615,8 +2834,17 @@
 
         document.getElementById('btn-bs-tab-papers').classList.toggle('active', state.bsSubtab === 'papers');
         document.getElementById('btn-bs-tab-students').classList.toggle('active', state.bsSubtab === 'students');
+        document.getElementById('btn-bs-tab-reports').classList.toggle('active', state.bsSubtab === 'reports');
         document.getElementById('bs-panel-papers').classList.toggle('hidden', state.bsSubtab !== 'papers');
         document.getElementById('bs-panel-students').classList.toggle('hidden', state.bsSubtab !== 'students');
+        document.getElementById('bs-panel-reports').classList.toggle('hidden', state.bsSubtab !== 'reports');
+        const repBadge = document.getElementById('bs-reports-badge');
+        if (state.bsReports.length > 0) {
+          repBadge.textContent = String(state.bsReports.length);
+          repBadge.classList.remove('hidden');
+        } else {
+          repBadge.classList.add('hidden');
+        }
 
         const pList = document.getElementById('bs-papers-list');
         if (state.bsPapers.length === 0) {
@@ -2652,6 +2880,40 @@
               </div>
               <button type="button" data-reset-sid="${escapeHtml(s.student_id)}" class="bs-quick-reset px-2.5 py-1 rounded-lg bg-white border border-brand-border text-[11px] font-bold text-brand-navy hover:bg-brand-tealSoft">Reset PIN</button>
             </div>`).join('');
+        }
+
+        const rList = document.getElementById('bs-reports-list');
+        if (state.bsReports.length === 0) {
+          rList.innerHTML = '<p class="text-[12px] text-slate-400 py-4 text-center">No reported chats yet.</p>';
+        } else {
+          rList.innerHTML = state.bsReports.map((r) => {
+            const when = (r.createdAt || '').slice(0, 16).replace('T', ' ');
+            const turns = Array.isArray(r.messages) ? r.messages.length : 0;
+            const previewHtml = (r.messages || []).map((m, idx) => (
+              `<div class="text-[11px] leading-snug ${m.role === 'assistant' ? 'text-slate-700' : 'text-brand-navy font-semibold'}"><span class="uppercase text-[9.5px] font-bold text-brand-teal">${m.role === 'assistant' ? 'AI' : 'User'} #${idx + 1}:</span> ${escapeHtml(String(m.text || '').slice(0, 260))}</div>`
+            )).join('');
+            return `
+              <article class="bg-brand-canvas border border-brand-border rounded-xl p-2.5 flex flex-col gap-1.5">
+                <div class="flex items-center justify-between gap-2 flex-wrap">
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">${escapeHtml(r.issueType)}</span>
+                    <span class="text-[11.5px] font-bold text-brand-navy">${escapeHtml(r.studentId)}</span>
+                    <span class="text-[10.5px] text-brand-teal font-semibold">${escapeHtml((r.paper || '').toUpperCase())} · ${escapeHtml(r.mode || '')}</span>
+                  </div>
+                  <span class="text-[10px] text-slate-400">${escapeHtml(when)} · ${turns} turns</span>
+                </div>
+                ${r.note ? `<p class="text-[12px] text-brand-navy bg-white border border-brand-border rounded-lg px-2 py-1.5">${escapeHtml(r.note)}</p>` : ''}
+                <details class="bg-white border border-brand-border rounded-lg p-2">
+                  <summary class="text-[11px] font-bold text-brand-teal cursor-pointer">View transcript (${turns} turns)</summary>
+                  <div class="mt-1.5 flex flex-col gap-1.5 max-h-48 overflow-y-auto">${previewHtml}</div>
+                </details>
+                <div class="flex items-center gap-1.5 pt-0.5">
+                  <button type="button" data-copy-rep="${escapeHtml(r.id)}" class="bs-copy-rep flex-1 py-1.5 rounded-lg bg-brand-navy text-white text-[11px] font-bold">Copy for Gemini</button>
+                  <button type="button" data-dl-rep="${escapeHtml(r.id)}" class="bs-dl-rep px-2.5 py-1.5 rounded-lg bg-white border border-brand-border text-brand-navy text-[11px] font-bold">.md</button>
+                  <button type="button" data-del-rep="${escapeHtml(r.id)}" class="bs-del-rep px-2.5 py-1.5 rounded-lg bg-rose-50 text-rose-600 text-[11px] font-bold">Del</button>
+                </div>
+              </article>`;
+          }).join('');
         }
       }
 
@@ -2727,8 +2989,10 @@
 
         // Views (Full-screen mobile chat hides main header & footer)
         const inChat = state.tab === 'chat';
+        document.body.style.overflow = inChat ? 'hidden' : '';
         document.getElementById('app-header').classList.toggle('hidden', inChat);
         document.getElementById('app-footer').classList.toggle('hidden', inChat);
+        syncChatViewport();
         document.getElementById('tab-drill').classList.toggle('active', state.tab === 'drill' || inChat);
         document.getElementById('tab-log').classList.toggle('active', state.tab === 'log');
         document.getElementById('view-drill').classList.toggle('hidden', state.tab !== 'drill');
@@ -2737,6 +3001,8 @@
         document.getElementById('view-backstage').classList.toggle('hidden', state.tab !== 'backstage');
         const chatInp = document.getElementById('chat-input');
         if (chatInp) chatInp.placeholder = isZh ? '輸入題號 (如 Q14) 或作答…' : 'Type Q14 or your try...';
+        const repLbl = document.getElementById('lbl-btn-report');
+        if (repLbl) repLbl.textContent = isZh ? '回報' : 'Report';
 
         // Log badge
         const badge = document.getElementById('log-count-badge');
@@ -3074,12 +3340,26 @@
         showToast('Chat reset');
       });
 
-      document.getElementById('btn-chat-photo').addEventListener('click', () => {
-        document.getElementById('chat-photo-input').click();
+      document.getElementById('btn-chat-report').addEventListener('click', openReportModal);
+      document.getElementById('btn-report-close').addEventListener('click', closeReportModal);
+      document.getElementById('btn-report-submit').addEventListener('click', handleSubmitReport);
+      document.querySelectorAll('.report-type-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.reportIssueType = btn.dataset.issue;
+          document.querySelectorAll('.report-type-btn').forEach((b) => {
+            const act = b.dataset.issue === state.reportIssueType;
+            b.classList.toggle('border-brand-teal', act);
+            b.classList.toggle('bg-brand-tealSoft', act);
+            b.classList.toggle('text-brand-navy', act);
+            b.classList.toggle('border-brand-border', !act);
+            b.classList.toggle('bg-brand-canvas', !act);
+            b.classList.toggle('text-slate-600', !act);
+          });
+        });
       });
 
-      document.getElementById('chat-photo-input').addEventListener('change', async (e) => {
-        const files = Array.from(e.target.files || []).slice(0, 3);
+      async function handleChatImageFiles(fileList) {
+        const files = Array.from(fileList || []).slice(0, 3);
         for (const f of files) {
           if (state.chatPendingImages.length >= 3) break;
           try {
@@ -3087,8 +3367,23 @@
             state.chatPendingImages.push(dataUrl);
           } catch (_) {}
         }
-        e.target.value = '';
         renderChat();
+      }
+
+      document.getElementById('btn-chat-camera').addEventListener('click', () => {
+        document.getElementById('chat-camera-input').click();
+      });
+      document.getElementById('chat-camera-input').addEventListener('change', async (e) => {
+        await handleChatImageFiles(e.target.files);
+        e.target.value = '';
+      });
+
+      document.getElementById('btn-chat-photo').addEventListener('click', () => {
+        document.getElementById('chat-photo-input').click();
+      });
+      document.getElementById('chat-photo-input').addEventListener('change', async (e) => {
+        await handleChatImageFiles(e.target.files);
+        e.target.value = '';
       });
 
       document.getElementById('chat-photo-previews').addEventListener('click', (e) => {
@@ -3106,6 +3401,17 @@
           sendChatMessage();
         }
       });
+      document.getElementById('chat-input').addEventListener('focus', () => {
+        setTimeout(() => { syncChatViewport(); scrollChatToBottom(); }, 120);
+      });
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', () => {
+          syncChatViewport();
+          if (state.tab === 'chat') scrollChatToBottom();
+        });
+        window.visualViewport.addEventListener('scroll', syncChatViewport);
+      }
+      window.addEventListener('resize', syncChatViewport);
 
       document.getElementById('chat-quick-actions').addEventListener('click', (e) => {
         const btn = e.target.closest('.chat-quick-btn');
@@ -3202,6 +3508,46 @@
         state.bsSubtab = 'students';
         loadBackstageStudents();
         renderBackstage();
+      });
+      document.getElementById('btn-bs-tab-reports').addEventListener('click', () => {
+        state.bsSubtab = 'reports';
+        loadBackstageReports();
+        renderBackstage();
+      });
+      document.getElementById('btn-bs-refresh-reports').addEventListener('click', loadBackstageReports);
+      document.getElementById('bs-reports-list').addEventListener('click', async (e) => {
+        const copyBtn = e.target.closest('.bs-copy-rep');
+        if (copyBtn) {
+          const rep = state.bsReports.find((r) => r.id === copyBtn.dataset.copyRep);
+          if (rep) copyText(formatReportMarkdown(rep), 'Report copied! Paste it into Gemini');
+          return;
+        }
+        const dlBtn = e.target.closest('.bs-dl-rep');
+        if (dlBtn) {
+          const rep = state.bsReports.find((r) => r.id === dlBtn.dataset.dlRep);
+          if (rep) {
+            downloadMarkdownFile(formatReportMarkdown(rep), `dse-smart-report-${rep.id}.md`);
+            showToast('Downloaded report .md');
+          }
+          return;
+        }
+        const delBtn = e.target.closest('.bs-del-rep');
+        if (delBtn) {
+          const id = delBtn.dataset.delRep;
+          try {
+            const res = await fetch(`${WORKER_URL}/backstage/reports/${encodeURIComponent(id)}`, {
+              method: 'DELETE',
+              headers: teacherHeaders()
+            });
+            if (res.ok) {
+              state.bsReports = state.bsReports.filter((r) => r.id !== id);
+              showToast('Report removed');
+              renderBackstage();
+            }
+          } catch (_) {
+            showToast('Could not remove report');
+          }
+        }
       });
       document.getElementById('btn-bs-new-paper').addEventListener('click', resetBackstageEditor);
       document.getElementById('btn-bs-parse-answers').addEventListener('click', () => parseAnswersWithAI());
