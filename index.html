@@ -107,10 +107,10 @@
 <body class="font-sans antialiased selection:bg-[#d3eef6] selection:text-[#123a4d]">
   <div class="min-h-[100dvh] flex flex-col items-center justify-start sm:justify-center sm:py-5 sm:px-4">
     <!-- App Shell -->
-    <main id="app-shell" class="app-shell w-full max-w-[490px] bg-white sm:rounded-[28px] sm:border sm:border-brand-border min-h-[100dvh] sm:min-h-0 flex flex-col overflow-hidden">
+    <main id="app-shell" class="app-shell w-full max-w-[490px] bg-white sm:rounded-[28px] sm:border sm:border-brand-border min-h-[100dvh] sm:min-h-0 flex flex-col overflow-x-clip">
 
       <!-- Top App Bar -->
-      <header id="app-header" class="sticky top-0 z-30 px-4 pt-3.5 pb-2.5 bg-white/95 backdrop-blur-sm border-b border-brand-border/80 flex flex-col gap-2.5">
+      <header id="app-header" class="sticky top-0 z-30 px-4 pt-3.5 pb-2.5 bg-white/95 backdrop-blur-sm sm:rounded-t-[28px] border-b border-brand-border/80 flex flex-col gap-2.5">
         <div class="flex items-center justify-between gap-2">
           <div class="flex items-center gap-2 min-w-0">
             <a href="https://skhhcss-eng.github.io/self-directed-learning/" title="Back to Self-Directed Learning Hub" aria-label="Back to Self-Directed Learning Hub" class="w-8 h-8 rounded-xl bg-brand-canvas hover:bg-brand-tealSoft border border-brand-border flex items-center justify-center text-brand-navy text-[14px] font-bold shrink-0 transition-colors">&larr;</a>
@@ -587,7 +587,7 @@
 
       <!-- Subtle Non-Affiliation Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA &middot; <span class="font-mono text-slate-400">v10.17</span></p>
+        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA &middot; <span class="font-mono text-slate-400">v10.18</span></p>
       </footer>
     </main>
   </div>
@@ -698,7 +698,7 @@
         '- ONE SUB-PART AT A TIME: For multi-part questions (e.g. Q19 (i)/(ii)/(iii), Summary Cloze, 3-line Proofreading), coach ONLY ONE sub-part per turn (start with (i) or Line 1).',
         '- CLEAN PHONE LAYOUT: Always leave a blank line after the 🎯 title and before the menu. Use short bullet points (1 concise line per bullet) for hints, keywords, and checklists; use a single short paragraph only for a speaking turn. Never squash lines into one dense block.',
         '- CLEAN MENU ONLY: NEVER print internal labels like "[State 1]" or "【狀態 1】". Output ONLY "**Next step:**" / "**下一步：**" and the matching lettered options.',
-        '- ANTI-DRIFT: On vague messages ("idk", "just tell me"), drop down 1 scaffolding step (within the 3-hint cap) and show the menu.'
+        '- ANTI-DRIFT & ZERO-SPOILER LOCK: If the student asks for the answer directly ("idk", "just tell me", "give me the answer"), politely refuse in 1 short line and stay on / give the next NON-SPOILING hint (within the 3-hint cap). NEVER write the exact target answer word anywhere inside a hint, synonym pair (e.g. NEVER write "carried/transported" when "transported" is the answer), quote, or guiding question.'
       ].join('\n');
 
       function getPaper1Playbook(levelKey) {
@@ -940,6 +940,7 @@
           p2: {
             en: [
               '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; NEVER repeat the same top-level menu once student enters a branch — ALWAYS show the contextual follow-up menu for the active branch, keeping D=Error Log]',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: EVERY Paper 2 reply after topic upload MUST end with **Next step:** + A/B/C/D menu, EVEN when you include a ✍️ Your Turn prompt. NEVER show draft-review options (Overview / Upgrade 1 paragraph) unless the student has actually uploaded or pasted a draft. If they pick Check my draft before sending one, invite them to paste/snap it and keep Menu 3 (Planning), NOT Menu 2.]',
               'Menu 1 — After Topic ONLY (no draft yet):',
               '  - **A)** Plan PAT & 3 ideas',
               '  - **B)** Useful vocab & sentence starters',
@@ -972,7 +973,7 @@
               '  - **D)** Error Log'
             ],
             zh_trad: [
-              '[INTERNAL RULE — NEVER PRINT THIS LINE: 選單前空一行；進入分支後絕不重複首頁選單，必須依目前步驟提供延伸選項，固定 D=錯題]',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: 選單前空一行；每次回覆（即使結尾有「✍️ 你的練習」）都必須以「**下一步：**」加上對應的 A/B/C/D 選單作結，絕不可省略選單！進入分支後絕不重複首頁選單，固定 D=錯題；若學生尚未提交或貼上草稿，絕不可顯示「整體評語」或「提升指定段落」選項（若點選檢查草稿但未貼上，請邀請貼上並維持選單 3 構思分支）。]',
               '選單 1 — 只有題目（未有草稿）：',
               '  - **A)** 構思審題（PAT）與三個論點',
               '  - **B)** 常用詞彙與開頭句式',
@@ -2335,7 +2336,7 @@
       }
 
       function buildChatPayloadMessages(allMessages, recentLimit = 16, maxPinnedPhotos = 4) {
-        const clean = allMessages.filter((m) => !m.isError && !m.streaming);
+        const clean = allMessages.filter((m) => !m.isError && !m.streaming && !m.isSystemNote);
         let picked = clean;
         if (clean.length > recentLimit) {
           const splitIdx = clean.length - recentLimit;
@@ -2509,7 +2510,7 @@
               paper: state.paper,
               paperTitle: sp ? sp.title : '',
               lang: state.lang,
-              messages: state.chatMessages.slice(-12).map((m) => ({ role: m.role, text: m.text }))
+              messages: state.chatMessages.filter((m) => !m.isSystemNote).slice(-12).map((m) => ({ role: m.role, text: m.text }))
             })
           });
           const data = await res.json().catch(() => ({}));
@@ -2517,8 +2518,17 @@
           const items = Array.isArray(data.items) ? data.items : [];
           items.slice().reverse().forEach((it) => state.logs.unshift(it));
           saveLogsLocal();
-          showToast(`Saved ${items.length} mistake${items.length === 1 ? '' : 's'} to Error Log!`);
+          const n = items.length;
+          const savedMsg = state.lang === 'zh'
+            ? `已儲存 ${n} 條錯題到錯題簿！`
+            : `Saved ${n} mistake${n === 1 ? '' : 's'} to Error Log!`;
+          const noteText = state.lang === 'zh'
+            ? `✅ 已儲存 ${n} 條錯題到你的錯題簿 — 可隨時到上方「錯題簿」分頁查看。`
+            : `✅ Saved ${n} mistake${n === 1 ? '' : 's'} to your Error Log — view them anytime in the Error Log tab.`;
+          state.chatMessages.push({ role: 'system', text: noteText, images: [], isSystemNote: true });
+          showToast(savedMsg, 2800);
           render();
+          requestAnimationFrame(() => scrollChatToBottom());
         } catch (err) {
           showToast(err.message || 'Could not save Error Log');
         }
@@ -2544,6 +2554,14 @@
 
         const msgBox = document.getElementById('chat-messages');
         msgBox.innerHTML = state.chatMessages.map((m) => {
+          if (m.isSystemNote || m.role === 'system') {
+            return `
+              <div class="flex justify-center">
+                <div class="max-w-[92%] rounded-xl bg-brand-tealSoft/90 border border-brand-teal/35 px-3 py-1.5 text-[12px] font-semibold text-brand-navy text-center shadow-xs">
+                  ${escapeHtml(m.text)}
+                </div>
+              </div>`;
+          }
           const isUser = m.role === 'user';
           const imgsHtml = (m.images && m.images.length)
             ? `<div class="flex flex-wrap gap-1.5 mb-1.5">${m.images.map((src) => `<img src="${src}" alt="Attached paper" class="chat-zoom-img cursor-zoom-in w-28 h-28 object-cover rounded-xl border border-white/50 shadow-sm" />`).join('')}</div>`
@@ -2632,7 +2650,9 @@
         bar.classList.remove('hidden');
         bar.innerHTML = choices.map((c) => {
           const cmd = c.isLog ? 'SAVE_LOG' : c.letter;
-          const label = (c.isLog && state.chatSavingLog) ? '…' : c.letter;
+          const label = c.isLog
+            ? (state.chatSavingLog ? '…' : (state.lang === 'zh' ? 'D 錯題' : 'D Log'))
+            : c.letter;
           const cls = c.isLog
             ? 'bg-brand-tealSoft border-brand-teal/45 text-brand-navy'
             : 'bg-brand-canvas border-brand-border text-brand-navy hover:bg-brand-tealSoft';
@@ -3255,12 +3275,12 @@
       }
 
       let toastTimer = null;
-      function showToast(msg) {
+      function showToast(msg, durationMs = 1800) {
         const el = document.getElementById('toast');
         el.textContent = msg;
         el.classList.add('show');
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => el.classList.remove('show'), 1600);
+        toastTimer = setTimeout(() => el.classList.remove('show'), durationMs);
       }
 
       function escapeHtml(str) {
