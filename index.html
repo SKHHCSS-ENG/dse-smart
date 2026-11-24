@@ -139,27 +139,24 @@
           </div>
         </div>
 
-        <!-- Primary Navigation: Coach vs Error Log -->
-        <nav class="grid grid-cols-2 bg-brand-canvas p-1 rounded-xl border border-brand-border gap-1" aria-label="App sections">
-          <button id="tab-drill" type="button" class="seg-btn active py-1.5 px-3 rounded-lg text-[12px] font-bold text-slate-500 whitespace-nowrap">Coach</button>
-          <button id="tab-log" type="button" class="seg-btn py-1.5 px-3 rounded-lg text-[12px] font-bold text-slate-500 flex items-center justify-center gap-1.5">
-            <span id="tab-log-label">Error Log</span>
-            <span id="log-count-badge" class="hidden min-w-[18px] h-[18px] px-1 rounded-full bg-brand-teal text-white text-[10px] font-bold items-center justify-center">0</span>
-          </button>
-        </nav>
+        <!-- Primary Navigation: Coach vs Error Log + Compact EN / 中 Toggle -->
+        <div class="flex items-center gap-2">
+          <nav class="flex-1 grid grid-cols-2 bg-brand-canvas p-1 rounded-xl border border-brand-border gap-1" aria-label="App sections">
+            <button id="tab-drill" type="button" class="seg-btn active py-1.5 px-2.5 rounded-lg text-[12px] font-bold text-slate-500 whitespace-nowrap">Coach</button>
+            <button id="tab-log" type="button" class="seg-btn py-1.5 px-2.5 rounded-lg text-[12px] font-bold text-slate-500 flex items-center justify-center gap-1.5 whitespace-nowrap">
+              <span id="tab-log-label">Error Log</span>
+              <span id="log-count-badge" class="hidden min-w-[18px] h-[18px] px-1 rounded-full bg-brand-teal text-white text-[10px] font-bold items-center justify-center">0</span>
+            </button>
+          </nav>
+          <div class="inline-flex items-center bg-brand-canvas p-1 rounded-xl border border-brand-border gap-0.5 shrink-0" role="group" aria-label="App and AI language">
+            <button type="button" data-lang="en" class="lang-btn seg-btn py-1.5 px-2.5 rounded-lg text-[11.5px] font-bold text-slate-500 whitespace-nowrap">EN</button>
+            <button type="button" data-lang="zh" class="lang-btn seg-btn py-1.5 px-2.5 rounded-lg text-[11.5px] font-bold text-slate-500 whitespace-nowrap">中</button>
+          </div>
+        </div>
       </header>
 
       <!-- ===================== VIEW 1: COACH SETUP (SCHOOL PAPERS | MY OWN PAPER) ===================== -->
       <section id="view-drill" class="p-4 flex-1 flex flex-col gap-3">
-
-        <!-- Compact Settings Strip: Language Only -->
-        <div class="bg-brand-canvas border border-brand-border rounded-2xl px-3 py-2 flex items-center justify-between gap-2">
-          <span id="lbl-lang" class="text-[11px] font-bold uppercase tracking-wider text-slate-500 shrink-0">Language</span>
-          <div class="inline-flex items-center gap-1 bg-[#e5f1f5] p-1 rounded-xl shrink-0" role="group" aria-label="App and AI language">
-            <button type="button" data-lang="en" class="lang-btn seg-btn py-1.5 px-3 rounded-lg text-[12px] font-semibold text-slate-600 whitespace-nowrap">EN</button>
-            <button type="button" data-lang="zh" class="lang-btn seg-btn py-1.5 px-3 rounded-lg text-[12px] font-semibold text-slate-600 whitespace-nowrap">全中文</button>
-          </div>
-        </div>
 
         <!-- Step 1: Choose DSE Paper (2x2 Grid) -->
         <div>
@@ -259,20 +256,7 @@
               <h2 id="lbl-use-ai" class="text-[12px] font-bold uppercase tracking-wider text-brand-navy">Or Use Your Own AI App</h2>
               <span id="flow-paper-pill" class="text-[11px] font-semibold text-brand-teal bg-white border border-brand-teal/25 px-2 py-0.5 rounded-full">Paper 1 · Reading</span>
             </div>
-            <ol class="space-y-1.5 text-[12px] leading-snug text-slate-700">
-              <li class="flex items-start gap-2">
-                <span class="w-4 h-4 rounded-full bg-brand-teal text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
-                <span id="step1-text"></span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="w-4 h-4 rounded-full bg-brand-teal text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
-                <span id="step2-text"></span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="w-4 h-4 rounded-full bg-brand-teal text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
-                <span id="step3-text"></span>
-              </li>
-            </ol>
+            <ol id="flow-steps-list" class="space-y-1.5 text-[12px] leading-snug text-slate-700"></ol>
 
             <div class="mt-2.5 pt-2 border-t border-brand-border/70 flex items-center flex-wrap gap-1.5">
               <span id="lbl-reply-chips" class="text-[11px] font-semibold text-slate-500 mr-0.5">Reply in AI chat:</span>
@@ -320,12 +304,11 @@
             <div id="chat-context-sub" class="text-[10.5px] font-medium text-brand-teal truncate leading-tight">Built-in AI Coach</div>
           </div>
           <div class="flex items-center gap-1 shrink-0">
-            <button id="btn-chat-report" type="button" title="Report an issue" aria-label="Report an issue" class="px-2 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 hover:bg-amber-100 text-[11.5px] font-bold flex items-center gap-1 transition-colors">
-              <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <button id="btn-chat-report" type="button" title="Report an issue" aria-label="Report an issue" class="p-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 hover:bg-amber-100 flex items-center justify-center transition-colors">
+              <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
                 <line x1="4" y1="22" x2="4" y2="15" />
               </svg>
-              <span id="lbl-btn-report">Report</span>
             </button>
             <button id="btn-chat-reset" type="button" class="px-2.5 py-1.5 rounded-xl bg-brand-canvas border border-brand-border text-[11.5px] font-semibold text-slate-500 hover:text-rose-600">
               Reset
@@ -770,27 +753,27 @@
         const menus = {
           p1_guided: {
             en: [
-              'MENU (Leave a blank line before menu; NEVER print state labels; ALWAYS keep letters fixed: B=Next Question, C=Different Question, D=Error Log):',
-              'After Hint 1 or 2 -> print "**Next step:**" with bulleted options:',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; NEVER print state labels; keep letters fixed: B=Check my try, C=Next/another Q#, D=Error Log]',
+              'After Hint 1 or 2 -> print ONLY **Next step:** with:',
               '  - **A)** Next Hint',
-              '  - **B)** Next Question',
-              '  - **C)** Different Question (type Q# or snap new page)',
+              '  - **B)** Check my try (type or snap photo)',
+              '  - **C)** Next / another Q# (or snap new page)',
               '  - **D)** Error Log',
-              'After Hint 3 (MAX REACHED — OMIT A!) -> print "**Next step:**" with B, C, D only:',
-              '  - **B)** Next Question',
-              '  - **C)** Different Question (type Q# or snap new page)',
+              'After Hint 3 (OMIT A!) -> print ONLY **Next step:** with B, C, D:',
+              '  - **B)** Check my try (type or snap photo)',
+              '  - **C)** Next / another Q# (or snap new page)',
               '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（選單前空一行；絕不輸出狀態標籤；固定字母 B=下一題、C=其他題目、D=錯題）：',
-              '提示 1 或 2 後 -> 只輸出「**下一步：**」與條列選項：',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: 選單前空一行；絕不輸出狀態標籤或「選單」字樣；固定字母 B=檢查作答、C=下一題／其他題目、D=錯題]',
+              '提示 1 或 2 後 -> 只輸出「**下一步：**」與：',
               '  - **A)** 下一個提示',
-              '  - **B)** 下一題（自動繼續下一題／小題）',
-              '  - **C)** 轉做其他題目（輸入題號／拍新頁）',
+              '  - **B)** 檢查我的作答（輸入或拍照）',
+              '  - **C)** 下一題／轉做其他題目（輸入題號／拍新頁）',
               '  - **D)** 整理錯題記錄',
-              '提示 3 後（達上限，必須省略 A！）-> 只輸出「**下一步：**」與 B、C、D：',
-              '  - **B)** 下一題（自動繼續下一題／小題）',
-              '  - **C)** 轉做其他題目（輸入題號／拍新頁）',
+              '提示 3 後（省略 A！）-> 只輸出「**下一步：**」與 B、C、D：',
+              '  - **B)** 檢查我的作答（輸入或拍照）',
+              '  - **C)** 下一題／轉做其他題目（輸入題號／拍新頁）',
               '  - **D)** 整理錯題記錄'
             ]
           },
@@ -832,27 +815,27 @@
           },
           p3b_guided: {
             en: [
-              'MENU (Leave a blank line before menu; NEVER print state labels; ALWAYS keep letters fixed: B=Next Task/Point, C=Different Task, D=Error Log):',
-              'After Hint 1 or 2 -> print "**Next step:**" with bulleted options:',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; NEVER print state labels; keep letters fixed: B=Check my try, C=Next/another Task, D=Error Log]',
+              'After Hint 1 or 2 -> print ONLY **Next step:** with:',
               '  - **A)** Next Hint',
-              '  - **B)** Next Question / Point',
-              '  - **C)** Different Task (type Task # or snap new page)',
+              '  - **B)** Check my try (type or snap photo)',
+              '  - **C)** Next / another Task (or snap new page)',
               '  - **D)** Error Log',
-              'After Hint 3 (MAX REACHED — OMIT A!) -> print "**Next step:**" with B, C, D only:',
-              '  - **B)** Next Question / Point',
-              '  - **C)** Different Task (type Task # or snap new page)',
+              'After Hint 3 (OMIT A!) -> print ONLY **Next step:** with B, C, D:',
+              '  - **B)** Check my try (type or snap photo)',
+              '  - **C)** Next / another Task (or snap new page)',
               '  - **D)** Error Log'
             ],
             zh_trad: [
-              '選單（選單前空一行；絕不輸出狀態標籤；固定字母 B=下一點、C=其他任務、D=錯題）：',
-              '提示 1 或 2 後 -> 只輸出「**下一步：**」與條列選項：',
+              '[INTERNAL RULE — NEVER PRINT THIS LINE: 選單前空一行；絕不輸出狀態標籤或「選單」字樣；固定字母 B=檢查作答、C=下一個要點／其他任務、D=錯題]',
+              '提示 1 或 2 後 -> 只輸出「**下一步：**」與：',
               '  - **A)** 下一個提示',
-              '  - **B)** 下一個要點／題目',
-              '  - **C)** 轉做其他任務（輸入編號／拍新頁）',
+              '  - **B)** 檢查我的作答（輸入或拍照）',
+              '  - **C)** 下一個要點／轉做其他任務（輸入編號／拍新頁）',
               '  - **D)** 整理錯題記錄',
-              '提示 3 後（達上限，必須省略 A！）-> 只輸出「**下一步：**」與 B、C、D：',
-              '  - **B)** 下一個要點／題目',
-              '  - **C)** 轉做其他任務（輸入編號／拍新頁）',
+              '提示 3 後（省略 A！）-> 只輸出「**下一步：**」與 B、C、D：',
+              '  - **B)** 檢查我的作答（輸入或拍照）',
+              '  - **C)** 下一個要點／轉做其他任務（輸入編號／拍新頁）',
               '  - **D)** 整理錯題記錄'
             ]
           },
@@ -897,7 +880,7 @@
               '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; ONLY show A-D after coaching a question/draft; print ONLY **Next step:** then the bullets below]',
               '**Next step:**',
               '  - **A)** Plan PAT & 3 ideas',
-              '  - **B)** C·L·O Overview (then pick C / L / O)',
+              '  - **B)** Overview (Content, Language & Organisation)',
               '  - **C)** Upgrade 1 paragraph (P1 / P2 / P3)',
               '  - **D)** Error Log'
             ],
@@ -905,7 +888,7 @@
               '[INTERNAL RULE — NEVER PRINT THIS LINE: Leave 1 blank line before menu; ONLY show A-D after coaching a question/draft; print ONLY **下一步：** then the bullets below]',
               '**下一步：**',
               '  - **A)** 構思審題（PAT）與三個論點',
-              '  - **B)** C·L·O 總覽（再選 C / L / O 深入改善）',
+              '  - **B)** 整體評語（內容、語言、結構）',
               '  - **C)** 提升指定段落（輸入 P1、P2 或 P3）',
               '  - **D)** 整理錯題記錄'
             ]
@@ -941,35 +924,35 @@
         if ((paperKey === 'p1' || paperKey === 'p3b') && mode === 'guided') {
           if (isZhOnly) {
             return [
-              'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — keep blank line after title & use crisp 1-line bullets; NEVER translate the whole question sentence!):',
-              '【提示 1/3 — 拆解題目關鍵詞】：',
+              'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — start directly with **🎯 ...**; NEVER print bracket headers like 【提示 1/3 ...】 or HTML tags):',
+              '[Hint 1/3 format]:',
               '**🎯 [題號＋小題，如 Q19 (iii) · 題型]**',
               '',
               '- **🔑 題目關鍵詞：** [列出題目中的英文關鍵詞，絕不整句翻譯]',
-              '- **🎯 答案類型：** [簡短說明要找甚麼類型，如名詞短語、單數名詞、年份、原因]',
+              '- **🎯 答案類型：** [簡短說明要找甚麼類型，如地點、名詞短語、年份、原因]',
               '- **🧭 定位與同義詞：** [指出定位用的英文詞，及可留意的同義詞或相關概念]',
               '',
-              '【提示 2/3 或 3/3 — 縮小原文範圍】：',
+              '[Hint 2/3 or 3/3 format]:',
               '**🎯 [題號＋小題 · 提示 2/3 或 3/3]**',
               '',
-              '- **📍 原文範圍：** Paragraph __, Line __（保留英文原詞，嚴禁寫出答案字詞）',
-              '- **💡 引導思考：** [1 句簡短提問，或於提示 3/3 給予首字母框架／二選一思考]'
+              '- **📍 原文範圍：** Paragraph __, Line __（保留英文原詞，用 **粗體** 標示重點，嚴禁使用 HTML 標籤或寫出答案字詞）',
+              '- **💡 引導思考：** [1 句簡短提問；提示 3/3 若設二選一，必須用 1) / 2)，切勿用 A) / B)]'
             ].join('\n');
           }
           return [
-            'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — keep blank line after title & use crisp 1-line bullets; NEVER translate the whole question!):',
-            'For Hint 1/3 (True Question Decoding):',
+            'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — start directly with **🎯 ...**; NEVER print raw HTML tags):',
+            '[Hint 1/3 format]:',
             '**🎯 [Q# + sub-part e.g. Q19 (iii) · Skill Type]**',
             '',
             '- **🔑 Keywords:** [Exact English keywords from the question]',
-            '- **🎯 Answer Type:** [1 short phrase: e.g. noun phrase, singular noun, year, or reason]',
+            '- **🎯 Answer Type:** [1 short phrase: e.g. place, noun phrase, singular noun, year, or reason]',
             '- **🧭 Where to look:** [English locator word + synonyms/related ideas to watch for]',
             '',
-            'For Hint 2/3 or 3/3 (Narrow Down Scope):',
+            '[Hint 2/3 or 3/3 format]:',
             '**🎯 [Q# + sub-part · Hint 2/3 or 3/3]**',
             '',
-            '- **📍 Passage:** Paragraph __, Line __ (keep English terms; NEVER write answer words)',
-            '- **💡 Narrow down:** [1 short guiding question, or on Hint 3/3 a masked first-letter frame / 2-option check]'
+            '- **📍 Passage:** Paragraph __, Line __ (keep English terms; use **bold** only, NEVER HTML tags or answer words)',
+            '- **💡 Narrow down:** [1 short guiding question; on Hint 3/3 if giving 2 options, ALWAYS label them 1) / 2), NEVER A) / B)]'
           ].join('\n');
         }
 
@@ -1019,7 +1002,7 @@
           if (isZhOnly) {
             return [
               'FIXED RESPONSE PATTERN (Blank line after title + crisp bullets):',
-              '**🎯 [Paper 2 · 範疇（PAT / C·L·O / 段落）]**',
+              '**🎯 [Paper 2 · 範疇（審題 / 內容 / 語言 / 結構 / 段落）]**',
               '',
               '- **🔍 重點診斷：** [1–2 句具體建議，絕不代寫整段]',
               '- **✍️ 你的練習：** [1 項具體任務或句子讓我先修改]'
@@ -1027,7 +1010,7 @@
           }
           return [
             'FIXED RESPONSE PATTERN (Blank line after title + crisp bullets):',
-            '**🎯 [Paper 2 · Area (PAT / C·L·O / Paragraph)]**',
+            '**🎯 [Paper 2 · Area (Plan / Content / Language / Organisation / Paragraph)]**',
             '',
             '- **🔍 Focus:** [1–2 concise diagnostic points — never write full paragraphs]',
             '- **✍️ Your Turn:** [1 concrete sentence or step for me to write/fix first]'
@@ -1141,9 +1124,10 @@
               '- 3-LEVEL ZERO-SPOILER HINT LADDER (MAX 3 HINTS PER SUB-PART — QUESTION FIRST, PASSAGE SECOND):',
               '  * Hint 1/3 (True Question Decoding — NO Whole-Question Translation!): Focus ONLY on the question (1 sub-part such as (i) or Line 1). NEVER translate the whole question sentence into Chinese. Break down (a) the exact English keywords, (b) what type of answer is needed (fact, singular noun, time/year, reason, etc.), and (c) which English keyword locates the answer + what synonyms or related ideas to look for if the exact word is not in the passage. Do NOT jump to passage lines yet.',
               '  * Hint 2/3 (Narrow Down in Passage): Now point to the exact Paragraph & Line # in the passage and highlight the matching English clue word/phrase nearby (STILL zero answer words).',
-              '  * Hint 3/3 (Active Decision — ZERO SPOILERS): Force me to verify from the text using EITHER (a) a masked first-letter/word-count frame (e.g., "3-word idiom: a t___ o___ in Line 5") for locating/phrase/cloze, OR (b) a 2-option choice (1 distractor + 1 true candidate, shuffled) for T/F/NG, inference, tone, or referencing — asking me to pick and justify.',
-              '  * After Hint 3/3: STOP hints completely and switch to the no-hint menu (remove "Next hint"!).',
-              '- PURE GUIDANCE ONLY: Do NOT grade or check student answers in Guided mode (students write answers on their paper and use Self-Check or Explain later).',
+              '  * Hint 3/3 (Active Decision — ZERO SPOILERS): Force me to verify from the text using EITHER (a) a masked first-letter/word-count frame (e.g., "3-word idiom: a t___ o___ in Line 5") for locating/phrase/cloze, OR (b) a 2-option choice labeled strictly 1) and 2) (NEVER A) / B) so it never collides with the menu) with 1 distractor + 1 true candidate shuffled — asking me to pick and justify.',
+              '  * After Hint 3/3: STOP hints silently and switch to the B/C/D menu (NEVER print internal notes like "no-hint mode").',
+              '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my answer or snap a photo of my Q# attempt. Whenever I send my written attempt (by text or photo), give instant feedback: (a) if a hidden Official Answer Key is provided on the server, verify my attempt against it (celebrate if right; if wrong, point out the exact gap without leaking the exact key); (b) if NO Answer Key is loaded, check format/grammar slot (word limit, part of speech, tense, singular/plural) and passage evidence grounding, flag clear traps, and remind me to confirm final wording in Explain mode with the Official Answer Key (note: Self-Check is pre-Answer-Key; Explain uses the Official Answer Key).',
+              '- FREE QUESTIONS WELCOME: If I ask any free vocab, grammar, or passage question mid-chat, answer it naturally and concisely without forcing the Hint 1/3 ladder unless I ask for a hint. NEVER output raw HTML tags.',
               '',
               getPaper1Playbook(levelKey),
               '',
@@ -1168,27 +1152,37 @@
           getSteps: () => ({
             step1: 'Tap <strong>Copy Setup Prompt</strong>, paste in your AI app, and snap your <strong>Writing Topic</strong> first.',
             step2: 'Snap your <strong>plan or handwritten essay</strong> (1–2 pages at a time if long).',
-            step3: 'Just reply <strong>A / B / C / D</strong> from the AI\'s menu to plan, check C·L·O, or upgrade a paragraph.',
+            step3: 'Just reply <strong>A / B / C / D</strong> from the AI\'s menu to plan, review Content/Language/Organisation, or upgrade a paragraph.',
             commands: ['A (Plan)', 'B (Check)', 'C (P2)', 'D (Log)']
           }),
           getBody: (mode, lang, script) => {
             const pattern = getPatternBlock('p2', mode, lang, script);
             const menu = getMenuBlock('p2', mode, lang, script);
+            const isZhOnly = lang === 'zh';
+            const overviewLabels = isZhOnly
+              ? '**📌 內容：**、**📌 語言：**、**📌 結構：**'
+              : '**📌 Content:**, **📌 Language:**, and **📌 Organisation:**';
+            const deepDiveMenu = isZhOnly
+              ? '**A)** 深入改善內容、**B)** 深入改善語言、**C)** 深入改善結構與連貫、**D)** 整理錯題記錄（只輸出繁體中文，切勿同時列出英文）'
+              : '**A)** Dig into Content, **B)** Dig into Language, **C)** Dig into Organisation, **D)** Error Log (print English ONLY — never print Chinese translations alongside)';
+            const deepDiveGuide = isZhOnly
+              ? '   - DEEP-DIVE BY CHOSEN DOMAIN (CLEAN LABELS ONLY — USE PLAIN HEADINGS ONLY — NEVER ADD LETTER CODES OR SUB-LABELS IN PARENTHESES): **內容**（標題 `**🎯 Paper 2 · 內容**`）= 只聚焦切題度、論點闡述、具體例子與內容發展 + 1–2 題簡短 ✍️ 你的練習。**語言**（標題 `**🎯 Paper 2 · 語言**`）= 使用簡潔標題 `**🔍 文法：**`（動詞、時態、主謂一致、句式）與 `**🔍 詞彙與拼寫：**`（詞性、拼寫、用語語氣），引用草稿原句 + 2 句 ✍️ 你的練習修改。**結構**（標題 `**🎯 Paper 2 · 結構**`）= 只聚焦連貫性、邏輯推進、分段／主題句，以及連接字詞、句子、段落與意念的連接詞 + 1–2 句 ✍️ 你的練習。每次結尾沿用同一組純中文 A/B/C/D 選單。'
+              : '   - DEEP-DIVE BY CHOSEN DOMAIN (CLEAN LABELS ONLY — USE PLAIN HEADINGS ONLY — NEVER ADD LETTER CODES OR SUB-LABELS IN PARENTHESES): **Content** (heading `**🎯 Paper 2 · Content**`) = focus ONLY on relevance, elaboration, supporting details, and idea development + 1–2 short ✍️ Your Turn tasks. **Language** (heading `**🎯 Paper 2 · Language**`) = use clean headings `**🔍 Grammar:**` (verbs, tenses, SVA, prepositions, sentence structure — combine into 1 bullet, do not repeat the same heading twice) and `**🔍 Vocabulary & Spelling:**` (word form, spelling, register) with exact lines from my draft + 2 short ✍️ Your Turn lines to fix. **Organisation** (heading `**🎯 Paper 2 · Organisation**`) = focus ONLY on coherence, logical flow, paragraphing/topic sentences, and cohesive devices linking words, sentences, paragraphs, and ideas + 1–2 short ✍️ Your Turn linking upgrades. End with the same English-only A/B/C/D menu.';
             return [
               'Role: You are my HKDSE English Paper 2 (Writing) personal coach.',
               'STRICT ANTI-GHOSTWRITING RULE: Never write a full essay or full paragraphs for me.',
               '',
-              'Workflow (Follow Strictly — always reply in my selected Guiding Language):',
+              'Workflow (Follow Strictly — always reply ONLY in my selected Guiding Language):',
               '1. TOPIC FIRST: I am attaching photo(s) of the Writing Topic now. Read it quietly and reply ONLY with a 1-line confirmation asking me to snap my plan/essay (if I have one) or choose from the menu below.',
               '2. DRAFT NEXT: If I upload my plan or essay, scan it quietly and reply ONLY with a 1-line confirmation + the menu below.',
               '3. MENU ACTIONS (always use the Fixed Response Pattern):',
               '   - "A" = lock Purpose, Audience, Tone (PAT), format, and 3 clear ideas step by step.',
-              '   - HKDSE PAPER 2 RUBRIC (C · L · O — STRICT 3 SEPARATE DOMAINS, NEVER MERGE C AND O):',
-              '     * **C (Content):** Relevance to task/prompt requirements (purpose, audience, role, genre), and whether ideas are well-supported, elaborated, and developed with concrete examples, reasons, and depth.',
-              '     * **L (Language):** L1 = grammatical accuracy (verb forms, tenses, SVA, sentence structure variety); L2 = vocabulary range, word form, spelling, punctuation, and appropriate tone/register for the audience & text type.',
-              '     * **O (Organisation):** Overall coherence and logical progression of ideas, clear paragraphing & topic sentences conforming to the genre, and effective cohesive devices connecting words, sentences, paragraphs, and ideas.',
-              '   - "B" = C·L·O OVERVIEW FIRST (IDENTICAL 3-PART STRUCTURE IN BOTH EN AND 全中文): Give a crisp 3-bullet overview assessing **📌 C (Content)**, **📌 L (Language)**, and **📌 O (Organisation)** separately against the HKDSE Paper 2 Rubric above (1–2 concise lines each; do NOT dump a full line-by-line edit yet). Right after the 3-part C·L·O Overview, offer ONLY this menu: **A)** Dig into C (Content) / 深入改善 C（內容發展）, **B)** Dig into L (Language: L1 & L2) / 深入改善 L（語言：文法與詞彙）, **C)** Dig into O (Organisation & Coherence) / 深入改善 O（結構與連貫）, **D)** Error Log / 整理錯題記錄.',
-              '   - DEEP-DIVE BY CHOSEN DOMAIN: **C (Content)** = focus ONLY on relevance, elaboration, supporting details, and idea development + 1–2 short ✍️ Your Turn tasks. **L (Language)** = split into **L1 (Grammar & Sentence Structure)** and **L2 (Word Form, Spelling, Vocab & Register)** with exact lines from my draft + 2 short ✍️ Your Turn lines to fix. **O (Organisation)** = focus ONLY on coherence, logical flow, paragraphing/topic sentences, and cohesive devices linking words, sentences, paragraphs, and ideas + 1–2 short ✍️ Your Turn linking upgrades. End with the same A/B/C/D menu.',
+              '   - HKDSE PAPER 2 RUBRIC (STRICT 3 SEPARATE DOMAINS — NEVER MERGE CONTENT AND ORGANISATION; USE PLAIN DOMAIN NAMES ONLY — NEVER ADD LETTER CODES OR SUB-LABELS):',
+              '     * **Content:** Relevance to task/prompt requirements (purpose, audience, role, genre), and whether ideas are well-supported, elaborated, and developed with concrete examples, reasons, and depth.',
+              '     * **Language:** Grammatical accuracy (verb forms, tenses, SVA, prepositions, sentence structure variety) plus vocabulary range, word form, spelling, punctuation, and appropriate tone/register for the audience & text type.',
+              '     * **Organisation:** Overall coherence and logical progression of ideas, clear paragraphing & topic sentences conforming to the genre, and effective cohesive devices connecting words, sentences, paragraphs, and ideas.',
+              `   - "B" = 3-PART OVERVIEW FIRST (IDENTICAL STRUCTURE IN EN AND 全中文): Give a crisp 3-bullet overview assessing ${overviewLabels} separately against the HKDSE Paper 2 Rubric above (1–2 concise lines each; do NOT dump a full line-by-line edit yet; use plain domain headings only — never add letter codes or sub-labels). Right after the 3-part Overview, offer ONLY this menu: ${deepDiveMenu}.`,
+              deepDiveGuide,
               '   - "C" (from main menu, or "P1" / "P2" / "P3") = focus ONLY on that paragraph and coach me to improve clarity, ideas, and phrasing.',
               getLogFormat('p2', 'default', lang),
               '',
@@ -1266,9 +1260,10 @@
               '- 3-LEVEL ZERO-SPOILER HINT LADDER (MAX 3 HINTS PER SUB-POINT — TASK FIRST, DATA FILE SECOND):',
               '  * Hint 1/3 (True Task Decoding — NO Whole-Sentence Translation!): Focus ONLY on 1 required bullet/point from the Task Email. Break down (a) the exact English keywords, (b) what type of info & tone/register is needed, and (c) which English keyword or synonym to hunt for in the Data File. Do NOT jump to Data File lines yet.',
               '  * Hint 2/3 (Narrow Down in Data File): Point to the exact Data File document/line where the matching English detail sits (STILL do not write the sentence for me).',
-              '  * Hint 3/3 (Active Decision): Give EITHER a 3-word English sentence starter with blanks (e.g., "We are pleased to ___ ...") OR a 2-option formal vs. informal paraphrase check so I build the sentence myself.',
-              '  * After Hint 3/3: STOP hints completely and switch to the no-hint menu (remove "Next hint"!).',
-              '- PURE GUIDANCE ONLY: Do NOT grade or write answers in Guided mode (students write on paper and use Self-Check or Explain later).',
+              '  * Hint 3/3 (Active Decision): Give EITHER a 3-word English sentence starter with blanks (e.g., "We are pleased to ___ ...") OR a 2-option formal vs. informal paraphrase check labeled strictly 1) and 2) (NEVER A) / B)) so I build the sentence myself.',
+              '  * After Hint 3/3: STOP hints silently and switch to the B/C/D menu (NEVER print internal state notes).',
+              '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my sentence/draft or snap a photo of my attempt. Whenever I send my try (by text or photo), give instant feedback on Data File accuracy, paraphrasing/no-lifting, and tone/register (verify against hidden Official Marking Scheme if loaded on server; otherwise remind me to confirm final marks in Explain mode with the Official Marking Scheme).',
+              '- FREE QUESTIONS WELCOME: If I ask any free vocab, grammar, or Data File question mid-chat, answer naturally without forcing the Hint 1/3 ladder. NEVER output raw HTML tags.',
               '',
               'Workflow (Follow Strictly — always reply in my selected Guiding Language):',
               '1. DATA FILE FIRST: I am attaching photo(s) of the Situation Email and Data File pages now. Read quietly and reply ONLY with a 1-line confirmation asking me to snap the Task page or blank notes (up to 2 pages) and tell you which Task # (e.g., Task 8).',
@@ -1382,42 +1377,43 @@
             p1_guided: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Passage</strong>.',
               'Photo of your <strong>Q&amp;A page</strong> (1–2 pages).',
-              'Type <strong>Q1</strong>, <strong>Q4</strong>... then reply <strong>A / B / C</strong>.'
+              'Type <strong>Q1</strong>, <strong>Q4</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
             p1_selfcheck: [
-              'Do the page first &rarr; paste prompt + photo of <strong>Passage</strong>.',
+              'Do the page first &rarr; <strong>Copy Prompt</strong> + photo of <strong>Passage</strong>.',
               'Photo of your <strong>done Q&amp;A page</strong> (no Answer Key yet).',
-              'Type <strong>Q1</strong>, <strong>Q4</strong>... fix your work before checking answers.'
+              'Type <strong>Q1</strong>, <strong>Q4</strong>... then reply <strong>A / B / C / D</strong> to fix before checking answers.'
             ],
             p1_explain: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Passage</strong>.',
-              'Photo of your <strong>Q&amp;A page (QAB)</strong> first, then snap the <strong>Answer Key</strong> separately.',
+              'Photo of your <strong>Q&amp;A page (QAB)</strong> (1–2 pages).',
+              'Photo of the <strong>Official Answer Key</strong> separately.',
               'Type <strong>Q1</strong>, <strong>Q4</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
             p2: [
-              '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Topic</strong>.',
+              '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Writing Topic</strong>.',
               'Photo of your <strong>plan or essay</strong> (optional).',
-              'Reply <strong>A / B / C / D</strong> to plan, check, or improve.'
+              'Reply <strong>A / B / C / D</strong> to plan, review, or improve.'
             ],
             p3b_guided: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Data File</strong>.',
               'Photo of your <strong>Task page</strong> (1–2 pages).',
-              'Type <strong>Task 8</strong>... then reply <strong>A / B / C</strong>.'
+              'Type <strong>Task 8</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
             p3b_selfcheck: [
-              'Write your draft first &rarr; paste prompt + photo of <strong>Data File</strong>.',
+              'Write your draft first &rarr; <strong>Copy Prompt</strong> + photo of <strong>Data File</strong>.',
               'Photo of your <strong>draft</strong> (no Marking Scheme yet).',
-              'Type <strong>Task 8</strong>... fix your draft before checking answers.'
+              'Type <strong>Task 8</strong>... then reply <strong>A / B / C / D</strong> to fix before checking answers.'
             ],
             p3b_explain: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Data File</strong>.',
-              'Photo of your <strong>draft</strong> + <strong>Marking Scheme</strong>.',
+              'Photo of your <strong>tried draft</strong> (1–2 pages).',
+              'Photo of the <strong>Official Marking Scheme</strong> separately.',
               'Type <strong>Task 8</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
             p4: [
               '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Speaking Card</strong>.',
-              'No answer sheet needed.',
-              'Reply <strong>A / B / C / D</strong> for ideas, discussion, or IR.'
+              'Reply <strong>A / B / C / D</strong> for ideas, discussion, or IR (no answer sheet needed).'
             ]
           }
         },
@@ -1485,42 +1481,43 @@
             p1_guided: [
               '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>文章</strong>。',
               '拍你的<strong>問答頁</strong>（1–2 頁）。',
-              '輸入 <strong>Q1</strong>、<strong>Q4</strong>……再回覆 <strong>A / B / C</strong>。'
+              '輸入 <strong>Q1</strong>、<strong>Q4</strong>……再回覆 <strong>A / B / C / D</strong>。'
             ],
             p1_selfcheck: [
-              '先自己做完 &rarr; 貼指令 ＋ 拍<strong>文章</strong>。',
+              '先自己做完 &rarr; <strong>複製指令</strong> ＋ 拍<strong>文章</strong>。',
               '拍<strong>已做的問答頁</strong>（先不用拍答案頁）。',
-              '輸入 <strong>Q1</strong>、<strong>Q4</strong>……對答案前先自行修改。'
+              '輸入 <strong>Q1</strong>、<strong>Q4</strong>……回覆 <strong>A / B / C / D</strong>，對答案前先自行修改。'
             ],
             p1_explain: [
               '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>文章</strong>。',
-              '先拍<strong>題目答題簿（QAB）</strong>，再分開拍<strong>官方答案頁</strong>。',
+              '拍你的<strong>題目答題簿（QAB）</strong>（1–2 頁）。',
+              '分開拍<strong>官方答案頁（Answer Key）</strong>。',
               '輸入 <strong>Q1</strong>、<strong>Q4</strong>……再回覆 <strong>A / B / C / D</strong>。'
             ],
             p2: [
               '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>寫作題目</strong>。',
               '拍你的<strong>大綱或作文</strong>（可選）。',
-              '回覆 <strong>A / B / C / D</strong> 構思、檢查或改善。'
+              '回覆 <strong>A / B / C / D</strong> 構思、評語或改善。'
             ],
             p3b_guided: [
               '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>資料冊</strong>。',
               '拍你的<strong>任務頁</strong>（1–2 頁）。',
-              '輸入 <strong>Task 8</strong>……再回覆 <strong>A / B / C</strong>。'
+              '輸入 <strong>Task 8</strong>……再回覆 <strong>A / B / C / D</strong>。'
             ],
             p3b_selfcheck: [
-              '先自己寫完 &rarr; 貼指令 ＋ 拍<strong>資料冊</strong>。',
-              '拍你的<strong>草稿</strong>（先不用拍答案）。',
-              '輸入 <strong>Task 8</strong>……對答案前先自行修改。'
+              '先自己寫完 &rarr; <strong>複製指令</strong> ＋ 拍<strong>資料冊</strong>。',
+              '拍你的<strong>草稿</strong>（先不用拍評分準則）。',
+              '輸入 <strong>Task 8</strong>……回覆 <strong>A / B / C / D</strong>，對答案前先自行修改。'
             ],
             p3b_explain: [
               '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>資料冊</strong>。',
-              '拍你的<strong>草稿</strong> ＋ <strong>評分準則</strong>。',
+              '拍你的<strong>草稿</strong>（1–2 頁）。',
+              '分開拍<strong>官方評分準則（Marking Scheme）</strong>。',
               '輸入 <strong>Task 8</strong>……再回覆 <strong>A / B / C / D</strong>。'
             ],
             p4: [
               '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>說話題卡</strong>。',
-              '不用拍答題紙。',
-              '回覆 <strong>A / B / C / D</strong> 構思、討論或個人回應。'
+              '回覆 <strong>A / B / C / D</strong> 構思、小組討論或個人回應（不用拍答題紙）。'
             ]
           }
         }
@@ -2122,24 +2119,29 @@
           const isExplain = PAPERS[state.paper].hasModes && state.mode === 'explain';
           if (state.paper === 'p2') {
             welcome = isZh
-              ? `**🎯 Paper 2 · 寫作教練**\n\n- **第 1 步：**拍下 **寫作題目**（如已有草稿可一併或稍後拍下）\n- **第 2 步：**選擇 **構思大綱** 或 **C·L·O 總覽檢查**，再深入改善 C、L 或 O。`
-              : `**🎯 Paper 2 · Writing Coach**\n\n- **Step 1:** Snap your **Writing Topic** (and your **draft** if you have one)\n- **Step 2:** Choose **Plan** or **C·L·O Overview**, then dig into **C**, **L**, or **O**.`;
+              ? `**🎯 Paper 2 · 寫作教練**\n\n- **第 1 步：**拍下 **寫作題目**（如已有草稿可一併或稍後拍下）\n- **第 2 步：**選擇 **構思大綱** 或 **整體評語**，再深入改善 **內容**、**語言** 或 **結構**。`
+              : `**🎯 Paper 2 · Writing Coach**\n\n- **Step 1:** Snap your **Writing Topic** (and your **draft** if you have one)\n- **Step 2:** Choose **Plan** or **Overview**, then dig into **Content**, **Language**, or **Organisation**.`;
           } else if (state.paper === 'p4') {
             welcome = isZh
               ? `**🎯 Paper 4 · 說話教練**\n\n- 拍下 **說話題目卡（Prompt Card）**，即可練習審題構思、小組討論（GI）或個人回應（IR）。`
               : `**🎯 Paper 4 · Speaking Coach**\n\n- Snap your **Speaking Prompt Card** to practise ideas, Group Interaction (GI), or Individual Response (IR).`;
           } else if (isExplain) {
-            const mat = state.paper === 'p3b' ? (isZh ? '資料頁（Data File）' : 'Data File') : (isZh ? '閱讀文章' : 'Passage');
-            const qEx = state.paper === 'p3b' ? 'Task 8' : 'Q1';
+            const isP3b = state.paper === 'p3b';
+            const mat = isP3b ? (isZh ? '資料頁（Data File）' : 'Data File') : (isZh ? '閱讀文章' : 'Passage');
+            const work = isP3b ? (isZh ? '草稿' : 'tried draft') : (isZh ? '題目答題簿（QAB）' : 'Q&A Booklet (QAB) page');
+            const keyDoc = isP3b ? (isZh ? '官方評分準則（Marking Scheme）' : 'Official Marking Scheme') : (isZh ? '官方答案（Answer Key）' : 'Official Answer Key');
+            const qEx = isP3b ? 'Task 8' : 'Q1';
+            const qPromptZh = isP3b ? `輸入任務編號（例如 \`${qEx}\`）` : `輸入題號（例如 \`${qEx}\`）`;
+            const qPromptEn = isP3b ? `Type your task number (e.g. \`${qEx}\`)` : `Type a question number (e.g. \`${qEx}\`)`;
             welcome = isZh
-              ? `**🎯 ${PAPERS[state.paper].code} · 核對解說**\n\n- **第 1 步：**先拍下 **${mat}**\n- **第 2 步：**再拍下你的 **題目答題簿（QAB）**\n- **第 3 步：**分開拍下 **官方答案（Answer Key）**，然後輸入題號（如 \`${qEx}\`）`
-              : `**🎯 ${PAPERS[state.paper].code} · Explain Mode**\n\n- **Step 1:** Snap the **${mat}**\n- **Step 2:** Snap your **Q&A Booklet (QAB)** page\n- **Step 3:** Snap the **Official Answer Key** separately, then type a question number (e.g. \`${qEx}\`)`;
+              ? `**🎯 ${PAPERS[state.paper].code} · 核對解說**\n\n- **第 1 步：**先拍下 **${mat}**\n- **第 2 步：**再拍下你的 **${work}**\n- **第 3 步：**分開拍下 **${keyDoc}**\n- **第 4 步：**${qPromptZh}`
+              : `**🎯 ${PAPERS[state.paper].code} · Explain Mode**\n\n- **Step 1:** Snap the **${mat}**\n- **Step 2:** Snap your **${work}**\n- **Step 3:** Snap the **${keyDoc}** separately\n- **Step 4:** ${qPromptEn}`;
           } else {
             const mat = state.paper === 'p3b' ? (isZh ? '資料頁（Data File）' : 'Data File') : (isZh ? '閱讀文章' : 'Passage');
             const qEx = state.paper === 'p3b' ? 'Task 8' : 'Q14';
             welcome = isZh
-              ? `**🎯 ${PAPERS[state.paper].code} · 自選試卷**\n\n- 先拍下 **${mat}**，再拍 **題目頁**，最後輸入題號（例如 \`${qEx}\`）即可開始。`
-              : `**🎯 ${PAPERS[state.paper].code} · My Own Paper**\n\n- Snap your **${mat}** first, then your **Q&A page**, then type a question number (e.g. \`${qEx}\`).`;
+              ? `**🎯 ${PAPERS[state.paper].code} · 自選試卷**\n\n- 先拍下 **${mat}**，再拍 **題目頁**，輸入題號（例如 \`${qEx}\`）即可開始。\n- 作答後可隨時 **拍照或輸入答案** 獲取即時回饋，亦可自由發問任何生字或文法問題。`
+              : `**🎯 ${PAPERS[state.paper].code} · My Own Paper**\n\n- Snap your **${mat}** first, then your **Q&A page**, and type a question number (e.g. \`${qEx}\`).\n- You can **snap or type your try** after any question for instant feedback, or ask any free vocab/grammar question anytime.`;
           }
         }
         state.chatMessages = [{ role: 'assistant', text: welcome, images: [] }];
@@ -2169,6 +2171,33 @@
         });
       }
 
+      function sanitizeClientCoachText(text) {
+        return String(text || '')
+          .replace(/<br\s*\/?>/gi, '\n')
+          .replace(/<(?:span|font|mark|b|strong)[^>]*>([\s\S]*?)<\/(?:span|font|mark|b|strong)>/gi, '**$1**')
+          .replace(/<(?:i|em)[^>]*>([\s\S]*?)<\/(?:i|em)>/gi, '*$1*')
+          .replace(/<\/?[a-z][a-z0-9]*(?:\s+[^>]*)?>/gi, '')
+          .replace(/^\s*【提示\s*[123]\/3[^\n】]*】\s*[:：]?\s*$/gmi, '');
+      }
+
+      function buildChatPayloadMessages(allMessages, recentLimit = 16, maxPinnedPhotos = 4) {
+        const clean = allMessages.filter((m) => !m.isError && !m.streaming);
+        let picked = clean;
+        if (clean.length > recentLimit) {
+          const splitIdx = clean.length - recentLimit;
+          const pinned = clean
+            .slice(0, splitIdx)
+            .filter((m) => m.role === 'user' && Array.isArray(m.images) && m.images.length > 0)
+            .slice(-maxPinnedPhotos);
+          picked = pinned.concat(clean.slice(splitIdx));
+        }
+        return picked.map((m) => ({
+          role: m.role,
+          text: m.text,
+          images: m.images || []
+        }));
+      }
+
       async function sendChatMessage(overrideText) {
         if (state.chatSending) return;
         const inputEl = document.getElementById('chat-input');
@@ -2181,8 +2210,6 @@
         if (typeof overrideText !== 'string') inputEl.value = '';
         state.chatPendingImages = [];
         state.chatSending = true;
-        renderChat();
-        scrollChatToBottom();
 
         const sp = getSelectedSchoolPaper();
         const payload = {
@@ -2193,14 +2220,27 @@
           paperId: sp ? sp.id : '',
           baseSystemPrompt: buildPrompt(),
           teacherPasscode: state.bsUnlocked ? state.teacherPasscode : '',
-          messages: state.chatMessages
-            .filter((m) => !m.isError)
-            .slice(-14)
-            .map((m) => ({
-              role: m.role,
-              text: m.text,
-              images: m.images || []
-            }))
+          stream: true,
+          messages: buildChatPayloadMessages(state.chatMessages, 16, 4)
+        };
+
+        const streamMsg = { role: 'assistant', text: '', images: [], streaming: true, phase: 'thinking' };
+        state.chatMessages.push(streamMsg);
+        renderChat();
+        scrollChatToBottom();
+
+        let rafScheduled = false;
+        const flushStreamBubble = () => {
+          rafScheduled = false;
+          const bodyEl = document.getElementById('streaming-bubble-body');
+          if (!bodyEl) return;
+          const isZh = state.lang === 'zh';
+          if (!streamMsg.text) {
+            bodyEl.innerHTML = `<span class="inline-flex items-center gap-2 text-[12.5px] text-brand-teal font-semibold"><span class="w-2 h-2 rounded-full bg-brand-teal animate-pulse"></span>${isZh ? 'AI 教練思考中…' : 'Coach is thinking...'}</span>`;
+          } else {
+            bodyEl.innerHTML = renderSafeMarkdown(sanitizeClientCoachText(streamMsg.text)) + '<span class="inline-block w-1.5 h-3.5 ml-0.5 align-middle bg-brand-teal/80 animate-pulse rounded-sm"></span>';
+          }
+          scrollChatToBottom();
         };
 
         try {
@@ -2209,23 +2249,72 @@
             headers: authHeaders(),
             body: JSON.stringify(payload)
           });
-          const data = await res.json().catch(() => ({}));
-          if (!res.ok || !data.ok) {
-            throw new Error(data.error || `Server error (${res.status})`);
+
+          const ctype = (res.headers.get('content-type') || '').toLowerCase();
+          if (res.ok && ctype.includes('text/event-stream') && res.body) {
+            const reader = res.body.getReader();
+            const decoder = new TextDecoder();
+            let buf = '';
+            let gotFinal = false;
+
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+              buf += decoder.decode(value, { stream: true });
+              const lines = buf.split('\n');
+              buf = lines.pop() || '';
+              for (const rawLine of lines) {
+                const line = rawLine.trim();
+                if (!line || !line.startsWith('data:')) continue;
+                const dataStr = line.slice(5).trim();
+                if (!dataStr || dataStr === '[DONE]') continue;
+                let evt;
+                try { evt = JSON.parse(dataStr); } catch (_) { continue; }
+                if (evt.error) {
+                  throw new Error(evt.error);
+                }
+                if (typeof evt.delta === 'string' && evt.delta.length > 0) {
+                  streamMsg.phase = 'streaming';
+                  streamMsg.text += evt.delta;
+                  if (!rafScheduled) {
+                    rafScheduled = true;
+                    requestAnimationFrame(flushStreamBubble);
+                  }
+                }
+                if (evt.done) {
+                  gotFinal = true;
+                  if (typeof evt.reply === 'string' && evt.reply.trim()) {
+                    streamMsg.text = evt.reply.trim();
+                  }
+                }
+              }
+            }
+
+            if (!streamMsg.text.trim()) {
+              throw new Error('EMPTY_MODEL_RESPONSE');
+            }
+            if (!gotFinal) {
+              streamMsg.text = sanitizeClientCoachText(streamMsg.text).trim();
+            }
+            streamMsg.streaming = false;
+            state.workerOnline = true;
+          } else {
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok || !data.ok) {
+              throw new Error(data.error || `Server error (${res.status})`);
+            }
+            streamMsg.text = data.reply;
+            streamMsg.streaming = false;
+            state.workerOnline = true;
           }
-          state.chatMessages.push({ role: 'assistant', text: data.reply, images: [] });
-          state.workerOnline = true;
         } catch (err) {
           const isZh = state.lang === 'zh';
           const friendly = isZh
             ? '剛才未能清楚處理你的訊息，請再試一次（或重新拍一張更清晰的照片）。'
             : "Sorry, I couldn't read that clearly—please try sending it again (or snap a clearer photo).";
-          state.chatMessages.push({
-            role: 'assistant',
-            isError: true,
-            text: friendly,
-            images: []
-          });
+          streamMsg.isError = true;
+          streamMsg.streaming = false;
+          streamMsg.text = friendly;
         }
 
         state.chatSending = false;
@@ -2302,19 +2391,24 @@
                 </div>
               </div>`;
           }
+          if (m.streaming) {
+            const inner = m.text
+              ? renderSafeMarkdown(sanitizeClientCoachText(m.text)) + '<span class="inline-block w-1.5 h-3.5 ml-0.5 align-middle bg-brand-teal/80 animate-pulse rounded-sm"></span>'
+              : `<span class="inline-flex items-center gap-2 text-[12.5px] text-brand-teal font-semibold"><span class="w-2 h-2 rounded-full bg-brand-teal animate-pulse"></span>${state.lang === 'zh' ? 'AI 教練思考中…' : 'Coach is thinking...'}</span>`;
+            return `
+              <div class="flex justify-start">
+                <div id="streaming-bubble-body" class="max-w-[92%] rounded-2xl rounded-bl-md bg-white border border-brand-teal/40 px-3.5 py-2.5 text-[13.5px] leading-relaxed text-slate-700 shadow-sm chat-md">
+                  ${inner}
+                </div>
+              </div>`;
+          }
           return `
             <div class="flex justify-start">
               <div class="max-w-[92%] rounded-2xl rounded-bl-md bg-white border border-brand-border px-3.5 py-2.5 text-[13.5px] leading-relaxed text-slate-700 shadow-sm chat-md">
-                ${renderSafeMarkdown(m.text)}
+                ${renderSafeMarkdown(sanitizeClientCoachText(m.text))}
               </div>
             </div>`;
-        }).join('') + (state.chatSending ? `
-          <div class="flex justify-start">
-            <div class="rounded-2xl bg-white border border-brand-border px-3.5 py-2 text-[12.5px] text-brand-teal font-semibold flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-brand-teal animate-pulse"></span>
-              ${state.lang === 'zh' ? 'AI 教練思考中…' : 'Coach is thinking...'}
-            </div>
-          </div>` : '');
+        }).join('');
 
         // Photo preview bar
         const previewBar = document.getElementById('chat-photo-previews');
@@ -3040,9 +3134,13 @@
         document.getElementById('view-log').classList.toggle('hidden', state.tab !== 'log');
         document.getElementById('view-backstage').classList.toggle('hidden', state.tab !== 'backstage');
         const chatInp = document.getElementById('chat-input');
-        if (chatInp) chatInp.placeholder = isZh ? '輸入訊息或題號…' : 'Type Q# or reply...';
-        const repLbl = document.getElementById('lbl-btn-report');
-        if (repLbl) repLbl.textContent = isZh ? '回報' : 'Report';
+        if (chatInp) chatInp.placeholder = isZh ? '輸入題號、答案或自由發問…' : 'Type Q#, try, or ask anything...';
+        const repBtn = document.getElementById('btn-chat-report');
+        if (repBtn) {
+          const repTitle = isZh ? '回報問題' : 'Report an issue';
+          repBtn.title = repTitle;
+          repBtn.setAttribute('aria-label', repTitle);
+        }
 
         // Log badge
         const badge = document.getElementById('log-count-badge');
@@ -3059,7 +3157,7 @@
         document.getElementById('app-subtitle').textContent = ui.subtitle;
         document.getElementById('tab-drill').textContent = isZh ? 'AI 教練' : 'Coach';
         document.getElementById('tab-log-label').textContent = ui.tabLog;
-        document.getElementById('lbl-lang').textContent = ui.lblLang;
+        const lblLangEl = document.getElementById('lbl-lang'); if (lblLangEl) lblLangEl.textContent = ui.lblLang;
         document.getElementById('lbl-choose-paper').textContent = ui.lblChoosePaper;
         document.getElementById('lbl-skip-3a').textContent = ui.lblSkip3a;
         ['p1', 'p2', 'p3b', 'p4'].forEach((pk) => {
@@ -3162,9 +3260,9 @@
         const localizedSteps = ui.steps[stepKey];
         const stepsMeta = p.getSteps(state.mode);
         document.getElementById('flow-paper-pill').textContent = ui.pills[stepKey];
-        document.getElementById('step1-text').innerHTML = localizedSteps[0];
-        document.getElementById('step2-text').innerHTML = localizedSteps[1];
-        document.getElementById('step3-text').innerHTML = localizedSteps[2];
+        document.getElementById('flow-steps-list').innerHTML = localizedSteps.map((stepHtml, idx) => (
+          `<li class="flex items-start gap-2"><span class="w-4 h-4 rounded-full bg-brand-teal text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">${idx + 1}</span><span>${stepHtml}</span></li>`
+        )).join('');
         document.getElementById('command-chips').innerHTML = stepsMeta.commands.map((cmd) => (
           `<span class="px-2 py-0.5 rounded-md bg-white border border-brand-border text-[11px] font-bold text-brand-navy font-mono">${escapeHtml(cmd)}</span>`
         )).join('');
