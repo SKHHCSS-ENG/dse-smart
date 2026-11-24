@@ -287,7 +287,7 @@
                 <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Generated Prompt</span>
                 <span id="prompt-char-count" class="text-[11px] text-slate-400"></span>
               </div>
-              <pre id="prompt-preview-text" class="text-[11.5px] leading-relaxed text-slate-700 whitespace-pre-wrap font-mono max-h-52 overflow-y-auto pr-1"></pre>
+              <pre id="prompt-preview-text" class="text-[11.5px] leading-relaxed text-slate-700 whitespace-pre-wrap break-words font-mono max-h-64 overflow-y-auto overscroll-contain pr-1"></pre>
             </div>
           </div>
         </div>
@@ -305,12 +305,11 @@
             <div id="chat-context-sub" class="text-[10.5px] font-medium text-brand-teal truncate leading-tight">Built-in AI Coach</div>
           </div>
           <div class="flex items-center gap-1 shrink-0">
-            <button id="btn-chat-save-log" type="button" title="Save mistakes to Error Log" aria-label="Save mistakes to Error Log" class="p-1.5 rounded-xl bg-brand-tealSoft border border-brand-teal/30 text-brand-navy hover:bg-[#d7edf5] flex items-center justify-center transition-colors disabled:opacity-50">
-              <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-                <polyline points="17 21 17 13 7 13 7 21" />
-                <polyline points="7 3 7 8 15 8" />
+            <button id="btn-chat-save-log" type="button" title="Save checked mistakes to Error Log" aria-label="Save checked mistakes to Error Log" class="px-2 py-1.5 rounded-xl bg-brand-tealSoft border border-brand-teal/35 text-brand-navy hover:bg-[#d7edf5] flex items-center gap-1 text-[11px] font-bold transition-colors disabled:opacity-50 shrink-0">
+              <svg class="w-3.5 h-3.5 shrink-0 text-brand-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
               </svg>
+              <span id="btn-chat-save-log-label">Save</span>
             </button>
             <button id="btn-chat-report" type="button" title="Report an issue" aria-label="Report an issue" class="p-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 hover:bg-amber-100 flex items-center justify-center transition-colors">
               <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -336,7 +335,7 @@
         <!-- Chat Composer -->
         <div class="p-2.5 pb-[max(0.625rem,env(safe-area-inset-bottom))] bg-white border-t border-brand-border flex items-center gap-2 shrink-0">
           <input id="chat-camera-input" type="file" accept="image/*" capture="environment" class="hidden" />
-          <input id="chat-photo-input" type="file" accept="image/*" multiple class="hidden" />
+          <input id="chat-photo-input" type="file" accept="image/*,.pdf,application/pdf" multiple class="hidden" />
           <button id="btn-chat-camera" type="button" title="Take photo with camera" aria-label="Take photo with camera" class="p-2.5 rounded-xl bg-brand-tealSoft hover:bg-[#d7edf5] border border-brand-teal/35 text-brand-teal shrink-0 transition-colors">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
@@ -587,7 +586,7 @@
 
       <!-- Subtle Non-Affiliation Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA &middot; <span class="font-mono text-slate-400">v10.18</span></p>
+        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA &middot; <span class="font-mono text-slate-400">v10.19</span></p>
       </footer>
     </main>
   </div>
@@ -672,15 +671,15 @@
   </div>
 
   <!-- Tap-to-Zoom Photo Lightbox -->
-  <div id="photo-lightbox" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4" role="dialog" aria-label="Zoomed photo preview">
-    <button id="btn-lightbox-close" type="button" aria-label="Close preview" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 text-brand-navy font-bold text-[18px] flex items-center justify-center shadow-lg">&times;</button>
-    <img id="photo-lightbox-img" src="" alt="Full attached paper" class="max-w-full max-h-[88dvh] rounded-2xl shadow-2xl object-contain" />
+  <div id="photo-lightbox" class="hidden fixed inset-0 z-[90] bg-black/80 backdrop-blur-xs flex items-center justify-center p-4" role="dialog" aria-label="Zoomed photo preview">
+    <div class="relative inline-flex max-w-[92vw] max-h-[88dvh]">
+      <button id="btn-lightbox-close" type="button" aria-label="Close preview" class="absolute -top-3 -right-3 z-10 w-9 h-9 rounded-full bg-white text-brand-navy font-bold text-[18px] flex items-center justify-center shadow-lg border border-brand-border hover:bg-brand-tealSoft">&times;</button>
+      <img id="photo-lightbox-img" src="" alt="Full attached paper" class="max-w-[90vw] max-h-[84dvh] rounded-2xl shadow-2xl object-contain bg-white" />
+    </div>
   </div>
 
   <!-- Floating Toast -->
-  <div id="toast" role="status" aria-live="polite" class="toast-enter fixed top-3 left-1/2 z-50 bg-brand-navy text-white text-[12.5px] font-semibold px-4 py-2 rounded-full shadow-lg whitespace-nowrap max-w-[92vw] truncate">
-    Copied to clipboard!
-  </div>
+  <div id="toast" role="status" aria-live="polite" class="toast-enter fixed top-[74px] left-1/2 z-[75] bg-brand-navy text-white text-[12.5px] font-semibold px-4 py-2 rounded-full shadow-lg whitespace-nowrap max-w-[92vw] truncate"></div>
 
   <script>
     (function () {
@@ -769,11 +768,11 @@
               'During Hint 1 or 2 -> print ONLY **Next step:** with:',
               '  - **A)** Next Hint',
               '  - **B)** Check my try (type or snap photo)',
-              '  - **C)** Next / another Q# (or snap new page)',
+              '  - **C)** Next / another Q#',
               '  - **D)** Error Log',
               'After Hint 3 (OMIT A!) -> print ONLY **Next step:** with B, C, D:',
               '  - **B)** Check my try (type or snap photo)',
-              '  - **C)** Next / another Q# (or snap new page)',
+              '  - **C)** Next / another Q#',
               '  - **D)** Error Log',
               'After checking a WRONG/INCOMPLETE try -> print ONLY **Next step:** with:',
               '  - **A)** Give me 1 targeted clue to fix it',
@@ -783,7 +782,7 @@
               'After checking a CORRECT try -> print ONLY **Next step:** with:',
               '  - **A)** Key takeaway / why it works',
               '  - **B)** Continue to next Q#',
-              '  - **C)** Jump to another Q# (or snap new page)',
+              '  - **C)** Jump to another Q#',
               '  - **D)** Error Log'
             ],
             zh_trad: [
@@ -815,7 +814,7 @@
               '**Next step:**',
               '  - **A)** Re-check my edit (type answer)',
               '  - **B)** Narrow line clue',
-              '  - **C)** Next part / Q# (or snap next page)',
+              '  - **C)** Next part / Q#',
               '  - **D)** Error Log'
             ],
             zh_trad: [
@@ -833,12 +832,12 @@
               'Right after first explanation -> print ONLY **Next step:** with:',
               '  - **A)** Simpler explanation',
               '  - **B)** Exact passage clue & trap',
-              '  - **C)** Next part / Q# (or snap next page)',
+              '  - **C)** Next part / Q#',
               '  - **D)** Error Log',
               'After student picks A or B -> print ONLY **Next step:** with:',
               '  - **A)** Quick 1-sentence practice check',
               '  - **B)** Show the other angle (line clue / simpler wording)',
-              '  - **C)** Next part / Q# (or snap next page)',
+              '  - **C)** Next part / Q#',
               '  - **D)** Error Log'
             ],
             zh_trad: [
@@ -861,11 +860,11 @@
               'During Hint 1 or 2 -> print ONLY **Next step:** with:',
               '  - **A)** Next Hint',
               '  - **B)** Check my try (type or snap photo)',
-              '  - **C)** Next / another Task (or snap new page)',
+              '  - **C)** Next / another Task',
               '  - **D)** Error Log',
               'After Hint 3 (OMIT A!) -> print ONLY **Next step:** with B, C, D:',
               '  - **B)** Check my try (type or snap photo)',
-              '  - **C)** Next / another Task (or snap new page)',
+              '  - **C)** Next / another Task',
               '  - **D)** Error Log',
               'After checking a draft/sentence try -> print ONLY **Next step:** with:',
               '  - **A)** Polish tone / paraphrasing (avoid lifting)',
@@ -897,7 +896,7 @@
               '**Next step:**',
               '  - **A)** Re-check my edit (type sentence)',
               '  - **B)** Narrow Data File clue',
-              '  - **C)** Next task / point (or snap next page)',
+              '  - **C)** Next task / point',
               '  - **D)** Error Log'
             ],
             zh_trad: [
@@ -915,12 +914,12 @@
               'Right after first explanation -> print ONLY **Next step:** with:',
               '  - **A)** Simpler explanation',
               '  - **B)** Data File line & paraphrase tip',
-              '  - **C)** Next task / point (or snap next page)',
+              '  - **C)** Next task / point',
               '  - **D)** Error Log',
               'After student picks A or B -> print ONLY **Next step:** with:',
               '  - **A)** Quick 1-sentence paraphrase practice',
               '  - **B)** Show the other angle (Data File line / simpler wording)',
-              '  - **C)** Next task / point (or snap next page)',
+              '  - **C)** Next task / point',
               '  - **D)** Error Log'
             ],
             zh_trad: [
@@ -1341,7 +1340,7 @@
           code: 'P3B',
           hasModes: true,
           pill: (mode) => mode === 'explain' ? 'Paper 3B · Check & Explain' : 'Paper 3B · Guided Practice',
-          sampleLog: 'Here is your Paper 3B summary:\n- Task 8 (Content) — Mistake: Missed the 20% student discount from the WhatsApp note. | Rule: Cross off every Data File item after using it.\n- Task 8 (Lifting) — Mistake: Copied 11 words directly from the brochure. | Rule: Change sentence structure and swap key verbs/nouns.',
+          sampleLog: 'Here is your Paper 3B summary:\n- Task 5 (Content) — Mistake: Missed the 20% student discount from the WhatsApp note. | Rule: Cross off every Data File item after using it.\n- Task 5 (Lifting) — Mistake: Copied 11 words directly from the brochure. | Rule: Change sentence structure and swap key verbs/nouns.',
           getSteps: (mode) => (mode === 'explain' || mode === 'selfcheck') ? {
             step1: 'Tap <strong>Copy Setup Prompt</strong>, paste in your AI app, and snap the <strong>Task Email &amp; Data File</strong> first.',
             step2: 'Snap your <strong>tried draft</strong> (up to 2 pages) <strong>+ the official Marking Scheme</strong>.',
@@ -2229,6 +2228,7 @@
       }
 
       function openBuiltInChat() {
+        hideToast();
         if (!state.authToken && !state.bsUnlocked) {
           state.pendingActionAfterLogin = 'open_chat';
           openAuthModal();
@@ -2357,14 +2357,16 @@
         if (state.chatSending) return;
         const inputEl = document.getElementById('chat-input');
         const text = typeof overrideText === 'string' ? overrideText.trim() : inputEl.value.trim();
-        const images = state.chatPendingImages.slice();
+        const images = state.chatPendingImages.map((it) => (typeof it === 'string' ? it : it.src)).filter(Boolean);
         if (!text && images.length === 0) return;
 
-        // If student typed "D" while the latest menu binds D to Error Log, persist directly to Error Log!
-        if (images.length === 0 && /^d$/i.test(text) && state.authToken) {
+        // If student typed "D" in a coaching chat (signed in, >=2 turns), save directly to Error Log consistently!
+        if (images.length === 0 && /^d$/i.test(text) && state.authToken && state.chatMessages.length >= 2) {
           const lastAsst = [...state.chatMessages].reverse().find((m) => m.role === 'assistant' && !m.isError);
           const choices = lastAsst ? parseChoicesFromReply(lastAsst.text) : [];
-          if (choices.some((c) => c.letter === 'D' && c.isLog)) {
+          const hasDChoice = choices.some((c) => c.letter === 'D');
+          const dIsLog = choices.some((c) => c.letter === 'D' && c.isLog);
+          if (dIsLog || !hasDChoice) {
             if (typeof overrideText !== 'string') inputEl.value = '';
             saveErrorLogFromChat();
             return;
@@ -2516,19 +2518,26 @@
           const data = await res.json().catch(() => ({}));
           if (!res.ok || !data.ok) throw new Error(data.error || 'Failed to save log');
           const items = Array.isArray(data.items) ? data.items : [];
-          items.slice().reverse().forEach((it) => state.logs.unshift(it));
-          saveLogsLocal();
           const n = items.length;
-          const savedMsg = state.lang === 'zh'
-            ? `已儲存 ${n} 條錯題到錯題簿！`
-            : `Saved ${n} mistake${n === 1 ? '' : 's'} to Error Log!`;
-          const noteText = state.lang === 'zh'
-            ? `✅ 已儲存 ${n} 條錯題到你的錯題簿 — 可隨時到上方「錯題簿」分頁查看。`
-            : `✅ Saved ${n} mistake${n === 1 ? '' : 's'} to your Error Log — view them anytime in the Error Log tab.`;
-          state.chatMessages.push({ role: 'system', text: noteText, images: [], isSystemNote: true });
-          showToast(savedMsg, 2800);
-          render();
-          requestAnimationFrame(() => scrollChatToBottom());
+          if (n === 0) {
+            const emptyMsg = data.message || (state.lang === 'zh'
+              ? '暫未有已批改的新錯題 — 先試答一題再儲存！'
+              : 'No new checked mistakes to save yet — try answering a question first!');
+            showToast(emptyMsg, 2800);
+          } else {
+            items.slice().reverse().forEach((it) => state.logs.unshift(it));
+            saveLogsLocal();
+            const savedMsg = state.lang === 'zh'
+              ? `已儲存 ${n} 條錯題到錯題簿！`
+              : `Saved ${n} mistake${n === 1 ? '' : 's'} to Error Log!`;
+            const noteText = state.lang === 'zh'
+              ? `✅ 已儲存 ${n} 條錯題到你的錯題簿 — 可隨時到上方「錯題簿」分頁查看。`
+              : `✅ Saved ${n} mistake${n === 1 ? '' : 's'} to your Error Log — view them anytime in the Error Log tab.`;
+            state.chatMessages.push({ role: 'system', text: noteText, images: [], isSystemNote: true });
+            showToast(savedMsg, 2800);
+            render();
+            requestAnimationFrame(() => scrollChatToBottom());
+          }
         } catch (err) {
           showToast(err.message || 'Could not save Error Log');
         }
@@ -2541,6 +2550,14 @@
         const titleEl = document.getElementById('chat-context-title');
         const subEl = document.getElementById('chat-context-sub');
         const isZh = state.lang === 'zh';
+        const backBtn = document.getElementById('btn-chat-back');
+        const resetBtn = document.getElementById('btn-chat-reset');
+        const sendBtn = document.getElementById('btn-chat-send');
+        const saveLbl = document.getElementById('btn-chat-save-log-label');
+        if (backBtn) backBtn.textContent = isZh ? '← 返回' : '← Back';
+        if (resetBtn) resetBtn.textContent = isZh ? '重設' : 'Reset';
+        if (sendBtn) sendBtn.textContent = isZh ? '傳送' : 'Send';
+        if (saveLbl) saveLbl.textContent = state.chatSavingLog ? (isZh ? '儲存中…' : 'Saving…') : (isZh ? '存錯題' : 'Save');
         const ui = UI_TEXT[state.lang] || UI_TEXT.en;
         const pInfo = PAPERS[state.paper];
         const modeLabel = state.mode === 'explain' ? ui.modeExplain : ui.modeGuided;
@@ -2564,7 +2581,7 @@
           }
           const isUser = m.role === 'user';
           const imgsHtml = (m.images && m.images.length)
-            ? `<div class="flex flex-wrap gap-1.5 mb-1.5">${m.images.map((src) => `<img src="${src}" alt="Attached paper" class="chat-zoom-img cursor-zoom-in w-28 h-28 object-cover rounded-xl border border-white/50 shadow-sm" />`).join('')}</div>`
+            ? `<div class="flex flex-wrap gap-1.5 mb-1.5 max-w-full">${m.images.map((src) => `<img src="${src}" alt="Attached paper" class="chat-zoom-img cursor-zoom-in w-24 h-24 max-w-full object-cover rounded-xl border border-white/50 shadow-sm" />`).join('')}</div>`
             : '';
           if (isUser) {
             return `
@@ -2594,15 +2611,20 @@
             </div>`;
         }).join('');
 
-        // Photo preview bar
+        // Photo preview bar (with filename + clear dismiss)
         const previewBar = document.getElementById('chat-photo-previews');
         if (state.chatPendingImages.length > 0) {
           previewBar.classList.remove('hidden');
-          previewBar.innerHTML = state.chatPendingImages.map((src, i) => `
-            <div class="relative shrink-0">
-              <img src="${src}" alt="Preview" class="chat-zoom-img cursor-zoom-in w-20 h-20 object-cover rounded-xl border border-brand-border" />
-              <button type="button" data-rm-img="${i}" class="rm-chat-img absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-rose-600 text-white text-[11px] font-bold flex items-center justify-center">&times;</button>
-            </div>`).join('');
+          previewBar.innerHTML = state.chatPendingImages.map((item, i) => {
+            const src = typeof item === 'string' ? item : item.src;
+            const name = typeof item === 'string' ? `Page ${i + 1}` : (item.name || `Page ${i + 1}`);
+            return `
+            <div class="relative shrink-0 w-24 bg-brand-canvas border border-brand-border rounded-xl p-1 flex flex-col items-center gap-1">
+              <img src="${src}" alt="${escapeHtml(name)}" class="chat-zoom-img cursor-zoom-in w-20 h-20 object-cover rounded-lg border border-brand-border/70 bg-white" />
+              <span class="w-full text-[10px] font-medium text-slate-600 truncate text-center px-0.5">${escapeHtml(name)}</span>
+              <button type="button" data-rm-img="${i}" aria-label="Remove attachment" class="rm-chat-img absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-rose-600 text-white text-[12px] font-bold flex items-center justify-center shadow">&times;</button>
+            </div>`;
+          }).join('');
         } else {
           previewBar.classList.add('hidden');
           previewBar.innerHTML = '';
@@ -2651,7 +2673,7 @@
         bar.innerHTML = choices.map((c) => {
           const cmd = c.isLog ? 'SAVE_LOG' : c.letter;
           const label = c.isLog
-            ? (state.chatSavingLog ? '…' : (state.lang === 'zh' ? 'D 錯題' : 'D Log'))
+            ? (state.chatSavingLog ? (state.lang === 'zh' ? '儲存中…' : 'Saving…') : (state.lang === 'zh' ? 'D 錯題' : 'D Log'))
             : c.letter;
           const cls = c.isLog
             ? 'bg-brand-tealSoft border-brand-teal/45 text-brand-navy'
@@ -3275,12 +3297,21 @@
       }
 
       let toastTimer = null;
-      function showToast(msg, durationMs = 1800) {
+      function hideToast() {
+        const el = document.getElementById('toast');
+        if (!el) return;
+        clearTimeout(toastTimer);
+        el.classList.remove('show');
+        el.textContent = '';
+      }
+      function showToast(msg, durationMs = 2000) {
         const el = document.getElementById('toast');
         el.textContent = msg;
         el.classList.add('show');
         clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => el.classList.remove('show'), durationMs);
+        toastTimer = setTimeout(() => {
+          el.classList.remove('show');
+        }, durationMs);
       }
 
       function escapeHtml(str) {
@@ -3572,6 +3603,7 @@
 
       document.getElementById('btn-auth-pill').addEventListener('click', openAuthModal);
       document.getElementById('btn-auth-close').addEventListener('click', closeAuthModal);
+      document.getElementById('auth-modal').addEventListener('click', (e) => { if (e.target.id === 'auth-modal') closeAuthModal(); });
       document.getElementById('btn-acct-close').addEventListener('click', closeAuthModal);
       document.getElementById('btn-submit-signin').addEventListener('click', handleStudentSignIn);
       document.getElementById('btn-change-pin').addEventListener('click', handleChangePin);
@@ -3698,14 +3730,64 @@
         });
       });
 
+      async function renderPdfPagesToImages(file, maxPages = 3) {
+        if (typeof pdfjsLib === 'undefined') {
+          throw new Error('PDF reader not loaded — please use JPG or PNG photos.');
+        }
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        const buf = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({ data: buf }).promise;
+        const count = Math.min(pdf.numPages, maxPages);
+        const results = [];
+        for (let p = 1; p <= count; p++) {
+          const page = await pdf.getPage(p);
+          const vp = page.getViewport({ scale: 1.5 });
+          const canvas = document.createElement('canvas');
+          canvas.width = vp.width;
+          canvas.height = vp.height;
+          const ctx = canvas.getContext('2d');
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, vp.width, vp.height);
+          await page.render({ canvasContext: ctx, viewport: vp }).promise;
+          results.push({ src: canvas.toDataURL('image/jpeg', 0.78), name: `${file.name} (p.${p})` });
+        }
+        if (pdf.numPages > maxPages) {
+          showToast(state.lang === 'zh' ? `已匯入前 ${maxPages} 頁 PDF（每次最多 3 頁）` : `Attached first ${maxPages} PDF pages (max 3 per turn)`, 2600);
+        }
+        return results;
+      }
+
       async function handleChatImageFiles(fileList) {
-        const files = Array.from(fileList || []).slice(0, 3);
+        const files = Array.from(fileList || []);
+        if (!files.length) return;
+        let failedCount = 0;
+        let lastErr = '';
         for (const f of files) {
-          if (state.chatPendingImages.length >= 3) break;
+          if (state.chatPendingImages.length >= 3) {
+            showToast(state.lang === 'zh' ? '每次最多可附 3 張圖片' : 'Max 3 pages per message', 2200);
+            break;
+          }
+          const isPdf = f.type === 'application/pdf' || /\.pdf$/i.test(f.name || '');
+          const isImg = /^image\//i.test(f.type || '') || /\.(jpe?g|png|webp|gif|bmp)$/i.test(f.name || '');
           try {
-            const dataUrl = await compressImageFile(f, 1400, 0.82);
-            state.chatPendingImages.push(dataUrl);
-          } catch (_) {}
+            if (isPdf) {
+              const slots = 3 - state.chatPendingImages.length;
+              const pages = await renderPdfPagesToImages(f, slots);
+              pages.forEach((pg) => state.chatPendingImages.push(pg));
+            } else if (isImg) {
+              const dataUrl = await compressImageFile(f, 1280, 0.78);
+              state.chatPendingImages.push({ src: dataUrl, name: f.name || 'Photo' });
+            } else {
+              failedCount++;
+              lastErr = state.lang === 'zh' ? '只支援 JPG、PNG 圖片或 PDF 檔案' : 'Images (JPG/PNG) or PDF files only';
+            }
+          } catch (err) {
+            failedCount++;
+            lastErr = err && err.message ? err.message : (state.lang === 'zh' ? '圖片讀取失敗，請改用 JPG 或 PNG' : 'Could not read file — please use JPG, PNG, or PDF');
+          }
+        }
+        if (failedCount > 0) {
+          showToast(lastErr || 'Could not attach file — please use JPG, PNG, or PDF', 3000);
         }
         renderChat();
       }
