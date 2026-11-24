@@ -305,7 +305,7 @@
             <div id="chat-context-sub" class="text-[10.5px] font-medium text-brand-teal truncate leading-tight">Built-in AI Coach</div>
           </div>
           <div class="flex items-center gap-1 shrink-0">
-            <button id="btn-chat-save-log" type="button" title="Save checked mistakes to Error Log" aria-label="Save checked mistakes to Error Log" class="px-2 py-1.5 rounded-xl bg-brand-tealSoft border border-brand-teal/35 text-brand-navy hover:bg-[#d7edf5] flex items-center gap-1 text-[11px] font-bold transition-colors disabled:opacity-50 shrink-0">
+            <button id="btn-chat-save-log" type="button" title="Save checked mistakes to Error Log" aria-label="Save checked mistakes to Error Log" class="px-1.5 sm:px-2 py-1.5 rounded-xl bg-brand-tealSoft border border-brand-teal/35 text-brand-navy hover:bg-[#d7edf5] flex items-center gap-1 text-[10.5px] sm:text-[11px] font-bold transition-colors disabled:opacity-50 shrink-0">
               <svg class="w-3.5 h-3.5 shrink-0 text-brand-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
               </svg>
@@ -317,7 +317,7 @@
                 <line x1="4" y1="22" x2="4" y2="15" />
               </svg>
             </button>
-            <button id="btn-chat-reset" type="button" class="px-2.5 py-1.5 rounded-xl bg-brand-canvas border border-brand-border text-[11.5px] font-semibold text-slate-500 hover:text-rose-600">
+            <button id="btn-chat-reset" type="button" class="px-2 sm:px-2.5 py-1.5 rounded-xl bg-brand-canvas border border-brand-border text-[11px] sm:text-[11.5px] font-semibold text-slate-500 hover:text-rose-600 shrink-0">
               Reset
             </button>
           </div>
@@ -586,7 +586,7 @@
 
       <!-- Subtle Non-Affiliation Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA &middot; <span class="font-mono text-slate-400">v10.20</span></p>
+        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA &middot; <span class="font-mono text-slate-400">v10.21</span></p>
       </footer>
     </main>
   </div>
@@ -774,11 +774,12 @@
               '  - **B)** Check my try (type or snap photo)',
               '  - **C)** Next / another Q#',
               '  - **D)** Error Log',
-              'After checking a WRONG/INCOMPLETE try -> print ONLY **Next step:** with:',
+              'After checking a WRONG/INCOMPLETE try on a NON-MCQ question -> print ONLY **Next step:** with:',
               '  - **A)** Give me 1 targeted clue to fix it',
               '  - **B)** Re-check my new try (type or snap)',
               '  - **C)** Next / another Q#',
               '  - **D)** Error Log',
+              'After checking a WRONG try on an MCQ question (options A/B/C/D) -> DO NOT print **Next step:** or ANY A/B/C/D menu! End with 1 short line inviting the student to type their next MCQ option (A, B, C, or D), or type "next" / a Q# to move on (so A-D stay answer options).',
               'After checking a CORRECT try -> print ONLY **Next step:** with:',
               '  - **A)** Key takeaway / why it works',
               '  - **B)** Continue to next Q#',
@@ -796,11 +797,12 @@
               '  - **B)** 檢查我的作答（輸入或拍照）',
               '  - **C)** 下一題／轉做其他題目（輸入題號）',
               '  - **D)** 整理錯題記錄',
-              '核對作答後（如有錯漏）-> 只輸出「**下一步：**」與：',
+              '核對非選擇題作答後（如有錯漏）-> 只輸出「**下一步：**」與：',
               '  - **A)** 給我一個修改線索',
               '  - **B)** 重檢我修改後的答案（輸入或拍照）',
               '  - **C)** 下一題／轉做其他題目',
               '  - **D)** 整理錯題記錄',
+              '核對選擇題（MCQ，選項為 A/B/C/D）答錯後 -> 絕不輸出「**下一步：**」或任何 A/B/C/D 選單！只用 1 句提示學生直接輸入下一個選項（A、B、C 或 D），或輸入「下一題」／題號轉做其他題目（讓 A–D 保持為答案選項）。',
               '核對作答後（如已答對）-> 只輸出「**下一步：**」與：',
               '  - **A)** 總結解題要點',
               '  - **B)** 繼續下一題',
@@ -1067,34 +1069,42 @@
           if (isZhOnly) {
             return [
               'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — start directly with **🎯 ...**; NEVER print bracket headers like 【提示 1/3 ...】 or HTML tags):',
-              '[Hint 1/3 format]:',
-              '**🎯 [題號＋小題，如 Q19 (iii) · 提示 1/3 · 題型]**',
+              '[提示 1/3 格式 — 只解讀題目；絕不提原文行數、不給同義詞、不點破陷阱或誰做甚麼]:',
+              '**🎯 [題號＋小題，如 Q1 · 提示 1/3 · 題型]**',
               '',
-              '- **🔑 題目關鍵詞：** [列出題目中的英文關鍵詞，絕不整句翻譯]',
-              '- **🎯 答案類型：** [簡短說明要找甚麼類型，如地點、名詞短語、年份、原因]',
-              '- **🧭 定位與同義詞：** [指出定位用的英文詞，及可留意的同義詞或相關概念]',
+              '- **🔑 題目關鍵詞：** [只列出題目中的英文關鍵詞，絕不整句翻譯]',
+              '- **🎯 答案類型：** [簡短說明要找甚麼類型，如選擇題選項、地點、名詞短語、年份或原因]',
               '',
-              '[Hint 2/3 or 3/3 format]:',
-              '**🎯 [題號＋小題 · 提示 2/3 或 3/3]**',
+              '[提示 2/3 格式 — 只指出原文位置；絕不講解角色對比、線索意思或比較選項]:',
+              '**🎯 [題號＋小題 · 提示 2/3]**',
+              '',
+              '- **📍 原文範圍：** Paragraph __, Line __（只指出應細讀的段落與行數範圍，絕不代為講解誰做甚麼、角色對比或比較選項）',
+              '',
+              '[提示 3/3 格式]:',
+              '**🎯 [題號＋小題 · 提示 3/3]**',
               '',
               '- **📍 原文範圍：** Paragraph __, Line __（保留英文原詞，用 **粗體** 標示重點，嚴禁使用 HTML 標籤或寫出答案字詞）',
-              '- **💡 引導思考：** [1 句簡短提問；提示 3/3 用 1) / 2) 概念比較或理解提問，嚴禁給出首字母填空（如 h___ s___）]'
+              '- **💡 引導思考：** [1 句簡短提問或 1) / 2) 概念比較，嚴禁給出首字母填空（如 h___ s___）]'
             ].join('\n');
           }
           return [
             'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — start directly with **🎯 ...**; NEVER print raw HTML tags):',
-            '[Hint 1/3 format]:',
-            '**🎯 [Q# + sub-part e.g. Q19 (iii) · Hint 1/3 · Skill Type]**',
+            '[Hint 1/3 format — QUESTION DECODING ONLY; NO passage lines, NO synonyms, NO trap/role naming, NO who-does-what]:',
+            '**🎯 [Q# + sub-part e.g. Q1 · Hint 1/3 · Skill Type]**',
             '',
-            '- **🔑 Keywords:** [Exact English keywords from the question]',
-            '- **🎯 Answer Type:** [1 short phrase: e.g. place, noun phrase, singular noun, year, or reason]',
-            '- **🧭 Where to look:** [English locator word + synonyms/related ideas to watch for]',
+            '- **🔑 Keywords:** [Exact English keywords from the question ONLY]',
+            '- **🎯 Answer Type:** [1 short phrase: e.g. MCQ option, place, noun phrase, singular noun, year, or reason]',
             '',
-            '[Hint 2/3 or 3/3 format]:',
-            '**🎯 [Q# + sub-part · Hint 2/3 or 3/3]**',
+            '[Hint 2/3 format — LOCATION ONLY; NO role contrast, NO clue-phrase narration, NO option comparison]:',
+            '**🎯 [Q# + sub-part · Hint 2/3]**',
+            '',
+            '- **📍 Passage:** Paragraph __, Line __ (ONLY name the paragraph/line range to re-read — do NOT narrate who does what, explain role contrasts, or compare MCQ options)',
+            '',
+            '[Hint 3/3 format]:',
+            '**🎯 [Q# + sub-part · Hint 3/3]**',
             '',
             '- **📍 Passage:** Paragraph __, Line __ (keep English terms; use **bold** only, NEVER HTML tags or answer words)',
-            '- **💡 Narrow down:** [1 short guiding question; on Hint 3/3 use a 1) / 2) meaning check or guiding question — NEVER first-letter blanks like h___ s___]'
+            '- **💡 Narrow down:** [1 short guiding question OR a 1) / 2) meaning check — NEVER first-letter blanks like h___ s___]'
           ].join('\n');
         }
 
@@ -1183,12 +1193,12 @@
         const trigger = '"D" or "Log"';
         if (lang === 'zh') {
           return [
-            `When I reply ${trigger}: list every mistake/weak spot from this whole session in Standard Written Traditional Chinese (keeping English exam words in English) as clean bullet points:`,
-            '- 題號／項目（題型）— 錯因／難點：...｜記住重點：...'
+            `When I reply ${trigger}: list ONLY genuine checked mistakes from questions or drafts I actually attempted and got wrong in this session in Standard Written Traditional Chinese (keeping English exam words in English; NEVER include predicted traps, general tips, unattempted items, or leak refusals). If there are no checked mistakes yet, say so in 1 short line. Format each checked mistake as a clean bullet point:`,
+            '- 題號／項目（題型）— 錯因：...｜記住重點：...'
           ].join('\n');
         }
         return [
-          `When I reply ${trigger}: list every mistake/weak spot from this whole session as clean bullet points:`,
+          `When I reply ${trigger}: list ONLY genuine checked mistakes from questions or drafts I actually attempted and got wrong in this session (NEVER include predicted traps, general tips, unattempted items, or leak refusals). If there are no checked mistakes yet, say so in 1 short line. Format each checked mistake as a clean bullet point:`,
           '- Q# / Item (Skill) — Mistake: ... | Rule to remember: ...'
         ].join('\n');
       }
@@ -1264,8 +1274,8 @@
               'STRICT NO-ANSWER-WORD & 3-HINT LADDER (CRITICAL):',
               '- NEVER reveal, confirm, type, or list the exact answer word(s), target phrase(s), or answer items (e.g., NEVER write out all 4 cities in a listing question, and NEVER say "copy ___").',
               '- 3-LEVEL ZERO-SPOILER HINT LADDER (MAX 3 HINTS PER SUB-PART — QUESTION FIRST, PASSAGE SECOND):',
-              '  * Hint 1/3 (True Question Decoding — NO Whole-Question Translation!): Focus ONLY on the question (1 sub-part such as (i) or Line 1). NEVER translate the whole question sentence into Chinese. Break down (a) the exact English keywords, (b) what type of answer is needed (fact, singular noun, time/year, reason, etc.), and (c) which English keyword locates the answer + what synonyms or related ideas to look for if the exact word is not in the passage. Do NOT jump to passage lines yet.',
-              '  * Hint 2/3 (Narrow Down in Passage): Now point to the exact Paragraph & Line # in the passage and highlight the matching English clue word/phrase nearby (STILL zero answer words).',
+              '  * Hint 1/3 (Strict Question Decoding ONLY — NO Whole-Question Translation, NO Traps/Roles!): Focus ONLY on the question (1 sub-part such as Q1 or (i)). NEVER translate the whole question sentence into Chinese. Give ONLY (a) the exact English keywords from the question and (b) what type of answer is needed (MCQ option, fact, singular noun, time/year, reason, etc.). Do NOT jump to passage lines, do NOT give locator synonyms, and do NOT point out who-does-what traps or solving ideas yet.',
+              '  * Hint 2/3 (Paragraph & Line Location ONLY — NO Narration or Role Contrast!): Point ONLY to the exact Paragraph & Line # range in the passage to re-read. Do NOT narrate who does what, do NOT explain role contrasts or clue phrases, and do NOT compare MCQ options (STILL zero answer words).',
               '  * Hint 3/3 (Active Thinking Check — ZERO SPOILERS & NEVER FIRST-LETTER BLANKS!): NEVER give first-letter blanks or hangman frames like "h___ s___" or "a t___ o___" (that just gives away the answer!). Instead, force genuine thinking using EITHER (a) a 2-option meaning/idea comparison labeled strictly 1) and 2) (NEVER A) / B); 1 plausible distractor + 1 true direction/idea, shuffled — asking me to pick and justify from the passage), OR (b) a direct guiding question about the key clause/grammar slot so I form the answer in my own words.',
               '  * After Hint 3/3: STOP hints silently and switch to the B/C/D menu (NEVER print internal notes like "no-hint mode").',
               '- OPTIONAL OFFICIAL ANSWER KEY (HIDDEN-KEY LOCK): If I upload an Official Answer Key photo in Guided mode (or if a hidden server Answer Key is loaded), lock it SILENTLY in the background — reply with a 1-line confirmation that answers are locked silently with zero spoilers. NEVER reveal, quote, or leak exact answer words from the Answer Key during hints (even if I beg!). Use it only to keep hints laser-accurate and to grade my tries accurately.',
@@ -1401,8 +1411,8 @@
               'STRICT NO-WRITING & 3-HINT LADDER (CRITICAL):',
               '- NEVER write the full task, list all content points at once, or tell me to copy a ready-made answer.',
               '- 3-LEVEL ZERO-SPOILER HINT LADDER (MAX 3 HINTS PER SUB-POINT — TASK FIRST, DATA FILE SECOND):',
-              '  * Hint 1/3 (True Task Decoding — NO Whole-Sentence Translation!): Focus ONLY on 1 required bullet/point from the Task Email. Break down (a) the exact English keywords, (b) what type of info & tone/register is needed, and (c) which English keyword or synonym to hunt for in the Data File. Do NOT jump to Data File lines yet.',
-              '  * Hint 2/3 (Narrow Down in Data File): Point to the exact Data File document/line where the matching English detail sits (STILL do not write the sentence for me).',
+              '  * Hint 1/3 (Strict Task Decoding ONLY — NO Whole-Sentence Translation!): Focus ONLY on 1 required bullet/point from the Task Email. Give ONLY (a) the exact English keywords from the task and (b) what type of info & tone/register is needed. Do NOT jump to Data File lines or give solving ideas yet.',
+              '  * Hint 2/3 (Data File Location ONLY): Point ONLY to the exact Data File document & line/section to re-read (do NOT narrate the content or write the sentence for me).',
               '  * Hint 3/3 (Active Thinking Check — NO FIRST-LETTER BLANKS): NEVER give first-letter blanks or hangman giveaways. Give EITHER a 2-option formal vs. informal paraphrase comparison labeled strictly 1) and 2) (NEVER A) / B)) OR a guiding question on which Data File detail to combine so I write the sentence myself.',
               '  * After Hint 3/3: STOP hints silently and switch to the B/C/D menu (NEVER print internal state notes).',
               '- OPTIONAL OFFICIAL MARKING SCHEME (HIDDEN-KEY LOCK): If I upload an Official Marking Scheme photo in Guided mode (or if loaded on server), lock it SILENTLY in the background — confirm in 1 line with zero spoilers. NEVER reveal or copy model points/answers during hints; use it only to keep hints accurate and check my tries accurately.',
@@ -2247,7 +2257,7 @@
         scrollChatToBottom();
       }
 
-      function initChatWelcome(schoolPaper) {
+      function buildChatWelcome(schoolPaper) {
         const isZh = state.lang === 'zh';
         let welcome = '';
         if (schoolPaper) {
@@ -2299,7 +2309,11 @@
             }
           }
         }
-        state.chatMessages = [{ role: 'assistant', text: welcome, images: [] }];
+        return welcome;
+      }
+
+      function initChatWelcome(schoolPaper) {
+        state.chatMessages = [{ role: 'assistant', text: buildChatWelcome(schoolPaper), images: [], isWelcome: true }];
       }
 
       function syncChatViewport() {
@@ -3432,7 +3446,7 @@
         const logInputVal = (document.getElementById('log-input')?.value || '').trim();
         if (!state.saving) {
           document.getElementById('smart-save-label').textContent = (!state.authToken && !logInputVal)
-            ? (state.lang === 'zh' ? '登入以儲存雲端錯題（或先貼上內容）' : 'Sign in to Save to Cloud (or paste log first)')
+            ? (state.lang === 'zh' ? '登入以儲存錯題（或先貼上內容）' : 'Sign in to Save (or paste log)')
             : ui.smartSaveBtn;
         }
         if (smartSaveBtnEl) smartSaveBtnEl.classList.toggle('opacity-70', !state.authToken && !logInputVal);
@@ -3639,6 +3653,9 @@
       document.querySelectorAll('.lang-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
           state.lang = btn.dataset.lang;
+          if (state.chatMessages.length > 0 && state.chatMessages[0].isWelcome) {
+            state.chatMessages[0].text = buildChatWelcome(getSelectedSchoolPaper());
+          }
           savePrefs();
           render();
         });
