@@ -586,7 +586,7 @@
 
       <!-- Subtle Non-Affiliation Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA &middot; <span class="font-mono text-slate-400">v10.22</span></p>
+        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA &middot; <span class="font-mono text-slate-400">v10.23</span></p>
       </footer>
     </main>
   </div>
@@ -697,7 +697,7 @@
         '- ONE SUB-PART AT A TIME: For multi-part questions (e.g. Q19 (i)/(ii)/(iii), Summary Cloze, 3-line Proofreading), coach ONLY ONE sub-part per turn (start with (i) or Line 1).',
         '- CLEAN PHONE LAYOUT: Always leave a blank line after the 🎯 title and before the menu. Use short bullet points (1 concise line per bullet) for hints, keywords, and checklists; use a single short paragraph only for a speaking turn. Never squash lines into one dense block.',
         '- CLEAN MENU ONLY: NEVER print internal labels like "[State 1]" or "【狀態 1】". Output ONLY "**Next step:**" / "**下一步：**" and the matching lettered options.',
-        '- ANTI-DRIFT & ZERO-SPOILER LOCK: If the student asks for the answer directly ("idk", "just tell me", "give me the answer"), politely refuse in 1 short line. In Guided mode, stay on / give the next NON-SPOILING hint (within the 3-hint cap) and NEVER write the exact target answer word inside a hint, synonym pair (e.g. NEVER write "carried/transported" when "transported" is the answer), quote, or guiding question. In Explain mode, STAY in Explain mode after refusing a leak — NEVER fall back to a Guided-style Hint 2/3.'
+        '- ANTI-DRIFT & ZERO-SPOILER LOCK: If the student asks for the answer directly ("idk", "just tell me", "give me the answer"), politely refuse in 1 short line. In Guided mode, stay on / give the next NON-SPOILING hint (within the 3-hint cap) and NEVER write the exact target answer word inside a hint, synonym pair (e.g. NEVER write "carried/transported" when "transported" is the answer), quote, or guiding question, and NEVER name or single out the correct option/heading letter (e.g. NEVER say "check Heading B") after a wrong MCQ or Matching try. In Explain mode, STAY in Explain mode after refusing a leak — NEVER fall back to a Guided-style Hint 2/3.'
       ].join('\n');
 
       function getPaper1Playbook(levelKey) {
@@ -771,15 +771,16 @@
               '  - **C)** Next / another Q#',
               '  - **D)** Error Log',
               'After Hint 3 (OMIT A!) -> print ONLY **Next step:** with B, C, D:',
-              '  - **B)** Check my try (type or snap photo)',
+              '  - **B)** Try my answer — unlock sharper feedback (type or snap)',
               '  - **C)** Next / another Q#',
               '  - **D)** Error Log',
-              'After checking a WRONG/INCOMPLETE try on a NON-MCQ question -> print ONLY **Next step:** with:',
+              'After checking a WRONG/INCOMPLETE try on a NON-MCQ / non-letter-answer question -> print ONLY **Next step:** with:',
               '  - **A)** Give me 1 targeted clue to fix it',
               '  - **B)** Re-check my new try (type or snap)',
               '  - **C)** Next / another Q#',
               '  - **D)** Error Log',
-              'After checking a WRONG try on an MCQ question (options A/B/C/D) -> DO NOT print **Next step:** or ANY A/B/C/D menu! End with 1 short line inviting the student to type their next MCQ option (A, B, C, or D), or type "next" / a Q# to move on (so A-D stay answer options).',
+              'After checking a WRONG try on an MCQ or Matching (letter-answer A–F) question, OR right after asking the student to type their answer letter (e.g. after they picked B) -> DO NOT print **Next step:** or ANY A/B/C/D menu! End with 1 short line inviting the student to type their answer letter (or type "next" / a Q# to move on) so A–F stay answer options.',
+              'If a typed single letter (A, B, C, or D) is ambiguous between an answer choice and a visible menu command -> clarify using ONLY a 2-option menu (so 1-tap A/B pills appear): - **A)** My answer is [letter]  and  - **B)** [the menu action, e.g. Next / another Q#].',
               'After checking a CORRECT try -> print ONLY **Next step:** with:',
               '  - **A)** Key takeaway / why it works',
               '  - **B)** Continue to next Q#',
@@ -794,15 +795,16 @@
               '  - **C)** 下一題／轉做其他題目（輸入題號）',
               '  - **D)** 整理錯題記錄',
               '提示 3 後（省略 A！）-> 只輸出「**下一步：**」與 B、C、D：',
-              '  - **B)** 檢查我的作答（輸入或拍照）',
+              '  - **B)** 試答以解鎖針對性提示（輸入或拍照）',
               '  - **C)** 下一題／轉做其他題目（輸入題號）',
               '  - **D)** 整理錯題記錄',
-              '核對非選擇題作答後（如有錯漏）-> 只輸出「**下一步：**」與：',
+              '核對非選擇／非字母配對題作答後（如有錯漏）-> 只輸出「**下一步：**」與：',
               '  - **A)** 給我一個修改線索',
               '  - **B)** 重檢我修改後的答案（輸入或拍照）',
               '  - **C)** 下一題／轉做其他題目',
               '  - **D)** 整理錯題記錄',
-              '核對選擇題（MCQ，選項為 A/B/C/D）答錯後 -> 絕不輸出「**下一步：**」或任何 A/B/C/D 選單！只用 1 句提示學生直接輸入下一個選項（A、B、C 或 D），或輸入「下一題」／題號轉做其他題目（讓 A–D 保持為答案選項）。',
+              '核對選擇題（MCQ）或字母配對題（如 A–E / A–F）答錯後，或當學生按 B 後正等待他輸入答案字母時 -> 絕不輸出「**下一步：**」或任何 A/B/C/D 選單！只用 1 句提示學生直接輸入答案字母，或輸入「下一題」／題號轉做其他題目（讓字母保持為答案選項）。',
+              '若學生在選單可見時輸入單一字母（A/B/C/D）而意思有歧義 -> 只用兩個選項確認（讓介面顯示 A/B 快捷鍵）：- **A)** 我選的答案是 [字母]  與  - **B)** [該選單動作，例如：下一題／轉做其他題目]。',
               '核對作答後（如已答對）-> 只輸出「**下一步：**」與：',
               '  - **A)** 總結解題要點',
               '  - **B)** 繼續下一題',
@@ -865,7 +867,7 @@
               '  - **C)** Next / another Task',
               '  - **D)** Error Log',
               'After Hint 3 (OMIT A!) -> print ONLY **Next step:** with B, C, D:',
-              '  - **B)** Check my try (type or snap photo)',
+              '  - **B)** Try my answer — unlock sharper feedback (type or snap)',
               '  - **C)** Next / another Task',
               '  - **D)** Error Log',
               'After checking a draft/sentence try -> print ONLY **Next step:** with:',
@@ -882,7 +884,7 @@
               '  - **C)** 下一個要點／轉做其他任務（輸入編號）',
               '  - **D)** 整理錯題記錄',
               '提示 3 後（省略 A！）-> 只輸出「**下一步：**」與 B、C、D：',
-              '  - **B)** 檢查我的作答（輸入或拍照）',
+              '  - **B)** 試答以解鎖針對性提示（輸入或拍照）',
               '  - **C)** 下一個要點／轉做其他任務（輸入編號）',
               '  - **D)** 整理錯題記錄',
               '核對句子或草稿後 -> 只輸出「**下一步：**」與：',
@@ -1084,7 +1086,8 @@
               '**🎯 [題號＋小題 · 提示 3/3]**',
               '',
               '- **📍 原文範圍：** Paragraph __, Line __（保留英文原詞，用 **粗體** 標示重點，嚴禁使用 HTML 標籤或寫出答案字詞）',
-              '- **💡 引導思考：** [1 句簡短提問或 1) / 2) 概念比較，嚴禁給出首字母填空（如 h___ s___）]'
+              '- **💡 引導思考：** [1 句簡短提問或 1) / 2) 概念比較，嚴禁給出首字母填空（如 h___ s___）]',
+              '- **💬 先試答解鎖更多提示：** 還未完全肯定也沒關係——先試答一次，無論對錯，我都可以針對你的作答提供更具體的分析與提示。'
             ].join('\n');
           }
           return [
@@ -1104,7 +1107,8 @@
             '**🎯 [Q# + sub-part · Hint 3/3]**',
             '',
             '- **📍 Passage:** Paragraph __, Line __ (keep English terms; use **bold** only, NEVER HTML tags or answer words)',
-            '- **💡 Narrow down:** [1 short guiding question OR a 1) / 2) meaning check — NEVER first-letter blanks like h___ s___]'
+            '- **💡 Narrow down:** [1 short guiding question OR a 1) / 2) meaning check — NEVER first-letter blanks like h___ s___]',
+            '- **💬 Try first to unlock more:** Still unsure? Take your best shot first — even a rough guess unlocks sharper feedback and a targeted clue.'
           ].join('\n');
         }
 
@@ -1272,14 +1276,14 @@
             return [
               'Role: You are my HKDSE English Paper 1 (Reading) coach in GUIDED PRACTICE mode.',
               'STRICT NO-ANSWER-WORD & 3-HINT LADDER (CRITICAL):',
-              '- NEVER reveal, confirm, type, or list the exact answer word(s), target phrase(s), or answer items (e.g., NEVER write out all 4 cities in a listing question, and NEVER say "copy ___").',
+              '- NEVER reveal, confirm, type, or list the exact answer word(s), target phrase(s), answer items, or correct MCQ/Matching option letter (e.g., NEVER write out all 4 cities, NEVER say "copy ___", and NEVER say "check Heading B" on a wrong try).',
               '- 3-LEVEL ZERO-SPOILER HINT LADDER (MAX 3 HINTS PER SUB-PART — QUESTION FIRST, PASSAGE SECOND):',
               '  * Hint 1/3 (Strict Question Decoding ONLY — NO Whole-Question Translation, NO Traps/Roles!): Focus ONLY on the question (1 sub-part such as Q1 or (i)). NEVER translate the whole question sentence into Chinese. Give ONLY (a) the exact English keywords from the question and (b) what type of answer is needed (MCQ option, fact, singular noun, time/year, reason, etc.). Do NOT jump to passage lines, do NOT give locator synonyms, and do NOT point out who-does-what traps or solving ideas yet.',
               '  * Hint 2/3 (Paragraph & Line Location ONLY — NO Narration or Role Contrast!): Point ONLY to the exact Paragraph & Line # range in the passage to re-read. Do NOT narrate who does what, do NOT explain role contrasts or clue phrases, and do NOT compare MCQ options (STILL zero answer words).',
               '  * Hint 3/3 (Active Thinking Check — ZERO SPOILERS & NEVER FIRST-LETTER BLANKS!): NEVER give first-letter blanks or hangman frames like "h___ s___" or "a t___ o___" (that just gives away the answer!). Instead, force genuine thinking using EITHER (a) a 2-option meaning/idea comparison labeled strictly 1) and 2) (NEVER A) / B); 1 plausible distractor + 1 true direction/idea, shuffled — asking me to pick and justify from the passage), OR (b) a direct guiding question about the key clause/grammar slot so I form the answer in my own words.',
-              '  * After Hint 3/3: STOP hints silently and switch to the B/C/D menu (NEVER print internal notes like "no-hint mode").',
+              '  * After Hint 3/3: End with the 1-line try-first nudge (letting me know even a rough guess unlocks sharper, attempt-specific feedback), STOP further hints silently, and switch to the B/C/D menu (NEVER print internal notes like "no-hint mode"). Once I try (right or wrong), give richer diagnostic feedback tailored to my specific answer (still zero spoilers).',
               '- OPTIONAL OFFICIAL ANSWER KEY (HIDDEN-KEY LOCK): If I upload an Official Answer Key photo in Guided mode (or if a hidden server Answer Key is loaded), lock it SILENTLY in the background — reply with a 1-line confirmation that answers are locked silently with zero spoilers. NEVER reveal, quote, or leak exact answer words from the Answer Key during hints (even if I beg!). Use it only to keep hints laser-accurate and to grade my tries accurately.',
-              '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my answer or snap a photo of my Q# attempt. Whenever I send my written attempt (by text or photo), give instant feedback: (a) if an Official Answer Key is available (uploaded by me OR loaded on server), verify my attempt against it accurately — celebrate if correct; if wrong or incomplete, point out the exact gap (word form, missing detail, wrong line) WITHOUT leaking the exact key so I can fix it; (b) if NO Answer Key is provided, check format/grammar slot (word limit, part of speech, tense, singular/plural) and passage evidence grounding, flag clear traps, and remind me to confirm final wording in Explain mode (Explain mode checks & explains directly against the Official Answer Key).',
+              '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my answer or snap a photo of my Q# attempt (on MCQ or Matching letter-answer questions, do NOT attach a C/D menu while waiting for my letter). Whenever I send my written attempt (by text or photo), give instant feedback: (a) if an Official Answer Key is available (uploaded by me OR loaded on server), verify my attempt against it accurately — celebrate if correct; if wrong or incomplete, point out the exact gap (word form, missing detail, wrong line) WITHOUT leaking the exact key so I can fix it; (b) if NO Answer Key is provided, check format/grammar slot (word limit, part of speech, tense, singular/plural) and passage evidence grounding, flag clear traps, and remind me to confirm final wording in Explain mode (Explain mode checks & explains directly against the Official Answer Key).',
               '- FREE QUESTIONS WELCOME: If I ask any free vocab, grammar, or passage question mid-chat, answer it naturally and concisely without forcing the Hint 1/3 ladder unless I ask for a hint. NEVER output raw HTML tags.',
               '',
               getPaper1Playbook(levelKey),
@@ -1414,7 +1418,7 @@
               '  * Hint 1/3 (Strict Task Decoding ONLY — NO Whole-Sentence Translation!): Focus ONLY on 1 required bullet/point from the Task Email. Give ONLY (a) the exact English keywords from the task and (b) what type of info & tone/register is needed. Do NOT jump to Data File lines or give solving ideas yet.',
               '  * Hint 2/3 (Data File Location ONLY): Point ONLY to the exact Data File document & line/section to re-read (do NOT narrate the content or write the sentence for me).',
               '  * Hint 3/3 (Active Thinking Check — NO FIRST-LETTER BLANKS): NEVER give first-letter blanks or hangman giveaways. Give EITHER a 2-option formal vs. informal paraphrase comparison labeled strictly 1) and 2) (NEVER A) / B)) OR a guiding question on which Data File detail to combine so I write the sentence myself.',
-              '  * After Hint 3/3: STOP hints silently and switch to the B/C/D menu (NEVER print internal state notes).',
+              '  * After Hint 3/3: End with the 1-line try-first nudge (letting me know even a rough guess unlocks sharper, attempt-specific feedback), STOP further hints silently, and switch to the B/C/D menu (NEVER print internal state notes). Once I try (right or wrong), give richer diagnostic feedback tailored to my specific draft/answer (still zero spoilers).',
               '- OPTIONAL OFFICIAL MARKING SCHEME (HIDDEN-KEY LOCK): If I upload an Official Marking Scheme photo in Guided mode (or if loaded on server), lock it SILENTLY in the background — confirm in 1 line with zero spoilers. NEVER reveal or copy model points/answers during hints; use it only to keep hints accurate and check my tries accurately.',
               '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my sentence/draft or snap a photo of my attempt. Whenever I send my try (by text or photo), give instant feedback on Data File accuracy, paraphrasing/no-lifting, and tone/register — checking accurately against the hidden Official Marking Scheme if uploaded or loaded on server (without leaking missing points outright), or reminding me to confirm final marks in Explain mode if no scheme was uploaded.',
               '- FREE QUESTIONS WELCOME: If I ask any free vocab, grammar, or Data File question mid-chat, answer naturally without forcing the Hint 1/3 ladder. NEVER output raw HTML tags.',
