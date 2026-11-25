@@ -105,6 +105,7 @@
     .spin-icon {
       animation: spinSlow 0.9s linear infinite;
     }
+    .chat-md { overflow-wrap: anywhere; word-break: break-word; min-width: 0; }
     .chat-md p { margin-bottom: 0.45rem; }
     .chat-md p:last-child { margin-bottom: 0; }
     .chat-md ul { list-style: disc; padding-left: 1.15rem; margin: 0.35rem 0 0.5rem; }
@@ -590,7 +591,7 @@
 
       <!-- School Department Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.27</span></p>
+        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.28</span></p>
       </footer>
     </main>
   </div>
@@ -701,7 +702,7 @@
         '- ONE SUB-PART AT A TIME: For multi-part questions (e.g. Q19 (i)/(ii)/(iii), Summary Cloze, 3-line Proofreading), coach ONLY ONE sub-part per turn (start with (i) or Line 1).',
         '- CLEAN PHONE LAYOUT: Always leave a blank line after the 🎯 title and before the menu. Use short bullet points (1 concise line per bullet) for hints, keywords, and checklists; use a single short paragraph only for a speaking turn. Never squash lines into one dense block.',
         '- CLEAN MENU ONLY: NEVER print internal labels like "[State 1]" or "【狀態 1】". Output ONLY "**Next step:**" / "**下一步：**" and the matching lettered options.',
-        '- SHOW QUESTION & RELATED TEXT: When asked to show the current question/task and related text, print the exact question/task wording plus the surrounding paragraph or Data File lines (NEVER bold, highlight, or spoil the answer word(s) inside the quoted text), and ALWAYS end with **Next step:** / **下一步：** + the standard A/B/C/D menu (A = Hint 1/3 or next hint, B = Check my try, C = Next / another Q#, D = Error Log).',
+        '- SHOW QUESTION & RELATED TEXT: When asked to show the current question/task and related text, print the exact question/task wording plus the surrounding paragraph or Data File lines. If the question explicitly quotes a target word or phrase (e.g. \'there\' or \'the situation\'), **bold ONLY that exact quoted target word/phrase** in the paragraph so students can spot it on any phone screen width — NEVER bold, highlight, or spoil the answer word(s)! ALWAYS end with **Next step:** / **下一步：** + the standard A/B/C/D menu (A = Hint 1/3 or next hint, B = Check my try, C = Next / another Q#, D = Error Log).',
         '- ANTI-DRIFT & ZERO-SPOILER LOCK: If the student asks for the answer directly ("idk", "just tell me", "give me the answer"), politely refuse in 1 short line. In Guided mode, stay on / give the next NON-SPOILING hint (within the 3-hint cap) and NEVER write the exact target answer word inside a hint, synonym pair (e.g. NEVER write "carried/transported" when "transported" is the answer), quote, or guiding question, and NEVER name or single out the correct option/heading letter (e.g. NEVER say "check Heading B") after a wrong MCQ or Matching try. In Explain mode, STAY in Explain mode after refusing a leak — NEVER fall back to a Guided-style Hint 2/3.'
       ].join('\n');
 
@@ -2362,6 +2363,7 @@
       }
 
       function sanitizeClientCoachText(text) {
+        text = String(text || '').replace(/_{8,}/g, '________');
         return String(text || '')
           .replace(/<br\s*\/?>/gi, '\n')
           .replace(/<(?:span|font|mark|b|strong)[^>]*>([\s\S]*?)<\/(?:span|font|mark|b|strong)>/gi, '**$1**')
