@@ -504,10 +504,10 @@
                 </select>
               </div>
 
-              <!-- SLOT 1: Official Answer Key / Marking Scheme (REQUIRED) -->
-              <div class="bg-brand-canvas border border-brand-border rounded-xl p-2.5 flex flex-col gap-2">
+              <!-- SLOT 1: Official Answer Key / Marking Scheme (P1 & P3B only) -->
+              <div id="bs-slot-answers" class="bg-brand-canvas border border-brand-border rounded-xl p-2.5 flex flex-col gap-2">
                 <div class="flex items-center justify-between gap-1 flex-wrap">
-                  <span class="text-[11.5px] font-extrabold text-brand-navy">1. Official Answer Key / Marking Scheme *</span>
+                  <span id="bs-lbl-answers" class="text-[11.5px] font-extrabold text-brand-navy">1. Official Answer Key / Marking Scheme *</span>
                   <label class="px-2.5 py-1 rounded-lg bg-white border border-brand-teal/40 text-brand-teal text-[11px] font-bold cursor-pointer hover:bg-brand-tealSoft">
                     Upload PDF / Word / Photo
                     <input id="bs-file-answers" type="file" accept=".pdf,.docx,.txt,image/*" multiple class="hidden" />
@@ -521,10 +521,10 @@
                 <div id="bs-answer-rows" class="flex flex-col gap-1.5 max-h-52 overflow-y-auto pr-0.5"></div>
               </div>
 
-              <!-- SLOT 2: Question-Answer Booklet (OPTIONAL) -->
-              <div class="bg-brand-canvas border border-brand-border rounded-xl p-2.5 flex flex-col gap-1.5">
+              <!-- SLOT 2: Questions / Writing Topics / Speaking Prompt Card -->
+              <div id="bs-slot-questions" class="bg-brand-canvas border border-brand-border rounded-xl p-2.5 flex flex-col gap-1.5">
                 <div class="flex items-center justify-between gap-1 flex-wrap">
-                  <span class="text-[11.5px] font-extrabold text-brand-navy">2. Question-Answer Booklet (Optional)</span>
+                  <span id="bs-lbl-questions" class="text-[11.5px] font-extrabold text-brand-navy">2. Question-Answer Booklet (Optional)</span>
                   <label class="px-2.5 py-1 rounded-lg bg-white border border-brand-teal/40 text-brand-teal text-[11px] font-bold cursor-pointer hover:bg-brand-tealSoft">
                     Upload PDF / Word / Photo
                     <input id="bs-file-questions" type="file" accept=".pdf,.docx,.txt,image/*" multiple class="hidden" />
@@ -533,10 +533,10 @@
                 <textarea id="bs-questions-text" rows="3" placeholder="Optional: Paste or upload questions so students can just type Q14..." class="w-full rounded-lg border border-brand-border bg-white px-2.5 py-1.5 text-[12.5px] text-brand-navy resize-y"></textarea>
               </div>
 
-              <!-- SLOT 3: Reading Passage / Data File (OPTIONAL) -->
-              <div class="bg-brand-canvas border border-brand-border rounded-xl p-2.5 flex flex-col gap-1.5">
+              <!-- SLOT 3: Reading Passage / Data File / Teacher Notes -->
+              <div id="bs-slot-passage" class="bg-brand-canvas border border-brand-border rounded-xl p-2.5 flex flex-col gap-1.5">
                 <div class="flex items-center justify-between gap-1 flex-wrap">
-                  <span class="text-[11.5px] font-extrabold text-brand-navy">3. Reading Passage / Data File (Optional)</span>
+                  <span id="bs-lbl-passage" class="text-[11.5px] font-extrabold text-brand-navy">3. Reading Passage / Data File (Optional)</span>
                   <label class="px-2.5 py-1 rounded-lg bg-white border border-brand-teal/40 text-brand-teal text-[11px] font-bold cursor-pointer hover:bg-brand-tealSoft">
                     Upload PDF / Word / Photo
                     <input id="bs-file-passage" type="file" accept=".pdf,.docx,.txt,image/*" multiple class="hidden" />
@@ -586,7 +586,7 @@
 
       <!-- Subtle Non-Affiliation Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA &middot; <span class="font-mono text-slate-400">v10.23</span></p>
+        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA &middot; <span class="font-mono text-slate-400">v10.24</span></p>
       </footer>
     </main>
   </div>
@@ -1087,7 +1087,7 @@
               '',
               '- **📍 原文範圍：** Paragraph __, Line __（保留英文原詞，用 **粗體** 標示重點，嚴禁使用 HTML 標籤或寫出答案字詞）',
               '- **💡 引導思考：** [1 句簡短提問或 1) / 2) 概念比較，嚴禁給出首字母填空（如 h___ s___）]',
-              '- **💬 先試答解鎖更多提示：** 還未完全肯定也沒關係——先試答一次，無論對錯，我都可以針對你的作答提供更具體的分析與提示。'
+              '- **💬 先試答解鎖更多提示：** 即使未完全肯定，也請先盡力試寫一個初步答案（切勿用「隨便」等輕率字眼）——無論對錯，我都可以針對你的作答提供更具體的分析與提示。'
             ].join('\n');
           }
           return [
@@ -1108,7 +1108,7 @@
             '',
             '- **📍 Passage:** Paragraph __, Line __ (keep English terms; use **bold** only, NEVER HTML tags or answer words)',
             '- **💡 Narrow down:** [1 short guiding question OR a 1) / 2) meaning check — NEVER first-letter blanks like h___ s___]',
-            '- **💬 Try first to unlock more:** Still unsure? Take your best shot first — even a rough guess unlocks sharper feedback and a targeted clue.'
+            '- **💬 Try first to unlock more:** Still unsure? Give your best attempt first (even if you are not 100% sure) — trying unlocks sharper feedback and a targeted clue.'
           ].join('\n');
         }
 
@@ -1281,7 +1281,7 @@
               '  * Hint 1/3 (Strict Question Decoding ONLY — NO Whole-Question Translation, NO Traps/Roles!): Focus ONLY on the question (1 sub-part such as Q1 or (i)). NEVER translate the whole question sentence into Chinese. Give ONLY (a) the exact English keywords from the question and (b) what type of answer is needed (MCQ option, fact, singular noun, time/year, reason, etc.). Do NOT jump to passage lines, do NOT give locator synonyms, and do NOT point out who-does-what traps or solving ideas yet.',
               '  * Hint 2/3 (Paragraph & Line Location ONLY — NO Narration or Role Contrast!): Point ONLY to the exact Paragraph & Line # range in the passage to re-read. Do NOT narrate who does what, do NOT explain role contrasts or clue phrases, and do NOT compare MCQ options (STILL zero answer words).',
               '  * Hint 3/3 (Active Thinking Check — ZERO SPOILERS & NEVER FIRST-LETTER BLANKS!): NEVER give first-letter blanks or hangman frames like "h___ s___" or "a t___ o___" (that just gives away the answer!). Instead, force genuine thinking using EITHER (a) a 2-option meaning/idea comparison labeled strictly 1) and 2) (NEVER A) / B); 1 plausible distractor + 1 true direction/idea, shuffled — asking me to pick and justify from the passage), OR (b) a direct guiding question about the key clause/grammar slot so I form the answer in my own words.',
-              '  * After Hint 3/3: End with the 1-line try-first nudge (letting me know even a rough guess unlocks sharper, attempt-specific feedback), STOP further hints silently, and switch to the B/C/D menu (NEVER print internal notes like "no-hint mode"). Once I try (right or wrong), give richer diagnostic feedback tailored to my specific answer (still zero spoilers).',
+              '  * After Hint 3/3: End with the 1-line try-first nudge (encouraging my best attempt even if I am not 100% sure — never casual wording like "隨便" — so trying unlocks sharper, attempt-specific feedback), STOP further hints silently, and switch to the B/C/D menu (NEVER print internal notes like "no-hint mode"). Once I try (right or wrong), give richer diagnostic feedback tailored to my specific answer (still zero spoilers).',
               '- OPTIONAL OFFICIAL ANSWER KEY (HIDDEN-KEY LOCK): If I upload an Official Answer Key photo in Guided mode (or if a hidden server Answer Key is loaded), lock it SILENTLY in the background — reply with a 1-line confirmation that answers are locked silently with zero spoilers. NEVER reveal, quote, or leak exact answer words from the Answer Key during hints (even if I beg!). Use it only to keep hints laser-accurate and to grade my tries accurately.',
               '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my answer or snap a photo of my Q# attempt (on MCQ or Matching letter-answer questions, do NOT attach a C/D menu while waiting for my letter). Whenever I send my written attempt (by text or photo), give instant feedback: (a) if an Official Answer Key is available (uploaded by me OR loaded on server), verify my attempt against it accurately — celebrate if correct; if wrong or incomplete, point out the exact gap (word form, missing detail, wrong line) WITHOUT leaking the exact key so I can fix it; (b) if NO Answer Key is provided, check format/grammar slot (word limit, part of speech, tense, singular/plural) and passage evidence grounding, flag clear traps, and remind me to confirm final wording in Explain mode (Explain mode checks & explains directly against the Official Answer Key).',
               '- FREE QUESTIONS WELCOME: If I ask any free vocab, grammar, or passage question mid-chat, answer it naturally and concisely without forcing the Hint 1/3 ladder unless I ask for a hint. NEVER output raw HTML tags.',
@@ -1418,7 +1418,7 @@
               '  * Hint 1/3 (Strict Task Decoding ONLY — NO Whole-Sentence Translation!): Focus ONLY on 1 required bullet/point from the Task Email. Give ONLY (a) the exact English keywords from the task and (b) what type of info & tone/register is needed. Do NOT jump to Data File lines or give solving ideas yet.',
               '  * Hint 2/3 (Data File Location ONLY): Point ONLY to the exact Data File document & line/section to re-read (do NOT narrate the content or write the sentence for me).',
               '  * Hint 3/3 (Active Thinking Check — NO FIRST-LETTER BLANKS): NEVER give first-letter blanks or hangman giveaways. Give EITHER a 2-option formal vs. informal paraphrase comparison labeled strictly 1) and 2) (NEVER A) / B)) OR a guiding question on which Data File detail to combine so I write the sentence myself.',
-              '  * After Hint 3/3: End with the 1-line try-first nudge (letting me know even a rough guess unlocks sharper, attempt-specific feedback), STOP further hints silently, and switch to the B/C/D menu (NEVER print internal state notes). Once I try (right or wrong), give richer diagnostic feedback tailored to my specific draft/answer (still zero spoilers).',
+              '  * After Hint 3/3: End with the 1-line try-first nudge (encouraging my best attempt even if I am not 100% sure — never casual wording like "隨便" — so trying unlocks sharper, attempt-specific feedback), STOP further hints silently, and switch to the B/C/D menu (NEVER print internal state notes). Once I try (right or wrong), give richer diagnostic feedback tailored to my specific draft/answer (still zero spoilers).',
               '- OPTIONAL OFFICIAL MARKING SCHEME (HIDDEN-KEY LOCK): If I upload an Official Marking Scheme photo in Guided mode (or if loaded on server), lock it SILENTLY in the background — confirm in 1 line with zero spoilers. NEVER reveal or copy model points/answers during hints; use it only to keep hints accurate and check my tries accurately.',
               '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my sentence/draft or snap a photo of my attempt. Whenever I send my try (by text or photo), give instant feedback on Data File accuracy, paraphrasing/no-lifting, and tone/register — checking accurately against the hidden Official Marking Scheme if uploaded or loaded on server (without leaking missing points outright), or reminding me to confirm final marks in Explain mode if no scheme was uploaded.',
               '- FREE QUESTIONS WELCOME: If I ask any free vocab, grammar, or Data File question mid-chat, answer naturally without forcing the Hint 1/3 ladder. NEVER output raw HTML tags.',
@@ -2266,15 +2266,26 @@
         const isZh = state.lang === 'zh';
         let welcome = '';
         if (schoolPaper) {
-          const extras = [];
-          if (schoolPaper.hasPassage) extras.push(isZh ? '閱讀文章/資料頁' : 'Passage/Data File');
-          if (schoolPaper.hasQuestions) extras.push(isZh ? '題目卷' : 'Questions');
-          const loadedNote = extras.length > 0
-            ? (isZh ? `已於伺服器載入官方答案及${extras.join('、')}。` : `Official Answer Key + ${extras.join(' & ')} loaded on server.`)
-            : (isZh ? '已於伺服器載入官方答案。' : 'Official Answer Key loaded securely on server.');
-          welcome = isZh
-            ? `**🎯 ${schoolPaper.title}**\n\n- ${loadedNote}\n- ${state.mode === 'guided' ? '直接輸入題號（例如 `Q14`）或拍下你的作答頁，我會一步步引導而不劇透答案。' : '輸入題號（例如 `Q14`）或拍下你的作答頁，我會直接按官方答案核對並解說。'}`
-            : `**🎯 ${schoolPaper.title}**\n\n- ${loadedNote}\n- ${state.mode === 'guided' ? 'Type a question number (e.g. `Q14`) or snap your Q&A page for step-by-step hints without spoilers.' : 'Type a question number (e.g. `Q14`) or snap your Q&A page to check and explain against the official answer key.'}`;
+          if (state.paper === 'p2') {
+            welcome = isZh
+              ? `**🎯 ${schoolPaper.title}**\n\n- 已於伺服器載入 **寫作題目**${schoolPaper.hasPassage ? '及教師筆記' : ''}，無須再拍題目紙。\n- 直接輸入你想寫的題號（例如 \`Q1\`），或拍下你的 **草稿 / 大綱** 即可開始！`
+              : `**🎯 ${schoolPaper.title}**\n\n- **Writing Topics**${schoolPaper.hasPassage ? ' + Teacher Notes' : ''} loaded on server — no need to snap the prompt sheet.\n- Type which question you want (e.g. \`Q1\`), or snap your **plan / draft** to begin!`;
+          } else if (state.paper === 'p4') {
+            welcome = isZh
+              ? `**🎯 ${schoolPaper.title}**\n\n- 已於伺服器載入 **說話題目卡（Prompt Card）**${schoolPaper.hasPassage ? '及參考資料' : ''}，無須再拍題目卡。\n- 輸入 \`Start\` 即可取得審題構思與實用句式，或開始練習 **小組討論（GI）**／**個人回應（IR）**！`
+              : `**🎯 ${schoolPaper.title}**\n\n- **Speaking Prompt Card**${schoolPaper.hasPassage ? ' + Reference Notes' : ''} loaded on server — no need to snap the prompt card.\n- Type \`Start\` for ideas & phrases, or jump into **Group Interaction (GI)** or **Individual Response (IR)**!`;
+          } else {
+            const extras = [];
+            if (schoolPaper.hasPassage) extras.push(isZh ? (state.paper === 'p3b' ? '資料頁' : '閱讀文章') : (state.paper === 'p3b' ? 'Data File' : 'Passage'));
+            if (schoolPaper.hasQuestions) extras.push(isZh ? '題目卷' : 'Questions');
+            const loadedNote = extras.length > 0
+              ? (isZh ? `已於伺服器載入官方答案及${extras.join('、')}。` : `Official Answer Key + ${extras.join(' & ')} loaded on server.`)
+              : (isZh ? '已於伺服器載入官方答案。' : 'Official Answer Key loaded securely on server.');
+            const qEx = state.paper === 'p3b' ? 'Task 5' : 'Q14';
+            welcome = isZh
+              ? `**🎯 ${schoolPaper.title}**\n\n- ${loadedNote}\n- ${state.mode === 'guided' ? `直接輸入題號（例如 \`${qEx}\`）或拍下你的作答頁，我會一步步引導而不劇透答案。` : `輸入題號（例如 \`${qEx}\`）或拍下你的作答頁，我會直接按官方答案核對並解說。`}`
+              : `**🎯 ${schoolPaper.title}**\n\n- ${loadedNote}\n- ${state.mode === 'guided' ? `Type a question number (e.g. \`${qEx}\`) or snap your Q&A page for step-by-step hints without spoilers.` : `Type a question number (e.g. \`${qEx}\`) or snap your Q&A page to check and explain against the official answer key.`}`;
+          }
         } else {
           const isExplain = PAPERS[state.paper].hasModes && state.mode === 'explain';
           if (state.paper === 'p2') {
@@ -3001,6 +3012,49 @@
         } catch (_) {}
       }
 
+      function updateBackstageFormForPaper() {
+        const pt = document.getElementById('bs-paper-type').value || 'p1';
+        const slotAns = document.getElementById('bs-slot-answers');
+        const lblAns = document.getElementById('bs-lbl-answers');
+        const lblQ = document.getElementById('bs-lbl-questions');
+        const lblP = document.getElementById('bs-lbl-passage');
+        const inpTitle = document.getElementById('bs-paper-title');
+        const txtQ = document.getElementById('bs-questions-text');
+        const txtP = document.getElementById('bs-passage-text');
+
+        if (pt === 'p2') {
+          slotAns.classList.add('hidden');
+          inpTitle.placeholder = 'e.g. S5 Mock 2026 P2 Writing';
+          lblQ.textContent = '1. Writing Topics / Questions *';
+          txtQ.placeholder = 'Paste or upload the Paper 2 writing prompt(s) / topics...';
+          lblP.textContent = '2. Writing Notes / Rubric (Optional)';
+          txtP.placeholder = 'Optional: Paste or upload teacher notes, key vocabulary, or rubric...';
+        } else if (pt === 'p4') {
+          slotAns.classList.add('hidden');
+          inpTitle.placeholder = 'e.g. S5 Mock 2026 P4 Set A';
+          lblQ.textContent = '1. Speaking Prompt Card & Questions *';
+          txtQ.placeholder = 'Paste or upload the Speaking Prompt Card, GI topic, and IR questions...';
+          lblP.textContent = '2. Reading Material / Teacher Notes (Optional)';
+          txtP.placeholder = 'Optional: Paste or upload any extra reading text or speaking notes...';
+        } else if (pt === 'p3b') {
+          slotAns.classList.remove('hidden');
+          inpTitle.placeholder = 'e.g. S5 Mock 2026 P3B';
+          lblAns.textContent = '1. Official Marking Scheme / Model Points *';
+          lblQ.textContent = '2. Task Questions / Instructions (Optional)';
+          txtQ.placeholder = 'Optional: Paste or upload Task 5–10 instructions...';
+          lblP.textContent = '3. Data File (Optional)';
+          txtP.placeholder = 'Optional: Paste or upload the Data File so students do not need to snap pages...';
+        } else {
+          slotAns.classList.remove('hidden');
+          inpTitle.placeholder = 'e.g. S5 Mock 2026 P1 Part A';
+          lblAns.textContent = '1. Official Answer Key / Marking Scheme *';
+          lblQ.textContent = '2. Question-Answer Booklet (Optional)';
+          txtQ.placeholder = 'Optional: Paste or upload questions so students can just type Q14...';
+          lblP.textContent = '3. Reading Passage (Optional)';
+          txtP.placeholder = 'Optional: Paste or upload passage so students do not need to snap pages...';
+        }
+      }
+
       function resetBackstageEditor() {
         state.bsEditingId = '';
         state.bsAnswerRows = [{ q: 'Q1', answer: '', note: '' }];
@@ -3010,6 +3064,7 @@
         document.getElementById('bs-questions-text').value = '';
         document.getElementById('bs-passage-text').value = '';
         renderBackstageAnswerRows();
+        updateBackstageFormForPaper();
         document.getElementById('bs-editor-heading').textContent = 'New School Paper';
         document.getElementById('bs-editing-badge').classList.add('hidden');
       }
@@ -3027,6 +3082,7 @@
         document.getElementById('bs-editor-heading').textContent = `Edit: ${paper.title}`;
         document.getElementById('bs-editing-badge').classList.remove('hidden');
         renderBackstageAnswerRows();
+        updateBackstageFormForPaper();
       }
 
       function renderBackstageAnswerRows() {
@@ -3135,10 +3191,21 @@
         const paperType = document.getElementById('bs-paper-type').value;
         const questionsText = document.getElementById('bs-questions-text').value.trim();
         const passageText = document.getElementById('bs-passage-text').value.trim();
-        const cleanRows = state.bsAnswerRows.filter((r) => (r.q || '').trim() || (r.answer || '').trim());
+        const isOpenEndedPaper = paperType === 'p2' || paperType === 'p4';
+        const cleanRows = isOpenEndedPaper
+          ? []
+          : state.bsAnswerRows.filter((r) => (r.q || '').trim() || (r.answer || '').trim());
 
         if (!title) { showToast('Enter a paper title first'); return; }
-        if (cleanRows.length === 0) { showToast('Add or parse at least one Official Answer row'); return; }
+        if (isOpenEndedPaper) {
+          if (!questionsText && !passageText) {
+            showToast(paperType === 'p2' ? 'Upload or paste the Writing Topics first' : 'Upload or paste the Speaking Prompt Card first');
+            return;
+          }
+        } else if (cleanRows.length === 0) {
+          showToast('Add or parse at least one Official Answer row');
+          return;
+        }
 
         const btn = document.getElementById('btn-bs-save-paper');
         btn.disabled = true;
@@ -3158,7 +3225,7 @@
           });
           const data = await res.json().catch(() => ({}));
           if (!res.ok || !data.ok) throw new Error(data.error || 'Save failed');
-          showToast(`Saved "${title}" (${cleanRows.length} answers)`);
+          showToast(isOpenEndedPaper ? `Saved "${title}" (questions loaded)` : `Saved "${title}" (${cleanRows.length} answers)`);
           resetBackstageEditor();
           await Promise.all([loadBackstagePapers(), fetchSchoolPapers(true)]);
         } catch (err) {
@@ -3219,9 +3286,9 @@
                 <div class="text-[12.5px] font-bold text-brand-navy truncate">${escapeHtml(p.title)}</div>
                 <div class="text-[10.5px] text-slate-500 flex items-center gap-1.5 flex-wrap">
                   <span class="font-bold text-brand-teal">${escapeHtml((p.paperType || '').toUpperCase())}</span>
-                  <span>&middot; ${(p.answerKey || []).length} Qs</span>
-                  ${p.questionsText ? '<span>&middot; Q&amp;A</span>' : ''}
-                  ${p.passageText ? '<span>&middot; Passage</span>' : ''}
+                  ${(p.paperType === 'p2' || p.paperType === 'p4')
+                    ? `${p.questionsText ? `<span>&middot; ${p.paperType === 'p2' ? 'Topics' : 'Prompt Card'}</span>` : ''}${p.passageText ? '<span>&middot; Notes</span>' : ''}`
+                    : `<span>&middot; ${(p.answerKey || []).length} Qs</span>${p.questionsText ? '<span>&middot; Q&amp;A</span>' : ''}${p.passageText ? `<span>&middot; ${p.paperType === 'p3b' ? 'Data File' : 'Passage'}</span>` : ''}`}
                 </div>
               </div>
               <div class="flex items-center gap-1 shrink-0">
@@ -3425,7 +3492,9 @@
         const spLbl = document.getElementById('lbl-pick-school-paper');
         if (spLbl) {
           spLbl.textContent = spSelected
-            ? (isZh ? '已於伺服器載入官方答案' : 'Official Answer Key loaded server-side')
+            ? ((state.paper === 'p2' || state.paper === 'p4')
+              ? (isZh ? '已於伺服器載入題目卷' : 'School paper loaded server-side')
+              : (isZh ? '已於伺服器載入官方答案' : 'Official Answer Key loaded server-side'))
             : (isZh ? '選擇校內試卷' : 'Choose a school paper');
         }
         const saveUnderLbl = document.getElementById('lbl-save-under');
@@ -4046,6 +4115,7 @@
         e.target.value = '';
       });
 
+      document.getElementById('bs-paper-type').addEventListener('change', updateBackstageFormForPaper);
       document.getElementById('btn-bs-save-paper').addEventListener('click', handleSaveBackstagePaper);
 
       document.getElementById('bs-papers-list').addEventListener('click', async (e) => {
