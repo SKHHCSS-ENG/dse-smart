@@ -113,7 +113,6 @@
       <header id="app-header" class="sticky top-0 z-30 px-4 pt-3.5 pb-2.5 bg-white/95 backdrop-blur-sm sm:rounded-t-[28px] border-b border-brand-border/80 flex flex-col gap-2.5">
         <div class="flex items-center justify-between gap-2">
           <div class="flex items-center gap-2 min-w-0">
-            <a href="https://learning.hcs.edu.hk/english/" title="Back to English Home" aria-label="Back to English Home" class="w-8 h-8 rounded-xl bg-brand-canvas hover:bg-brand-tealSoft border border-brand-border flex items-center justify-center text-brand-navy text-[14px] font-bold shrink-0 transition-colors">&larr;</a>
             <div class="w-8 h-8 rounded-xl bg-brand-tealSoft border border-brand-teal/25 flex items-center justify-center shrink-0">
               <svg class="w-5 h-5 text-brand-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 3l1.9 5.3L19 10l-5.1 1.7L12 17l-1.9-5.3L5 10l5.1-1.7L12 3z" />
@@ -133,9 +132,9 @@
               <span id="auth-pill-text">Sign in</span>
             </button>
             <button id="tab-backstage" type="button" title="Teacher Backstage" aria-label="Teacher Backstage" class="p-1.5 rounded-xl bg-brand-canvas hover:bg-brand-tealSoft border border-brand-border text-slate-500 hover:text-brand-navy transition-colors">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg id="icon-backstage-lock" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                <path id="icon-backstage-shackle" d="M7 11V7a5 5 0 0 1 10 0v4" />
               </svg>
             </button>
           </div>
@@ -249,45 +248,41 @@
           </button>
         </div>
 
-        <!-- Own-AI Fallback Section (Shown ONLY in My Own Paper mode so teacher keys stay hidden) -->
+        <!-- Quick Steps Card (Dynamic per Paper & Mode; Copy/Preview Prompt saved hidden for later use) -->
         <div id="own-ai-fallback" class="flex flex-col gap-2 pt-1 border-t border-brand-border/70">
-          <!-- Step 2: Visual Flow Card (Dynamic per Paper & Mode) -->
           <div class="bg-brand-canvas border border-brand-border rounded-2xl p-3">
             <div class="flex items-center justify-between mb-2">
-              <h2 id="lbl-use-ai" class="text-[12px] font-bold uppercase tracking-wider text-brand-navy">Or Use Your Own AI App</h2>
-              <span id="flow-paper-pill" class="text-[11px] font-semibold text-brand-teal bg-white border border-brand-teal/25 px-2 py-0.5 rounded-full">Paper 1 · Reading</span>
+              <span id="flow-paper-pill" class="text-[11px] font-semibold text-brand-teal bg-white border border-brand-teal/25 px-2.5 py-0.5 rounded-full">Paper 1 · Reading</span>
             </div>
             <ol id="flow-steps-list" class="space-y-1.5 text-[12px] leading-snug text-slate-700"></ol>
-
-            <div class="mt-2.5 pt-2 border-t border-brand-border/70 flex items-center flex-wrap gap-1.5">
-              <span id="lbl-reply-chips" class="text-[11px] font-semibold text-slate-500 mr-0.5">Reply in AI chat:</span>
-              <div id="command-chips" class="flex items-center flex-wrap gap-1"></div>
-            </div>
           </div>
 
-          <button id="btn-copy-prompt" type="button" class="w-full py-2.5 px-4 rounded-2xl bg-white hover:bg-brand-tealSoft border border-brand-teal/40 text-brand-navy font-bold text-[13.5px] flex items-center justify-center gap-2 active:scale-[0.99] transition-colors">
-            <svg id="copy-icon" class="w-4 h-4 text-brand-teal shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-            </svg>
-            <span id="copy-label">Copy Setup Prompt</span>
-          </button>
-
-          <div class="flex items-center justify-center">
-            <button id="btn-toggle-preview" type="button" aria-expanded="false" aria-controls="prompt-preview-box" class="text-[12px] font-semibold text-slate-500 hover:text-brand-teal py-1 px-3 rounded-lg flex items-center gap-1 transition-colors">
-              <span id="preview-toggle-text">Preview Prompt</span>
-              <svg id="preview-chevron" class="w-3.5 h-3.5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="6 9 12 15 18 9" />
+          <!-- Saved for later use: Copy Prompt & Preview Prompt (hidden so students focus on Built-in AI Coach) -->
+          <div id="own-ai-copy-tools" class="hidden flex-col gap-2">
+            <button id="btn-copy-prompt" type="button" class="w-full py-2.5 px-4 rounded-2xl bg-white hover:bg-brand-tealSoft border border-brand-teal/40 text-brand-navy font-bold text-[13.5px] flex items-center justify-center gap-2 active:scale-[0.99] transition-colors">
+              <svg id="copy-icon" class="w-4 h-4 text-brand-teal shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
               </svg>
+              <span id="copy-label">Copy Setup Prompt</span>
             </button>
-          </div>
 
-          <div id="prompt-preview-box" class="hidden">
-            <div class="bg-[#f8fbfc] border border-brand-border rounded-2xl p-3">
-              <div class="flex items-center justify-between mb-1.5">
-                <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Generated Prompt</span>
-                <span id="prompt-char-count" class="text-[11px] text-slate-400"></span>
+            <div class="flex items-center justify-center">
+              <button id="btn-toggle-preview" type="button" aria-expanded="false" aria-controls="prompt-preview-box" class="text-[12px] font-semibold text-slate-500 hover:text-brand-teal py-1 px-3 rounded-lg flex items-center gap-1 transition-colors">
+                <span id="preview-toggle-text">Preview Prompt</span>
+                <svg id="preview-chevron" class="w-3.5 h-3.5 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
+            </div>
+
+            <div id="prompt-preview-box" class="hidden">
+              <div class="bg-[#f8fbfc] border border-brand-border rounded-2xl p-3">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Generated Prompt</span>
+                  <span id="prompt-char-count" class="text-[11px] text-slate-400"></span>
+                </div>
+                <pre id="prompt-preview-text" class="text-[11.5px] leading-relaxed text-slate-700 whitespace-pre-wrap break-words font-mono max-h-64 overflow-y-auto overscroll-contain pr-1"></pre>
               </div>
-              <pre id="prompt-preview-text" class="text-[11.5px] leading-relaxed text-slate-700 whitespace-pre-wrap break-words font-mono max-h-64 overflow-y-auto overscroll-contain pr-1"></pre>
             </div>
           </div>
         </div>
@@ -474,7 +469,6 @@
                 <span id="bs-reports-badge" class="hidden px-1.5 py-0.2 rounded-full bg-amber-500 text-white text-[10px] font-bold">0</span>
               </button>
             </div>
-            <button id="btn-bs-lock" type="button" class="text-[11.5px] font-bold text-slate-500 hover:text-rose-600 px-2 py-1">Lock</button>
           </div>
 
           <!-- Subtab A: Papers Manager + 3-Slot Editor -->
@@ -584,9 +578,9 @@
         </div>
       </section>
 
-      <!-- Subtle Non-Affiliation Footer -->
+      <!-- School Department Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] text-slate-400">Independent school English self-study tool &mdash; not affiliated with HKEAA &middot; <span class="font-mono text-slate-400">v10.24</span></p>
+        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; <span class="font-mono text-slate-400">v10.25</span></p>
       </footer>
     </main>
   </div>
@@ -1534,7 +1528,7 @@
           },
           steps: {
             p1_guided: [
-              '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Passage</strong>.',
+              'Tap <strong>Start AI Coach</strong> &rarr; snap photo of <strong>Passage</strong>.',
               'Photo of your <strong>Q&amp;A page</strong> (optional: + <strong>Answer Key</strong> for hidden-key checking).',
               'Type <strong>Q1</strong>, <strong>Q4</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
@@ -1544,18 +1538,18 @@
               'Type <strong>Q1</strong>, <strong>Q4</strong>... then reply <strong>A / B / C / D</strong> to fix before checking answers.'
             ],
             p1_explain: [
-              '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Passage</strong>.',
+              'Tap <strong>Start AI Coach</strong> &rarr; snap photo of <strong>Passage</strong>.',
               'Photo of your <strong>Q&amp;A page (QAB)</strong> (1–2 pages).',
               'Photo of the <strong>Official Answer Key</strong> separately.',
               'Type <strong>Q1</strong>, <strong>Q4</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
             p2: [
-              '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Writing Topic</strong>.',
+              'Tap <strong>Start AI Coach</strong> &rarr; snap photo of <strong>Writing Topic</strong>.',
               'Photo of your <strong>plan or essay</strong> (optional).',
               'Reply <strong>A / B / C / D</strong> to plan, review, or improve.'
             ],
             p3b_guided: [
-              '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Data File</strong>.',
+              'Tap <strong>Start AI Coach</strong> &rarr; snap photo of <strong>Data File</strong>.',
               'Photo of your <strong>Task page</strong> (optional: + <strong>Marking Scheme</strong> for hidden-key checking).',
               'Type <strong>Task 5</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
@@ -1565,13 +1559,13 @@
               'Type <strong>Task 5</strong>... then reply <strong>A / B / C / D</strong> to fix before checking answers.'
             ],
             p3b_explain: [
-              '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Data File</strong>.',
+              'Tap <strong>Start AI Coach</strong> &rarr; snap photo of <strong>Data File</strong>.',
               'Photo of your <strong>tried draft</strong> (1–2 pages).',
               'Photo of the <strong>Official Marking Scheme</strong> separately.',
               'Type <strong>Task 5</strong>... then reply <strong>A / B / C / D</strong>.'
             ],
             p4: [
-              '<strong>Copy Prompt</strong> &rarr; paste in AI + photo of <strong>Speaking Card</strong>.',
+              'Tap <strong>Start AI Coach</strong> &rarr; snap photo of <strong>Speaking Card</strong>.',
               'Reply <strong>A / B / C / D</strong> for ideas, discussion, or IR (no answer sheet needed).'
             ]
           }
@@ -1638,7 +1632,7 @@
           },
           steps: {
             p1_guided: [
-              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>文章</strong>。',
+              '按<strong>開始 AI 教練</strong> &rarr; 拍<strong>文章</strong>。',
               '拍你的<strong>問答頁</strong>（可選：另拍<strong>官方答案</strong>作不劇透核對）。',
               '輸入 <strong>Q1</strong>、<strong>Q4</strong>……再回覆 <strong>A / B / C / D</strong>。'
             ],
@@ -1648,18 +1642,18 @@
               '輸入 <strong>Q1</strong>、<strong>Q4</strong>……回覆 <strong>A / B / C / D</strong>，對答案前先自行修改。'
             ],
             p1_explain: [
-              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>文章</strong>。',
+              '按<strong>開始 AI 教練</strong> &rarr; 拍<strong>文章</strong>。',
               '拍你的<strong>題目答題簿（QAB）</strong>（1–2 頁）。',
               '分開拍<strong>官方答案頁（Answer Key）</strong>。',
               '輸入 <strong>Q1</strong>、<strong>Q4</strong>……再回覆 <strong>A / B / C / D</strong>。'
             ],
             p2: [
-              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>寫作題目</strong>。',
+              '按<strong>開始 AI 教練</strong> &rarr; 拍<strong>寫作題目</strong>。',
               '拍你的<strong>大綱或作文</strong>（可選）。',
               '回覆 <strong>A / B / C / D</strong> 構思、評語或改善。'
             ],
             p3b_guided: [
-              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>資料頁</strong>。',
+              '按<strong>開始 AI 教練</strong> &rarr; 拍<strong>資料頁</strong>。',
               '拍你的<strong>任務頁</strong>（可選：另拍<strong>評分準則</strong>作不劇透核對）。',
               '輸入 <strong>Task 5</strong>……再回覆 <strong>A / B / C / D</strong>。'
             ],
@@ -1669,13 +1663,13 @@
               '輸入 <strong>Task 5</strong>……回覆 <strong>A / B / C / D</strong>，對答案前先自行修改。'
             ],
             p3b_explain: [
-              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>資料頁</strong>。',
+              '按<strong>開始 AI 教練</strong> &rarr; 拍<strong>資料頁</strong>。',
               '拍你的<strong>草稿</strong>（1–2 頁）。',
               '分開拍<strong>官方評分準則（Marking Scheme）</strong>。',
               '輸入 <strong>Task 5</strong>……再回覆 <strong>A / B / C / D</strong>。'
             ],
             p4: [
-              '<strong>複製指令</strong> &rarr; 貼到 AI ＋ 拍<strong>說話題卡</strong>。',
+              '按<strong>開始 AI 教練</strong> &rarr; 拍<strong>說話題卡</strong>。',
               '回覆 <strong>A / B / C / D</strong> 構思、小組討論或個人回應（不用拍答題紙）。'
             ]
           }
@@ -3196,15 +3190,15 @@
           ? []
           : state.bsAnswerRows.filter((r) => (r.q || '').trim() || (r.answer || '').trim());
 
-        if (!title) { showToast('Enter a paper title first'); return; }
+        if (!title) { showToast('Enter a paper title first'); return false; }
         if (isOpenEndedPaper) {
           if (!questionsText && !passageText) {
             showToast(paperType === 'p2' ? 'Upload or paste the Writing Topics first' : 'Upload or paste the Speaking Prompt Card first');
-            return;
+            return false;
           }
         } else if (cleanRows.length === 0) {
           showToast('Add or parse at least one Official Answer row');
-          return;
+          return false;
         }
 
         const btn = document.getElementById('btn-bs-save-paper');
@@ -3228,11 +3222,15 @@
           showToast(isOpenEndedPaper ? `Saved "${title}" (questions loaded)` : `Saved "${title}" (${cleanRows.length} answers)`);
           resetBackstageEditor();
           await Promise.all([loadBackstagePapers(), fetchSchoolPapers(true)]);
+          btn.disabled = false;
+          btn.textContent = 'Save School Paper to Server';
+          return true;
         } catch (err) {
           showToast(err.message || 'Save failed');
         }
         btn.disabled = false;
         btn.textContent = 'Save School Paper to Server';
+        return false;
       }
 
       async function handleResetStudentPin(targetId) {
@@ -3487,7 +3485,25 @@
         document.getElementById('btn-mode-guided').textContent = ui.modeGuided;
         if (state.mode === 'selfcheck') state.mode = 'guided';
         document.getElementById('btn-mode-explain').textContent = ui.modeExplain;
-        document.getElementById('lbl-use-ai').textContent = isZh ? '或複製指令到其他 AI 平台' : 'Or Use Your Own AI App';
+        const lblUseAi = document.getElementById('lbl-use-ai');
+        if (lblUseAi) lblUseAi.textContent = isZh ? '使用步驟' : 'How to Use';
+        const bsBtn = document.getElementById('tab-backstage');
+        const bsShackle = document.getElementById('icon-backstage-shackle');
+        if (bsBtn && bsShackle) {
+          const inUnlockedBs = state.tab === 'backstage' && state.bsUnlocked;
+          bsBtn.classList.toggle('bg-brand-tealSoft', inUnlockedBs);
+          bsBtn.classList.toggle('border-brand-teal/40', inUnlockedBs);
+          bsBtn.classList.toggle('text-brand-teal', inUnlockedBs);
+          bsBtn.classList.toggle('bg-brand-canvas', !inUnlockedBs);
+          bsBtn.classList.toggle('border-brand-border', !inUnlockedBs);
+          bsBtn.classList.toggle('text-slate-500', !inUnlockedBs);
+          bsShackle.setAttribute('d', inUnlockedBs ? 'M7 11V7a5 5 0 0 1 9.9-1' : 'M7 11V7a5 5 0 0 1 10 0v4');
+          const bsTitle = inUnlockedBs
+            ? (isZh ? '儲存並鎖定後台返回主頁' : 'Save, lock Backstage & return home')
+            : (state.tab === 'backstage' ? (isZh ? '返回主頁' : 'Back to main page') : (isZh ? '教師後台' : 'Teacher Backstage'));
+          bsBtn.title = bsTitle;
+          bsBtn.setAttribute('aria-label', bsTitle);
+        }
         const spSelected = getSelectedSchoolPaper();
         const spLbl = document.getElementById('lbl-pick-school-paper');
         if (spLbl) {
@@ -3508,7 +3524,8 @@
           saveLogBtn.setAttribute('aria-label', slTitle);
           saveLogBtn.disabled = state.chatSavingLog;
         }
-        document.getElementById('lbl-reply-chips').textContent = ui.lblReplyChips;
+        const lblReplyChips = document.getElementById('lbl-reply-chips');
+        if (lblReplyChips) lblReplyChips.textContent = ui.lblReplyChips;
         document.getElementById('copy-label').textContent = ui.copyBtn;
 
         // Error Log UI localization
@@ -3563,9 +3580,9 @@
                 <button type="button" data-sp-id="${escapeHtml(sp.id)}" class="sp-pick-btn text-left p-2.5 rounded-xl border transition-colors ${active ? 'bg-brand-tealSoft border-brand-teal shadow-sm' : 'bg-white border-brand-border hover:border-brand-teal/50'}">
                   <div class="text-[12.5px] font-bold text-brand-navy truncate">${escapeHtml(sp.title)}</div>
                   <div class="text-[10.5px] text-slate-500 mt-0.5 flex items-center gap-1.5 flex-wrap">
-                    <span class="px-1.5 py-0.5 rounded bg-white border border-brand-border text-brand-teal font-semibold">${sp.questionCount} Qs Key</span>
-                    ${sp.hasQuestions ? '<span class="px-1.5 py-0.5 rounded bg-white border border-brand-border text-slate-600">Questions</span>' : ''}
-                    ${sp.hasPassage ? '<span class="px-1.5 py-0.5 rounded bg-white border border-brand-border text-slate-600">Passage</span>' : ''}
+                    ${(sp.paperType === 'p2' || sp.paperType === 'p4')
+                      ? `${sp.hasQuestions ? `<span class="px-1.5 py-0.5 rounded bg-white border border-brand-border text-brand-teal font-semibold">${sp.paperType === 'p2' ? 'Topics' : 'Prompt Card'}</span>` : ''}${sp.hasPassage ? '<span class="px-1.5 py-0.5 rounded bg-white border border-brand-border text-slate-600">Notes</span>' : ''}`
+                      : `<span class="px-1.5 py-0.5 rounded bg-white border border-brand-border text-brand-teal font-semibold">${sp.questionCount} Qs Key</span>${sp.hasQuestions ? '<span class="px-1.5 py-0.5 rounded bg-white border border-brand-border text-slate-600">Questions</span>' : ''}${sp.hasPassage ? `<span class="px-1.5 py-0.5 rounded bg-white border border-brand-border text-slate-600">${sp.paperType === 'p3b' ? 'Data File' : 'Passage'}</span>` : ''}`}
                   </div>
                 </button>`;
             }).join('');
@@ -3592,10 +3609,13 @@
         document.getElementById('flow-steps-list').innerHTML = localizedSteps.map((stepHtml, idx) => (
           `<li class="flex items-start gap-2"><span class="w-4 h-4 rounded-full bg-brand-teal text-white text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">${idx + 1}</span><span>${stepHtml}</span></li>`
         )).join('');
-        document.getElementById('command-chips').innerHTML = stepsMeta.commands.map((cmd) => {
-          const label = isZh ? cmd.replace('D (Log)', 'D (錯題)').replace('A (Plan)', 'A (構思)').replace('B (Check)', 'B (評語)').replace('A (Ideas)', 'A (例子)').replace('B (Discuss)', 'B (討論)') : cmd;
-          return `<span class="px-2 py-0.5 rounded-md bg-white border border-brand-border text-[11px] font-bold text-brand-navy font-mono">${escapeHtml(label)}</span>`;
-        }).join('');
+        const cmdChipsEl = document.getElementById('command-chips');
+        if (cmdChipsEl) {
+          cmdChipsEl.innerHTML = stepsMeta.commands.map((cmd) => {
+            const label = isZh ? cmd.replace('D (Log)', 'D (錯題)').replace('A (Plan)', 'A (構思)').replace('B (Check)', 'B (評語)').replace('A (Ideas)', 'A (例子)').replace('B (Discuss)', 'B (討論)') : cmd;
+            return `<span class="px-2 py-0.5 rounded-md bg-white border border-brand-border text-[11px] font-bold text-brand-navy font-mono">${escapeHtml(label)}</span>`;
+          }).join('');
+        }
 
         const promptText = buildPrompt();
         document.getElementById('prompt-preview-text').textContent = promptText;
@@ -3701,8 +3721,31 @@
         if (state.authToken) syncLogsFromServer(true);
       });
 
-      document.getElementById('tab-backstage').addEventListener('click', () => {
-        state.tab = 'backstage';
+      document.getElementById('tab-backstage').addEventListener('click', async () => {
+        if (state.tab !== 'backstage') {
+          state.tab = 'backstage';
+          render();
+          return;
+        }
+        if (state.bsUnlocked) {
+          const title = (document.getElementById('bs-paper-title').value || '').trim();
+          const pt = document.getElementById('bs-paper-type').value || 'p1';
+          const qText = (document.getElementById('bs-questions-text').value || '').trim();
+          const pText = (document.getElementById('bs-passage-text').value || '').trim();
+          const isOpenEnded = pt === 'p2' || pt === 'p4';
+          const hasAns = state.bsAnswerRows.some((r) => (r.answer || '').trim());
+          let didSave = false;
+          if (title && (isOpenEnded ? (qText || pText) : hasAns)) {
+            didSave = await handleSaveBackstagePaper();
+          }
+          state.bsUnlocked = false;
+          state.teacherPasscode = '';
+          state.tab = 'drill';
+          showToast(didSave ? 'Saved & Backstage locked' : 'Backstage locked');
+          render();
+          return;
+        }
+        state.tab = 'drill';
         render();
       });
 
@@ -4020,13 +4063,6 @@
       });
       document.getElementById('btn-bs-cancel').addEventListener('click', () => {
         state.tab = 'drill';
-        render();
-      });
-      document.getElementById('btn-bs-lock').addEventListener('click', () => {
-        state.bsUnlocked = false;
-        state.teacherPasscode = '';
-        state.tab = 'drill';
-        showToast('Backstage locked');
         render();
       });
 
