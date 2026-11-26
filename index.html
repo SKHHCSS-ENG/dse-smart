@@ -333,7 +333,7 @@
         <div id="chat-messages" class="flex-1 overflow-y-auto p-3 pb-5 flex flex-col gap-2.5 bg-[#f8fbfc]"></div>
 
         <!-- Quick-Reply Tappable Menu Buttons (Responsive Grid — Zero Clipping) -->
-        <div id="chat-quick-actions" class="hidden px-2.5 sm:px-3 py-1.5 bg-white border-t border-brand-border/70 flex items-center gap-1.5 shrink-0"></div>
+        <div id="chat-quick-actions" class="hidden px-2 sm:px-3 py-1.5 bg-white border-t border-brand-border/70 flex items-center gap-1 shrink-0"></div>
 
         <!-- Pending Photo Previews -->
         <div id="chat-photo-previews" class="hidden px-3 pt-2 bg-white border-t border-brand-border/60 flex items-center gap-2 overflow-x-auto shrink-0"></div>
@@ -594,7 +594,7 @@
 
       <!-- School Department Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.30</span></p>
+        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.31</span></p>
       </footer>
     </main>
   </div>
@@ -706,7 +706,7 @@
         '- CLEAN PHONE LAYOUT: Always leave a blank line after the 🎯 title and before the menu. Use short bullet points (1 concise line per bullet) for hints, keywords, and checklists; use a single short paragraph only for a speaking turn. Never squash lines into one dense block.',
         '- CLEAN MENU ONLY: NEVER print internal labels like "[State 1]" or "【狀態 1】". Output ONLY "**Next step:**" / "**下一步：**" and the matching lettered options.',
         '- SHOW QUESTION & RELATED TEXT: When asked to show the current question/task and related text, print the exact question/task wording plus the surrounding paragraph or Data File lines. If the CURRENT question explicitly quotes a target word or phrase (e.g. \'there\' or \'the situation\'), **bold ONLY that single CURRENT question\'s quoted target word/phrase** in the paragraph (NEVER bold phrases quoted by OTHER questions in the same paragraph, and NEVER bold, highlight, or spoil the answer word(s)!). ALWAYS end with **Next step:** / **下一步：** + the standard A/B/C/D menu (A = Hint 1/3 or next hint, B = Check my try, C = Next / another Q#, D = Error Log).',
-        '- ANTI-DRIFT & ZERO-SPOILER LOCK: If the student asks for the answer directly ("idk", "just tell me", "give me the answer"), politely refuse in 1 short line. In Guided mode, stay on / give the next NON-SPOILING hint (within the 3-hint cap) and NEVER write the exact target answer word inside a hint, synonym pair (e.g. NEVER write "carried/transported" when "transported" is the answer), quote, or guiding question, and NEVER name or single out the correct option/heading letter (e.g. NEVER say "check Heading B") after a wrong MCQ or Matching try. In Explain mode, STAY in Explain mode after refusing a leak — NEVER fall back to a Guided-style Hint 2/3.'
+        '- HINTS STAY SPOILER-FREE + ON-DEMAND ANSWER REVEAL: During normal Hints 1/3, 2/3, 3/3 and wrong-try feedback in Guided mode, NEVER write the exact target answer word inside a hint, synonym pair (e.g. NEVER write "carried/transported" when "transported" is the answer), quote, or guiding question, and NEVER name or single out the correct option/heading letter (e.g. NEVER say "check Heading B") after a wrong MCQ or Matching try. HOWEVER, in Guided mode (Paper 1 & Paper 3B), if the student explicitly taps ANS / 答案 or asks for the answer directly ("Show official answer & explanation", "show answer", "give me the answer", "看答案", "顯示官方答案"), IMMEDIATELY reveal the official answer (from the loaded School Paper marking scheme or uploaded Answer Key; if no key is loaded yet, note that clearly and give a best DSE reference answer) plus a concise step-by-step explanation citing the exact passage/Data File evidence, and end with **Next step:** / **下一步：** + the standard A/B/C/D menu.'
       ].join('\n');
 
       function getPaper1Playbook(levelKey) {
@@ -1285,13 +1285,13 @@
             return [
               'Role: You are my HKDSE English Paper 1 (Reading) coach in GUIDED PRACTICE mode.',
               'STRICT NO-ANSWER-WORD & 3-HINT LADDER (CRITICAL):',
-              '- NEVER reveal, confirm, type, or list the exact answer word(s), target phrase(s), answer items, or correct MCQ/Matching option letter (e.g., NEVER write out all 4 cities, NEVER say "copy ___", and NEVER say "check Heading B" on a wrong try).',
+              '- During normal Hints 1–3 and wrong-try feedback, NEVER reveal, type, or list the exact answer word(s), target phrase(s), answer items, or correct MCQ/Matching option letter (e.g., NEVER write out all 4 cities, NEVER say "copy ___", and NEVER say "check Heading B" on a wrong try). ONLY reveal the official answer + full explanation when the student explicitly taps ANS / 答案 or asks to see the answer.',
               '- 3-LEVEL ZERO-SPOILER HINT LADDER (MAX 3 HINTS PER SUB-PART — QUESTION FIRST, PASSAGE SECOND):',
               '  * Hint 1/3 (Strict Question Decoding ONLY — NO Whole-Question Translation, NO Traps/Roles!): Focus ONLY on the question (1 sub-part such as Q1 or (i)). NEVER translate the whole question sentence into Chinese. Give ONLY (a) the exact English keywords from the question and (b) what type of answer is needed (MCQ option, fact, singular noun, time/year, reason, etc.). Do NOT jump to passage lines, do NOT give locator synonyms, and do NOT point out who-does-what traps or solving ideas yet.',
               '  * Hint 2/3 (Paragraph & Line Location ONLY — NO Narration or Role Contrast!): Point ONLY to the exact Paragraph & Line # range in the passage to re-read. Do NOT narrate who does what, do NOT explain role contrasts or clue phrases, and do NOT compare MCQ options (STILL zero answer words).',
               '  * Hint 3/3 (Active Thinking Check — ZERO SPOILERS & NEVER FIRST-LETTER BLANKS!): NEVER give first-letter blanks or hangman frames like "h___ s___" or "a t___ o___" (that just gives away the answer!). Instead, force genuine thinking using EITHER (a) a 2-option meaning/idea comparison labeled strictly 1) and 2) (NEVER A) / B); 1 plausible distractor + 1 true direction/idea, shuffled — asking me to pick and justify from the passage), OR (b) a direct guiding question about the key clause/grammar slot so I form the answer in my own words.',
               '  * After Hint 3/3: End with the 1-line try-first nudge (encouraging my best attempt even if I am not 100% sure — never casual wording like "隨便" — so trying unlocks sharper, attempt-specific feedback), STOP further hints silently, and switch to the B/C/D menu (NEVER print internal notes like "no-hint mode"). Once I try (right or wrong), give richer diagnostic feedback tailored to my specific answer (still zero spoilers).',
-              '- OPTIONAL OFFICIAL ANSWER KEY (HIDDEN-KEY LOCK): If I upload an Official Answer Key photo in Guided mode (or if a hidden server Answer Key is loaded), lock it SILENTLY in the background — reply with a 1-line confirmation that answers are locked silently with zero spoilers. NEVER reveal, quote, or leak exact answer words from the Answer Key during hints (even if I beg!). Use it only to keep hints laser-accurate and to grade my tries accurately.',
+              '- OPTIONAL OFFICIAL ANSWER KEY (SPOILER-FREE HINTS + ON-DEMAND REVEAL): If I upload an Official Answer Key photo in Guided mode (or if a server Answer Key is loaded), keep it hidden during normal Hints 1–3 so hints stay spoiler-free and accurate. If I explicitly tap ANS / 答案 or ask for the official answer, reveal the exact official answer from the Answer Key immediately with a concise explanation citing the passage evidence.',
               '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my answer or snap a photo of my Q# attempt (on MCQ or Matching letter-answer questions, do NOT attach a C/D menu while waiting for my letter). Whenever I send my written attempt (by text or photo), give instant feedback: (a) if an Official Answer Key is available (uploaded by me OR loaded on server), verify my attempt against it accurately — celebrate if correct; if wrong or incomplete, point out the exact gap (word form, missing detail, wrong line) WITHOUT leaking the exact key so I can fix it; (b) if NO Answer Key is provided, check format/grammar slot (word limit, part of speech, tense, singular/plural) and passage evidence grounding, flag clear traps, and remind me to confirm final wording in Explain mode (Explain mode checks & explains directly against the Official Answer Key).',
               '- FREE QUESTIONS WELCOME: If I ask any free vocab, grammar, or passage question mid-chat, answer it naturally and concisely without forcing the Hint 1/3 ladder unless I ask for a hint. NEVER output raw HTML tags.',
               '',
@@ -1428,7 +1428,7 @@
               '  * Hint 2/3 (Data File Location ONLY): Point ONLY to the exact Data File document & line/section to re-read (do NOT narrate the content or write the sentence for me).',
               '  * Hint 3/3 (Active Thinking Check — NO FIRST-LETTER BLANKS): NEVER give first-letter blanks or hangman giveaways. Give EITHER a 2-option formal vs. informal paraphrase comparison labeled strictly 1) and 2) (NEVER A) / B)) OR a guiding question on which Data File detail to combine so I write the sentence myself.',
               '  * After Hint 3/3: End with the 1-line try-first nudge (encouraging my best attempt even if I am not 100% sure — never casual wording like "隨便" — so trying unlocks sharper, attempt-specific feedback), STOP further hints silently, and switch to the B/C/D menu (NEVER print internal state notes). Once I try (right or wrong), give richer diagnostic feedback tailored to my specific draft/answer (still zero spoilers).',
-              '- OPTIONAL OFFICIAL MARKING SCHEME (HIDDEN-KEY LOCK): If I upload an Official Marking Scheme photo in Guided mode (or if loaded on server), lock it SILENTLY in the background — confirm in 1 line with zero spoilers. NEVER reveal or copy model points/answers during hints; use it only to keep hints accurate and check my tries accurately.',
+              '- OPTIONAL OFFICIAL MARKING SCHEME (SPOILER-FREE HINTS + ON-DEMAND REVEAL): If I upload an Official Marking Scheme photo in Guided mode (or if loaded on server), keep it hidden during normal Hints 1–3 so hints stay spoiler-free and accurate. If I explicitly tap ANS / 答案 or ask for the official answer, reveal the exact official marking points/answer immediately with a concise explanation citing the Data File evidence.',
               '- CHECK MY TRY (MENU B OR DIRECT SNAP/TYPED ATTEMPT): If I tap B, ask me to type my sentence/draft or snap a photo of my attempt. Whenever I send my try (by text or photo), give instant feedback on Data File accuracy, paraphrasing/no-lifting, and tone/register — checking accurately against the hidden Official Marking Scheme if uploaded or loaded on server (without leaking missing points outright), or reminding me to confirm final marks in Explain mode if no scheme was uploaded.',
               '- FREE QUESTIONS WELCOME: If I ask any free vocab, grammar, or Data File question mid-chat, answer naturally without forcing the Hint 1/3 ladder. NEVER output raw HTML tags.',
               '',
@@ -2479,12 +2479,7 @@
             let buf = '';
             let gotFinal = false;
 
-            while (true) {
-              const { done, value } = await reader.read();
-              if (done) break;
-              buf += decoder.decode(value, { stream: true });
-              const lines = buf.split('\n');
-              buf = lines.pop() || '';
+            const handleSseLines = (lines) => {
               for (const rawLine of lines) {
                 const line = rawLine.trim();
                 if (!line || !line.startsWith('data:')) continue;
@@ -2510,7 +2505,18 @@
                   }
                 }
               }
+            };
+
+            while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+              buf += decoder.decode(value, { stream: true });
+              const lines = buf.split('\n');
+              buf = lines.pop() || '';
+              handleSseLines(lines);
             }
+            buf += decoder.decode();
+            if (buf.trim()) handleSseLines(buf.split('\n'));
 
             if (!streamMsg.text.trim()) {
               throw new Error('EMPTY_MODEL_RESPONSE');
@@ -2531,9 +2537,22 @@
           }
         } catch (err) {
           const isZh = state.lang === 'zh';
-          const friendly = isZh
-            ? '剛才未能清楚處理你的訊息，請再試一次（或重新拍一張更清晰的照片）。'
-            : "Sorry, I couldn't read that clearly—please try sending it again (or snap a clearer photo).";
+          const errStr = String(err && err.message ? err.message : '');
+          const isBusy = /\b(429|503|504)\b|rate|busy|overload/i.test(errStr);
+          let friendly;
+          if (isBusy) {
+            friendly = isZh
+              ? 'AI 教練現正繁忙（太多同學同時使用），請稍候 3–5 秒再試一次。'
+              : 'AI Coach is busy with many students right now—please wait 3–5 seconds and try sending again.';
+          } else if (images.length > 0) {
+            friendly = isZh
+              ? '剛才未能清楚讀取照片，請再試一次（或重新拍一張更清晰的照片）。'
+              : "Sorry, I couldn't read that photo clearly—please try sending it again (or snap a clearer photo).";
+          } else {
+            friendly = isZh
+              ? '剛才回覆未能完整載入，請再按一次傳送重試。'
+              : "Sorry, the reply didn't come through cleanly—please tap Send again.";
+          }
           streamMsg.isError = true;
           streamMsg.streaming = false;
           streamMsg.text = friendly;
@@ -2723,8 +2742,9 @@
         const hasUserTurn = state.chatMessages.some((m) => m.role === 'user');
         const isUploadCheckIn = choices.some((c) => c.isUploadNext);
         const showTextBtn = (state.paper === 'p1' || state.paper === 'p3b') && hasUserTurn && !isUploadCheckIn;
+        const showAnsBtn = (state.paper === 'p1' || state.paper === 'p3b') && state.mode === 'guided' && hasUserTurn && !isUploadCheckIn;
 
-        if (choices.length === 0 && !showTextBtn) {
+        if (choices.length === 0 && !showTextBtn && !showAnsBtn) {
           bar.classList.add('hidden');
           bar.innerHTML = '';
           return;
@@ -2734,17 +2754,22 @@
         const btns = choices.map((c) => {
           const cmd = c.isLog ? 'SAVE_LOG' : (c.isUploadNext ? 'UPLOAD_NEXT' : c.letter);
           const label = c.isLog
-            ? (state.chatSavingLog ? (state.lang === 'zh' ? '儲存中…' : 'Saving…') : (state.lang === 'zh' ? 'D 錯題' : 'D Log'))
+            ? (state.chatSavingLog ? '…' : c.letter)
             : (c.isUploadNext ? '📷 A' : c.letter);
           const cls = (c.isLog || c.isUploadNext)
             ? 'bg-brand-tealSoft border-brand-teal/45 text-brand-navy'
             : 'bg-brand-canvas border-brand-border text-brand-navy hover:bg-brand-tealSoft';
-          return `<button type="button" data-quick-cmd="${cmd}" title="${escapeHtml(c.letter + ') ' + c.desc)}" aria-label="${escapeHtml(c.letter + ') ' + c.desc)}" ${state.chatSending || (c.isLog && state.chatSavingLog) ? 'disabled' : ''} class="chat-quick-btn flex-1 px-1 py-2 rounded-xl border text-[12.5px] sm:text-[13.5px] font-extrabold text-center whitespace-nowrap transition-colors disabled:opacity-50 ${cls}">${escapeHtml(label)}</button>`;
+          return `<button type="button" data-quick-cmd="${cmd}" title="${escapeHtml(c.letter + ') ' + c.desc)}" aria-label="${escapeHtml(c.letter + ') ' + c.desc)}" ${state.chatSending || (c.isLog && state.chatSavingLog) ? 'disabled' : ''} class="chat-quick-btn flex-1 min-w-0 px-1 py-2 rounded-xl border text-[12.5px] sm:text-[13.5px] font-extrabold text-center whitespace-nowrap transition-colors disabled:opacity-50 ${cls}">${escapeHtml(label)}</button>`;
         });
         if (showTextBtn) {
-          const textLabel = state.lang === 'zh' ? '📖 原文' : '📖 Text';
+          const textLabel = state.lang === 'zh' ? '原文' : 'Text';
           const textTitle = state.lang === 'zh' ? '顯示目前題目及相關原文' : 'Show current question & related text';
-          btns.push(`<button type="button" data-quick-cmd="SHOW_TEXT" title="${escapeHtml(textTitle)}" aria-label="${escapeHtml(textTitle)}" ${state.chatSending ? 'disabled' : ''} class="chat-quick-btn ${choices.length > 0 ? 'flex-1' : 'px-3.5'} px-1.5 py-2 rounded-xl border bg-white border-brand-teal/40 text-brand-teal hover:bg-brand-tealSoft text-[12px] sm:text-[13px] font-extrabold text-center whitespace-nowrap transition-colors disabled:opacity-50">${escapeHtml(textLabel)}</button>`);
+          btns.push(`<button type="button" data-quick-cmd="SHOW_TEXT" title="${escapeHtml(textTitle)}" aria-label="${escapeHtml(textTitle)}" ${state.chatSending ? 'disabled' : ''} class="chat-quick-btn ${choices.length > 0 ? 'flex-1 min-w-0' : 'px-3.5'} px-1 py-2 rounded-xl border bg-white border-brand-teal/40 text-brand-teal hover:bg-brand-tealSoft text-[12px] sm:text-[13px] font-extrabold text-center whitespace-nowrap transition-colors disabled:opacity-50">${escapeHtml(textLabel)}</button>`);
+        }
+        if (showAnsBtn) {
+          const ansLabel = state.lang === 'zh' ? '答案' : 'ANS';
+          const ansTitle = state.lang === 'zh' ? '顯示官方答案及解說' : 'Show official answer & explanation';
+          btns.push(`<button type="button" data-quick-cmd="SHOW_ANS" title="${escapeHtml(ansTitle)}" aria-label="${escapeHtml(ansTitle)}" ${state.chatSending ? 'disabled' : ''} class="chat-quick-btn ${choices.length > 0 ? 'flex-1 min-w-0' : 'px-3.5'} px-1 py-2 rounded-xl border bg-amber-50 border-amber-300 text-amber-800 hover:bg-amber-100 text-[12px] sm:text-[13px] font-extrabold text-center whitespace-nowrap transition-colors disabled:opacity-50">${escapeHtml(ansLabel)}</button>`);
         }
         bar.innerHTML = btns.join('');
       }
@@ -4212,6 +4237,11 @@
           const msg = state.lang === 'zh'
             ? (isP3b ? '顯示目前任務及相關資料頁內容' : '顯示目前題目及相關原文')
             : (isP3b ? 'Show current task & related Data File text' : 'Show current question & related text');
+          sendChatMessage(msg);
+        } else if (cmd === 'SHOW_ANS') {
+          const msg = state.lang === 'zh'
+            ? '顯示官方答案及解說'
+            : 'Show official answer & explanation';
           sendChatMessage(msg);
         } else {
           sendChatMessage(cmd);
