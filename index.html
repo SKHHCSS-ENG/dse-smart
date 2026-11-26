@@ -594,7 +594,7 @@
 
       <!-- School Department Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.33</span></p>
+        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.34</span></p>
       </footer>
     </main>
   </div>
@@ -706,6 +706,7 @@
         '- CLEAN PHONE LAYOUT: Always leave a blank line after the 🎯 title and before the menu. Use short bullet points (1 concise line per bullet) for hints, keywords, and checklists; use a single short paragraph only for a speaking turn. Never squash lines into one dense block.',
         '- CLEAN MENU ONLY (NO DUPLICATE "NEXT STEP"): NEVER print internal labels like "[State 1]" or "【狀態 1】", and NEVER use "Next step:" or "下一步：" as a bullet label inside the body text — reserve "**Next step:**" / "**下一步：**" strictly for the single menu header right above "- **A)**". Do NOT add a "D) Error Log" / "D) 整理錯題記錄" option to in-chat menus (students save mistakes via the top-bar Save / 存錯題 button); reserve D) only for genuine 4th coaching options (such as Paper 2 planning "D) Check my draft").',
         '- SHOW QUESTION & RELATED TEXT: When asked to show the current question/task and related text, print the exact question/task wording plus the surrounding paragraph or Data File lines. If the CURRENT question explicitly quotes a target word or phrase (e.g. \'there\' or \'the situation\'), **bold ONLY that single CURRENT question\'s quoted target word/phrase** in the paragraph (NEVER bold phrases quoted by OTHER questions in the same paragraph, and NEVER bold, highlight, or spoil the answer word(s)!). ALWAYS end with **Next step:** / **下一步：** + the standard A/B/C/D menu (A = Hint 1/3 or next hint, B = Check my try, C = Key vocab / Paraphrase tip, D = Next Q# / Task).',
+        '- AUTO-ADVANCE D), TYPED "next" & NO LAST-ITEM WRAP-AROUND: On Paper 1 & Paper 3B, D) Next Q# / Next Task — and typing "next", "next q", "next question", or "下一題" (which ALWAYS means D) Next Q#, NEVER A) Next Hint!) — immediately starts the next sequential question/sub-part. HOWEVER, if the student is already on the LAST question or sub-part of the paper/uploaded pages (e.g. Q22 on a Q1–Q22 paper), NEVER wrap back to Q1 / Hint 1! Briefly state that this is the final question on this paper, stay put, and invite them to type any Q# to review. NEVER label both C) and D) as Next Q# / 下一題 in the same menu.',
         '- HINTS STAY SPOILER-FREE + ON-DEMAND ANSWER REVEAL: During normal Hints 1/3, 2/3, 3/3 and wrong-try feedback in Guided mode, NEVER write the exact target answer word inside a hint, synonym pair (e.g. NEVER write "carried/transported" when "transported" is the answer), quote, or guiding question, and NEVER name or single out the correct option/heading letter (e.g. NEVER say "check Heading B") after a wrong MCQ or Matching try. HOWEVER, in Guided mode (Paper 1 & Paper 3B), if the student explicitly taps ANS / 答案 or asks for the answer directly ("Show official answer & explanation", "show answer", "give me the answer", "看答案", "顯示官方答案"), IMMEDIATELY reveal the official answer (from the loaded School Paper marking scheme or uploaded Answer Key; if no key is loaded yet, note that clearly and give a best DSE reference answer) plus a concise step-by-step explanation citing the exact passage/Data File evidence, and end with **Next step:** / **下一步：** + the standard A/B/C/D menu.'
       ].join('\n');
 
@@ -790,6 +791,11 @@
               '  - **D)** Next Q#',
               'After checking a WRONG try on an MCQ or Matching (letter-answer A–F) question, OR right after asking the student to type their answer letter (e.g. after they picked B) -> DO NOT print **Next step:** or ANY A/B/C/D menu! End with 1 short line inviting the student to type their answer letter (or type "next" / a Q# to move on) so A–F stay answer options.',
               'If a typed single letter (A, B, C, or D) is ambiguous between an answer choice and a visible menu command -> clarify using ONLY a 2-option menu (so 1-tap A/B pills appear): - **A)** My answer is [letter]  and  - **B)** [the menu action, e.g. Next Q#].',
+              'After answering C) Key vocab & tricky sentences (NEVER put Next Q# on both C and D!) -> print ONLY **Next step:** with:',
+              '  - **A)** Next Hint',
+              '  - **B)** Check my try (type or snap photo)',
+              '  - **C)** More vocab & tricky sentences',
+              '  - **D)** Next Q#',
               'After checking a CORRECT try -> print ONLY **Next step:** with:',
               '  - **A)** Key takeaway / why it works',
               '  - **B)** Key vocab & tricky sentences',
@@ -814,6 +820,11 @@
               '  - **D)** 下一題',
               '核對選擇題（MCQ）或字母配對題（如 A–E / A–F）答錯後，或當學生按 B 後正等待他輸入答案字母時 -> 絕不輸出「**下一步：**」或任何 A/B/C/D 選單！只用 1 句提示學生直接輸入答案字母，或輸入「下一題」／題號轉做其他題目（讓字母保持為答案選項）。',
               '若學生在選單可見時輸入單一字母（A/B/C/D）而意思有歧義 -> 只用兩個選項確認（讓介面顯示 A/B 快捷鍵）：- **A)** 我選的答案是 [字母]  與  - **B)** [該選單動作，例如：下一題]。',
+              '回答 C) 重點生字及難句後（絕不可在 C 和 D 同時寫「下一題」！）-> 只輸出「**下一步：**」與：',
+              '  - **A)** 下一個提示',
+              '  - **B)** 檢查我的作答（輸入或拍照）',
+              '  - **C)** 更多生字及難句',
+              '  - **D)** 下一題',
               '核對作答後（如已答對）-> 只輸出「**下一步：**」與：',
               '  - **A)** 總結解題要點',
               '  - **B)** 重點生字及難句',
@@ -845,10 +856,10 @@
               '  - **B)** Exact passage clue & trap',
               '  - **C)** Key vocab & tricky sentences',
               '  - **D)** Next part / Q#',
-              'After student picks A or B -> print ONLY **Next step:** with:',
+              'After student picks A, B, or C (NEVER put Next Q# on both C and D!) -> print ONLY **Next step:** with:',
               '  - **A)** Quick 1-sentence practice check',
               '  - **B)** Show the other angle (line clue / simpler wording)',
-              '  - **C)** Key vocab & tricky sentences',
+              '  - **C)** More vocab & tricky sentences',
               '  - **D)** Next part / Q#'
             ],
             zh_trad: [
@@ -858,10 +869,10 @@
               '  - **B)** 指出原文線索與常見陷阱',
               '  - **C)** 重點生字及難句',
               '  - **D)** 下一小題／下一題',
-              '學生已選 A 或 B 後 -> 只輸出「**下一步：**」與：',
+              '學生已選 A、B 或 C 後（絕不可在 C 和 D 同時寫「下一題」！）-> 只輸出「**下一步：**」與：',
               '  - **A)** 出一句小練習鞏固',
               '  - **B)** 看另一角度（原文線索／淺白解說）',
-              '  - **C)** 重點生字及難句',
+              '  - **C)** 更多生字及難句',
               '  - **D)** 下一小題／下一題'
             ]
           },
@@ -876,6 +887,11 @@
               'After Hint 3 (OMIT A!) -> print ONLY **Next step:** with B, C, D:',
               '  - **B)** Try my answer — unlock sharper feedback (type or snap)',
               '  - **C)** Anti-lifting & paraphrase tip',
+              '  - **D)** Next Task / Blank',
+              'After answering C) Anti-lifting & paraphrase tip (NEVER put Next Task on both C and D!) -> print ONLY **Next step:** with:',
+              '  - **A)** Next Hint',
+              '  - **B)** Check my try (type or snap photo)',
+              '  - **C)** Another paraphrase example',
               '  - **D)** Next Task / Blank',
               'After checking a draft/sentence try -> print ONLY **Next step:** with:',
               '  - **A)** Polish tone / paraphrasing (avoid lifting)',
@@ -893,6 +909,11 @@
               '提示 3 後（省略 A！）-> 只輸出「**下一步：**」與 B、C、D：',
               '  - **B)** 試答以解鎖針對性提示（輸入或拍照）',
               '  - **C)** 改寫防照抄及人稱轉換貼士',
+              '  - **D)** 下一個要點／任務',
+              '回答 C) 改寫防照抄及人稱轉換貼士後（絕不可在 C 和 D 同時寫「下一個要點／任務」！）-> 只輸出「**下一步：**」與：',
+              '  - **A)** 下一個提示',
+              '  - **B)** 檢查我的作答（輸入或拍照）',
+              '  - **C)** 另一個改寫示範',
               '  - **D)** 下一個要點／任務',
               '核對句子或草稿後 -> 只輸出「**下一步：**」與：',
               '  - **A)** 改善語氣與改寫（避免照抄）',
@@ -925,10 +946,10 @@
               '  - **B)** Exact Data File line & trap',
               '  - **C)** Anti-lifting & paraphrase tip',
               '  - **D)** Next task / point',
-              'After student picks A or B -> print ONLY **Next step:** with:',
+              'After student picks A, B, or C (NEVER put Next task on both C and D!) -> print ONLY **Next step:** with:',
               '  - **A)** Quick 1-sentence paraphrase practice',
               '  - **B)** Show the other angle (Data File line / simpler wording)',
-              '  - **C)** Anti-lifting & paraphrase tip',
+              '  - **C)** Another paraphrase example',
               '  - **D)** Next task / point'
             ],
             zh_trad: [
@@ -938,10 +959,10 @@
               '  - **B)** 指出 Data File 原文線索與陷阱',
               '  - **C)** 改寫防照抄及人稱轉換貼士',
               '  - **D)** 下一個任務／要點',
-              '學生已選 A 或 B 後 -> 只輸出「**下一步：**」與：',
+              '學生已選 A、B 或 C 後（絕不可在 C 和 D 同時寫「下一個任務／要點」！）-> 只輸出「**下一步：**」與：',
               '  - **A)** 練寫一句改寫句子',
               '  - **B)** 看另一角度（Data File 原文／淺白解說）',
-              '  - **C)** 改寫防照抄及人稱轉換貼士',
+              '  - **C)** 另一個改寫示範',
               '  - **D)** 下一個任務／要點'
             ]
           },
@@ -2380,6 +2401,97 @@
           .replace(/^\s*【提示\s*[123]\/3[^\n】]*】\s*[:：]?\s*$/gmi, '');
       }
 
+      const MENU_TRANSLATION_PAIRS = [
+        ['Upload next page', '上傳下一頁'],
+        ['Done — start coaching', '上傳完成，開始練習'],
+        ['Next Hint', '下一個提示'],
+        ['Check my try (type or snap photo)', '檢查我的作答（輸入或拍照）'],
+        ['Check my try (type or snap)', '檢查我的作答（輸入或拍照）'],
+        ['Try my answer — unlock sharper feedback (type or snap)', '試答以解鎖針對性提示（輸入或拍照）'],
+        ['Give me 1 targeted clue to fix it', '給我一個修改線索'],
+        ['Re-check my new try (type or snap)', '重檢我修改後的答案（輸入或拍照）'],
+        ['Key vocab & tricky sentences', '重點生字及難句'],
+        ['More vocab & tricky sentences', '更多生字及難句'],
+        ['Key takeaway / why it works', '總結解題要點'],
+        ['Jump to another Q# (type Q#)', '轉做其他題目（輸入題號）'],
+        ['Next part / Q#', '下一小題／下一題'],
+        ['Next Q#', '下一題'],
+        ['Simpler explanation', '用更淺白的文字解釋'],
+        ['Exact passage clue & trap', '指出原文線索與常見陷阱'],
+        ['Quick 1-sentence practice check', '出一句小練習鞏固'],
+        ['Show the other angle (line clue / simpler wording)', '看另一角度（原文線索／淺白解說）'],
+        ['Anti-lifting & paraphrase tip', '改寫防照抄及人稱轉換貼士'],
+        ['Another paraphrase example', '另一個改寫示範'],
+        ['Polish tone / paraphrasing (avoid lifting)', '改善語氣與改寫（避免照抄）'],
+        ['Re-check my edited sentence', '重檢我修改後的句子'],
+        ['Next content point / Task', '下一個要點／任務'],
+        ['Next Task / Blank', '下一個要點／任務'],
+        ['Next task / point', '下一個任務／要點'],
+        ['Exact Data File line & trap', '指出 Data File 原文線索與陷阱'],
+        ['Quick 1-sentence paraphrase practice', '練寫一句改寫句子'],
+        ['Show the other angle (Data File line / simpler wording)', '看另一角度（Data File 原文／淺白解說）'],
+        ['Plan PAT & 3 ideas', '構思審題（PAT）與三個論點'],
+        ['Useful vocab & sentence starters', '常用詞彙與開頭句式'],
+        ['Check my draft (snap photo or paste)', '檢查我的草稿（拍照或貼上）'],
+        ['Paragraph structure / outline', '段落大綱與結構'],
+        ['Overview (Content, Language & Organisation)', '整體評語（內容、語言、結構）'],
+        ['Upgrade 1 paragraph (P1 / P2 / P3)', '重點提升指定段落（P1／P2／P3）'],
+        ['Elaborate ideas with concrete examples', '補充論點細節與具體例子'],
+        ['Outline paragraphs (P1–P4)', '規劃段落大綱（P1–P4）'],
+        ['Useful vocab & topic-sentence starters', '常用詞彙與主題句句式'],
+        ['Next planning step (Outline or Vocab/starters not done yet)', '下一步構思（尚未做的段落大綱或句式）'],
+        ['Check my opening / draft (snap photo or paste)', '檢查我寫的句子或草稿（拍照或貼上）'],
+        ['Switch to another Q# or writing area', '轉做另一題或切換範疇'],
+        ['Dig into Content', '深入改善內容'],
+        ['Dig into Language', '深入改善語言'],
+        ['Dig into Organisation', '深入改善結構與連貫'],
+        ['Strengthen ideas & examples in this paragraph', '加強本段論點與例子'],
+        ['Polish grammar & vocab in this paragraph', '提升本段文法與詞彙'],
+        ['Upgrade next paragraph', '提升下一段'],
+        ['Brainstorm HK ideas & phrases', '構思香港例子與常用互動句式'],
+        ['Group Discussion role-play', '小組討論角色扮演（每次一輪）'],
+        ['1-minute Examiner IR question', '一分鐘個人回應（IR）練習'],
+        ['Topic vocab booster', '本題高分詞彙'],
+        ['More HK examples & counter-arguments', '補充更多香港例子與反駁角度'],
+        ['Start Group Discussion role-play', '立即開始小組討論角色扮演'],
+        ['Try 1-minute Examiner IR', '試答一分鐘個人回應（IR）'],
+        ['Next groupmate turn', '繼續下一輪組員發言'],
+        ['Give me a natural phrase to respond', '給我一句自然回應句式'],
+        ['Quick feedback on my last turn', '點評我剛才的發言'],
+        ['Rescue & turn-taking phrases', '救場與接話句式'],
+        ['Upgrade my answer (better phrasing & example)', '升級我的回答（句式與例子）'],
+        ['Try a follow-up IR question', '挑戰下一條個人回應題'],
+        ['Switch to Group Discussion', '轉做小組討論練習'],
+        ['1-min answer frame', '一分鐘答題框架']
+      ];
+
+      function localizeMenuInCoachText(text, lang) {
+        const isZh = lang === 'zh';
+        const lines = String(text || '').split('\n');
+        return lines.map((line) => {
+          if (/^\s*(?:\*\*)?(?:Next step:|下一步：)(?:\*\*)?\s*$/i.test(line)) {
+            return isZh ? '**下一步：**' : '**Next step:**';
+          }
+          const m = line.match(/^(\s*(?:[-•*]\s*)?(?:\*\*)?[A-D]\)(?:\*\*)?\s*)(.+)$/);
+          if (!m) return line;
+          const prefix = m[1];
+          let desc = m[2].trim();
+          const disambEn = desc.match(/^My answer is\s+([A-F])$/i);
+          const disambZh = desc.match(/^我選的答案是\s*([A-F])$/i);
+          if (disambEn && isZh) return `${prefix}我選的答案是 ${disambEn[1].toUpperCase()}`;
+          if (disambZh && !isZh) return `${prefix}My answer is ${disambZh[1].toUpperCase()}`;
+          for (const [enLabel, zhLabel] of MENU_TRANSLATION_PAIRS) {
+            if (isZh && desc.toLowerCase() === enLabel.toLowerCase()) {
+              return `${prefix}${zhLabel}`;
+            }
+            if (!isZh && desc === zhLabel) {
+              return `${prefix}${enLabel}`;
+            }
+          }
+          return line;
+        }).join('\n');
+      }
+
       function buildChatPayloadMessages(allMessages, recentLimit = 16, maxPinnedPhotos = 8) {
         const clean = allMessages.filter((m) => !m.isError && !m.streaming && !m.isSystemNote);
         let picked = clean;
@@ -2450,7 +2562,7 @@
           if (!streamMsg.text) {
             bodyEl.innerHTML = `<span class="inline-flex items-center gap-2 text-[12.5px] text-brand-teal font-semibold"><span class="w-2 h-2 rounded-full bg-brand-teal animate-pulse"></span>${isZh ? 'AI 教練思考中…' : 'Coach is thinking...'}</span>`;
           } else {
-            bodyEl.innerHTML = renderSafeMarkdown(sanitizeClientCoachText(streamMsg.text)) + '<span class="inline-block w-1.5 h-3.5 ml-0.5 align-middle bg-brand-teal/80 animate-pulse rounded-sm"></span>';
+            bodyEl.innerHTML = renderSafeMarkdown(localizeMenuInCoachText(sanitizeClientCoachText(streamMsg.text), state.lang)) + '<span class="inline-block w-1.5 h-3.5 ml-0.5 align-middle bg-brand-teal/80 animate-pulse rounded-sm"></span>';
           }
           scrollChatToBottom();
         };
@@ -2650,17 +2762,18 @@
             ? `<div class="flex flex-wrap gap-1.5 mb-1.5 max-w-full">${m.images.map((src) => `<img src="${src}" alt="Attached paper" class="chat-zoom-img cursor-zoom-in w-24 h-24 max-w-full object-cover rounded-xl border border-white/50 shadow-sm" />`).join('')}</div>`
             : '';
           if (isUser) {
+            const displayUserText = String(m.text || '').replace(/_{8,}/g, '________');
             return `
               <div class="flex justify-end">
-                <div class="max-w-[85%] rounded-2xl rounded-br-md bg-brand-navy text-white px-3.5 py-2.5 text-[13.5px] leading-snug shadow-sm">
+                <div class="max-w-[85%] min-w-0 rounded-2xl rounded-br-md bg-brand-navy text-white px-3.5 py-2.5 text-[13.5px] leading-snug shadow-sm">
                   ${imgsHtml}
-                  <div class="whitespace-pre-wrap">${escapeHtml(m.text)}</div>
+                  <div class="whitespace-pre-wrap break-words [overflow-wrap:anywhere]">${escapeHtml(displayUserText)}</div>
                 </div>
               </div>`;
           }
           if (m.streaming) {
             const inner = m.text
-              ? renderSafeMarkdown(sanitizeClientCoachText(m.text)) + '<span class="inline-block w-1.5 h-3.5 ml-0.5 align-middle bg-brand-teal/80 animate-pulse rounded-sm"></span>'
+              ? renderSafeMarkdown(localizeMenuInCoachText(sanitizeClientCoachText(m.text), state.lang)) + '<span class="inline-block w-1.5 h-3.5 ml-0.5 align-middle bg-brand-teal/80 animate-pulse rounded-sm"></span>'
               : `<span class="inline-flex items-center gap-2 text-[12.5px] text-brand-teal font-semibold"><span class="w-2 h-2 rounded-full bg-brand-teal animate-pulse"></span>${state.lang === 'zh' ? 'AI 教練思考中…' : 'Coach is thinking...'}</span>`;
             return `
               <div class="flex justify-start">
@@ -2672,7 +2785,7 @@
           return `
             <div class="flex justify-start">
               <div class="max-w-[92%] rounded-2xl rounded-bl-md bg-white border border-brand-border px-3.5 py-2.5 text-[13.5px] leading-relaxed text-slate-700 shadow-sm chat-md">
-                ${renderSafeMarkdown(sanitizeClientCoachText(m.text))}
+                ${renderSafeMarkdown(localizeMenuInCoachText(sanitizeClientCoachText(m.text), state.lang))}
               </div>
             </div>`;
         }).join('');
@@ -2728,7 +2841,7 @@
       function renderChatQuickActions() {
         const bar = document.getElementById('chat-quick-actions');
         const lastAssistant = [...state.chatMessages].reverse().find((m) => m.role === 'assistant');
-        const choices = lastAssistant ? parseChoicesFromReply(lastAssistant.text) : [];
+        const choices = lastAssistant ? parseChoicesFromReply(localizeMenuInCoachText(lastAssistant.text, state.lang)) : [];
         const hasUserTurn = state.chatMessages.some((m) => m.role === 'user');
         const isUploadCheckIn = choices.some((c) => c.isUploadNext);
         const showTextBtn = (state.paper === 'p1' || state.paper === 'p3b') && hasUserTurn && !isUploadCheckIn;
