@@ -518,6 +518,7 @@
                     <input id="bs-file-answers" type="file" accept=".pdf,.docx,.txt,image/*" multiple class="hidden" />
                   </label>
                 </div>
+                <div id="bs-scan-status-answer_key" class="hidden text-[11px] font-semibold text-brand-teal bg-white/90 border border-brand-teal/25 rounded-lg px-2.5 py-1.5"></div>
                 <textarea id="bs-raw-answers" rows="2" placeholder="Paste marking scheme text or upload PDF/Word/Photos above, then tap AI Parse..." class="w-full rounded-lg border border-brand-border bg-white px-2.5 py-1.5 text-[12.5px] text-brand-navy resize-none"></textarea>
                 <div class="flex items-center justify-between gap-2">
                   <button id="btn-bs-parse-answers" type="button" class="px-3 py-1.5 rounded-lg bg-brand-navy text-white text-[11.5px] font-bold disabled:opacity-60">AI Parse into Q&amp;A Rows</button>
@@ -535,6 +536,7 @@
                     <input id="bs-file-questions" type="file" accept=".pdf,.docx,.txt,image/*" multiple class="hidden" />
                   </label>
                 </div>
+                <div id="bs-scan-status-questions" class="hidden text-[11px] font-semibold text-brand-teal bg-white/90 border border-brand-teal/25 rounded-lg px-2.5 py-1.5"></div>
                 <textarea id="bs-questions-text" rows="3" placeholder="Optional: Paste or upload questions so students can just type Q14..." class="w-full rounded-lg border border-brand-border bg-white px-2.5 py-1.5 text-[12.5px] text-brand-navy resize-y"></textarea>
               </div>
 
@@ -547,6 +549,7 @@
                     <input id="bs-file-passage" type="file" accept=".pdf,.docx,.txt,image/*" multiple class="hidden" />
                   </label>
                 </div>
+                <div id="bs-scan-status-passage" class="hidden text-[11px] font-semibold text-brand-teal bg-white/90 border border-brand-teal/25 rounded-lg px-2.5 py-1.5"></div>
                 <textarea id="bs-passage-text" rows="3" placeholder="Optional: Paste or upload passage/Data File so students don't need to snap 5 pages..." class="w-full rounded-lg border border-brand-border bg-white px-2.5 py-1.5 text-[12.5px] text-brand-navy resize-y"></textarea>
               </div>
 
@@ -591,7 +594,7 @@
 
       <!-- School Department Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.29</span></p>
+        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.30</span></p>
       </footer>
     </main>
   </div>
@@ -1947,6 +1950,7 @@
         }
         if (name.endsWith('.pdf') || file.type === 'application/pdf') {
           if (!window.pdfjsLib) throw new Error('PDF parser still loading — try again in a second');
+          window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
           const buf = await file.arrayBuffer();
           const pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
           const pages = [];
@@ -2305,14 +2309,17 @@
           }
         } else {
           const isExplain = PAPERS[state.paper].hasModes && state.mode === 'explain';
+          const uploadTip = isZh
+            ? '\n- **小貼士：**建議 **逐頁拍照上傳**（識別最準確），或一次最多上傳 3 頁。'
+            : '\n- **Tip:** Upload **1 page at a time** (recommended for best accuracy), or up to 3 pages together.';
           if (state.paper === 'p2') {
             welcome = isZh
-              ? `**🎯 Paper 2 · 寫作教練**\n\n- **第 1 步：**拍下 **寫作題目**（如已有草稿可一併或稍後拍下）\n- **第 2 步：**選擇 **構思大綱** 或 **整體評語**，再深入改善 **內容**、**語言** 或 **結構**。`
-              : `**🎯 Paper 2 · Writing Coach**\n\n- **Step 1:** Snap your **Writing Topic** (and your **draft** if you have one)\n- **Step 2:** Choose **Plan** or **Overview**, then dig into **Content**, **Language**, or **Organisation**.`;
+              ? `**🎯 Paper 2 · 寫作教練**\n\n- **第 1 步：**拍下 **寫作題目**（如已有草稿可一併或稍後拍下）\n- **第 2 步：**選擇 **構思大綱** 或 **整體評語**，再深入改善 **內容**、**語言** 或 **結構**。${uploadTip}`
+              : `**🎯 Paper 2 · Writing Coach**\n\n- **Step 1:** Snap your **Writing Topic** (and your **draft** if you have one)\n- **Step 2:** Choose **Plan** or **Overview**, then dig into **Content**, **Language**, or **Organisation**.${uploadTip}`;
           } else if (state.paper === 'p4') {
             welcome = isZh
-              ? `**🎯 Paper 4 · 說話教練**\n\n- 拍下 **說話題目卡（Prompt Card）**，即可練習審題構思、小組討論（GI）或個人回應（IR）。`
-              : `**🎯 Paper 4 · Speaking Coach**\n\n- Snap your **Speaking Prompt Card** to practise ideas, Group Interaction (GI), or Individual Response (IR).`;
+              ? `**🎯 Paper 4 · 說話教練**\n\n- 拍下 **說話題目卡（Prompt Card）**，即可練習審題構思、小組討論（GI）或個人回應（IR）。${uploadTip}`
+              : `**🎯 Paper 4 · Speaking Coach**\n\n- Snap your **Speaking Prompt Card** to practise ideas, Group Interaction (GI), or Individual Response (IR).${uploadTip}`;
           } else if (isExplain) {
             const isP3b = state.paper === 'p3b';
             const mat = isP3b ? (isZh ? '資料頁（Data File）' : 'Data File') : (isZh ? '閱讀文章' : 'Passage');
@@ -2322,8 +2329,8 @@
             const qPromptZh = isP3b ? `輸入任務編號（例如 \`${qEx}\`）` : `輸入題號（例如 \`${qEx}\`）`;
             const qPromptEn = isP3b ? `Type your task number (e.g. \`${qEx}\`)` : `Type a question number (e.g. \`${qEx}\`)`;
             welcome = isZh
-              ? `**🎯 ${PAPERS[state.paper].code} · 核對解說**\n\n- **第 1 步：**先拍下 **${mat}**\n- **第 2 步：**再拍下你的 **${work}**\n- **第 3 步：**分開拍下 **${keyDoc}**\n- **第 4 步：**${qPromptZh}`
-              : `**🎯 ${PAPERS[state.paper].code} · Explain Mode**\n\n- **Step 1:** Snap the **${mat}**\n- **Step 2:** Snap your **${work}**\n- **Step 3:** Snap the **${keyDoc}** separately\n- **Step 4:** ${qPromptEn}`;
+              ? `**🎯 ${PAPERS[state.paper].code} · 核對解說**\n\n- **第 1 步：**先拍下 **${mat}**\n- **第 2 步：**再拍下你的 **${work}**\n- **第 3 步：**分開拍下 **${keyDoc}**\n- **第 4 步：**${qPromptZh}${uploadTip}`
+              : `**🎯 ${PAPERS[state.paper].code} · Explain Mode**\n\n- **Step 1:** Snap the **${mat}**\n- **Step 2:** Snap your **${work}**\n- **Step 3:** Snap the **${keyDoc}** separately\n- **Step 4:** ${qPromptEn}${uploadTip}`;
           } else {
             const isP3b = state.paper === 'p3b';
             const mat = isP3b ? (isZh ? '資料頁（Data File）' : 'Data File') : (isZh ? '閱讀文章' : 'Passage');
@@ -2333,8 +2340,8 @@
             const isGuided = state.mode === 'guided';
             if (isGuided) {
               welcome = isZh
-                ? `**🎯 ${PAPERS[state.paper].code} · 引導練習**\n\n- 拍下或輸入 **${mat}** 及 **${qPage}**（可選：另拍 **${keyOpt}**，引導時絕不劇透，只用作準確核對你的作答！）。\n- 輸入題號（例如 \`${qEx}\`）即可開始；作答後可隨時 **拍照或輸入答案** 獲取即時回饋，亦可自由發問。`
-                : `**🎯 ${PAPERS[state.paper].code} · Guided Practice**\n\n- Snap or type your **${mat}** and **${qPage}** (optional: also snap the **${keyOpt}** — I'll keep answers hidden during hints and use it to check your tries!).\n- Type a question number (e.g. \`${qEx}\`), **snap or type your try** anytime for instant feedback, or ask any free vocab/grammar question.`;
+                ? `**🎯 ${PAPERS[state.paper].code} · 引導練習**\n\n- 拍下或輸入 **${mat}** 及 **${qPage}**（可選：另拍 **${keyOpt}**，引導時絕不劇透，只用作準確核對你的作答！）。\n- 輸入題號（例如 \`${qEx}\`）即可開始；作答後可隨時 **拍照或輸入答案** 獲取即時回饋，亦可自由發問。${uploadTip}`
+                : `**🎯 ${PAPERS[state.paper].code} · Guided Practice**\n\n- Snap or type your **${mat}** and **${qPage}** (optional: also snap the **${keyOpt}** — I'll keep answers hidden during hints and use it to check your tries!).\n- Type a question number (e.g. \`${qEx}\`), **snap or type your try** anytime for instant feedback, or ask any free vocab/grammar question.${uploadTip}`;
             } else {
               welcome = isZh
                 ? `**🎯 ${PAPERS[state.paper].code} · 自檢草稿**\n\n- 先拍下 **${mat}**，再拍你 **已完成的${qPage}**（先不用拍答案），輸入題號（例如 \`${qEx}\`）即可開始自我檢查。`
@@ -2383,7 +2390,7 @@
           .replace(/^\s*【提示\s*[123]\/3[^\n】]*】\s*[:：]?\s*$/gmi, '');
       }
 
-      function buildChatPayloadMessages(allMessages, recentLimit = 16, maxPinnedPhotos = 4) {
+      function buildChatPayloadMessages(allMessages, recentLimit = 16, maxPinnedPhotos = 8) {
         const clean = allMessages.filter((m) => !m.isError && !m.streaming && !m.isSystemNote);
         let picked = clean;
         if (clean.length > recentLimit) {
@@ -2436,7 +2443,7 @@
           baseSystemPrompt: buildPrompt(),
           teacherPasscode: state.bsUnlocked ? state.teacherPasscode : '',
           stream: true,
-          messages: buildChatPayloadMessages(state.chatMessages, 16, 4)
+          messages: buildChatPayloadMessages(state.chatMessages, 16, 8)
         };
 
         const streamMsg = { role: 'assistant', text: '', images: [], streaming: true, phase: 'thinking' };
@@ -2702,7 +2709,8 @@
           if (!seen.has(letter)) {
             seen.add(letter);
             const isLog = /error\s*log|錯題/i.test(desc);
-            choices.push({ letter, desc, isLog });
+            const isUploadNext = /upload\s*next\s*page|上傳下一頁/i.test(desc);
+            choices.push({ letter, desc, isLog, isUploadNext });
           }
         }
         return choices;
@@ -2713,7 +2721,8 @@
         const lastAssistant = [...state.chatMessages].reverse().find((m) => m.role === 'assistant');
         const choices = lastAssistant ? parseChoicesFromReply(lastAssistant.text) : [];
         const hasUserTurn = state.chatMessages.some((m) => m.role === 'user');
-        const showTextBtn = (state.paper === 'p1' || state.paper === 'p3b') && hasUserTurn;
+        const isUploadCheckIn = choices.some((c) => c.isUploadNext);
+        const showTextBtn = (state.paper === 'p1' || state.paper === 'p3b') && hasUserTurn && !isUploadCheckIn;
 
         if (choices.length === 0 && !showTextBtn) {
           bar.classList.add('hidden');
@@ -2723,11 +2732,11 @@
 
         bar.classList.remove('hidden');
         const btns = choices.map((c) => {
-          const cmd = c.isLog ? 'SAVE_LOG' : c.letter;
+          const cmd = c.isLog ? 'SAVE_LOG' : (c.isUploadNext ? 'UPLOAD_NEXT' : c.letter);
           const label = c.isLog
             ? (state.chatSavingLog ? (state.lang === 'zh' ? '儲存中…' : 'Saving…') : (state.lang === 'zh' ? 'D 錯題' : 'D Log'))
-            : c.letter;
-          const cls = c.isLog
+            : (c.isUploadNext ? '📷 A' : c.letter);
+          const cls = (c.isLog || c.isUploadNext)
             ? 'bg-brand-tealSoft border-brand-teal/45 text-brand-navy'
             : 'bg-brand-canvas border-brand-border text-brand-navy hover:bg-brand-tealSoft';
           return `<button type="button" data-quick-cmd="${cmd}" title="${escapeHtml(c.letter + ') ' + c.desc)}" aria-label="${escapeHtml(c.letter + ') ' + c.desc)}" ${state.chatSending || (c.isLog && state.chatSavingLog) ? 'disabled' : ''} class="chat-quick-btn flex-1 px-1 py-2 rounded-xl border text-[12.5px] sm:text-[13.5px] font-extrabold text-center whitespace-nowrap transition-colors disabled:opacity-50 ${cls}">${escapeHtml(label)}</button>`;
@@ -3089,6 +3098,9 @@
         document.getElementById('bs-raw-answers').value = '';
         document.getElementById('bs-questions-text').value = '';
         document.getElementById('bs-passage-text').value = '';
+        setBackstageScanStatus('answer_key', '');
+        setBackstageScanStatus('questions', '');
+        setBackstageScanStatus('passage', '');
         renderBackstageAnswerRows();
         updateBackstageFormForPaper();
         document.getElementById('bs-editor-heading').textContent = 'New School Paper';
@@ -3122,59 +3134,213 @@
           </div>`).join('');
       }
 
+      function setBackstageScanStatus(kind, msg, isError = false) {
+        const el = document.getElementById(`bs-scan-status-${kind}`);
+        if (!el) return;
+        if (!msg) {
+          el.classList.add('hidden');
+          el.textContent = '';
+          return;
+        }
+        el.textContent = msg;
+        el.classList.remove('hidden', 'text-brand-teal', 'border-brand-teal/25', 'text-amber-700', 'border-amber-300');
+        if (isError) {
+          el.classList.add('text-amber-700', 'border-amber-300');
+        } else {
+          el.classList.add('text-brand-teal', 'border-brand-teal/25');
+        }
+      }
+
+      async function extractBackstagePdfPages(file, maxPages = 20) {
+        if (!window.pdfjsLib) throw new Error('PDF parser still loading — try again in a second');
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        const buf = await file.arrayBuffer();
+        const pdf = await window.pdfjsLib.getDocument({ data: buf }).promise;
+        const count = Math.min(pdf.numPages, maxPages);
+        const pages = [];
+        for (let p = 1; p <= count; p++) {
+          const page = await pdf.getPage(p);
+          const tc = await page.getTextContent();
+          const cleaned = tc.items.map((it) => it.str).join(' ').replace(/\s+/g, ' ').trim();
+          const label = `${file.name} (p.${p})`;
+          if (cleaned.replace(/\s+/g, '').length >= 40) {
+            pages.push({ type: 'text', label, text: cleaned });
+          } else {
+            const baseVp = page.getViewport({ scale: 1 });
+            const targetScale = Math.min(1.8, 1700 / Math.max(baseVp.width, baseVp.height, 1));
+            const vp = page.getViewport({ scale: Math.max(1.25, targetScale) });
+            const canvas = document.createElement('canvas');
+            canvas.width = Math.round(vp.width);
+            canvas.height = Math.round(vp.height);
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            await page.render({ canvasContext: ctx, viewport: vp }).promise;
+            pages.push({ type: 'image', label, dataUrl: canvas.toDataURL('image/jpeg', 0.85) });
+          }
+        }
+        return { pages, truncated: pdf.numPages > maxPages, totalPages: pdf.numPages };
+      }
+
+      function mergeBackstageAnswerRows(newItems) {
+        const merged = Array.isArray(state.bsAnswerRows) ? [...state.bsAnswerRows] : [];
+        const byKey = new Map();
+        merged.forEach((row, idx) => {
+          const k = String(row.q || '').trim().toLowerCase();
+          if (k) byKey.set(k, idx);
+        });
+        (newItems || []).forEach((it) => {
+          const k = String(it.q || '').trim().toLowerCase();
+          if (!k) return;
+          if (byKey.has(k)) {
+            merged[byKey.get(k)] = it;
+          } else {
+            byKey.set(k, merged.length);
+            merged.push(it);
+          }
+        });
+        state.bsAnswerRows = merged;
+        renderBackstageAnswerRows();
+      }
+
       async function handleBackstageFiles(files, kind) {
         if (!files || files.length === 0) return;
-        showToast('Reading uploaded file(s)...');
-        const extractedTexts = [];
-        const imageDataUrls = [];
+        setBackstageScanStatus(kind, 'Preparing file(s)...');
+        showToast('Preparing uploaded file(s)...');
 
+        const queue = [];
         for (const f of Array.from(files)) {
-          if (f.type && f.type.startsWith('image/')) {
-            try {
-              imageDataUrls.push(await compressImageFile(f, 1500, 0.85));
-            } catch (_) {}
-          } else {
-            try {
+          const fname = (f.name || '').toLowerCase();
+          const isPdf = f.type === 'application/pdf' || fname.endsWith('.pdf');
+          const isImg = (f.type && f.type.startsWith('image/')) || /\.(jpe?g|png|webp|gif|bmp)$/i.test(fname);
+          try {
+            if (isImg) {
+              const dataUrl = await compressImageFile(f, 1500, 0.85);
+              queue.push({ type: 'image', label: f.name || 'Photo', dataUrl });
+            } else if (isPdf) {
+              setBackstageScanStatus(kind, `Reading PDF pages from ${f.name}...`);
+              const { pages, truncated, totalPages } = await extractBackstagePdfPages(f, 20);
+              pages.forEach((pg) => queue.push(pg));
+              if (truncated) {
+                showToast(`Imported first 20 of ${totalPages} PDF pages`, 2800);
+              }
+            } else {
               const t = await extractTextFromFile(f);
-              if (t) extractedTexts.push(t);
-            } catch (err) {
-              showToast(err.message || `Could not read ${f.name}`);
+              if (t) queue.push({ type: 'text', label: f.name || 'File', text: t });
             }
+          } catch (err) {
+            showToast(err.message || `Could not read ${f.name}`);
           }
         }
 
-        const combinedText = extractedTexts.join('\n\n').trim();
+        if (queue.length === 0) {
+          setBackstageScanStatus(kind, 'No readable pages found in uploaded file(s).', true);
+          return;
+        }
+
+        const total = queue.length;
+        const failedLabels = [];
+        let okCount = 0;
 
         if (kind === 'answer_key') {
-          if (combinedText) document.getElementById('bs-raw-answers').value = combinedText;
-          if (imageDataUrls.length > 0 || combinedText) {
-            await parseAnswersWithAI(combinedText, imageDataUrls);
+          const textItems = queue.filter((it) => it.type === 'text');
+          const imageItems = queue.filter((it) => it.type === 'image');
+          const btn = document.getElementById('btn-bs-parse-answers');
+          btn.disabled = true;
+          btn.textContent = 'Parsing 1-by-1...';
+
+          try {
+            if (textItems.length > 0) {
+              const combinedText = textItems.map((it) => `--- ${it.label} ---\n${it.text}`).join('\n\n');
+              const rawEl = document.getElementById('bs-raw-answers');
+              rawEl.value = (rawEl.value ? rawEl.value + '\n\n' : '') + combinedText;
+              setBackstageScanStatus(kind, `Parsing ${textItems.length} digital text page(s)...`);
+              const res = await fetch(`${WORKER_URL}/backstage/parse`, {
+                method: 'POST',
+                headers: teacherHeaders(),
+                body: JSON.stringify({ kind: 'answer_key', text: combinedText, images: [] })
+              });
+              const data = await res.json().catch(() => ({}));
+              if (res.ok && data.ok && Array.isArray(data.items)) {
+                mergeBackstageAnswerRows(data.items);
+                okCount += textItems.length;
+              } else {
+                failedLabels.push('text pages');
+              }
+            }
+
+            for (let i = 0; i < imageItems.length; i++) {
+              const item = imageItems[i];
+              setBackstageScanStatus(kind, `Scanning page ${i + 1} of ${imageItems.length} (1 page at a time): ${item.label}...`);
+              try {
+                const res = await fetch(`${WORKER_URL}/backstage/parse`, {
+                  method: 'POST',
+                  headers: teacherHeaders(),
+                  body: JSON.stringify({ kind: 'answer_key', text: '', images: [item.dataUrl] })
+                });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok || !data.ok) throw new Error(data.error || 'Parse failed');
+                if (Array.isArray(data.items) && data.items.length > 0) {
+                  mergeBackstageAnswerRows(data.items);
+                }
+                okCount++;
+              } catch (_) {
+                failedLabels.push(item.label);
+              }
+            }
+          } finally {
+            btn.disabled = false;
+            btn.textContent = 'AI Parse into Q&A Rows';
+          }
+
+          if (failedLabels.length > 0) {
+            setBackstageScanStatus(kind, `Done: ${okCount}/${total} page(s) parsed (${state.bsAnswerRows.length} rows). Failed: ${failedLabels.join(', ')}`, true);
+            showToast(`Parsed ${state.bsAnswerRows.length} rows (${failedLabels.length} page failed)`, 3200);
+          } else {
+            setBackstageScanStatus(kind, `Done: ${okCount}/${total} page(s) parsed (${state.bsAnswerRows.length} rows ready — review & Save).`);
+            showToast(`Parsed ${state.bsAnswerRows.length} answer rows — review & Save`);
           }
           return;
         }
 
         const targetEl = document.getElementById(kind === 'questions' ? 'bs-questions-text' : 'bs-passage-text');
-        if (combinedText && imageDataUrls.length === 0) {
-          targetEl.value = (targetEl.value ? targetEl.value + '\n\n' : '') + combinedText;
-          showToast(`Extracted text from ${files.length} file(s)`);
-          return;
+        const imageTotal = queue.filter((it) => it.type === 'image').length;
+        let imageIdx = 0;
+
+        for (let i = 0; i < queue.length; i++) {
+          const item = queue[i];
+          if (item.type === 'text') {
+            setBackstageScanStatus(kind, `Extracted text page ${i + 1} of ${total}: ${item.label}`);
+            targetEl.value = (targetEl.value ? targetEl.value + '\n\n' : '') + `--- ${item.label} ---\n${item.text}`;
+            okCount++;
+          } else {
+            imageIdx++;
+            setBackstageScanStatus(kind, `OCR scanning page ${imageIdx} of ${imageTotal} (1 page at a time): ${item.label}...`);
+            try {
+              const res = await fetch(`${WORKER_URL}/backstage/parse`, {
+                method: 'POST',
+                headers: teacherHeaders(),
+                body: JSON.stringify({ kind, text: '', images: [item.dataUrl] })
+              });
+              const data = await res.json().catch(() => ({}));
+              if (!res.ok || !data.ok) throw new Error(data.error || 'OCR failed');
+              const pageText = String(data.text || '').trim();
+              if (pageText) {
+                targetEl.value = (targetEl.value ? targetEl.value + '\n\n' : '') + `--- ${item.label} ---\n${pageText}`;
+              }
+              okCount++;
+            } catch (_) {
+              failedLabels.push(item.label);
+            }
+          }
         }
 
-        if (imageDataUrls.length > 0) {
-          showToast('OCR scanning photo(s) with DeepSeek Vision...');
-          try {
-            const res = await fetch(`${WORKER_URL}/backstage/parse`, {
-              method: 'POST',
-              headers: teacherHeaders(),
-              body: JSON.stringify({ kind, text: combinedText, images: imageDataUrls.slice(0, 6) })
-            });
-            const data = await res.json().catch(() => ({}));
-            if (!res.ok || !data.ok) throw new Error(data.error || 'OCR failed');
-            targetEl.value = (targetEl.value ? targetEl.value + '\n\n' : '') + (data.text || '');
-            showToast('Photo text extracted!');
-          } catch (err) {
-            showToast(err.message || 'Photo OCR failed');
-          }
+        if (failedLabels.length > 0) {
+          setBackstageScanStatus(kind, `Done: ${okCount}/${total} page(s) extracted. Failed: ${failedLabels.join(', ')}`, true);
+          showToast(`Extracted ${okCount}/${total} pages (${failedLabels.length} failed)`, 3200);
+        } else {
+          setBackstageScanStatus(kind, `Done: all ${okCount}/${total} page(s) extracted cleanly (1-by-1).`);
+          showToast(`Extracted all ${okCount} page(s)!`);
         }
       }
 
@@ -4039,6 +4205,8 @@
         const cmd = btn.dataset.quickCmd;
         if (cmd === 'SAVE_LOG') {
           saveErrorLogFromChat();
+        } else if (cmd === 'UPLOAD_NEXT') {
+          document.getElementById('chat-photo-input').click();
         } else if (cmd === 'SHOW_TEXT') {
           const isP3b = state.paper === 'p3b';
           const msg = state.lang === 'zh'
