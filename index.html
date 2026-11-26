@@ -480,7 +480,9 @@
                 <span id="bs-reports-badge" class="hidden px-1.5 py-0.2 rounded-full bg-amber-500 text-white text-[10px] font-bold">0</span>
               </button>
             </div>
+            <button id="btn-bs-test-openrouter" type="button" class="px-2.5 py-1.5 rounded-xl bg-white border border-brand-border hover:bg-brand-tealSoft text-brand-navy text-[11px] font-bold whitespace-nowrap shrink-0 disabled:opacity-60">Test Backup AI</button>
           </div>
+          <div id="bs-openrouter-status" class="hidden text-[11px] font-semibold px-2.5 py-1.5 rounded-xl border"></div>
 
           <!-- Subtab A: Papers Manager + 3-Slot Editor -->
           <div id="bs-panel-papers" class="flex flex-col gap-3">
@@ -594,7 +596,7 @@
 
       <!-- School Department Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.40</span></p>
+        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.41</span></p>
       </footer>
     </main>
   </div>
@@ -4416,8 +4418,40 @@
         copyText(buildRequizPrompt(filtered), 'Re-Quiz prompt copied!');
       });
 
+      async function handleTestOpenRouterBackup() {
+        const btn = document.getElementById('btn-bs-test-openrouter');
+        const statusEl = document.getElementById('bs-openrouter-status');
+        if (!btn || !statusEl) return;
+        btn.disabled = true;
+        btn.textContent = 'Testing...';
+        statusEl.className = 'text-[11px] font-semibold px-2.5 py-1.5 rounded-xl border bg-brand-canvas border-brand-border text-slate-600';
+        statusEl.textContent = 'Sending live ping to OpenRouter backup...';
+        try {
+          const res = await fetch(`${WORKER_URL}/backstage/test-openrouter`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ passcode: state.teacherPasscode })
+          });
+          const data = await res.json().catch(() => ({}));
+          if (res.ok && data.ok) {
+            statusEl.className = 'text-[11px] font-semibold px-2.5 py-1.5 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-800';
+            statusEl.textContent = `✅ OpenRouter live OK (${data.model || 'backup'} · ${data.latencyMs || 0}ms · reply: "${data.reply || 'OK'}")`;
+          } else {
+            statusEl.className = 'text-[11px] font-semibold px-2.5 py-1.5 rounded-xl border bg-rose-50 border-rose-200 text-rose-700';
+            statusEl.textContent = `❌ OpenRouter failed${data.model ? ' (' + data.model + ')' : ''}: ${data.error || ('HTTP ' + res.status)}`;
+          }
+        } catch (err) {
+          statusEl.className = 'text-[11px] font-semibold px-2.5 py-1.5 rounded-xl border bg-rose-50 border-rose-200 text-rose-700';
+          statusEl.textContent = `❌ Network error: ${err.message}`;
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Test Backup AI';
+        }
+      }
+
       // Teacher Backstage events
       document.getElementById('btn-bs-unlock').addEventListener('click', handleBackstageUnlock);
+      document.getElementById('btn-bs-test-openrouter').addEventListener('click', handleTestOpenRouterBackup);
       document.getElementById('bs-passcode-input').addEventListener('keydown', (e) => {
         if (e.key === 'Enter') handleBackstageUnlock();
       });
