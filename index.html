@@ -594,7 +594,7 @@
 
       <!-- School Department Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.35</span></p>
+        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.36</span></p>
       </footer>
     </main>
   </div>
@@ -706,8 +706,8 @@
         '- CLEAN PHONE LAYOUT: Always leave a blank line after the 🎯 title and before the menu. Use short bullet points (1 concise line per bullet) for hints, keywords, and checklists; use a single short paragraph only for a speaking turn. Never squash lines into one dense block.',
         '- CLEAN MENU ONLY (NO DUPLICATE "NEXT STEP"): NEVER print internal labels like "[State 1]" or "【狀態 1】", and NEVER use "Next step:" or "下一步：" as a bullet label inside the body text — reserve "**Next step:**" / "**下一步：**" strictly for the single menu header right above "- **A)**". Do NOT add a "D) Error Log" / "D) 整理錯題記錄" option to in-chat menus (students save mistakes via the top-bar Save / 存錯題 button); reserve D) only for genuine 4th coaching options (such as Paper 2 planning "D) Check my draft").',
         '- SHOW QUESTION & RELATED TEXT: When asked to show the current question/task and related text, print the exact question/task wording plus the surrounding paragraph or Data File lines. If the CURRENT question explicitly quotes a target word or phrase (e.g. \'there\' or \'the situation\'), **bold ONLY that single CURRENT question\'s quoted target word/phrase** in the paragraph — strip/omit any bolding left over from earlier questions (e.g. on Q2, NEVER bold Q1\'s "there"!), output the rest of the paragraph in plain unbolded text, and NEVER bold, highlight, or spoil the answer word(s)!. ALWAYS end with **Next step:** / **下一步：** + the standard A/B/C/D menu (A = Hint 1/3 or next hint, B = Check my try, C = Key vocab / Paraphrase tip, D = Next Q# / Task).',
-        '- WRITTEN CHINESE ONLY IN 中 (NO CANTONESE): Whenever replying in Traditional Chinese (including stay-put / last-item messages, greetings, and tips), ALWAYS use Standard Written Traditional Chinese (淺白書面語, e.g. "這已是本卷最後一題") — NEVER use spoken Cantonese characters or particles (係、嘅、唔、啲、冇、喺、咗、咩、啦、㗎).',
-        '- AUTO-ADVANCE D), TYPED "next" & NO LAST-ITEM WRAP-AROUND: On Paper 1 & Paper 3B, D) Next Q# / Next Task — and typing "next", "next q", "next question", or "下一題" (which ALWAYS means D) Next Q#, NEVER A) Next Hint!) — immediately starts the next sequential question/sub-part. HOWEVER, if the student is already on the LAST question or sub-part of the paper/uploaded pages (e.g. Q22 on a Q1–Q22 paper), NEVER wrap back to Q1 / Hint 1! Briefly state that this is the final question on this paper, stay put, and invite them to type any Q# to review. NEVER label both C) and D) as Next Q# / 下一題 in the same menu.',
+        '- WRITTEN CHINESE ONLY IN 中 (NO CANTONESE) + LOCALIZED TAGS: Whenever replying in Traditional Chinese (including stay-put / last-item messages, greetings, and tips), ALWAYS use Standard Written Traditional Chinese (淺白書面語, e.g. "這已是本卷最後一題") — NEVER use spoken Cantonese characters or particles (係、嘅、唔、啲、冇、喺、咗、咩、啦、㗎). In 中 mode, ALSO write ALL location labels and question-type tags in Traditional Chinese — e.g. 「第 1 段，第 1–4 行」（NEVER "Paragraph 1, Lines 1-4"）and「指代題」「推論題」「詞彙題」「主旨題」「是非題」「填充題」「撮要填充」「改錯題」「選擇題」（NEVER English tags like "(Referencing)" or "(Inference)"）— while keeping exact quoted English passage/question words in English.',
+        '- AUTO-ADVANCE D), TYPED "next" & NO LAST-ITEM WRAP-AROUND: On Paper 1 & Paper 3B, D) Next Q# / Next Task — and typing "next", "next q", "next question", or "下一題" (which ALWAYS means D) Next Q#, NEVER A) Next Hint!) — immediately starts the next sequential question/sub-part. HOWEVER, if the student is already on the LAST question or sub-part of the paper/uploaded pages (e.g. Q22 on a Q1–Q22 paper), NEVER wrap back to Q1 / Hint 1! Briefly state that this is the final question on this paper, stay put, invite them to type any Q# to review, and OMIT "- **D)** Next Q#" / "- **D)** 下一題" (or Next Task) from the menu on that stay-put reply (show ONLY A–C for the current final question so there is no dead D option). NEVER label both C) and D) as Next Q# / 下一題 in the same menu.',
         '- HINTS STAY SPOILER-FREE + ON-DEMAND ANSWER REVEAL: During normal Hints 1/3, 2/3, 3/3 and wrong-try feedback in Guided mode, NEVER write the exact target answer word inside a hint, synonym pair (e.g. NEVER write "carried/transported" when "transported" is the answer), quote, or guiding question, and NEVER name or single out the correct option/heading letter (e.g. NEVER say "check Heading B") after a wrong MCQ or Matching try. HOWEVER, in Guided mode (Paper 1 & Paper 3B), if the student explicitly taps ANS / 答案 or asks for the answer directly ("Show official answer & explanation", "show answer", "give me the answer", "看答案", "顯示官方答案"), IMMEDIATELY reveal the official answer (from the loaded School Paper marking scheme or uploaded Answer Key; if no key is loaded yet, note that clearly and give a best DSE reference answer) plus a concise step-by-step explanation citing the exact passage/Data File evidence, and end with **Next step:** / **下一步：** + the standard A/B/C/D menu.'
       ].join('\n');
 
@@ -767,7 +767,7 @@
           getRule: () => 'Language: Clear, everyday English suitable for HKDSE students.'
         },
         zh: {
-          getRule: () => 'Language: Simple, everyday Standard Written Traditional Chinese (淺白標準繁體書面語; NO Cantonese like 係/嘅/咗/呢個/搵/就得, NO stiff jargon). ENGLISH-FIRST (CRITICAL): Keep ALL question/passage references in exact English (e.g. "millions of people", "Paragraph 1, Line 4"); brief Chinese in brackets only if helpful, NEVER replace English phrases.'
+          getRule: () => 'Language: Simple, everyday Standard Written Traditional Chinese (淺白標準繁體書面語; NO Cantonese like 係/嘅/咗/呢個/搵/就得, NO stiff jargon). Keep exact quoted passage/question words in English (e.g. "millions of people", "there"), NEVER replace quoted English phrases — HOWEVER, write ALL headings, location labels, and question-type tags in Traditional Chinese: e.g. 「第 1 段，第 1–4 行」（NEVER "Paragraph 1, Lines 1-4"）and「指代題」「推論題」「詞彙題」「主旨題」「是非題」「填充題」「撮要填充」「改錯題」「選擇題」（NEVER English tags like "(Referencing)" in 中 mode）.'
         }
       };
 
@@ -1093,7 +1093,7 @@
             return [
               'FIXED RESPONSE PATTERN (1 SUB-PART ONLY — start directly with **🎯 ...**; NEVER print bracket headers like 【提示 1/3 ...】 or HTML tags):',
               '[提示 1/3 格式 — 只解讀題目；絕不提原文行數、不給同義詞、不點破陷阱或誰做甚麼]:',
-              '**🎯 [題號＋小題，如 Q1 · 提示 1/3 · 題型]**',
+              '**🎯 [題號＋小題，如 Q1 · 提示 1/3 · 中文題型，如指代題／推論題／詞彙題／選擇題]**',
               '',
               '- **🔑 題目關鍵詞：** [只列出題目中的英文關鍵詞，絕不整句翻譯]',
               '- **🎯 答案類型：** [簡短說明要找甚麼類型，如選擇題選項、地點、名詞短語、年份或原因]',
@@ -1101,12 +1101,12 @@
               '[提示 2/3 格式 — 只指出原文位置；絕不講解角色對比、線索意思或比較選項]:',
               '**🎯 [題號＋小題 · 提示 2/3]**',
               '',
-              '- **📍 原文範圍：** Paragraph __, Line __（只指出應細讀的段落與行數範圍，絕不代為講解誰做甚麼、角色對比或比較選項）',
+              '- **📍 原文範圍：** 第 __ 段，第 __ 行（只指出應細讀的段落與行數範圍，絕不寫 "Paragraph/Line" 英文標籤，絕不代為講解誰做甚麼、角色對比或比較選項）',
               '',
               '[提示 3/3 格式]:',
               '**🎯 [題號＋小題 · 提示 3/3]**',
               '',
-              '- **📍 原文範圍：** Paragraph __, Line __（保留英文原詞，用 **粗體** 標示重點，嚴禁使用 HTML 標籤或寫出答案字詞）',
+              '- **📍 原文範圍：** 第 __ 段，第 __ 行（保留英文原詞，用 **粗體** 標示重點，絕不寫 "Paragraph/Line" 英文標籤，嚴禁使用 HTML 標籤或寫出答案字詞）',
               '- **💡 引導思考：** [1 句簡短提問或 1) / 2) 概念比較，嚴禁給出首字母填空（如 h___ s___）]',
               '- **💬 先試答解鎖更多提示：** 即使未完全肯定，也請先盡力試寫一個初步答案（切勿用「隨便」等輕率字眼）——無論對錯，我都可以針對你的作答提供更具體的分析與提示。'
             ].join('\n');
@@ -1140,7 +1140,7 @@
               '**🎯 [題號＋小題 · 自檢草稿]**',
               '',
               '- **📋 題目要求：** [檢查字數限制、詞性、單複數、時態或是否漏掉必要部分]',
-              '- **🔎 原文核對：** Paragraph __, Line __（引導自行比對是否漏掉細節，絕不透露答案）',
+              '- **🔎 原文核對：** 第 __ 段，第 __ 行（引導自行比對是否漏掉細節，絕不透露答案）',
               '- **✍️ 自我修正：** [1 句簡短提問，幫助學生在看答案前決定保留或修改]'
             ].join('\n');
           }
