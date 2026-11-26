@@ -594,7 +594,7 @@
 
       <!-- School Department Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.34</span></p>
+        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.35</span></p>
       </footer>
     </main>
   </div>
@@ -702,10 +702,11 @@
 
       const ANTI_DRIFT_RULE = [
         'CORE RULES (STRICT):',
-        '- ONE SUB-PART AT A TIME: For multi-part questions (e.g. Q19 (i)/(ii)/(iii), Summary Cloze, 3-line Proofreading), coach ONLY ONE sub-part per turn (start with (i) or Line 1).',
+        '- ONE SUB-PART AT A TIME (STRICT): For multi-part questions (e.g. Q19 (i)/(ii)/(iii), Summary Cloze, 3-line Proofreading), typing "Q19" MUST coach ONLY Q19 (i) first (NEVER open (i), (ii), and (iii) together in one turn!). Tapping D) Next Q# then steps strictly one sub-part at a time: Q19 (i) -> Q19 (ii) -> Q19 (iii) -> Q20.',
         '- CLEAN PHONE LAYOUT: Always leave a blank line after the 🎯 title and before the menu. Use short bullet points (1 concise line per bullet) for hints, keywords, and checklists; use a single short paragraph only for a speaking turn. Never squash lines into one dense block.',
         '- CLEAN MENU ONLY (NO DUPLICATE "NEXT STEP"): NEVER print internal labels like "[State 1]" or "【狀態 1】", and NEVER use "Next step:" or "下一步：" as a bullet label inside the body text — reserve "**Next step:**" / "**下一步：**" strictly for the single menu header right above "- **A)**". Do NOT add a "D) Error Log" / "D) 整理錯題記錄" option to in-chat menus (students save mistakes via the top-bar Save / 存錯題 button); reserve D) only for genuine 4th coaching options (such as Paper 2 planning "D) Check my draft").',
-        '- SHOW QUESTION & RELATED TEXT: When asked to show the current question/task and related text, print the exact question/task wording plus the surrounding paragraph or Data File lines. If the CURRENT question explicitly quotes a target word or phrase (e.g. \'there\' or \'the situation\'), **bold ONLY that single CURRENT question\'s quoted target word/phrase** in the paragraph (NEVER bold phrases quoted by OTHER questions in the same paragraph, and NEVER bold, highlight, or spoil the answer word(s)!). ALWAYS end with **Next step:** / **下一步：** + the standard A/B/C/D menu (A = Hint 1/3 or next hint, B = Check my try, C = Key vocab / Paraphrase tip, D = Next Q# / Task).',
+        '- SHOW QUESTION & RELATED TEXT: When asked to show the current question/task and related text, print the exact question/task wording plus the surrounding paragraph or Data File lines. If the CURRENT question explicitly quotes a target word or phrase (e.g. \'there\' or \'the situation\'), **bold ONLY that single CURRENT question\'s quoted target word/phrase** in the paragraph — strip/omit any bolding left over from earlier questions (e.g. on Q2, NEVER bold Q1\'s "there"!), output the rest of the paragraph in plain unbolded text, and NEVER bold, highlight, or spoil the answer word(s)!. ALWAYS end with **Next step:** / **下一步：** + the standard A/B/C/D menu (A = Hint 1/3 or next hint, B = Check my try, C = Key vocab / Paraphrase tip, D = Next Q# / Task).',
+        '- WRITTEN CHINESE ONLY IN 中 (NO CANTONESE): Whenever replying in Traditional Chinese (including stay-put / last-item messages, greetings, and tips), ALWAYS use Standard Written Traditional Chinese (淺白書面語, e.g. "這已是本卷最後一題") — NEVER use spoken Cantonese characters or particles (係、嘅、唔、啲、冇、喺、咗、咩、啦、㗎).',
         '- AUTO-ADVANCE D), TYPED "next" & NO LAST-ITEM WRAP-AROUND: On Paper 1 & Paper 3B, D) Next Q# / Next Task — and typing "next", "next q", "next question", or "下一題" (which ALWAYS means D) Next Q#, NEVER A) Next Hint!) — immediately starts the next sequential question/sub-part. HOWEVER, if the student is already on the LAST question or sub-part of the paper/uploaded pages (e.g. Q22 on a Q1–Q22 paper), NEVER wrap back to Q1 / Hint 1! Briefly state that this is the final question on this paper, stay put, and invite them to type any Q# to review. NEVER label both C) and D) as Next Q# / 下一題 in the same menu.',
         '- HINTS STAY SPOILER-FREE + ON-DEMAND ANSWER REVEAL: During normal Hints 1/3, 2/3, 3/3 and wrong-try feedback in Guided mode, NEVER write the exact target answer word inside a hint, synonym pair (e.g. NEVER write "carried/transported" when "transported" is the answer), quote, or guiding question, and NEVER name or single out the correct option/heading letter (e.g. NEVER say "check Heading B") after a wrong MCQ or Matching try. HOWEVER, in Guided mode (Paper 1 & Paper 3B), if the student explicitly taps ANS / 答案 or asks for the answer directly ("Show official answer & explanation", "show answer", "give me the answer", "看答案", "顯示官方答案"), IMMEDIATELY reveal the official answer (from the loaded School Paper marking scheme or uploaded Answer Key; if no key is loaded yet, note that clearly and give a best DSE reference answer) plus a concise step-by-step explanation citing the exact passage/Data File evidence, and end with **Next step:** / **下一步：** + the standard A/B/C/D menu.'
       ].join('\n');
@@ -2305,7 +2306,7 @@
           } else {
             const extras = [];
             if (schoolPaper.hasPassage) extras.push(isZh ? (state.paper === 'p3b' ? '資料頁' : '閱讀文章') : (state.paper === 'p3b' ? 'Data File' : 'Passage'));
-            if (schoolPaper.hasQuestions) extras.push(isZh ? '題目卷' : 'Questions');
+            if (schoolPaper.hasQuestions) extras.push(isZh ? '題目頁' : 'Questions');
             const loadedNote = extras.length > 0
               ? (isZh ? `已於伺服器載入官方答案及${extras.join('、')}。` : `Official Answer Key + ${extras.join(' & ')} loaded on server.`)
               : (isZh ? '已於伺服器載入官方答案。' : 'Official Answer Key loaded securely on server.');
@@ -3907,7 +3908,7 @@
             listEl.innerHTML = matching.map((sp) => {
               const active = sp.id === state.selectedPaperId;
               const keyLbl = isZh ? `${sp.questionCount} 題答案` : `${sp.questionCount} Qs Key`;
-              const qLbl = isZh ? '題目卷' : 'Questions';
+              const qLbl = isZh ? '題目頁' : 'Questions';
               const pLbl = sp.paperType === 'p3b' ? (isZh ? '資料頁' : 'Data File') : (isZh ? '閱讀文章' : 'Passage');
               const topicLbl = sp.paperType === 'p2' ? (isZh ? '寫作題目' : 'Topics') : (isZh ? '說話題卡' : 'Prompt Card');
               const notesLbl = isZh ? '筆記' : 'Notes';
