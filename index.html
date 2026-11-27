@@ -246,7 +246,7 @@
               <span id="lbl-pick-school-paper" class="text-[11.5px] font-semibold text-slate-500">Choose a school paper</span>
               <button id="btn-refresh-papers" type="button" class="text-[11px] font-semibold text-brand-teal hover:underline">Refresh</button>
             </div>
-            <div id="school-papers-list" class="flex flex-col gap-1.5 max-h-40 overflow-y-auto pr-0.5"></div>
+            <div id="school-papers-list" class="flex flex-col gap-1.5 max-h-64 overflow-y-auto pr-0.5"></div>
           </div>
 
           <!-- Mode Selector (Paper 1 & 3B) -->
@@ -606,7 +606,7 @@
 
       <!-- School Department Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.46</span></p>
+        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.47</span></p>
       </footer>
     </main>
   </div>
@@ -4082,7 +4082,7 @@
               const notesLbl = isZh ? '筆記' : 'Notes';
               const rangeBadge = sp.questionRange ? `<span class="px-1.5 py-0.5 rounded bg-white border border-brand-border text-slate-600">${escapeHtml(sp.questionRange)}</span>` : '';
               return `
-                <button type="button" data-sp-id="${escapeHtml(sp.id)}" class="sp-pick-btn text-left p-2.5 rounded-xl border transition-colors ${active ? 'bg-brand-tealSoft border-brand-teal shadow-sm' : 'bg-white border-brand-border hover:border-brand-teal/50'}">
+                <button type="button" data-sp-id="${escapeHtml(sp.id)}" class="sp-pick-btn text-left py-2 px-2.5 rounded-xl border transition-colors ${active ? 'bg-brand-tealSoft border-brand-teal shadow-sm' : 'bg-white border-brand-border hover:border-brand-teal/50'}">
                   <div class="text-[12.5px] font-bold text-brand-navy truncate">${escapeHtml(sp.title)}</div>
                   <div class="text-[10.5px] text-slate-500 mt-0.5 flex items-center gap-1.5 flex-wrap">
                     ${(sp.paperType === 'p2' || sp.paperType === 'p4')
