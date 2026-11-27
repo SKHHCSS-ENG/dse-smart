@@ -232,14 +232,15 @@
           </div>
         </div>
 
-        <!-- Step 2: Practice Source Switcher (School Papers | My Own Paper) -->
+        <!-- Step 2: Practice Source Switcher (School Papers | DSE Papers | My Own Paper) -->
         <div class="bg-brand-canvas border border-brand-border rounded-2xl p-2.5 flex flex-col gap-2">
-          <div class="grid grid-cols-2 gap-1 bg-[#e5f1f5] p-1 rounded-xl" role="group" aria-label="Paper source">
-            <button id="btn-source-school" type="button" data-source="school" class="source-btn seg-btn py-1.5 px-2 rounded-lg text-[12px] font-bold text-slate-600 whitespace-nowrap">School Papers</button>
-            <button id="btn-source-own" type="button" data-source="own" class="source-btn seg-btn active py-1.5 px-2 rounded-lg text-[12px] font-bold text-slate-600 whitespace-nowrap">My Own Paper</button>
+          <div class="grid grid-cols-3 gap-1 bg-[#e5f1f5] p-1 rounded-xl" role="group" aria-label="Paper source">
+            <button id="btn-source-school" type="button" data-source="school" class="source-btn seg-btn py-1.5 px-1.5 rounded-lg text-[11.5px] font-bold text-slate-600 whitespace-nowrap">School Papers</button>
+            <button id="btn-source-dse" type="button" data-source="dse" class="source-btn seg-btn py-1.5 px-1.5 rounded-lg text-[11.5px] font-bold text-slate-600 whitespace-nowrap">DSE Papers</button>
+            <button id="btn-source-own" type="button" data-source="own" class="source-btn seg-btn active py-1.5 px-1.5 rounded-lg text-[11.5px] font-bold text-slate-600 whitespace-nowrap">My Own Paper</button>
           </div>
 
-          <!-- School Papers Picker (Shown when source === 'school') -->
+          <!-- Loaded Papers Picker (Shown when source === 'school' or 'dse') -->
           <div id="school-papers-box" class="hidden flex flex-col gap-1.5">
             <div class="flex items-center justify-between">
               <span id="lbl-pick-school-paper" class="text-[11.5px] font-semibold text-slate-500">Choose a school paper</span>
@@ -605,7 +606,7 @@
 
       <!-- School Department Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.45</span></p>
+        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.46</span></p>
       </footer>
     </main>
   </div>
@@ -1768,7 +1769,7 @@
         lang: 'en',
         script: 'trad',
         paper: 'p1',
-        source: 'own', // 'school' | 'own'
+        source: 'own', // 'school' | 'dse' | 'own'
         selectedPaperId: '',
         schoolPapers: [],
         papersLoaded: false,
@@ -1813,7 +1814,7 @@
           state.script = 'trad';
           if (prefs.paper && PAPERS[prefs.paper]) state.paper = prefs.paper;
           if (prefs.mode === 'guided' || prefs.mode === 'explain') state.mode = prefs.mode; else state.mode = 'guided';
-          if (prefs.source === 'school' || prefs.source === 'own') state.source = prefs.source;
+          if (prefs.source === 'school' || prefs.source === 'dse' || prefs.source === 'own') state.source = prefs.source;
           if (prefs.selectedPaperId) state.selectedPaperId = String(prefs.selectedPaperId);
         } catch (_) {}
 
@@ -2383,9 +2384,15 @@
       }
 
       // ===== Built-in AI Coach Chat Logic =====
+      function isLoadedPaperSource() {
+        return state.source === 'school' || state.source === 'dse';
+      }
+
       function getSelectedSchoolPaper() {
-        if (state.source !== 'school' || !state.selectedPaperId) return null;
-        return state.schoolPapers.find((p) => p.id === state.selectedPaperId && p.paperType === state.paper) || null;
+        if (!isLoadedPaperSource() || !state.selectedPaperId) return null;
+        return state.schoolPapers.find(
+          (p) => p.id === state.selectedPaperId && p.paperType === state.paper && (p.category || 'school') === state.source
+        ) || null;
       }
 
       function openBuiltInChat() {
@@ -2396,8 +2403,13 @@
           return;
         }
         const sp = getSelectedSchoolPaper();
-        if (state.source === 'school' && !sp) {
-          showToast(state.lang === 'zh' ? '請先選擇一份校內試卷' : 'Please select a School Paper first');
+        if (isLoadedPaperSource() && !sp) {
+          const isDse = state.source === 'dse';
+          showToast(
+            state.lang === 'zh'
+              ? (isDse ? '請先選擇一份 DSE 試卷' : '請先選擇一份校內試卷')
+              : (isDse ? 'Please select a DSE Paper first' : 'Please select a School Paper first')
+          );
           return;
         }
         state.tab = 'chat';
@@ -3950,9 +3962,11 @@
           document.getElementById(`${pk}-sub`).textContent = ui.papers[pk].sub;
         });
 
-        document.getElementById('btn-source-school').textContent = isZh ? '校內試卷 (官方答案)' : 'School Papers';
-        document.getElementById('btn-source-own').textContent = isZh ? '自選試卷 (自由練習)' : 'My Own Paper';
+        document.getElementById('btn-source-school').textContent = isZh ? '校內試卷' : 'School Papers';
+        document.getElementById('btn-source-dse').textContent = isZh ? 'DSE 試卷' : 'DSE Papers';
+        document.getElementById('btn-source-own').textContent = isZh ? '自選試卷' : 'My Own Paper';
         document.getElementById('btn-source-school').classList.toggle('active', state.source === 'school');
+        document.getElementById('btn-source-dse').classList.toggle('active', state.source === 'dse');
         document.getElementById('btn-source-own').classList.toggle('active', state.source === 'own');
         document.getElementById('start-chat-label').textContent = state.authToken ? (isZh ? '開始內置 AI 教練對話' : 'Start Built-in AI Coach') : (isZh ? '登入以開始 AI 教練' : 'Sign in to Start AI Coach');
 
@@ -3983,11 +3997,14 @@
         if (refreshBtn) refreshBtn.textContent = isZh ? '重新整理' : 'Refresh';
         const spLbl = document.getElementById('lbl-pick-school-paper');
         if (spLbl) {
+          const isDse = state.source === 'dse';
           spLbl.textContent = spSelected
             ? ((state.paper === 'p2' || state.paper === 'p4')
-              ? (isZh ? '已於伺服器載入題目卷' : 'School paper loaded server-side')
+              ? (isZh ? '已於伺服器載入題目卷' : (isDse ? 'DSE paper loaded server-side' : 'School paper loaded server-side'))
               : (isZh ? '已於伺服器載入官方答案' : 'Official Answer Key loaded server-side'))
-            : (isZh ? '選擇校內試卷' : 'Choose a school paper');
+            : (isDse
+              ? (isZh ? '選擇 DSE 試卷' : 'Choose a DSE paper')
+              : (isZh ? '選擇校內試卷' : 'Choose a school paper'));
         }
         const saveUnderLbl = document.getElementById('lbl-save-under');
         if (saveUnderLbl) saveUnderLbl.textContent = isZh ? '儲存至試卷' : 'Save under paper';
@@ -4034,23 +4051,27 @@
           card.setAttribute('aria-pressed', String(isActive));
         });
 
-        // School Papers box vs Own AI Fallback
+        // Loaded Papers box (School Papers / DSE Papers) vs Own AI Fallback
         const schoolBox = document.getElementById('school-papers-box');
         const ownFallback = document.getElementById('own-ai-fallback');
-        schoolBox.classList.toggle('hidden', state.source !== 'school');
+        const showLoadedBox = isLoadedPaperSource();
+        schoolBox.classList.toggle('hidden', !showLoadedBox);
         ownFallback.classList.toggle('hidden', state.source !== 'own');
 
-        // Render filtered School Papers for current paper type
-        if (state.source === 'school') {
-          const matching = state.schoolPapers.filter((sp) => sp.paperType === state.paper);
+        // Render filtered School Papers / DSE Papers for current paper type
+        if (showLoadedBox) {
+          const isDse = state.source === 'dse';
+          const matching = state.schoolPapers.filter(
+            (sp) => sp.paperType === state.paper && (sp.category || 'school') === state.source
+          );
           if (matching.length > 0 && !matching.some((m) => m.id === state.selectedPaperId)) {
             state.selectedPaperId = matching[0].id;
           }
           const listEl = document.getElementById('school-papers-list');
           if (!state.authToken && !state.bsUnlocked) {
-            listEl.innerHTML = `<div class="text-center py-3 px-2 rounded-xl border border-dashed border-brand-border bg-white text-[11.5px] text-slate-500">${isZh ? '請先登入學生帳號以查看校內試卷。' : 'Sign in to view your school papers.'}</div>`;
+            listEl.innerHTML = `<div class="text-center py-3 px-2 rounded-xl border border-dashed border-brand-border bg-white text-[11.5px] text-slate-500">${isZh ? (isDse ? '請先登入學生帳號以查看 DSE 試卷。' : '請先登入學生帳號以查看校內試卷。') : (isDse ? 'Sign in to view DSE papers.' : 'Sign in to view your school papers.')}</div>`;
           } else if (matching.length === 0) {
-            listEl.innerHTML = `<div class="text-center py-3 px-2 rounded-xl border border-dashed border-brand-border bg-white text-[11.5px] text-slate-500">${isZh ? '老師暫未上載此卷別的校內試卷。' : 'No School Papers uploaded for this paper yet.'}</div>`;
+            listEl.innerHTML = `<div class="text-center py-3 px-2 rounded-xl border border-dashed border-brand-border bg-white text-[11.5px] text-slate-500">${isZh ? (isDse ? '此卷別暫未有內置 DSE 試卷。' : '老師暫未上載此卷別的校內試卷。') : (isDse ? 'No DSE Papers available for this paper yet.' : 'No School Papers uploaded for this paper yet.')}</div>`;
           } else {
             listEl.innerHTML = matching.map((sp) => {
               const active = sp.id === state.selectedPaperId;
@@ -4081,7 +4102,7 @@
         document.querySelectorAll('.mode-btn').forEach((btn) => {
           btn.classList.toggle('active', btn.dataset.mode === state.mode);
         });
-        document.getElementById('mode-caption').textContent = (state.source === 'school' && state.mode === 'explain')
+        document.getElementById('mode-caption').textContent = (isLoadedPaperSource() && state.mode === 'explain')
           ? (isZh ? '直接按老師上載的官方答案核對並詳細解說' : 'Check & explain directly against the hidden official answer key')
           : ui.modeCaps[state.mode];
 
@@ -4281,7 +4302,7 @@
           state.source = btn.dataset.source;
           state.chatMessages = [];
           savePrefs();
-          if (state.source === 'school' && (!state.papersLoaded || state.schoolPapers.length === 0)) {
+          if (isLoadedPaperSource() && (!state.papersLoaded || state.schoolPapers.length === 0)) {
             fetchSchoolPapers(true);
           }
           render();
