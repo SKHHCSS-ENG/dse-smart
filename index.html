@@ -606,7 +606,7 @@
 
       <!-- School Department Footer -->
       <footer id="app-footer" class="px-4 py-2.5 bg-brand-canvas/70 border-t border-brand-border/60 text-center">
-        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.47</span></p>
+        <p class="text-[10.5px] leading-relaxed text-slate-400">聖公會聖匠中學 SKH Holy Carpenter Secondary School<br />English Department &middot; DSE Smart &middot; <span class="font-mono text-slate-400">v10.48</span></p>
       </footer>
     </main>
   </div>
@@ -4068,10 +4068,86 @@
             state.selectedPaperId = matching[0].id;
           }
           const listEl = document.getElementById('school-papers-list');
+          listEl.classList.toggle('max-h-64', !isDse);
+          listEl.classList.toggle('overflow-y-auto', !isDse);
           if (!state.authToken && !state.bsUnlocked) {
             listEl.innerHTML = `<div class="text-center py-3 px-2 rounded-xl border border-dashed border-brand-border bg-white text-[11.5px] text-slate-500">${isZh ? (isDse ? '請先登入學生帳號以查看 DSE 試卷。' : '請先登入學生帳號以查看校內試卷。') : (isDse ? 'Sign in to view DSE papers.' : 'Sign in to view your school papers.')}</div>`;
           } else if (matching.length === 0) {
             listEl.innerHTML = `<div class="text-center py-3 px-2 rounded-xl border border-dashed border-brand-border bg-white text-[11.5px] text-slate-500">${isZh ? (isDse ? '此卷別暫未有內置 DSE 試卷。' : '老師暫未上載此卷別的校內試卷。') : (isDse ? 'No DSE Papers available for this paper yet.' : 'No School Papers uploaded for this paper yet.')}</div>`;
+          } else if (isDse) {
+            // Compact 2-step Year -> Part picker for DSE Papers (v10.48)
+            const parseDseMeta = (sp) => {
+              const titleStr = String(sp.title || '');
+              const ym = titleStr.match(/\b(20\d{2})\b/) || String(sp.id || '').match(/(20\d{2})/);
+              const year = ym ? ym[1] : (isZh ? '其他' : 'Other');
+              const rest = titleStr.replace(/\b20\d{2}\b/, '').replace(/^\s*DSE\s*/i, '').trim();
+              let partKey = rest.toUpperCase();
+              let partLabel = rest || titleStr;
+              if (/^P?1A$/i.test(rest) || /^PART\s*A$/i.test(rest)) { partKey = 'A'; partLabel = 'Part A'; }
+              else if (/^P?1B1$/i.test(rest) || /^P?3B1$/i.test(rest) || /^PART\s*B1$/i.test(rest)) { partKey = 'B1'; partLabel = 'Part B1'; }
+              else if (/^P?1B2$/i.test(rest) || /^P?3B2$/i.test(rest) || /^PART\s*B2$/i.test(rest)) { partKey = 'B2'; partLabel = 'Part B2'; }
+              const partOrder = partKey === 'A' ? 0 : (partKey === 'B1' ? 1 : (partKey === 'B2' ? 2 : 9));
+              return { sp, year, partKey, partLabel, partOrder };
+            };
+            const metas = matching.map(parseDseMeta);
+            const byYear = new Map();
+            metas.forEach((m) => {
+              if (!byYear.has(m.year)) byYear.set(m.year, []);
+              byYear.get(m.year).push(m);
+            });
+            const years = Array.from(byYear.keys()).sort((a, b) => {
+              const na = parseInt(a, 10), nb = parseInt(b, 10);
+              if (!isNaN(na) && !isNaN(nb)) return nb - na;
+              if (!isNaN(na)) return -1;
+              if (!isNaN(nb)) return 1;
+              return a.localeCompare(b);
+            });
+            years.forEach((y) => byYear.get(y).sort((a, b) => a.partOrder - b.partOrder || a.partLabel.localeCompare(b.partLabel)));
+            const activeMeta = metas.find((m) => m.sp.id === state.selectedPaperId) || byYear.get(years[0])[0];
+            if (activeMeta && activeMeta.sp.id !== state.selectedPaperId) {
+              state.selectedPaperId = activeMeta.sp.id;
+            }
+            const activeYear = activeMeta.year;
+            const yearItems = byYear.get(activeYear) || [];
+            const sp = activeMeta.sp;
+            const keyLbl = isZh ? `${sp.questionCount} 題答案` : `${sp.questionCount} Qs Key`;
+            const qLbl = isZh ? '題目頁' : 'Questions';
+            const pLbl = sp.paperType === 'p3b' ? (isZh ? '資料頁' : 'Data File') : (isZh ? '閱讀文章' : 'Passage');
+            const topicLbl = sp.paperType === 'p2' ? (isZh ? '寫作題目' : 'Topics') : (isZh ? '說話題卡' : 'Prompt Card');
+            const notesLbl = isZh ? '筆記' : 'Notes';
+            const yearLabel = isZh ? '年份' : 'Year';
+            const partRowLabel = isZh ? '卷別部分' : 'Part';
+            const yearBtns = years.map((y) => {
+              const isAct = y === activeYear;
+              return `<button type="button" data-dse-year="${escapeHtml(y)}" class="dse-year-btn shrink-0 px-3 py-1.5 rounded-xl border text-[12px] font-bold transition-colors ${isAct ? 'bg-brand-teal text-white border-brand-teal shadow-sm' : 'bg-white text-brand-navy border-brand-border hover:border-brand-teal/60'}">${escapeHtml(y)}</button>`;
+            }).join('');
+            const gridCols = yearItems.length === 2 ? 'grid-cols-2' : (yearItems.length >= 3 ? 'grid-cols-3' : 'grid-cols-1');
+            const partRowHtml = yearItems.length > 1 ? `
+              <div class="flex flex-col gap-1">
+                <span class="text-[10.5px] font-semibold text-slate-400">${partRowLabel}</span>
+                <div class="grid ${gridCols} gap-1.5">
+                  ${yearItems.map((item) => {
+                    const isAct = item.sp.id === state.selectedPaperId;
+                    const rng = item.sp.questionRange ? `<div class="text-[10px] mt-0.5 ${isAct ? 'text-brand-teal font-semibold' : 'text-slate-400'}">${escapeHtml(item.sp.questionRange)}</div>` : '';
+                    return `<button type="button" data-sp-id="${escapeHtml(item.sp.id)}" class="sp-pick-btn py-1.5 px-2 rounded-xl border text-center transition-colors ${isAct ? 'bg-brand-tealSoft border-brand-teal text-brand-navy shadow-sm' : 'bg-white border-brand-border text-slate-600 hover:border-brand-teal/50'}"><div class="text-[12px] font-bold leading-tight">${escapeHtml(item.partLabel)}</div>${rng}</button>`;
+                  }).join('')}
+                </div>
+              </div>` : '';
+            const statusBadges = (sp.paperType === 'p2' || sp.paperType === 'p4')
+              ? `${sp.hasQuestions ? `<span class="px-1.5 py-0.5 rounded bg-brand-tealSoft/70 border border-brand-border text-brand-teal font-semibold">${topicLbl}</span>` : ''}${sp.hasPassage ? `<span class="px-1.5 py-0.5 rounded bg-slate-50 border border-brand-border text-slate-600">${notesLbl}</span>` : ''}`
+              : `<span class="px-1.5 py-0.5 rounded bg-brand-tealSoft/70 border border-brand-border text-brand-teal font-semibold">${keyLbl}</span>${sp.hasQuestions ? `<span class="px-1.5 py-0.5 rounded bg-slate-50 border border-brand-border text-slate-600">${qLbl}</span>` : ''}${sp.hasPassage ? `<span class="px-1.5 py-0.5 rounded bg-slate-50 border border-brand-border text-slate-600">${pLbl}</span>` : ''}`;
+            listEl.innerHTML = `
+              <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-1">
+                  <span class="text-[10.5px] font-semibold text-slate-400">${yearLabel}</span>
+                  <div class="flex items-center gap-1.5 overflow-x-auto pb-0.5" role="group" aria-label="DSE Year">${yearBtns}</div>
+                </div>
+                ${partRowHtml}
+                <div class="flex items-center justify-between gap-1.5 flex-wrap px-2.5 py-1.5 rounded-xl bg-white border border-brand-border/90 text-[10.5px]">
+                  <span class="font-bold text-brand-navy text-[11.5px]">${escapeHtml(sp.title)}</span>
+                  <div class="flex items-center gap-1 flex-wrap">${statusBadges}</div>
+                </div>
+              </div>`;
           } else {
             listEl.innerHTML = matching.map((sp) => {
               const active = sp.id === state.selectedPaperId;
@@ -4312,6 +4388,29 @@
       document.getElementById('btn-refresh-papers').addEventListener('click', () => fetchSchoolPapers(false));
 
       document.getElementById('school-papers-list').addEventListener('click', (e) => {
+        const yearBtn = e.target.closest('.dse-year-btn');
+        if (yearBtn) {
+          const targetYear = yearBtn.dataset.dseYear;
+          const matching = state.schoolPapers.filter(
+            (sp) => sp.paperType === state.paper && (sp.category || 'school') === 'dse'
+          );
+          const getYear = (sp) => {
+            const ym = String(sp.title || '').match(/\b(20\d{2})\b/) || String(sp.id || '').match(/(20\d{2})/);
+            return ym ? ym[1] : (state.lang === 'zh' ? '其他' : 'Other');
+          };
+          const getPartTag = (sp) => String(sp.title || '').replace(/\b20\d{2}\b/, '').replace(/^\s*DSE\s*/i, '').trim().toUpperCase();
+          const cur = matching.find((sp) => sp.id === state.selectedPaperId);
+          const curPart = cur ? getPartTag(cur) : '';
+          const yearMatches = matching.filter((sp) => getYear(sp) === targetYear);
+          if (yearMatches.length > 0) {
+            const samePart = curPart ? yearMatches.find((sp) => getPartTag(sp) === curPart) : null;
+            state.selectedPaperId = (samePart || yearMatches[0]).id;
+            state.chatMessages = [];
+            savePrefs();
+            render();
+          }
+          return;
+        }
         const btn = e.target.closest('.sp-pick-btn');
         if (!btn) return;
         state.selectedPaperId = btn.dataset.spId;
